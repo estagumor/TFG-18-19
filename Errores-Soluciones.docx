@@ -1,0 +1,4 @@
+﻿-	Al importar el modulo observable (import { Observable } from 'rxjs/Observable';)
+se queja de que no encuentra el modulo, se arregla escribiendo lo siguiente en la consola:
+npm install rxjs-compat --save
+
