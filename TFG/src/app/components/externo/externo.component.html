@@ -1,0 +1,12 @@
+<p>
+  externo works!
+</p>
+
+<div *ngIf="!user">
+	Cargando...
+</div>
+
+<input type="text" [(ngModel)]="userId" (keyup.enter)="cargaUsuario()"/>
+<div *ngIf="user">
+	<h2>{{user.first_name + ' ' + user.last_name}}</h2>
+</div>

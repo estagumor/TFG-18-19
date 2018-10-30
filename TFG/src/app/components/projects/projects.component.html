@@ -1,0 +1,23 @@
+<p>
+  projects works!
+  <span *ngIf="numero">Proyecto nº{{numero}}</span>
+</p>
+
+<h2>Proyecto</h2>
+
+<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject)">
+  <label for="reference">Referencia</label>
+  <input type="text" name="reference" #reference="ngModel" [(ngModel)]="proyecto.reference"/><br>
+
+  <label for="competency">Competencia</label>
+  <input type="text" name="competency" #competency="ngModel" [(ngModel)]="proyecto.competency"/><br>
+
+  <label for="status">Estado</label>
+  <input type="text" name="status" #status="ngModel" [(ngModel)]="proyecto.status"><br>
+
+  <button type="submit">Enviar</button>
+</form>
+
+
+<button type="button" (click)="find()">Buscar</button>
+<button type="button" (click)="listar()">Listar</button>
