@@ -1,23 +1,38 @@
 <p>
-  projects works!
-  <span *ngIf="numero">Proyecto nº{{numero}}</span>
+	projects works! <span *ngIf="numero">Proyecto nº{{numero}}</span>
 </p>
 
 <h2>Proyecto</h2>
-
+<fieldset>
+	<legend>Creacion de proyectos</legend>
 <form #formProject="ngForm" (ngSubmit)="onSubmit(formProject)">
-  <label for="reference">Referencia</label>
-  <input type="text" name="reference" #reference="ngModel" [(ngModel)]="proyecto.reference"/><br>
+	<label for="reference">Referencia</label> <input type="text"
+		name="reference" #reference="ngModel" [(ngModel)]="proyecto.reference" /><br>
 
-  <label for="competency">Competencia</label>
-  <input type="text" name="competency" #competency="ngModel" [(ngModel)]="proyecto.competency"/><br>
+	<label for="competency">Competencia</label> <input type="text"
+		name="competency" #competency="ngModel"
+		[(ngModel)]="proyecto.competency" /><br> <label for="status">Estado</label>
+	<input type="text" name="status" #status="ngModel"
+		[(ngModel)]="proyecto.status"><br>
 
-  <label for="status">Estado</label>
-  <input type="text" name="status" #status="ngModel" [(ngModel)]="proyecto.status"><br>
-
-  <button type="submit">Enviar</button>
+	<button type="submit">Enviar</button>
 </form>
+</fieldset>
 
-
+<fieldset>
+	<legend>Listado de proyectos</legend>
 <button type="button" (click)="find()">Buscar</button>
 <button type="button" (click)="listar()">Listar</button>
+</fieldset>
+<br>
+<fieldset>
+	<legend>Autocompletado de investigadores</legend>
+	<form class="example-form">
+		<mat-form-field class="example-full-width"> <input
+			type="text" aria-label="Number" matInput [formControl]="myControl"
+			[matAutocomplete]="auto" class='input'> <mat-autocomplete
+			#auto="matAutocomplete"> <mat-option
+			*ngFor="let option of filteredOptions | async" [value]="option">
+		{{option}} </mat-option> </mat-autocomplete> </mat-form-field>
+	</form>
+</fieldset>

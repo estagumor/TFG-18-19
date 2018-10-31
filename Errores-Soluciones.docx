@@ -2,3 +2,7 @@
 se queja de que no encuentra el modulo, se arregla escribiendo lo siguiente en la consola:
 npm install rxjs-compat --save
 
+-	Usando una directiva de angular en html, ej formControl, dice que no es una propiedad conocida de x aun habiendo importado el modulo en el componente, se arregla añadiendo el modulo correspondiente en app.module.ts a los imports
+
+-	Al importar un modulo de @angular/material no encuentra el paquete porque no viene por defecto, se instala con:
+npm install --save @angular/material

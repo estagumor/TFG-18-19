@@ -3,6 +3,11 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project.service';
 import 'rxjs/add/operator/map';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-projects',
@@ -15,6 +20,10 @@ export class ProjectsComponent implements OnInit {
   public proyecto: Project;
   public respuesta: Project;
   public listado: Array<Project>;
+  public myControl = new FormControl();
+  public options: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas'];
+  public filteredOptions: Observable<string[]>;
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -27,6 +36,18 @@ export class ProjectsComponent implements OnInit {
     this._route.params.subscribe((params: Params) => {
       this.numero = params.projectNumber;
     });
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   onSubmit() {
