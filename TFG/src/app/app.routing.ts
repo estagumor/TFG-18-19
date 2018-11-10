@@ -2,16 +2,14 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { ContactComponent } from './components/contact/contact.component';
 import { ProjectsComponent } from './components/projects/projects.component';
-import { ExternoComponent } from './components/externo/externo.component';
 
+// El enrutado del sitio web, por cada ruta se le asigna un componente
+// Obligatoriamente hay que poner la ultima, que es como el else de un if
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'projects/:projectNumber', component: ProjectsComponent},
-  {path: 'contact', component: ContactComponent},
-  {path: 'externo', component: ExternoComponent},
   {path: '**', component: HomeComponent}
 ];
 

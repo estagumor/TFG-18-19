@@ -12,7 +12,7 @@ var project_routes = require('./routes/project')
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-// CORS
+// CORS para el tema de permisos y lo que permite el servidor
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
