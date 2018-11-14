@@ -1,11 +1,12 @@
 'use strict'
 
 var mongoose = require('mongoose');
-var Project = require('./project')
+const Project = require('./project')
 var Schema = mongoose.Schema;
+var options = {discriminatorKey: 'kind'};
 
-var InvestigationProject = Project.discriminator('InvestigatorProject', new mongoose.Schema({
-	
+const InvestigationProject = Project.discriminator('InvestigationProject', new mongoose.Schema({
+    
 }))
 
-module.exports = mongoose.model('InvestigationProject', InvestigationProject)
+module.exports = mongoose.model('InvestigationProject')

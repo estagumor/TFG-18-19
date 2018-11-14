@@ -7,6 +7,7 @@ var app = express();
 
 // archivos de rutas
 var project_routes = require('./routes/project')
+var investigation_routes = require('./routes/investigationProject')
 
 // middlewares
 app.use(bodyParser.urlencoded({extended:false}));
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 // rutas
 app.use('/api', project_routes);
+app.use('/api', investigation_routes);
 
 // exportar
 module.exports = app;
