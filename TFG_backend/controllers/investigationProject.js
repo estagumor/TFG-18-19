@@ -67,10 +67,10 @@ var controller = {
 	},
 
 	updateProject: function(req, res){
-		var projectId = req.params.id;
+		var proyectId = req.params.id;
 		var datosUpdate = req.body;
 
-		InvestigationProject.findByAndUpdate(proyectId, datosUpdate, {new: rtrue}, (err, projectUpdated) => {
+		InvestigationProject.findOneAndUpdate(proyectId, datosUpdate, {new: true}, (err, projectUpdated) => {
 			if (err) return res.status(500).send({message: "Error al actualizar"});
 
 			if(!projectUpdated) return res.status(404).send({message: "No se ha podido actualizar"});
@@ -85,14 +85,14 @@ var controller = {
 
 	deleteProject: function(req, res){
 		var projectId = req.params.id;
-
+		console.log(projectId);
 		InvestigationProject.findByIdAndDelete(projectId, (err, projectDeleted) => {
 			if(err) return res.status(500).send({message: 'No se ha podido borrar el proyecto'});
 
 			if(!projectDeleted) return res.status(404).send({message: "No se puede eliminar ese proyecto"});
 
 			return res.status(200).send({
-				project: projectRemoved
+				project: projectDeleted
 			})
 		});
 	}
