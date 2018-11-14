@@ -9,12 +9,20 @@ var controller = {
 
 		var params = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
 		console.log(params);
+		project.researchTeam = params.researchTeam;
+		project.workTeam = params.workTeam;
+		project.hiredStaff = params.hiredStaff;
+		project.title = params.title;
+		project.descripton = params.description;
+		project.leader = params.leader;
 		project.reference = params.reference;
-		project.competency = params.competency;
-		project.investigationGroup = params.investigationGroup;
-		project.hiredPersonal = params.hiredPersonal;
+		project.scope = params.scope;
 		project.status = params.status;
-		project.publications = params.publications;
+		project.sponsor = params.sponsor;
+		project.startDate = params.startDate;
+		project.endDate = params.endDate;
+		project.amount = params.amount;
+		project.relatedPublications = params.relatedPublications;
 		project.relatedTools = params.relatedTools;
 
 		project.save((err, projectStored) => { // Intenta guardarlo y segun vaya responde
@@ -59,10 +67,10 @@ var controller = {
 	},
 
 	updateProject: function(req, res){
-		var projectId = req.params.id;
+		var proyectId = req.params.id;
 		var datosUpdate = req.body;
 
-		Project.findByAndUpdate(proyectId, datosUpdate, {new:true}, (err, projectUpdated) => {
+		Project.findOneAndUpdate(proyectId, datosUpdate, {new:true}, (err, projectUpdated) => {
 			if (err) return res.status(500).send({message: "Error al actualizar"});
 
 			if(!projectUpdated) return res.status(404).send({message: "No se ha podido actualizar"});

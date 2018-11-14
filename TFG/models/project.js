@@ -1,16 +1,33 @@
 'use strict'
 
 var mongoose = require('mongoose');
+//var Actor = require('./actor');
+//var Publication = require('./publication')
+//var Tool = require('./tool')
 var Schema = mongoose.Schema;
 
 var ProjectSchema = Schema({
-  reference: String,
-  competency: String,
-  investigationGroup: String,
-  hiredPersonal: String,
-  status: String,
-  publications: String,
-  relatedTools: String
+	researchTeam : [ String ],
+	workTeam : [ String ],
+	hiredStaff : [ String ],
+	title : String,
+	description : String,
+	leader : [ String ],
+	reference : String,
+	scope : {
+		type : String,
+		enum : [ 'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS' ]
+	},
+	status : {
+		type : String,
+		enum : [ 'RECHAZADO', 'ENVIADO', 'ACEPTADO' ]
+	},
+	sponsor : String,
+	startDate : Date,
+	endDate : Date,
+	amount : Number,
+	relatedPublications : [ String ],
+	relatedTools : [ String ]
 });
 
-module.exports = mongoose.model('Project', ProjectSchema)
+module.exports = mongoose.model('Project', ProjectSchema);
