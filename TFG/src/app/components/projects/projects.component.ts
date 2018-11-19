@@ -29,7 +29,7 @@ export class ProjectsComponent implements OnInit {
     private _router: Router, // Para hacer el menu de navegacion
     private _service: ProjectService // El servicio que hace las peticiones al backend
   ) {
-    this.proyecto = new Project('', '', '', '', '', '', '');
+    this.proyecto = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
   }
 
   ngOnInit() {
@@ -39,8 +39,8 @@ export class ProjectsComponent implements OnInit {
 
     this.filteredOptions = this.myControl.valueChanges // Para el autocompletado
       .pipe(
-        startWith(''),
-        map(value => this._filter(value))
+      startWith(''),
+      map(value => this._filter(value))
       );
   }
 
@@ -51,7 +51,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.respuesta = new Project('', '', '', '', '', '', ''); // Instancia para guardar el resultado
+    this.respuesta = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
     this._service.createV2(this.proyecto).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
       result => {
         this.respuesta = result.data;
@@ -66,6 +66,10 @@ export class ProjectsComponent implements OnInit {
   find() {
     this._service.getProject(1).subscribe((pro: Project) => console.log(pro));
   }
+  
+  findByReference(reference) {
+      this._service.getProject(reference).subscribe((pro: Project) => console.log(pro));
+    }
 
   listar() {
     this._service.getProjects().subscribe((lista: Array<Project>) => console.log(lista));

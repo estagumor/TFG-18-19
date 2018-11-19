@@ -12,12 +12,14 @@ import {DemoMaterialModule} from '../material-module'; // Mas material design pa
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 import {ProjectsComponent} from './components/projects/projects.component';
+import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    InvestigationProjectComponent
   ],
   imports: [
     BrowserModule,

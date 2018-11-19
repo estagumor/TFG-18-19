@@ -44,7 +44,7 @@
     "@types/node": "~8.9.4",
     "angular-ide": "^0.9.52",
     "codelyzer": "~4.3.0",
-    "concurrently": "^4.0.1",
+    "concurrently": "^4.1.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",

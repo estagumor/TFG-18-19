@@ -1,11 +1,20 @@
-export class Project{
+export class Project {
   constructor(
+    public researchTeam: Array<String>,
+    public workTeam: Array<String>,
+    public hiredStaff: Array<String>,
+    public title: String,
+    public description: String,
+    public leader: Array<String>,
     public reference: String,
-    public competency: String,
-    public investigationGroup: String,
-    public hiredPersonal: String,
+    public scope: String,
     public status: String,
-    public publications: String,
-    public relatedTools: String
-  ){}
+    public sponsor: String,
+    public startDate: Date,
+    public endDate: Date,
+    public amount: Number,
+    public relatedPublications: Array<String>,
+    public relatedTools: Array<String>
+  ) {  }
 }
+
