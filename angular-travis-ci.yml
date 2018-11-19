@@ -12,6 +12,7 @@ before_script:
 
 script: 
   - ng test --watch false -cc
+  - npm run-script dev
   - npm run e2e
 
 deploy:
