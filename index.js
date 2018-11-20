@@ -5,7 +5,7 @@ var app = require('./app');
 var port = 3700;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/isa')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/isa')
 	.then((db) => {
 		console.log("Conexion a la base de datos establecida");
 		// creacion del servidor
