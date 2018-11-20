@@ -37,6 +37,7 @@
     "mongoose": "^5.3.12",
     "rxjs": "~6.2.0",
     "rxjs-compat": "^6.3.3",
+    "angular-cli": "~6.2.5",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
