@@ -1,5 +1,0 @@
-diferencia equipo de investigacion, equipo de trabajo y personal contratado
-
-redes, contrato y proyectos tienen en comun un patrocinador, un importe, una fecha de inicio y fin, publicaciones y herramientas, se podria abstraer una clase con esas propiedades y hacer que hereden
-
-los proyectos y los contratos tienen las mismas caracteristicas
