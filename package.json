@@ -9,7 +9,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --kill-others \"nodemon index.js\" \"ng serve\"",
+    "start": "concurrently --kill-others \"node index.js\" \"ng serve\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
