@@ -8,6 +8,8 @@ var app = express();
 // archivos de rutas
 var project_routes = require('./routes/project')
 var investigation_routes = require('./routes/investigationProject')
+var contract_routes = require('./routes/contract')
+var net_routes = require('./routes/net')
 
 // middlewares
 app.use(bodyParser.urlencoded({extended:false}));
@@ -25,6 +27,8 @@ app.use((req, res, next) => {
 // rutas
 app.use('/api', project_routes);
 app.use('/api', investigation_routes);
+app.use('/api', contract_routes);
+app.use('/api', net_routes);
 
 // exportar
 module.exports = app;

@@ -13,13 +13,17 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 import {ProjectsComponent} from './components/projects/projects.component';
 import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
+import { ContractComponent } from './components/contract/contract.component';
+import { NetComponent } from './components/net/net.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ProjectsComponent,
-    InvestigationProjectComponent
+    InvestigationProjectComponent,
+    ContractComponent,
+    NetComponent
   ],
   imports: [
     BrowserModule,

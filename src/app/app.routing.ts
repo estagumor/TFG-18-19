@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
+import { ContractComponent } from './components/contract/contract.component';
+import { NetComponent } from './components/net/net.component';
 
 // El enrutado del sitio web, por cada ruta se le asigna un componente
 // Obligatoriamente hay que poner la ultima, que es como el else de un if
@@ -12,6 +14,8 @@ const appRoutes: Routes = [
   {path: 'projects', component: ProjectsComponent},
   {path: 'projects/:projectNumber', component: ProjectsComponent},
   {path: 'investigationProject', component: InvestigationProjectComponent},
+  {path: 'contract', component: ContractComponent},
+  {path: 'net', component: NetComponent},
   {path: '**', component: HomeComponent}
 ];
 

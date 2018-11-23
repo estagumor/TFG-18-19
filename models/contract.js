@@ -1,8 +1,11 @@
 'use strict'
+
 var mongoose = require('mongoose');
-var Project = require('./project')
+const Project = require('./project')
 var Schema = mongoose.Schema;
-var ContractProject = Project.discriminator('ContractProject', new Schema({
+var options = {discriminatorKey: 'kind'};
+
+const Contract = Project.discriminator('ContractProject', new mongoose.Schema({
 	
 }))
-module.exports = mongoose.model('ContractProject', ContractProject) 
+module.exports = mongoose.model('ContractProject') 
