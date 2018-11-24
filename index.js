@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 var app = require('./app');
-var port = 3700;
+var port = process.env.PORT || 3700;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/isa')
@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/isa')
 			console.log("Servidor corriendo correctamente");
 		});
 	}).catch(err => {
-		console.log(err);
+		console.log(err);   
 	});
 
 var db = mongoose.connection;
