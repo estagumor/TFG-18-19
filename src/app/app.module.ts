@@ -2,10 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Para formularios y el autocompletado(reactive)
 import {HttpClientModule} from '@angular/common/http';
-import {MatNativeDateModule} from '@angular/material'; // Material design para el autocompletado
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic'; // Ni puta idea
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'; // Animaciones para el autocompletado
-import {DemoMaterialModule} from '../material-module'; // Mas material design para el autocompletado
 
 
 import {AppComponent} from './app.component';
@@ -27,12 +23,9 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
-    DemoMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatNativeDateModule,
     AppRoutingModule
   ],
   providers: [

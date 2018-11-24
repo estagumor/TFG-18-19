@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Net } from '../../models/net';
 import 'rxjs/add/operator/map';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';

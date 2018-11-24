@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/map';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
