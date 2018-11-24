@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Para formularios y el autocompletado(reactive)
-import {routing, appRoutingProviders} from './app.routing'; // Para el enrutado
 import {HttpClientModule} from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material'; // Material design para el autocompletado
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic'; // Ni puta idea
@@ -15,6 +14,7 @@ import {ProjectsComponent} from './components/projects/projects.component';
 import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
 import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -29,14 +29,13 @@ import { NetComponent } from './components/net/net.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    routing,
     DemoMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    AppRoutingModule
   ],
   providers: [
-    appRoutingProviders, // Para el enrutado
   ],
   bootstrap: [AppComponent]
 })

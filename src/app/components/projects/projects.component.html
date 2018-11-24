@@ -1,38 +1,59 @@
-<p>
-	projects works! <span *ngIf="numero">Proyecto nº{{numero}}</span>
-</p>
-
-<h2>Proyecto</h2>
+<h2>Proyects</h2>
 <fieldset>
 	<legend>Creacion de proyectos</legend>
-<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject)">
-	<label for="reference">Referencia</label> <input type="text"
-		name="reference" #reference="ngModel" [(ngModel)]="proyecto.reference" /><br>
+	<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject)">
+		<label for="researchTeam">Equipo de investigacion</label> <input type="text" [(ngModel)]="project.researchTeam" name="researchTeam"><br>
+		<label for="workTeam">Equipo de trabajo</label> <input type="text" [(ngModel)]="project.workTeam" name="workTeam"><br>
+		<label for="hiredStaff">Personal contratado</label> <input type="text" [(ngModel)]="project.hiredStaff" name="hiredStaff"><br>
+		<label for="title">Titulo</label> <input type="text" [(ngModel)]="project.title" name="title"><br>
+		<label for="description">Descripcion</label> <input type="text" [(ngModel)]="project.description" name="description"><br>
+		<label for="leader">Responsable/s</label> <input type="text" [(ngModel)]="project.leader" name="leader"><br>
+		<label for="reference">Referencia</label> <input type="text" [(ngModel)]="project.reference" name="reference"/><br>
+		<label for="scope">Competencia</label> <input type="text" [(ngModel)]="project.scope" name="scope"/><br>
+		<label for="status">Estado</label> <input type="text" [(ngModel)]="project.status" name="status"><br>
+		<label for="startDate">Fecha de inicio</label> <input type="text" [(ngModel)]="project.startDate" name="startDate"><br>
+		<label for="endDate">Fecha de fin</label> <input type="text" [(ngModel)]="project.endDate" name="endDate"><br>
+		<label for="amount">Importe</label> <input type="text" [(ngModel)]="project.amount" name="amount"><br>
+		<label for="relatedPublications">Publicaciones relacionadas</label> <input type="text" [(ngModel)]="project.relatedPublications" name="relatedPublications"><br>
+		<label for="relatedTools">Herramientas relacionadas</label> <input type="text" [(ngModel)]="project.relatedTools" name="relatedTools"><br>
+		<button type="submit">Enviar</button>
+	</form>
+</fieldset>
 
-	<label for="competency">Competencia</label> <input type="text"
-		name="competency" #competency="ngModel"
-		[(ngModel)]="proyecto.competency" /><br> <label for="status">Estado</label>
-	<input type="text" name="status" #status="ngModel"
-		[(ngModel)]="proyecto.status"><br>
 
-	<button type="submit">Enviar</button>
-</form>
+<fieldset>
+	<legend>Busqueda por id</legend>
+	<input type="text" [(ngModel)]="projectId" (keyup.enter)="find()" />
+	<div *ngIf="responseFind">
+		<h5>Equipo de investigacion: {{responseFind.researchTeam}}</h5>
+		<h5>Equipo de trabajo: {{responseFind.workTeam}}</h5>
+		<h5>Personal contratado: {{responseFind.hiredStaff}}</h5>
+		<h5>Titulo: {{responseFind.title}}</h5>
+		<h5>Descripcion: {{responseFind.description}}</h5>
+		<h5>Responsable: {{responseFind.leader}}</h5>
+		<h5>Referencia: {{responseFind.reference}}</h5>
+		<h5>Competencia: {{responseFind.scope}}</h5>
+		<h5>Estado: {{responseFind.status}}</h5>
+		<h5>Patrocinador: {{responseFind.sponsor}}</h5>
+		<h5>Fecha de inicio: {{responseFind.startDate | date:'longDate'}}</h5>
+		<h5>Fecha de fin: {{responseFind.endDate | date:'longDate'}}</h5>
+		<h5>Importe: {{responseFind.amount}}</h5>
+		<h5>Publicaciones relacionadas: {{responseFind.relatedPublications}}</h5>
+		<h5>Herramientas relacionadas: {{responseFind.relatedTools}}</h5>
+
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>Borrado de proyectos</legend>
+	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" />
 </fieldset>
 
 <fieldset>
 	<legend>Listado de proyectos</legend>
-<button type="button" (click)="find()">Buscar</button>
-<button type="button" (click)="listar()">Listar</button>
+	<button type="button" (click)="listar()">Listar</button>
+	<ul *ngFor="let invPro of listado">
+		<li>{{ invPro._id }}</li>
+	</ul>
 </fieldset>
 <br>
-<fieldset>
-	<legend>Autocompletado de investigadores</legend>
-	<form class="example-form">
-		<mat-form-field class="example-full-width"> <input
-			type="text" aria-label="Number" matInput [formControl]="myControl"
-			[matAutocomplete]="auto" class='input'> <mat-autocomplete
-			#auto="matAutocomplete"> <mat-option
-			*ngFor="let option of filteredOptions | async" [value]="option">
-		{{option}} </mat-option> </mat-autocomplete> </mat-form-field>
-	</form>
-</fieldset>

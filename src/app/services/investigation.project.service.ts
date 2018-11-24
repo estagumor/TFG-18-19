@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class InvestigationProjectService {
   public url: string;
   constructor(

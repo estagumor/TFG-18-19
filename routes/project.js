@@ -5,7 +5,7 @@ var ProjectController = require('../controllers/project');
 
 var router = express.Router();
 // Declara las rutas y el metodo del controlador que las recibe
-router.post('/save-project', ProjectController.saveProject);
+router.post('/project', ProjectController.saveProject);
 router.get('/project/:id?', ProjectController.getProject);
 router.get('/projects', ProjectController.getProjects);
 router.put('/project/:id', ProjectController.updateProject);

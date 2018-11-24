@@ -1,6 +1,7 @@
 'use strict' // Para usar cosas buenas de js
-
+var mongoose = require('mongoose');
 var Project = require('../models/project'); // Aporta el modelo y los metodos de la bd
+var db = mongoose.connection;
 
 var controller = {
 
@@ -57,14 +58,21 @@ var controller = {
 	},
 
 	getProjects: function(req, res){
-//		find({year: 2019}) para filtrar que tengan ese año
-//		find({}).sort('year') ordenar por campo
-		Project.find({}).exec((err, projects)=>{
-			if (err) return res.status(500).send({message: 'Error al devolver los datos'})
-			if(!projects) return res.status(404).send({message: 'No hay projectos que mostrar'})
-			return res.status(200).send({projects});
-		});
-	},
+		//		find({year: 2019}) para filtrar que tengan ese año
+		//		find({}).sort('year') ordenar por campo
+				db.collection("projects").find({}).toArray(function(err, docs) {
+					if (err) {
+					  handleError(res, err.message, "Failed to get contacts.");
+					} else {
+					  res.status(200).json(docs);
+					}
+				  });
+		//		InvestigationProject.find({}).exec((err, projects)=>{
+		//			if (err) return res.status(500).send({message: 'Error al devolver los datos'})
+		//			if(!projects) return res.status(404).send({message: 'No hay projectos que mostrar'})
+		//			return res.status(200).send({projects});
+		//		});
+			},
 
 	updateProject: function(req, res){
 		var proyectId = req.params.id;
