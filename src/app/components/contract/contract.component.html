@@ -1,0 +1,41 @@
+<h2>Contrato</h2>
+<fieldset>
+	<legend>Creacion de contratos</legend>
+	<form #formProject="ngForm" (ngSubmit)="onSubmit()">
+		<label for="reference">Referencia</label> <input type="text"
+			name="reference" #reference="ngModel"
+			[(ngModel)]="contract.reference" /><br> <label
+			for="scope">Competencia</label> <input type="text" name="scope"
+			#competency="ngModel" [(ngModel)]="contract.scope" /><br>
+		<label for="status">Estado</label> <input type="text" name="status"
+			#status="ngModel" [(ngModel)]="contract.status"><br>
+
+		<button type="submit">Enviar</button>
+	</form>
+</fieldset>
+
+
+<fieldset>
+	<legend>Busqueda por id</legend>
+	<input type="text" [(ngModel)]="contractId" (keyup.enter)="find()" />
+	<div *ngIf="responseFind">
+		<h5>Referencia: {{responseFind.reference}}</h5>
+		<h5>Responsable: {{responseFind.leader}}</h5>
+		<h5>Equipo de trabajo: {{responseFind.researchTeam}}</h5>
+
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>Borrado de proyectos</legend>
+	<input type="text" [(ngModel)]="contractId2" (keyup.enter)="delete()" />
+</fieldset>
+
+<fieldset>
+	<legend>Listado de proyectos</legend>
+	<button type="button" (click)="listar()">Listar</button>
+	<ul *ngFor="let invPro of contracts">
+		<li>{{ invPro._id }}</li>
+	</ul>
+</fieldset>
+<br>

@@ -5,7 +5,8 @@ const Project = require('./project')
 var Schema = mongoose.Schema;
 var options = {discriminatorKey: 'kind'};
 
-const Contract = Project.discriminator('ContractProject', new mongoose.Schema({
-	
+const Net = Project.discriminator('Net', new mongoose.Schema({
+    
 }))
-module.exports = mongoose.model('ContractProject') 
+
+module.exports = mongoose.model('Net')
