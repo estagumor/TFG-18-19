@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class NetService {
   constructor(
     private _https: HttpClient
   ) {
-    this.url = 'http://localhost:3700/api/net'; // Es la URL donde se despliega el backend
+    this.url = environment.serverUrl + '/api/net'; // Es la URL donde se despliega el backend
   }
 
   create(Net): Observable<any> {

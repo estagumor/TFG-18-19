@@ -1,7 +1,7 @@
 <h2>Red</h2>
 <fieldset>
 	<legend>Creacion de redes</legend>
-	<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject)">
+	<form #formProject="ngForm" (ngSubmit)="onSubmit()">
 		<label for="reference">Referencia</label> <input type="text"
 			name="reference" #reference="ngModel"
 			[(ngModel)]="net.reference" /><br> <label

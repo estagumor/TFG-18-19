@@ -1,7 +1,7 @@
 <h2>Proyects</h2>
 <fieldset>
 	<legend>Creacion de proyectos</legend>
-	<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject)">
+	<form #formProject="ngForm" (ngSubmit)="onSubmit()">
 		<label for="researchTeam">Equipo de investigacion</label> <input type="text" [(ngModel)]="project.researchTeam" name="researchTeam"><br>
 		<label for="workTeam">Equipo de trabajo</label> <input type="text" [(ngModel)]="project.workTeam" name="workTeam"><br>
 		<label for="hiredStaff">Personal contratado</label> <input type="text" [(ngModel)]="project.hiredStaff" name="hiredStaff"><br>

@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { Project } from '../models/project';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 // Esto hace que solo cree una instancia del servicio
 @Injectable({
@@ -14,7 +15,7 @@ export class ProjectService {
   constructor(
     private _https: HttpClient
   ) {
-    this.url = '/api/project'; //Es la URL donde se despliega el backend
+    this.url = environment.serverUrl + '/api/project'; //Es la URL donde se despliega el backend
   }
 
   /**
