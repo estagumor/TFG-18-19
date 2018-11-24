@@ -14,7 +14,7 @@ export class ProjectService {
   constructor(
     private _https: HttpClient
   ) {
-    this.url = 'http://localhost:3700/api/project'; //Es la URL donde se despliega el backend
+    this.url = '/api/project'; //Es la URL donde se despliega el backend
   }
 
   /**
