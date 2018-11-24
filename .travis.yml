@@ -1,6 +1,13 @@
 dist: trusty
 sudo: false
 
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
 language: node_js
 node_js:
   - stable
@@ -13,8 +20,8 @@ before_script:
   - npm install -g @angular/cli
 
 script: 
-  - ng test --watch false -cc
-  - npm run e2e
+  - ng test --watch false
+  #- npm run e2e
 
 deploy:
   provider: heroku
