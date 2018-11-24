@@ -4,6 +4,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
 
 // archivos de rutas
 var project_routes = require('./routes/project')
