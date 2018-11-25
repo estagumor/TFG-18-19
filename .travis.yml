@@ -15,7 +15,7 @@ before_script:
   - npm install -g @angular/cli
 
 script: 
-  - ng test --watch false
+  - ng test --watch=false
   #- npm run e2e
 
 deploy:
