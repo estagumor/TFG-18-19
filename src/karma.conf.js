@@ -28,7 +28,7 @@ module.exports = function (config) {
     singleRun: false,
     // you can define custom flags (de la doc de travis para chrome)
     
-    browsers: ['Chrome', 'ChromeHeadless', 'ChromeHeadlessNoSandbox'],
+    browsers: ['ChromeHeadless', 'ChromeHeadlessNoSandbox'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
