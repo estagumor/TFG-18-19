@@ -1,0 +1,25 @@
+-package.json
+se ha eliminado el comando para ejecutar a la vez node index.js y ng serve dejando solo node index.js
+se ha añadido ng build --optimization=true --output-path dist --prod para que compile en dicha carpeta
+--optimization optimiza los archivos generados
+--output-path especifica la salida de los archivos
+--prod optimiza los archivos para el entorno de produccion y ademas sustituyes las variables de entorno establecidas en los archivos enviroment.ts
+ya no se pide una version de node ni npm especifica
+-app.js
+se ha cambiado la ruta que utiliza express para que vaya a dist
+-index.js
+se ha modificado para que en el entorno de produccion coja el puerto que le asigne heroku
+-services
+se ha usado la variable de entorno serverUrl para que coja localhost o / segun el entorno en el que este
+
+se ha eliminado un archivo que solo se usaba para el material design del autocompletado
+
+
+-pasos
+se crea el proyecto de nuevo con ng create
+se le añaden la carpeta src que ya teniamos
+segun se necesita se añaden los paquetes absolutamente necesarios
+se comprueba que la parte web funciona correctamente
+se eliminan archivos innecesarios como el archivo de material
+se añade la parte del servidor
+se añade el comando de ng build
