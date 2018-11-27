@@ -1,53 +1,53 @@
-import { TestBed, getTestBed, inject } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { ProjectService } from '../services/project.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpErrorResponse } from '@angular/common/http'
+import { defer } from 'rxjs';
+
+function asyncData<T>(data: T) {
+    return defer(() => Promise.resolve(data));
+  }
+
+describe("Project's service", () => {
+    let httpClientSpy: { get: jasmine.Spy };
+    let projectService: ProjectService;
+
+    beforeEach(() => {
+        // TODO: spy on other methods too
+        httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+        projectService = new ProjectService(<any>httpClientSpy);
+    });
+
+    it('Must return the given project', () => {
+        var data = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
+        var test = httpClientSpy.get.and.returnValue(asyncData(data));
+        projectService.getProjects().subscribe(
+            project => expect(project).toEqual(project, 'expected data'),
+    fail
+        );
+        expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+    });
+
+    it('Must return a 404 error whenever the server send it', () => {
+        const errorResponse = new HttpErrorResponse({
+          error: 'test 404 error',
+          status: 404, statusText: 'Not Found'
+        });
+       
+        let test = httpClientSpy.get.and.returnValue(asyncError(errorResponse));
+        
+        projectService.getProjects().subscribe(
+          projects => fail('expected an error, not projects'),
+          error  => expect(error).toContain('test 404 error')
+        );
+      });
+      
+      
 
 
-describe('GithubApiService', () => {
-    // let injector: TetBed;
-    // let service: ProjectService;
-    // let httpMock: HttpTestingController;
 
-    // beforeEach(() => {
-    //     TestBed.configureTestingModule({
-    //         imports: [HttpClientTestingModule],
-    //         providers: [ProjectService]
-    //     });
-
-    //     injector = getTestBed();
-    //     service = injector.get(ProjectService);
-    //     httpMock = injector.get(HttpTestingController);
-    // });
-
-    // describe('#getUsers', () => {
-    //     it('should return an Observable<User[]>', () => {
-    //         console.log(service.getProjects().map(result => {console.log(result);}));
-    //         ;
-    //         var res: string = "";
-    //         service.getProjects().toPromise().then(result => { res = result; expect(res.length).toBe(22); });
-    //         console.log(res);
-    //         res = service.getProjectsV2();
-    //         console.log(res);
-
-    //     });
-    // });
-
-    // it('should create the app', () => {
-    //     const fixture = TestBed.createComponent(ProjectService);2
-    //     const app = fixture.debugElement.componentInstance;
-    //     expect(app).toBeTruthy();
-    // });
-
-    // it(`should have as title 'TFG'`, () => {
-    //     const fixture = TestBed.createComponent(ProjectService);
-    //     const app = fixture.debugElement.componentInstance;
-    //     expect(app.title).toEqual('TFG');
-    // });
-
-    // it('should render title in a h1 tag', () => {
-    //     const fixture = TestBed.createComponent(ProjectService);
-    //     fixture.detectChanges();
-    //     const compiled = fixture.debugElement.nativeElement;
-    //     expect(compiled.querySelector('h1').textContent).toContain('Welcome to TFG!');
-    // });
 });
+
+export function asyncError<T>(errorObject: any) {
+    return defer(() => Promise.reject(errorObject));
+  }
