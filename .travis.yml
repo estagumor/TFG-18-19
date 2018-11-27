@@ -1,33 +1,27 @@
-
 dist: trusty
 sudo: required
 addons:
   chrome: stable
-
 language: node_js
 node_js:
-  - stable
-
+- stable
 branches:
   only:
   - develop
-
 before_script:
-  - npm install -g @angular/cli
-
-script: 
-  - ng test --watch=false
-  #- npm run e2e
-
+- npm install -g @angular/cli
+script:
+- ng test --watch=false
 deploy:
   provider: heroku
   api_key:
-    secure: 90414A18B0B3B696E96323EA8DB68307493AA47B4C146A188D37B5C72795D56A,9BBE8016F668625E8840D4002C6490A353E3E19BF8E4E5126F4F096114B44B4E
-  on: develop
- 
+    secure: ix5YIUyqpWv62JvsG5zVXbKxC9Cij98sg+bP4noZEtMDvea9MpDhFfxUAy7D8pGn9KwcLUP9AvY69TWUTBVCv7Qb5E8AIL4vHURdoUOZoZmMSecN7tL0ocOdxF5PCurdrRI+gw+qZ1gtRtJow4mVTTO2UODQnEZf30z/erYkEJD0g/FAocrszt8E/I/PqPoK19VGd6OE7PAnLqGrtVI3etmcFKVhfp7ipJTs0XYwSna2E/1e4a56j3i5X5A3zA7O58GaiepZ8ZCT1CV+IZCyPcoKIztptXYNyI1oPxkWVEKD4evpYqST6IGOA9r79/Efn1dqQXBWiuNg4hgsvUl5agYGtbMZM4RGVT01QdwpFdcMn9Or4yrmgPuhyainEZRQZsmzErMBMJyRlo1QBnwh2PfkCowGu7z++Ly1zlPrlGZ4uWYVY/OfTcQs4ZgeZBf8wIaB8rQAaB31Nrs0+RCw5kkDBJLKhmCQwOed6MT7rpOrfNp9ulst2HW1wWAOYkZQw9RziMyFyQ0kxNGbWGJVMlnObVVuHIm9dDNi8jp848wI588tTwoQc2jnVQ+C/naigUn7Plrh3Bz1mu5Ba9SzHXzTgKoO7K98xXvBYo8+RxEgQXqLbFfRLE8g7NCiztnG5HClaCmTv9pp+lLSZMqcUVPQUu0HN+Q92gEKrAkGssU=
+  app: TFG-18-19
+  on:
+    repo: Wordsan/TFG-18-19
+    branch: develop
 cache:
   directories:
-     - ./node_modules
- 
+  - "./node_modules"
 install:
-  - npm install
+- npm install
