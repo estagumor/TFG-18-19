@@ -18,8 +18,8 @@ export class ProjectsComponent implements OnInit {
   public project: Project;
   public responseFind: Project;
   public responseCreate: Project;
-  public projectId: number;
-  public projectId2: number;
+  public projectId: any;
+  public projectId2: any;
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
   public myControl = new FormControl(''); // El formulario
   //public options: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
@@ -70,6 +70,7 @@ export class ProjectsComponent implements OnInit {
 
   find() {
     this._service.getProject(this.projectId).subscribe(result => {
+      console.log(result)
       this.responseFind = result['project'];
     });
   }
@@ -77,7 +78,7 @@ export class ProjectsComponent implements OnInit {
   findById(id: number): Project {
     let pro;
     this._service.getProject(id).subscribe(result => {
-      pro = result;
+      this.responseFind = result['project'];
     });
     return pro;
   }
