@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { ProjectsComponent } from './projects.component';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
+import { DebugElement } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project';
-import { defer } from 'rxjs';
+import { defer, of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 
 import { RouterModule, Routes } from '@angular/router';
@@ -13,46 +15,68 @@ import { RouterModule, Routes } from '@angular/router';
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
   let fixture: ComponentFixture<ProjectsComponent>;
-  let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy, delete: jasmine.Spy };
+  let element: HTMLElement;
+  let listSpy;
+  let getterSpy;
+  let createSpy;
   let projectService: ProjectService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectsComponent ],
-      imports: [ReactiveFormsModule, FormsModule,HttpClientModule, RouterModule.forRoot([])],
-      providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+      declarations: [ProjectsComponent],
+      imports: [ReactiveFormsModule, FormsModule, HttpClientModule, RouterModule.forRoot([])],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
-    .compileComponents();
+      .compileComponents();
+    
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProjectsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post', 'delete']);
-    projectService = new ProjectService(<any>httpClientSpy);
+    const bannerDe: DebugElement = fixture.debugElement;
+    var bannerEl: HTMLElement = bannerDe.nativeElement;
+    element = bannerEl;
+
+    projectService = bannerDe.injector.get(ProjectService)
+    listSpy = spyOn(projectService, 'getProjects').and.returnValue(of(true));  
+    getterSpy = spyOn(projectService, 'getProject').and.returnValue(of(true));
+    createSpy = spyOn(projectService, 'createV2').and.returnValue(of(true));
+
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should fill responseFind when a id is prompted', () => {
-  //   fixture.detectChanges()
-  //   let vacio =  new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
-  //   let relleno =  new Project([], [], [], 'isa', '', [], '#1234', 'OTROS', 'ACEPTADO', '', null, null, 0, [], []);
-  //   let data = {"researchTeam": [], "workTeam": [], "hiredStaff": [], "title":"isa", "description":"", "leader":[], "reference":"#1234", "scope":"OTROS", "status":"ACEPTADO", "sponsor":"", "startDate":null, "endDate":null, "amount":0,"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0};
-  //   var test = httpClientSpy.get.and.returnValue(asyncData(data));
-  //   expect(component.responseFind).toEqual(vacio, 'empty project');
-  //   component.projectId = "5bd79886addca429f504da62";
-  //   component.find();
-  //   console.log(component.responseFind);
-  //   expect(component.responseFind).toEqual(relleno);
+  
 
-  // });
+  it('bind project properties through a form', () => {
+    document.querySelector("input[name='title']").textContent = 'isa';
+    expect(component.project.title = 'isa');
+  });
+  it('should list all the projects', () => {
+    let boton: HTMLButtonElement = element.querySelector("button[id='listButton']")
+    boton.click();
+    expect(listSpy).toHaveBeenCalled();
+  })
+
+  it('should create a project', () => {
+    let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
+    let competencia: HTMLInputElement = element.querySelector("input[name='scope']")
+    let estado : HTMLInputElement = element.querySelector("input[name='status']")
+    estado.value = 'ACEPTADO';
+    competencia.value = 'OTROS';
+    fixture.detectChanges();
+    boton.click();
+    expect(createSpy).toHaveBeenCalled();
+  })
+
+  it('should get a project', () => {
+    const input = fixture.debugElement.query(By.css('#idInput'));
+    component.projectId = "5bd79886addca429f504da62"
+    input.triggerEventHandler('keyup.enter', {})
+    expect(getterSpy).toHaveBeenCalled();
+  })
 });
-
-
-function asyncData<T>(data: T) {
-  return defer(() => Promise.resolve(data));
-}

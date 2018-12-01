@@ -47,7 +47,7 @@ var controller = {
 				message: "Error al devolver los datos"
 			});
 
-			if (!project) return res.status(404).send({
+			else if (!project) return res.status(404).send({
 				message: "El projecto no existe"
 			});
 

@@ -23,7 +23,7 @@ describe("Project's controller", () => {
 
     /// Tests begin ///
 
-    it('Get projects', () => {
+    it('get projects', () => {
         var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
         let url = baseUrl + "s";
         // Make an HTTP GET request
@@ -49,7 +49,7 @@ describe("Project's controller", () => {
         httpTestingController.verify();
     });
 
-    it('Get project by id', () => {
+    it('get project by id', () => {
         var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
         let url = baseUrl + "/5bd79886addca429f504da62";
         // Make an HTTP GET request
@@ -75,7 +75,7 @@ describe("Project's controller", () => {
         httpTestingController.verify();
     });
 
-    it('Save project', () => {
+    it('save project', () => {
         var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[]}];
         let url = baseUrl;
         // Make an HTTP POST request
@@ -101,7 +101,7 @@ describe("Project's controller", () => {
         httpTestingController.verify();
     });
 
-    it('Delete project by id', () => {
+    it('delete project by id', () => {
         var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
         let url = baseUrl + "/5bd79886addca429f504da62";
         // Make an HTTP DELETE request

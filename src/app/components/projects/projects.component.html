@@ -16,14 +16,14 @@
 		<label for="amount">Importe</label> <input type="text" [(ngModel)]="project.amount" name="amount"><br>
 		<label for="relatedPublications">Publicaciones relacionadas</label> <input type="text" [(ngModel)]="project.relatedPublications" name="relatedPublications"><br>
 		<label for="relatedTools">Herramientas relacionadas</label> <input type="text" [(ngModel)]="project.relatedTools" name="relatedTools"><br>
-		<button type="submit">Enviar</button>
+		<button type="submit" id="submitForm">Enviar</button>
 	</form>
 </fieldset>
 
 
 <fieldset>
 	<legend>Busqueda por id</legend>
-	<input type="text" [(ngModel)]="projectId" (keyup.enter)="find()" />
+	<input type="text" [(ngModel)]="projectId" (keyup.enter)="find()" id="idInput" />
 	<div *ngIf="responseFind">
 		<h5>Equipo de investigacion: {{responseFind.researchTeam}}</h5>
 		<h5>Equipo de trabajo: {{responseFind.workTeam}}</h5>
@@ -46,12 +46,12 @@
 
 <fieldset>
 	<legend>Borrado de proyectos</legend>
-	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" />
+	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" id="idInput2"/>
 </fieldset>
 
 <fieldset>
 	<legend>Listado de proyectos</legend>
-	<button type="button" (click)="listar()">Listar</button>
+	<button type="button" (click)="listar()" id="listButton">Listar</button>
 	<ul *ngFor="let invPro of listado">
 		<li>{{ invPro._id }}</li>
 	</ul>

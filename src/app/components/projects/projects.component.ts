@@ -70,7 +70,6 @@ export class ProjectsComponent implements OnInit {
 
   find() {
     this._service.getProject(this.projectId).subscribe(result => {
-      console.log(result)
       this.responseFind = result['project'];
     });
   }

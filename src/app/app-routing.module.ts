@@ -8,12 +8,12 @@ import { NetComponent } from './components/net/net.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
-  { path: 'nets', component: NetComponent }
+  { path: 'nets', component: NetComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({
