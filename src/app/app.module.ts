@@ -11,6 +11,7 @@ import { InvestigationProjectComponent } from './components/investigation-projec
 import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
 import { AppRoutingModule } from './app-routing.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     NetComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,

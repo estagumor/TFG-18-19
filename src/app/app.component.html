@@ -1,10 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="container">
+<div class ="jumbotron" style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
 </div>
 
+<div class="panel panel-primary">
+<div class="panel-heading">Links</div>
+<div class="panel-body">
 <nav>
 	<a routerLink='/home' routerLinkActive='active'>Inicio</a><br>
 	<a routerLink='/projects' routerLinkActive='active'>Proyectos</a><br>
@@ -12,5 +16,7 @@
 	<a routerLink='/nets' routerLinkActive='active'>Redes</a><br>
 	<a routerLink='/investigationProjects' routerLinkActive='active'>Proyectos de investigacion</a><br>
 </nav>
-
+</div>
+</div>
 <router-outlet></router-outlet>
+</div>
