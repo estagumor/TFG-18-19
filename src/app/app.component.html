@@ -6,6 +6,22 @@
   </h1>
 </div>
 
+<div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+			<button class="dropdownBasic" id="dropdownBasic1" [routerLink]="['/home']" routerLinkActive="router-link-active" >Inicio</button>
+      <button class="dropdownBasic" id="dropdownBasic2" ngbDropdownToggle>Que hacemos</button>
+      <div class="dropdownMenu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
+        <button class="dropdown-item" [routerLink]="['/projects']" routerLinkActive="router-link-active" >Proyectos publicos</button>
+        <button class="dropdown-item" [routerLink]="['/contracts']" routerLinkActive="router-link-active" >Contratos</button>
+				<button class="dropdown-item" [routerLink]="['/nets']" routerLinkActive="router-link-active" >Redes</button>
+				<button class="dropdown-item" [routerLink]="['/investigationProjects']" routerLinkActive="router-link-active" >Proyectos de investigacion</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
 <div class="panel panel-primary">
 <div class="panel-heading">Links</div>
 <div class="panel-body">
@@ -18,5 +34,7 @@
 </nav>
 </div>
 </div>
+-->
+<br>
 <router-outlet></router-outlet>
 </div>
