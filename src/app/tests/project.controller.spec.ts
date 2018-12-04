@@ -7,6 +7,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 describe("Project's controller", () => {
+    // Create the http client and set the server url, that depends on the enviroment
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
     let baseUrl = environment.serverUrl + '/api/project';
@@ -24,7 +25,8 @@ describe("Project's controller", () => {
     /// Tests begin ///
 
     it('get projects', () => {
-        var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
+        // A mock of the project the server should return
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
         let url = baseUrl + "s";
         // Make an HTTP GET request
         httpClient.get(url)
@@ -50,7 +52,8 @@ describe("Project's controller", () => {
     });
 
     it('get project by id', () => {
-        var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
+        // A mock of the project the server should return
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
         let url = baseUrl + "/5bd79886addca429f504da62";
         // Make an HTTP GET request
         httpClient.get(url)
@@ -76,7 +79,8 @@ describe("Project's controller", () => {
     });
 
     it('save project', () => {
-        var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[]}];
+        // A mock of the project the server should return and it is used as data on the POST request
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [] }];
         let url = baseUrl;
         // Make an HTTP POST request
         httpClient.post(url, datos)
@@ -102,7 +106,8 @@ describe("Project's controller", () => {
     });
 
     it('delete project by id', () => {
-        var datos = [{"researchTeam":[],"workTeam":[],"hiredStaff":[],"leader":[],"relatedPublications":[],"relatedTools":[],"_id":"5bd79886addca429f504da62","__v":0}];
+        // A mock of the project the server should return
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
         let url = baseUrl + "/5bd79886addca429f504da62";
         // Make an HTTP DELETE request
         httpClient.delete(url)
