@@ -1,22 +1,48 @@
 <h2>Proyectos</h2>
 <fieldset>
 	<legend>Creacion de proyectos</legend>
-	<form #formProject="ngForm" (ngSubmit)="onSubmit()">
-		<label for="researchTeam">Equipo de investigacion</label> <input type="text" [(ngModel)]="project.researchTeam" name="researchTeam"><br>
-		<label for="workTeam">Equipo de trabajo</label> <input type="text" [(ngModel)]="project.workTeam" name="workTeam"><br>
-		<label for="hiredStaff">Personal contratado</label> <input type="text" [(ngModel)]="project.hiredStaff" name="hiredStaff"><br>
-		<label for="title">Titulo</label> <input type="text" [(ngModel)]="project.title" name="title"><br>
-		<label for="description">Descripcion</label> <input type="text" [(ngModel)]="project.description" name="description"><br>
-		<label for="leader">Responsable/s</label> <input type="text" [(ngModel)]="project.leader" name="leader"><br>
-		<label for="reference">Referencia</label> <input type="text" [(ngModel)]="project.reference" name="reference"/><br>
-		<label for="scope">Competencia</label> <input type="text" [(ngModel)]="project.scope" name="scope" placeholder="'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS'"><br>
-		<label for="status">Estado</label> <input type="text" [(ngModel)]="project.status" name="status" placeholder="'RECHAZADO', 'ENVIADO', 'ACEPTADO' "><br>
-		<label for="startDate">Fecha de inicio</label> <input type="text" [(ngModel)]="project.startDate" name="startDate"><br>
-		<label for="endDate">Fecha de fin</label> <input type="text" [(ngModel)]="project.endDate" name="endDate"><br>
-		<label for="amount">Importe</label> <input type="text" [(ngModel)]="project.amount" name="amount"><br>
-		<label for="relatedPublications">Publicaciones relacionadas</label> <input type="text" [(ngModel)]="project.relatedPublications" name="relatedPublications"><br>
-		<label for="relatedTools">Herramientas relacionadas</label> <input type="text" [(ngModel)]="project.relatedTools" name="relatedTools"><br>
-		<button type="submit" id="submitForm">Enviar</button>
+	<form #formProject="ngForm" (ngSubmit)="onSubmit(); formProject.reset()">
+		<label for="researchTeam">Equipo de investigacion</label>
+
+		<select [(ngModel)]='project.researchTeam' id='researchTeam' name='researchTeam' required>
+			<option *ngFor="let persona of personas" [value]="persona">{{persona}}</option>
+		</select>
+		<br>
+
+		<label for="workTeam">Equipo de trabajo</label> <input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam"
+		 required><br>
+		<label for="hiredStaff">Personal contratado</label> <input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff'
+		 name="hiredStaff" required><br>
+		<label for="title">Titulo</label> <input type="text" [(ngModel)]="project.title" id='title' name="title" required><br>
+		<label for="description">Descripcion</label> <input type="text" [(ngModel)]="project.description" id='description'
+		 name="description" required><br>
+
+
+		<label for="leader">Responsable/s</label> <input type="text" [(ngModel)]="project.leader" id='leader' name="leader"
+		 required #leader='ngModel'><br>
+		<!-- Se activa cuando el campo de nombre o id 'leader' se ha tocado y no se ha rellenado correctamente mostrando un mensaje de error -->
+		<div [hidden]="!(leader.touched && leader.invalid)" class="alert alert-danger">
+			Leader is required
+		</div>
+
+
+		<label for="reference">Referencia</label> <input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
+		 required /><br>
+		<label for="scope">Competencia</label> <input type="text" [(ngModel)]="project.scope" id='scope' name="scope"
+		 placeholder="'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS'" required><br>
+		<label for="status">Estado</label> <input type="text" [(ngModel)]="project.status" id='status' name="status"
+		 placeholder="'RECHAZADO', 'ENVIADO', 'ACEPTADO' " required><br>
+		<label for="startDate">Fecha de inicio</label> <input type="text" [(ngModel)]="project.startDate" id='startDate' name="startDate"
+		 required><br>
+		<label for="endDate">Fecha de fin</label> <input type="text" [(ngModel)]="project.endDate" id='endDate' name="endDate"
+		 required><br>
+		<label for="amount">Importe</label> <input type="text" [(ngModel)]="project.amount" id='amount' name="amount"
+		 required><br>
+		<label for="relatedPublications">Publicaciones relacionadas</label> <input type="text" [(ngModel)]="project.relatedPublications"
+		 id='relatedPublications' name="relatedPublications" required><br>
+		<label for="relatedTools">Herramientas relacionadas</label> <input type="text" [(ngModel)]="project.relatedTools" id='relatedTools'
+		 name="relatedTools" required><br>
+		<button type="submit" id="submitForm" [disabled]="!formProject.form.valid">Enviar</button>
 	</form>
 </fieldset>
 
@@ -46,7 +72,7 @@
 
 <fieldset>
 	<legend>Borrado de proyectos</legend>
-	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" id="idInput2"/>
+	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" id="idInput2" />
 </fieldset>
 
 <fieldset>

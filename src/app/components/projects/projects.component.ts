@@ -22,7 +22,7 @@ export class ProjectsComponent implements OnInit {
   public projectId2: any;
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
   public myControl = new FormControl(''); // El formulario
-  //public options: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
+  public personas: string[]; // Lista de nombres para los 3 primeros campos
   //public filteredOptions: Observable<string[]>;
 
   constructor(
@@ -34,7 +34,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.personas = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // Mas adelante se sustituira por algun metodo que devuelva las posibles integrantes del proyecto
 
     /* this.filteredOptions = this.myControl.valueChanges // Para el autocompletado
       .pipe(
