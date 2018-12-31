@@ -9,12 +9,11 @@ var controller = {
 		var contract = new Contract();
 
 		var params = req.body; // Recoje los parametros que le llegan y los mete en un contract nuevo
-		console.log(params);
 		contract.researchTeam = params.researchTeam;
 		contract.workTeam = params.workTeam;
 		contract.hiredStaff = params.hiredStaff;
 		contract.title = params.title;
-		contract.descripton = params.description;
+		contract.description = params.description;
 		contract.leader = params.leader;
 		contract.reference = params.reference;
 		contract.scope = params.scope;
@@ -86,7 +85,6 @@ var controller = {
 
 	deleteContract: function(req, res){
 		var contractId = req.params.id;
-		console.log(contractId);
 		Contract.findByIdAndDelete(contractId, (err, contractDeleted) => {
 			if(err) return res.status(500).send({message: 'No se ha podido borrar el contrato'});
 
