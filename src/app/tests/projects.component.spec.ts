@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectsComponent } from '../components/projects/projects.component';
 import { APP_BASE_HREF } from '@angular/common';
@@ -25,7 +26,7 @@ describe("Project's component", () => {
     // Set the component configuration and add it the necessary imports
     TestBed.configureTestingModule({
       declarations: [ProjectsComponent],
-      imports: [ReactiveFormsModule, FormsModule, HttpClientModule, RouterModule.forRoot([])],
+      imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, RouterModule.forRoot([])],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
       .compileComponents();
@@ -73,8 +74,8 @@ describe("Project's component", () => {
     // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
     // Get the button that send the form and two inputs to set their values
     let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
-    let competencia: HTMLInputElement = element.querySelector("input[name='scope']")
-    let estado: HTMLInputElement = element.querySelector("input[name='status']")
+    let competencia: HTMLInputElement = element.querySelector("select[name='scope']")
+    let estado: HTMLInputElement = element.querySelector("select[name='status']")
     estado.value = 'ACEPTADO';
     competencia.value = 'OTROS';
     // Makes Angular detect changes in the page and simulate the click
