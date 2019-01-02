@@ -1,48 +1,153 @@
 <h2>Proyectos</h2>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#fecha").css("height", $("#endDate").css("height"))
+	});
+	$(window).on("load", function () {
+		$("#fecha").css("height", "27px");
+	});
+</script>
 <fieldset>
 	<legend>Creacion de proyectos</legend>
-	<form #formProject="ngForm" (ngSubmit)="onSubmit(); formProject.reset()">
-		<label for="researchTeam">Equipo de investigacion</label>
+	<form #formProject="ngForm" (ngSubmit)="onSubmit();" (ngSuccess)="formProject.reset()" dateLimitation>
 
-		<select [(ngModel)]='project.researchTeam' id='researchTeam' name='researchTeam' required>
-			<option *ngFor="let persona of personas" [value]="persona">{{persona}}</option>
-		</select>
+		<!-- Este necesitaria autocompletado y añadir mensaje de error-->
+		<label for="researchTeam">Equipo de investigacion</label>
+		<input type="text" [(ngModel)]="project.researchTeam" id='researchTeam' name="researchTeam" required>
 		<br>
 
-		<label for="workTeam">Equipo de trabajo</label> <input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam"
-		 required><br>
-		<label for="hiredStaff">Personal contratado</label> <input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff'
-		 name="hiredStaff" required><br>
-		<label for="title">Titulo</label> <input type="text" [(ngModel)]="project.title" id='title' name="title" required><br>
-		<label for="description">Descripcion</label> <input type="text" [(ngModel)]="project.description" id='description'
-		 name="description" required><br>
+
+		<!-- Este necesitaria autocompletado y añadir mensaje de error -->
+		<label for="workTeam">Equipo de trabajo</label>
+		<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>
 
 
-		<label for="leader">Responsable/s</label> <input type="text" [(ngModel)]="project.leader" id='leader' name="leader"
-		 required #leader='ngModel'><br>
-		<!-- Se activa cuando el campo de nombre o id 'leader' se ha tocado y no se ha rellenado correctamente mostrando un mensaje de error -->
-		<div [hidden]="!(leader.touched && leader.invalid)" class="alert alert-danger">
-			Leader is required
+		<!-- Este necesitaria autocompletado y añadir mensaje de error -->
+		<label for="hiredStaff">Personal contratado</label>
+		<input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff' name="hiredStaff" required><br>
+
+
+		<label for="title">Titulo</label>
+		<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel'>
+		<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+			<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
+		</div>
+		<br>
+
+
+		<label for="description">Descripcion</label>
+		<input type="text" [(ngModel)]="project.description" id='description' name="description" required #description='ngModel'>
+		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+			<div *ngIf="description.errors.required" class="invalid-feedback">La descripción es necesaria</div>
+		</div>
+		<br>
+
+
+		<!-- Este necesitaria autocompletado -->
+		<label for="leader">Responsable/s</label>
+		<input type="text" [(ngModel)]="project.leader" id='leader' name="leader" required #leader='ngModel'><br>
+		<div *ngIf="leader.invalid && (leader.dirty || leader.touched)" class="alert alert-danger">
+			<div *ngIf="leader.errors.required" class="invalid-feedback">El responsable es necesario</div>
 		</div>
 
 
-		<label for="reference">Referencia</label> <input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
-		 required /><br>
-		<label for="scope">Competencia</label> <input type="text" [(ngModel)]="project.scope" id='scope' name="scope"
-		 placeholder="'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS'" required><br>
-		<label for="status">Estado</label> <input type="text" [(ngModel)]="project.status" id='status' name="status"
-		 placeholder="'RECHAZADO', 'ENVIADO', 'ACEPTADO' " required><br>
-		<label for="startDate">Fecha de inicio</label> <input type="text" [(ngModel)]="project.startDate" id='startDate' name="startDate"
-		 required><br>
-		<label for="endDate">Fecha de fin</label> <input type="text" [(ngModel)]="project.endDate" id='endDate' name="endDate"
-		 required><br>
-		<label for="amount">Importe</label> <input type="text" [(ngModel)]="project.amount" id='amount' name="amount"
-		 required><br>
-		<label for="relatedPublications">Publicaciones relacionadas</label> <input type="text" [(ngModel)]="project.relatedPublications"
-		 id='relatedPublications' name="relatedPublications" required><br>
+		<label for="reference">Referencia</label>
+		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference" required #reference='ngModel'>
+		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+			<div *ngIf="reference.errors.required" class="invalid-feedback">La referencia es necesaria</div>
+		</div>
+		<br>
+
+
+		<label for="scope">Competencia</label>
+		<select [(ngModel)]='project.scope' id='scope' name='scope' required #scope='ngModel' class="custom-select">
+			<option value="REGIONAL">Regional</option>
+			<option value="NACIONAL">Nacional</option>
+			<option value="EUROPEO">Europeo</option>
+			<option value="OTROS">Otros</option>
+		</select>
+		<div *ngIf="scope.invalid && (scope.dirty || scope.touched)" class="alert alert-danger">
+			<div *ngIf="scope.errors.required" class="invalid-feedback">La competencia es necesaria</div>
+		</div>
+		<br>
+
+
+		<label for="status">Estado</label>
+		<select [(ngModel)]='project.status' id='status' name='status' required #status='ngModel' class="custom-select">
+			<option value="ENVIADO">Enviado</option>
+			<option value="RECHAZADO">Rechazado</option>
+			<option value="ACEPTADO">Aceptado</option>
+		</select>
+		<div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+			<div *ngIf="status.errors.required" class="invalid-feedback">El estado es necesario</div>
+		</div>
+		<br>
+
+
+		<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
+		<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate' name="startDate"
+		 required #startDate='ngModel' />
+		<span class="badge">
+			<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+		</span>
+		<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
+			<div *ngIf="startDate.errors.required" class="invalid-feedback">La fecha de inicio es necesaria</div>
+		</div>
+		<br>
+
+
+		<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
+		<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
+		 required #endDate='ngModel' #endDate="formControl" />
+		<span class="badge">
+			<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+		</span>
+		<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
+			<div *ngIf="endDate.errors.required" class="invalid-feedback">La fecha de fin es necesaria</div>
+		</div>
+
+		<br>
+		<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)" class="cross-validation-error-message alert alert-danger">
+			<span>La fecha de inicio no puede ser posterior a la de fin.</span>
+		</div>
+
+
+		<label for="amount">Importe</label>
+		<span class="badge">
+			<span class="input-group-text">€</span>
+		</span>
+		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel'>
+		<span class="badge">
+			<span class="input-group-text">.00</span>
+		</span>
+		<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
+			<div *ngIf="amount.errors.required" class="invalid-feedback">El importe es necesario</div>
+		</div>
+		<br>
+
+
+		<!-- Como no se han implementado las publicaciones se quedará como input de texto -->
+		<!-- TODO: Convertir en select -->
+		<label for="relatedPublications">Publicaciones relacionadas</label>
+		<input type="text" [(ngModel)]="project.relatedPublications" id='relatedPublications' name="relatedPublications"
+		 #relatedPublications='ngModel'>
+		<div *ngIf="relatedPublications.invalid && (relatedPublications.dirty || relatedPublications.touched)" class="alert alert-danger">
+
+		</div>
+		<br>
+
+
+		<!-- Como no se han implementado las herramientas se quedará como input de texto -->
+		<!-- TODO: Convertir en select -->
 		<label for="relatedTools">Herramientas relacionadas</label> <input type="text" [(ngModel)]="project.relatedTools" id='relatedTools'
-		 name="relatedTools" required><br>
-		<button type="submit" id="submitForm" [disabled]="!formProject.form.valid">Enviar</button>
+		 name="relatedTools" #relatedTools='ngModel'>
+		<div *ngIf="relatedTools.invalid && (relatedTools.dirty || relatedTools.touched)" class="alert alert-danger">
+
+		</div>
+		<br>
+
+		
+		<button type="submit" class="btn btn-primary" id="submitForm" [disabled]="!formProject.form.valid || formProject.errors">Enviar</button>
 	</form>
 </fieldset>
 

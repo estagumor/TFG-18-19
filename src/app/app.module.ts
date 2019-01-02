@@ -12,6 +12,7 @@ import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { StartDateLimitationDirective } from './components/shared/start-date-limitation.directive';
 
 @NgModule({
   declarations: [
@@ -20,10 +21,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ProjectsComponent,
     InvestigationProjectComponent,
     ContractComponent,
-    NetComponent
+    NetComponent,
+    StartDateLimitationDirective,
   ],
   imports: [
-    NgbModule.forRoot(),
+    NgbModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -32,6 +34,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [StartDateLimitationDirective],
 })
 export class AppModule {}

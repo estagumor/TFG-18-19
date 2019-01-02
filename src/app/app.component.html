@@ -6,7 +6,31 @@
   </h1>
 </div>
 
-<div class="row">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Proyectos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <button class="dropdown-item" [routerLink]="['/projects']" routerLinkActive="active" >Proyectos publicos</button>
+              <button class="dropdown-item" [routerLink]="['/contracts']" routerLinkActive="active" >Contratos</button>
+              <button class="dropdown-item" [routerLink]="['/nets']" routerLinkActive="active" >Redes</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<!-- <div class="row">
   <div class="col">
     <div ngbDropdown class="d-inline-block">
 			<button class="dropdownBasic" id="dropdownBasic1" [routerLink]="['/home']" routerLinkActive="router-link-active" >Inicio</button>
@@ -19,22 +43,7 @@
       </div>
     </div>
   </div>
-</div>
-
-<!--
-<div class="panel panel-primary">
-<div class="panel-heading">Links</div>
-<div class="panel-body">
-<nav>
-	<a routerLink='/home' routerLinkActive='active'>Inicio</a><br>
-	<a routerLink='/projects' routerLinkActive='active'>Proyectos</a><br>
-	<a routerLink='/contracts' routerLinkActive='active'>Contratos</a><br>
-	<a routerLink='/nets' routerLinkActive='active'>Redes</a><br>
-	<a routerLink='/investigationProjects' routerLinkActive='active'>Proyectos de investigacion</a><br>
-</nav>
-</div>
-</div>
--->
+</div> -->
 <br>
 <router-outlet></router-outlet>
 </div>

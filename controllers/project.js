@@ -7,8 +7,8 @@ var controller = {
 
 	saveProject : function(req, res) { // Metodo para crear proyectos
 		var project = new Project();
-
 		var params = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
+		
 		project.researchTeam = params.researchTeam;
 		project.workTeam = params.workTeam;
 		project.hiredStaff = params.hiredStaff;
@@ -19,8 +19,10 @@ var controller = {
 		project.scope = params.scope;
 		project.status = params.status;
 		project.sponsor = params.sponsor;
-		project.startDate = params.startDate;
-		project.endDate = params.endDate;
+		var startDate = params.startDate;
+		project.startDate = startDate["month"]+"/"+startDate["day"]+"/"+startDate["year"];
+		var endDate = params.endDate;
+		project.endDate = endDate["month"]+"/"+endDate["day"]+"/"+endDate["year"];
 		project.amount = params.amount;
 		project.relatedPublications = params.relatedPublications;
 		project.relatedTools = params.relatedTools;
