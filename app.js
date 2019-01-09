@@ -31,6 +31,7 @@ app.use('/api', project_routes);
 app.use('/api', investigation_routes);
 app.use('/api', contract_routes);
 app.use('/api', net_routes);
+// Toda aquella url que no pertenezca a la api la redirige al index html donde el Router de Angular se encarga de redirigir
 app.all('*', (req, res) => {  
     res.status(200).sendFile(__dirname + '/dist/index.html');  
   });  
