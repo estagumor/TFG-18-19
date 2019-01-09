@@ -31,6 +31,9 @@ app.use('/api', project_routes);
 app.use('/api', investigation_routes);
 app.use('/api', contract_routes);
 app.use('/api', net_routes);
+app.all('*', (req, res) => {  
+    res.status(200).sendFile(__dirname + '/dist/index.html');  
+  });  
 
 // exportar
 module.exports = app;
