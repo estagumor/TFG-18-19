@@ -3,7 +3,7 @@ import { browser, by, element, until } from 'protractor';
 export class AppPage {
 
   public navigateTo() {
-    return browser.get('/');
+    return browser.get('/projects');
   }
 
   public enterSearchInput(text: string) {
@@ -11,10 +11,13 @@ export class AppPage {
       .sendKeys(text);
   }
 
-  public getSearchResultItems() {
-    const condition = until.elementsLocated(by.css('.search-results .search-result-item'));
+  public getListedtItems() {
+    var condition = element.all(by.tagName('li'))
+    return condition;
+  }
 
-    return browser.wait(condition, 5000);
+  public clickList(){
+    return element(by.id('listButton')).click()
   }
 
 }

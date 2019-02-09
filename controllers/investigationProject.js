@@ -9,12 +9,11 @@ var controller = {
 		var project = new InvestigationProject();
 
 		var params = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
-		console.log(params);
 		project.researchTeam = params.researchTeam;
 		project.workTeam = params.workTeam;
 		project.hiredStaff = params.hiredStaff;
 		project.title = params.title;
-		project.descripton = params.description;
+		project.description = params.description;
 		project.leader = params.leader;
 		project.reference = params.reference;
 		project.scope = params.scope;
@@ -93,7 +92,6 @@ var controller = {
 
 	deleteProject: function(req, res){
 		var projectId = req.params.id;
-		console.log(projectId);
 		InvestigationProject.findByIdAndDelete(projectId, (err, projectDeleted) => {
 			if(err) return res.status(500).send({message: 'No se ha podido borrar el proyecto'});
 
