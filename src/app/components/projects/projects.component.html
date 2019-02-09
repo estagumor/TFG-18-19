@@ -2,7 +2,22 @@
 <fieldset>
 	<legend>Creacion de proyectos</legend>
 	<form #formProject="ngForm" (ngSubmit)="onSubmit()">
-		<label for="researchTeam">Equipo de investigacion</label> <input type="text" [(ngModel)]="project.researchTeam" name="researchTeam"><br>
+		<label for="researchTeam">Equipo de investigacion</label>
+		<mat-form-field>
+			<mat-chip-list #rTeam>
+				<mat-chip *ngFor="let res of finalResearchers" [selectable] = "researchSelectable" [removable] = "researchRemovable" (removed) ="researchRemove(res)"> 
+					{{ res }}
+				<mat-icon matChipRemove *ngIf="researchRemovable">cancel</mat-icon>
+				</mat-chip>
+			<input placeholder="New researcher..." #researcherInput [formControl]="researchControl" [matAutocomplete]="auto" [matChipInputFor] = "rTeam" [matChipInputSeparatorKeyCodes] = "researchSeparatorKeysCodes" [matChipInputAddOnBlur] = "researchAddOnBlur" (matChipInputTokenEnd) = "researchAdd($event)"/>
+			</mat-chip-list>
+		</mat-form-field> <br>
+		<mat-autocomplete #auto="matAutocomplete" (optionSelected)="researchSelected($event)">
+				<mat-option *ngFor="let res of researchers" [value]="res">
+					{{ res }}
+				</mat-option>
+		</mat-autocomplete>
+		{{ finalResearchers }} <br>
 		<label for="workTeam">Equipo de trabajo</label> <input type="text" [(ngModel)]="project.workTeam" name="workTeam"><br>
 		<label for="hiredStaff">Personal contratado</label> <input type="text" [(ngModel)]="project.hiredStaff" name="hiredStaff"><br>
 		<label for="title">Titulo</label> <input type="text" [(ngModel)]="project.title" name="title"><br>

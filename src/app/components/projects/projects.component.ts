@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef,ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
@@ -7,6 +7,9 @@ import 'rxjs/add/operator/map';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
 
 @Component({
   selector: 'app-projects',
@@ -21,9 +24,18 @@ export class ProjectsComponent implements OnInit {
   public projectId: any;
   public projectId2: any;
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
-  public myControl = new FormControl(''); // El formulario
-  //public options: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
+  public researchControl = new FormControl(); // El formulario
+  public researchers: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
+  public finalResearchers: string[] = ['Ejemplo'];
+  public researchVisible = true;
+  public researchSelectable = true;
+  public researchRemovable = true;
+  public researchAddOnBlur = true;
+  public researchSeparatorKeysCodes: number[] = [ENTER,COMMA];
   //public filteredOptions: Observable<string[]>;
+
+  @ViewChild('researcherInput') researcherInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') MatAutocomplete: MatAutocomplete;
 
   constructor(
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
@@ -33,8 +45,39 @@ export class ProjectsComponent implements OnInit {
     this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
   }
 
-  ngOnInit() {
+  researchAdd(event: MatChipInputEvent): void {
+    if(!this.MatAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
 
+      if ((value || '').trim()) {
+        this.finalResearchers.push(value.trim());
+      }
+
+      if (input) {
+        input.value = '';
+      }
+
+      this.researchControl.setValue(null);
+    }
+    console.log(this.finalResearchers);
+  }
+
+  researchRemove(researcher: string): void {
+    const index = this.finalResearchers.indexOf(researcher);
+
+    if (index >=0) {
+      this.finalResearchers.splice(index, 1);
+    }
+  }
+
+  researchSelected(event: MatAutocompleteSelectedEvent): void {
+    this.finalResearchers.push(event.option.viewValue);
+    this.researcherInput.nativeElement.value = '';
+    this.researchControl.setValue(null);
+  }
+
+  ngOnInit() {
 
     /* this.filteredOptions = this.myControl.valueChanges // Para el autocompletado
       .pipe(
@@ -51,7 +94,7 @@ export class ProjectsComponent implements OnInit {
 
   onSubmit() {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
-    this.project.researchTeam = this.project.researchTeam.toString().split(",");
+    this.project.researchTeam = this.finalResearchers;
     this.project.workTeam = this.project.workTeam.toString().split(",");
     this.project.hiredStaff = this.project.hiredStaff.toString().split(",");
     this.project.leader = this.project.leader.toString().split(",");

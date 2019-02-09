@@ -1,7 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Para formularios y el autocompletado(reactive)
+import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import {AppComponent} from './app.component';
@@ -28,7 +30,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatChipsModule,
+    MatIconModule
   ],
   providers: [
   ],
