@@ -20,16 +20,12 @@ export const dateValidator: ValidatorFn = (control: FormGroup): ValidationErrors
   if (startDate == null || endDate == null)
     return null;
   else {
-    console.log("s:" + startDate + " e:" + endDate);
     let startDateValue = startDate.value;
     let endDateValue = endDate.value;
     if (startDateValue == null || endDateValue == null)
       return null;
     var formattedStartDate = new Date(startDateValue["month"] + "/" + startDateValue["day"] + "/" + startDateValue["year"]);
     var formattedEndDate = new Date(endDateValue["month"] + "/" + endDateValue["day"] + "/" + endDateValue["year"]);
-    console.log(control);
-    console.log("s:" + startDateValue + " e:" + endDateValue);
-    console.log("s:" + formattedStartDate + " e:" + formattedEndDate);
 
     return formattedStartDate > formattedEndDate ? { 'badDates': true } : null;
   }

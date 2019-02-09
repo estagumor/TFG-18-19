@@ -26,13 +26,13 @@ export class ProjectsComponent implements OnInit {
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
   public researchControl = new FormControl(); // El formulario
   public researchers: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
-  public finalResearchers: string[] = ['Ejemplo'];
+  public finalResearchers: string[] = [];
   public researchVisible = true;
   public researchSelectable = true;
   public researchRemovable = true;
   public researchAddOnBlur = true;
   public researchSeparatorKeysCodes: number[] = [ENTER,COMMA];
-  //public filteredOptions: Observable<string[]>;
+  public filteredOptions: Observable<string[]>;
 
   @ViewChild('researcherInput') researcherInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
@@ -60,7 +60,6 @@ export class ProjectsComponent implements OnInit {
 
       this.researchControl.setValue(null);
     }
-    console.log(this.finalResearchers);
   }
 
   researchRemove(researcher: string): void {
@@ -78,18 +77,19 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    /* this.filteredOptions = this.myControl.valueChanges // Para el autocompletado
+    this.filteredOptions = this.researchControl.valueChanges // Para el autocompletado
       .pipe(
       startWith(''),
       map(value => this._filter(value))
-      ); */
+      ); 
   }
 
-  /*  private _filter(value: string): string[] { // Para el autocompletado
-     const filterValue = value.toLowerCase();
- 
-     return this.options.filter(option => option.toLowerCase().includes(filterValue));
-   } */
+  private _filter(value: string): string[] { // Para el autocompletado
+      if(value){
+        const filterValue = value.toLowerCase();
+        return this.researchers.filter(option => option.toLowerCase().includes(filterValue)).filter(option => !this.finalResearchers.includes(option));
+      }
+   } 
 
   onSubmit() {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado

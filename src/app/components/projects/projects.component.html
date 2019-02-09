@@ -15,17 +15,22 @@
 		<label for="researchTeam">Equipo de investigacion</label>
 		<mat-form-field>
 			<mat-chip-list #rTeam>
-				<mat-chip *ngFor="let res of finalResearchers" [selectable] = "researchSelectable" [removable] = "researchRemovable" (removed) ="researchRemove(res)"> 
+				<mat-chip *ngFor="let res of finalResearchers" [selectable]="researchSelectable" [removable]="researchRemovable"
+				 (removed)="researchRemove(res)">
 					{{ res }}
-				<mat-icon matChipRemove *ngIf="researchRemovable">cancel</mat-icon>
+					<mat-icon matChipRemove *ngIf="researchRemovable">cancel</mat-icon>
 				</mat-chip>
-			<input placeholder="New researcher..." #researcherInput [formControl]="researchControl" [matAutocomplete]="auto" [matChipInputFor] = "rTeam" [matChipInputSeparatorKeyCodes] = "researchSeparatorKeysCodes" [matChipInputAddOnBlur] = "researchAddOnBlur" (matChipInputTokenEnd) = "researchAdd($event)"/>
+				<div class="divAutocomplete">
+					<input #researcherInput [formControl]="researchControl" [matAutocomplete]="auto" [matChipInputFor]="rTeam"
+					 [matChipInputSeparatorKeyCodes]="researchSeparatorKeysCodes" [matChipInputAddOnBlur]="researchAddOnBlur"
+					 (matChipInputTokenEnd)="researchAdd($event)" />
+				</div>
 			</mat-chip-list>
 		</mat-form-field> <br>
 		<mat-autocomplete #auto="matAutocomplete" (optionSelected)="researchSelected($event)">
-				<mat-option *ngFor="let res of researchers" [value]="res">
-					{{ res }}
-				</mat-option>
+			<mat-option *ngFor="let res of filteredOptions | async" [value]="res">
+				{{ res }}
+			</mat-option>
 		</mat-autocomplete>
 		<br>
 
@@ -39,19 +44,20 @@
 		<label for="hiredStaff">Personal contratado</label>
 		<input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff' name="hiredStaff" required><br>
 
+		<div class="requiredInputs">
+			<label for="title">Titulo</label>
+			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel'>
+			<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+				<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
+			</div>
+			<br>
 
-		<label for="title">Titulo</label>
-		<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel'>
-		<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
-			<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
-		</div>
-		<br>
 
-
-		<label for="description">Descripcion</label>
-		<input type="text" [(ngModel)]="project.description" id='description' name="description" required #description='ngModel'>
-		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
-			<div *ngIf="description.errors.required" class="invalid-feedback">La descripción es necesaria</div>
+			<label for="description">Descripcion</label>
+			<input type="text" [(ngModel)]="project.description" id='description' name="description" required #description='ngModel'>
+			<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+				<div *ngIf="description.errors.required" class="invalid-feedback">La descripción es necesaria</div>
+			</div>
 		</div>
 		<br>
 
@@ -63,81 +69,81 @@
 			<div *ngIf="leader.errors.required" class="invalid-feedback">El responsable es necesario</div>
 		</div>
 
+		<div class="requiredInputs">
+			<label for="reference">Referencia</label>
+			<input type="text" [(ngModel)]="project.reference" id='reference' name="reference" required #reference='ngModel'>
+			<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+				<div *ngIf="reference.errors.required" class="invalid-feedback">La referencia es necesaria</div>
+			</div>
+			<br>
 
-		<label for="reference">Referencia</label>
-		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference" required #reference='ngModel'>
-		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
-			<div *ngIf="reference.errors.required" class="invalid-feedback">La referencia es necesaria</div>
+
+			<label for="scope">Competencia</label>
+			<select [(ngModel)]='project.scope' id='scope' name='scope' required #scope='ngModel' class="custom-select">
+				<option value="REGIONAL">Regional</option>
+				<option value="NACIONAL">Nacional</option>
+				<option value="EUROPEO">Europeo</option>
+				<option value="OTROS">Otros</option>
+			</select>
+			<div *ngIf="scope.invalid && (scope.dirty || scope.touched)" class="alert alert-danger">
+				<div *ngIf="scope.errors.required" class="invalid-feedback">La competencia es necesaria</div>
+			</div>
+			<br>
+
+
+			<label for="status">Estado</label>
+			<select [(ngModel)]='project.status' id='status' name='status' required #status='ngModel' class="custom-select">
+				<option value="ENVIADO">Enviado</option>
+				<option value="RECHAZADO">Rechazado</option>
+				<option value="ACEPTADO">Aceptado</option>
+			</select>
+			<div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+				<div *ngIf="status.errors.required" class="invalid-feedback">El estado es necesario</div>
+			</div>
+			<br>
+
+
+			<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
+			<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate' name="startDate"
+			 required #startDate='ngModel' />
+			<span class="badge">
+				<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+			</span>
+			<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
+				<div *ngIf="startDate.errors.required" class="invalid-feedback">La fecha de inicio es necesaria</div>
+			</div>
+			<br>
+
+
+			<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
+			<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
+			 required #endDate='ngModel' #endDate="formControl" />
+			<span class="badge">
+				<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+			</span>
+			<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
+				<div *ngIf="endDate.errors.required" class="invalid-feedback">La fecha de fin es necesaria</div>
+			</div>
+
+			<br>
+			<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)" class="cross-validation-error-message alert alert-danger">
+				<span>La fecha de inicio no puede ser posterior a la de fin.</span>
+			</div>
+
+
+			<label for="amount">Importe</label>
+			<span class="badge">
+				<span class="input-group-text">€</span>
+			</span>
+			<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel'>
+			<span class="badge">
+				<span class="input-group-text">.00</span>
+			</span>
+			<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
+				<div *ngIf="amount.errors.required" class="invalid-feedback">El importe es necesario</div>
+			</div>
+			<br>
 		</div>
-		<br>
-
-
-		<label for="scope">Competencia</label>
-		<select [(ngModel)]='project.scope' id='scope' name='scope' required #scope='ngModel' class="custom-select">
-			<option value="REGIONAL">Regional</option>
-			<option value="NACIONAL">Nacional</option>
-			<option value="EUROPEO">Europeo</option>
-			<option value="OTROS">Otros</option>
-		</select>
-		<div *ngIf="scope.invalid && (scope.dirty || scope.touched)" class="alert alert-danger">
-			<div *ngIf="scope.errors.required" class="invalid-feedback">La competencia es necesaria</div>
-		</div>
-		<br>
-
-
-		<label for="status">Estado</label>
-		<select [(ngModel)]='project.status' id='status' name='status' required #status='ngModel' class="custom-select">
-			<option value="ENVIADO">Enviado</option>
-			<option value="RECHAZADO">Rechazado</option>
-			<option value="ACEPTADO">Aceptado</option>
-		</select>
-		<div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
-			<div *ngIf="status.errors.required" class="invalid-feedback">El estado es necesario</div>
-		</div>
-		<br>
-
-
-		<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
-		<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate' name="startDate"
-		 required #startDate='ngModel' />
-		<span class="badge">
-			<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
-		</span>
-		<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
-			<div *ngIf="startDate.errors.required" class="invalid-feedback">La fecha de inicio es necesaria</div>
-		</div>
-		<br>
-
-
-		<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
-		<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
-		 required #endDate='ngModel' #endDate="formControl" />
-		<span class="badge">
-			<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
-		</span>
-		<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
-			<div *ngIf="endDate.errors.required" class="invalid-feedback">La fecha de fin es necesaria</div>
-		</div>
-
-		<br>
-		<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)" class="cross-validation-error-message alert alert-danger">
-			<span>La fecha de inicio no puede ser posterior a la de fin.</span>
-		</div>
-
-
-		<label for="amount">Importe</label>
-		<span class="badge">
-			<span class="input-group-text">€</span>
-		</span>
-		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel'>
-		<span class="badge">
-			<span class="input-group-text">.00</span>
-		</span>
-		<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
-			<div *ngIf="amount.errors.required" class="invalid-feedback">El importe es necesario</div>
-		</div>
-		<br>
-
 
 		<!-- Como no se han implementado las publicaciones se quedará como input de texto -->
 		<!-- TODO: Convertir en select -->
@@ -159,7 +165,7 @@
 		</div>
 		<br>
 
-		
+
 		<button type="submit" class="btn btn-primary" id="submitForm" [disabled]="!formProject.form.valid || formProject.errors">Enviar</button>
 	</form>
 </fieldset>
