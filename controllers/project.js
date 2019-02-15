@@ -8,31 +8,34 @@ var controller = {
 	saveProject : function(req, res) { // Metodo para crear proyectos
 		var project = new Project();
 		var params = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
-		
-		project.researchTeam = params.researchTeam;
-		project.workTeam = params.workTeam;
-		project.hiredStaff = params.hiredStaff;
-		project.title = params.title;
-		project.description = params.description;
-		project.leader = params.leader;
-		project.reference = params.reference;
-		project.scope = params.scope;
-		project.status = params.status;
-		project.sponsor = params.sponsor;
-		var startDate = params.startDate;
-		project.startDate = startDate["month"]+"/"+startDate["day"]+"/"+startDate["year"];
-		var endDate = params.endDate;
-		project.endDate = endDate["month"]+"/"+endDate["day"]+"/"+endDate["year"];
-		project.amount = params.amount;
-		project.relatedPublications = params.relatedPublications;
-		project.relatedTools = params.relatedTools;
+		if(params == undefined) { //No se ha creado el proyecto
+			return res.status(404).send({message : "No se puede guardar un proyecto que no existe"});
+		} else {
+			project.researchTeam = params.researchTeam;
+			project.workTeam = params.workTeam;
+			project.hiredStaff = params.hiredStaff;
+			project.title = params.title;
+			project.description = params.description;
+			project.leader = params.leader;
+			project.reference = params.reference;
+			project.scope = params.scope;
+			project.status = params.status;
+			project.sponsor = params.sponsor;
+			var startDate = params.startDate;
+			project.startDate = startDate["month"]+"/"+startDate["day"]+"/"+startDate["year"];
+			var endDate = params.endDate;
+			project.endDate = endDate["month"]+"/"+endDate["day"]+"/"+endDate["year"];
+			project.amount = params.amount;
+			project.relatedPublications = params.relatedPublications;
+			project.relatedTools = params.relatedTools;
 
-		project.save((err, projectStored) => { // Intenta guardarlo y segun vaya responde
-			if (err) return res.status(500).send({message : "Error en la peticion"});
+			project.save((err, projectStored) => { // Intenta guardarlo y segun vaya responde
+				if (err) return res.status(500).send({message : "Error en la peticion"});
 
-			if (!projectStored) return res.status(404).send({message : "No se ha podido guardar el proyecto"});
-			return res.status(200).send({project: projectStored});
-		});
+				if (!projectStored) return res.status(404).send({message : "No se ha podido guardar el proyecto"});
+				return res.status(200).send({project: projectStored});
+			});
+		}
 	},
 
 	getProject: function(req, res){
