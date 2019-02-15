@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Para formula
 import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import {APP_BASE_HREF} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
@@ -39,8 +39,7 @@ import { StartDateLimitationDirective } from './components/shared/start-date-lim
     MatChipsModule,
     MatIconModule
   ],
-  providers: [
-  ],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   bootstrap: [AppComponent],
   exports: [StartDateLimitationDirective],
 })
