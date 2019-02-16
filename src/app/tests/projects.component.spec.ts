@@ -9,7 +9,7 @@ import { ProjectService } from '../services/project.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule } from '@angular/material';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 describe("Project's component", () => {
