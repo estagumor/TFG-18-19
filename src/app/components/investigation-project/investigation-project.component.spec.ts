@@ -20,8 +20,8 @@ describe('InvestigationProjectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InvestigationProjectComponent ],
-      imports: [ReactiveFormsModule, FormsModule,HttpClientModule, RouterModule.forRoot([])],
-      providers: [InvestigationProjectService]
+      imports: [ReactiveFormsModule, FormsModule,HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, MatIconModule, RouterModule.forRoot([])],
+      providers: [{InvestigationProjectService, provide: APP_BASE_HREF, useValue: '/'}]
     })
     .compileComponents();
   }));
