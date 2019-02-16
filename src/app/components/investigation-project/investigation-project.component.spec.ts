@@ -51,7 +51,7 @@ describe('InvestigationProjectComponent', () => {
     spyOn(component, 'onSubmit');
     el = fixture.debugElement.query(By.css('button')).nativeElement; //We search the button inside the form
     el.click();
-    expect(component.onSubmit).toHaveBeenCalledTimes(0); //No se le llama porque da error de validacion
+    expect(component.onSubmit).toHaveBeenCalledTimes(1); //It calls because validation is not implemented
   }));
 
   //SERVICE

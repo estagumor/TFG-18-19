@@ -26,7 +26,7 @@ describe("Project's component", () => {
     // Set the component configuration and add it the necessary imports
     TestBed.configureTestingModule({
       declarations: [ProjectsComponent],
-      imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, MatIconModule, RouterModule.forRoot([])],
+      imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
       .compileComponents();
