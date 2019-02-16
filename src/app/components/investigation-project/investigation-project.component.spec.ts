@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule} from '@angular/common/http';
 import { InvestigationProjectComponent } from './investigation-project.component';
 import { APP_BASE_HREF } from '@angular/common';
-import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule} from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -20,7 +19,7 @@ describe('InvestigationProjectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InvestigationProjectComponent ],
-      imports: [ReactiveFormsModule, FormsModule,HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, MatIconModule, RouterModule.forRoot([])],
+      imports: [ReactiveFormsModule, FormsModule,HttpClientModule, RouterModule.forRoot([])],
       providers: [{InvestigationProjectService, provide: APP_BASE_HREF, useValue: '/'}]
     })
     .compileComponents();

@@ -8,7 +8,7 @@ import { DebugElement } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-
+import { MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule } from '@angular/material';
 
 import { RouterModule } from '@angular/router';
 
@@ -26,7 +26,7 @@ describe("Project's component", () => {
     // Set the component configuration and add it the necessary imports
     TestBed.configureTestingModule({
       declarations: [ProjectsComponent],
-      imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, RouterModule.forRoot([])],
+      imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, MatIconModule, RouterModule.forRoot([])],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
       .compileComponents();
