@@ -36,7 +36,7 @@
     "jquery": "^3.3.1",
     "mocha": "^5.2.0",
     "mongod": "^2.0.0",
-    "mongoose": "^5.3.13",
+    "mongoose": "^5.4.13",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "zone.js": "~0.8.26"
@@ -59,6 +59,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "mongo-unit": "^1.4.4",
     "npm": "^6.4.1",
     "protractor": "^5.4.1",
     "protractor-cucumber-framework": "^6.1.1",

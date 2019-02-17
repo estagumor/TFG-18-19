@@ -1,10 +1,54 @@
 const chai = require("chai");
 const chai_http = require("chai-http");
-const expect = chai.expect;
+//const expect = chai.expect;
 //const sinon = require("sinon");
 
 chai.use(chai_http);
 url = 'http://localhost:3700/projects';
+
+const expect = require('chai').expect
+const mongoose = require('mongoose')
+const mongoUnit = require('../index') //?¿?¿?¿
+const service = require('./../services/project.service.ts') 
+const testMongoUrl = process.env.MONGO_URL
+
+describe('**Testing the BD**', () => {
+ const testData = require('./testData.json');
+ beforeEach(() => mongoUnit.initDb(testMongoUrl, testData))
+ afterEach(() => mongoUnit.drop())
+
+ it('should find all projects', () => {
+   return service.getProjects()
+     .then(projects => {
+       expect(projects.length).to.equal(1)
+       expect(projects[0].title).to.equal('Proyecto publico')
+     });
+ });
+
+ it('should create new project', () => {
+   return service.createV2({'researchTeam': "Jaja,jeje", 'workTeam': "Jeje", 'hiredStaff': "", 'title': "Jaja jeje", 'description': "Descripcion", 'leader': "Jaja", 'reference': "", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "", 'startDate': "05/05/2015", 'endDate': "08/08/2028", 'amount': 10000, 'relatedPublications': "", 'relatedTools': ""  })
+     .then(project => {
+       expect(project.title).to.equal('Jaja jeje')
+       expect(project.workTeam).to.equal('Jeje')
+       //Se haría con todo
+     })
+     .then(() => service.getProjects())
+     .then(projects => {
+       expect(projects.length).to.equal(2)
+       expect(projects[1].title).to.equal('Jaja jeje')
+     })
+ })
+
+ it('should remove task', () => {
+   return service.getTasks()
+     .then(tasks => tasks[0]._id)
+     .then(taskId => service.deleteTask(taskId))
+     .then(() => service.getTasks())
+     .then(tasks => {
+       expect(tasks.length).to.equal(0)
+     })
+ })
+})
 
 describe("**Saving a public project**", function() {
     it("Testing chai-http. Index (request)", function() {
