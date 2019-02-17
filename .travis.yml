@@ -13,6 +13,7 @@ before_script:
 - npm install
 script:
 - ng test --watch=false
+- mocha src/app/tests
 deploy:
   provider: heroku
   api_key:
