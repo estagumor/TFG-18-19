@@ -7,7 +7,7 @@
 }
 
 .input{
-	border: 1px solid !important;
+    border: 1px solid !important;
 }
 
 .ng-valid[required], .ng-valid.required  {
@@ -24,6 +24,22 @@ body{
 
 label {
     padding: 15px;
+    width: 250px;
+}
+
+input[type=text] {
+    width: 70%;
+    /*border-radius: 5px;*/
+}
+
+button[type=submit] {
+    margin: 15px;
+}
+
+fieldset {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 20px;
 }
 
 .custom-select {
@@ -81,4 +97,6 @@ border-color: #4BBF73;
 .divAutocomplete{
     box-sizing: border-box;
     border-left: 5px solid; 
+    border-color: brown;
+    background-color: white;
 }
