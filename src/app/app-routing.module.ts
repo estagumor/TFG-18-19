@@ -5,6 +5,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
 import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
+import { ScopusComponent } from './components/scopus/scopus.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
   { path: 'nets', component: NetComponent },
+  { path: 'scopus', component: ScopusComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

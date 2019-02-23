@@ -15,6 +15,7 @@ import { NetComponent } from './components/net/net.component';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StartDateLimitationDirective } from './components/shared/start-date-limitation.directive';
+import { ScopusComponent } from './components/scopus/scopus.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { StartDateLimitationDirective } from './components/shared/start-date-lim
     ContractComponent,
     NetComponent,
     StartDateLimitationDirective,
+    ScopusComponent,
   ],
   imports: [
     NgbModule,
