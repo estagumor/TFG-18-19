@@ -8,14 +8,17 @@ import {ScopusService} from '../../services/scopus.service';
   providers: [ScopusService]
 })
 export class ScopusComponent implements OnInit {
-
+  public res: String; 
   constructor(private _service: ScopusService) { }
 
   ngOnInit() {
   }
 
   getAuthor(){
-    this._service.getAuthor().subscribe((data) => console.log(data))
+    this._service.getAuthor().subscribe((data) => {
+      console.log(data)
+      this.res = data;
+    })
   }
 
 }
