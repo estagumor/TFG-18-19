@@ -1,7 +1,16 @@
 <h2>Proyectos</h2>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#fecha").css("height", $("#endDate").css("height"))
+		$("#fecha").css("height", $("#endDate").css("height"));
+		$('.btn-filter').on('click', function () {
+			var $target = $(this).data('target');
+			if ($target != 'all') {
+				$('.table tr').css('display', 'none');
+				$('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+			} else {
+				$('.table tr').css('display', 'none').fadeIn('slow');
+			}
+		});
 	});
 	$(window).on("load", function () {
 		$("#fecha").css("height", "27px");
@@ -16,14 +25,14 @@
 		<mat-form-field>
 			<mat-chip-list #rTeam>
 				<mat-chip *ngFor="let res of finalResearchers" [selectable]="selectable" [removable]="removable"
-				 (removed)="researchRemove(res)">
+					(removed)="researchRemove(res)">
 					{{ res }}
 					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 				</mat-chip>
 				<div class="divAutocomplete">
-					<input #researcherInput [formControl]="researchControl" [matAutocomplete]="autoResearchers" [matChipInputFor]="rTeam"
-					 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-					 (matChipInputTokenEnd)="researchAdd($event)" />
+					<input #researcherInput [formControl]="researchControl" [matAutocomplete]="autoResearchers"
+						[matChipInputFor]="rTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="researchAdd($event)" />
 				</div>
 			</mat-chip-list>
 		</mat-form-field> <br>
@@ -39,14 +48,14 @@
 		<mat-form-field>
 			<mat-chip-list #wTeam>
 				<mat-chip *ngFor="let resW of finalWorkers" [selectable]="selectable" [removable]="removable"
-				 (removed)="workerRemove(resW)">
+					(removed)="workerRemove(resW)">
 					{{ resW }}
 					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 				</mat-chip>
 				<div class="divAutocomplete">
-					<input #workerInput [formControl]="workerControl" [matAutocomplete]="autoWorkers" [matChipInputFor]="wTeam"
-					 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-					 (matChipInputTokenEnd)="workerAdd($event)" />
+					<input #workerInput [formControl]="workerControl" [matAutocomplete]="autoWorkers"
+						[matChipInputFor]="wTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="workerAdd($event)" />
 				</div>
 			</mat-chip-list>
 		</mat-form-field> <br>
@@ -62,14 +71,14 @@
 		<mat-form-field>
 			<mat-chip-list #hTeam>
 				<mat-chip *ngFor="let resH of finalHireds" [selectable]="selectable" [removable]="removable"
-				 (removed)="hiredRemove(resH)">
+					(removed)="hiredRemove(resH)">
 					{{ resH }}
 					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 				</mat-chip>
 				<div class="divAutocomplete">
-					<input #hiredInput [formControl]="hiredControl" [matAutocomplete]="autoHireds" [matChipInputFor]="hTeam"
-					 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-					 (matChipInputTokenEnd)="hiredAdd($event)" />
+					<input #hiredInput [formControl]="hiredControl" [matAutocomplete]="autoHireds"
+						[matChipInputFor]="hTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="hiredAdd($event)" />
 				</div>
 			</mat-chip-list>
 		</mat-form-field> <br>
@@ -90,7 +99,8 @@
 
 
 			<label for="description">Descripcion</label>
-			<input type="text" [(ngModel)]="project.description" id='description' name="description" required #description='ngModel'>
+			<input type="text" [(ngModel)]="project.description" id='description' name="description" required
+				#description='ngModel'>
 			<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
 				<div *ngIf="description.errors.required" class="invalid-feedback">La descripción es necesaria</div>
 			</div>
@@ -102,14 +112,14 @@
 		<mat-form-field>
 			<mat-chip-list #lTeam>
 				<mat-chip *ngFor="let resL of finalLeaders" [selectable]="selectable" [removable]="removable"
-				 (removed)="leaderRemove(resL)">
+					(removed)="leaderRemove(resL)">
 					{{ resL }}
 					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 				</mat-chip>
 				<div class="divAutocomplete">
-					<input #leaderInput [formControl]="leaderControl" [matAutocomplete]="autoLeaders" [matChipInputFor]="lTeam"
-					 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-					 (matChipInputTokenEnd)="leaderAdd($event)" />
+					<input #leaderInput [formControl]="leaderControl" [matAutocomplete]="autoLeaders"
+						[matChipInputFor]="lTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="leaderAdd($event)" />
 				</div>
 			</mat-chip-list>
 		</mat-form-field> <br>
@@ -126,7 +136,8 @@
 
 		<div class="requiredInputs">
 			<label for="reference">Referencia</label>
-			<input type="text" [(ngModel)]="project.reference" id='reference' name="reference" required #reference='ngModel'>
+			<input type="text" [(ngModel)]="project.reference" id='reference' name="reference" required
+				#reference='ngModel'>
 			<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
 				<div *ngIf="reference.errors.required" class="invalid-feedback">La referencia es necesaria</div>
 			</div>
@@ -147,7 +158,8 @@
 
 
 			<label for="status">Estado</label>
-			<select [(ngModel)]='project.status' id='status' name='status' required #status='ngModel' class="custom-select">
+			<select [(ngModel)]='project.status' id='status' name='status' required #status='ngModel'
+				class="custom-select">
 				<option value="ENVIADO">Enviado</option>
 				<option value="RECHAZADO">Rechazado</option>
 				<option value="ACEPTADO">Aceptado</option>
@@ -159,10 +171,11 @@
 
 
 			<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
-			<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate' name="startDate"
-			 required #startDate='ngModel' />
+			<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate'
+				name="startDate" required #startDate='ngModel' />
 			<span class="badge">
-				<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+				<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar"
+					aria-hidden="true"></span>
 			</span>
 			<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
 				<div *ngIf="startDate.errors.required" class="invalid-feedback">La fecha de inicio es necesaria</div>
@@ -182,17 +195,19 @@
 			<br>
 			-->
 			<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
-			<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
-			 required #endDate='ngModel' #endDate="formControl" />
+			<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate'
+				name="endDate" required #endDate='ngModel' #endDate="formControl" />
 			<span class="badge">
-				<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+				<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar"
+					aria-hidden="true"></span>
 			</span>
 			<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
 				<div *ngIf="endDate.errors.required" class="invalid-feedback">La fecha de fin es necesaria</div>
 			</div>
 
 			<br>
-			<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)" class="cross-validation-error-message alert alert-danger">
+			<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)"
+				class="cross-validation-error-message alert alert-danger">
 				<span>La fecha de inicio no puede ser posterior a la de fin.</span>
 			</div>
 
@@ -201,7 +216,8 @@
 			<span class="badge">
 				<span class="input-group-text">€</span>
 			</span>
-			<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel'>
+			<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0"
+				#amount='ngModel'>
 			<span class="badge">
 				<span class="input-group-text">.00</span>
 			</span>
@@ -234,7 +250,8 @@
 		-->
 
 
-		<button type="submit" class="btn btn-primary" id="submitForm" [disabled]="!formProject.form.valid || formProject.errors">Enviar</button>
+		<button type="submit" class="btn btn-primary" id="submitForm"
+			[disabled]="!formProject.form.valid || formProject.errors">Enviar</button>
 	</form>
 </fieldset>
 
@@ -269,9 +286,57 @@
 
 <fieldset>
 	<legend>Listado de proyectos</legend>
-	<button type="button" class="btn btn-primary" (click)="listar()" id="listButton">Listar</button>
-	<ul *ngFor="let invPro of listado">
-		<li>{{ invPro._id }}</li>
-	</ul>
+	<button type="button" class="btn btn-primary" (click)="listar(true)" id="listPublicProyectsButton">Listar</button>
+	<button type="button" class="btn btn-primary" (click)="listar(false)"
+		id="unlistPublicProyectsButton">Ocultar</button>
+
+	<div class="row" id="listPublicProyectsTable" *ngIf="listado != undefined">
+		<section class="content">
+			<br>
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-success btn-filter"
+									data-target="activo">Activos</button>
+								<button type="button" class="btn btn-warning btn-filter" data-target="3_años">3
+									años</button>
+								<button type="button" class="btn btn-danger btn-filter" data-target="5_años">5
+									años</button>
+								<button type="button" class="btn btn-light btn-filter" data-target="all">Todos</button>
+							</div>
+						</div>
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+									<tr *ngFor="let invPro of listado" [attr.data-status]="getStatus(invPro)">
+										<!--Hacer javascript para averiguarlo-->
+										<td>
+											<div class="media">
+												<div class="media-body">
+													<!--datos-->
+													<span class="media-meta pull-right">{{ invPro.startDate }}</span>
+													<span class="media-meta pull-right"> / </span>
+													<span class="media-meta pull-right">{{ invPro.endDate }}</span>
+													<h4 class="title">
+														{{ invPro.title }}
+														<span
+															[attr.class]="getStatus(invPro)">{{ getStatus(invPro) }}</span>
+														<!--Rellenar una vez tengamos javascript-->
+													</h4>
+													<p class="summary">{{ invPro.scope }} - {{ invPro.reference }}</p>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
 </fieldset>
 <br>

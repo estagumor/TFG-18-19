@@ -281,10 +281,14 @@ export class ProjectsComponent implements OnInit {
     this._service.getProject(reference).subscribe(result => console.log(result));
   }
 
-  listar() {
-    this._service.getProjects().subscribe((lista) => {
-      this.listado = lista;
-    });
+  listar(bool) {
+    if(bool == true) {
+      this._service.getProjects().subscribe((lista) => {
+        this.listado = lista;
+      });
+    } else {
+      this.listado = undefined;
+    }
   }
 
   delete() {
@@ -295,4 +299,16 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  getStatus(project) {
+    const eD = new Date(project.endDate);
+    const now = new Date();
+    var time = now.getFullYear() - eD.getFullYear();
+    if(time <= 0) {
+      return "activo";
+    } else if(time <= 3 && time > 0) {
+      return "tres";
+    } else {
+      return "cinco";
+    }
+  }
 }
