@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 })
 export class ScopusService {
   private url = "https://api.elsevier.com/content/search/scopus?query="
-  private apiKey = "b39c7f016471a774702ff69c180a8bc7"
+  private apiKey = "f7f75a8f1e48b03f87da28cc8eb055b7"
 
   constructor(private _http: HttpClient) { }
 
