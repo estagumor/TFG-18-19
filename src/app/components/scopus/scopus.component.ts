@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ScopusService} from '../../services/scopus.service';
+import { Publication } from 'src/app/models/publication';
 
 @Component({
   selector: 'app-scopus',
@@ -8,7 +9,7 @@ import {ScopusService} from '../../services/scopus.service';
   providers: [ScopusService]
 })
 export class ScopusComponent implements OnInit {
-  public res: String; 
+  public res: Array<Publication>; 
   constructor(private _service: ScopusService) { }
 
   ngOnInit() {
@@ -16,9 +17,13 @@ export class ScopusComponent implements OnInit {
 
   getAuthor(){
     this._service.getAuthor().subscribe((data) => {
-      console.log(data)
       this.res = data;
+      console.log(data)
     })
+  }
+
+  getPubs(){
+    console.log(this._service.getPubs())
   }
 
 }
