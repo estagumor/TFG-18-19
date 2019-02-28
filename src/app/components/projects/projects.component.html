@@ -1,4 +1,5 @@
 <h2>Proyectos</h2>
+<!--
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#fecha").css("height", $("#endDate").css("height"));
@@ -16,6 +17,7 @@
 		$("#fecha").css("height", "27px");
 	});
 </script>
+-->
 <fieldset>
 	<legend>Creacion de proyectos</legend>
 	<form #formProject="ngForm" (ngSubmit)="onSubmit();" (ngSuccess)="formProject.reset()" dateLimitation>
@@ -216,8 +218,10 @@
 	<button type="button" class="btn btn-primary" (click)="listar(true)" id="listPublicProyectsButton">Listar</button>
 	<button type="button" class="btn btn-primary" (click)="listar(false)"
 		id="unlistPublicProyectsButton">Ocultar</button>
-
+	<br>
 	<div class="row" id="listPublicProyectsTable" *ngIf="listado != undefined">
+	<label for="searchpp">Búsqueda por nombre y referencia</label>
+	<app-acomplete id="searchpp" [allList]= "search" [finalList]="finalSearch" (keyup)="actualizarLista()"></app-acomplete>
 		<section class="content">
 			<br>
 			<div class="col-md-8 col-md-offset-2">
