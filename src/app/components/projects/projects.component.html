@@ -22,71 +22,17 @@
 
 		<!--añadir mensaje de error-->
 		<label for="researchTeam">Equipo de investigacion</label>
-		<mat-form-field>
-			<mat-chip-list #rTeam>
-				<mat-chip *ngFor="let res of finalResearchers" [selectable]="selectable" [removable]="removable"
-					(removed)="researchRemove(res)">
-					{{ res }}
-					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-				</mat-chip>
-				<div class="divAutocomplete">
-					<input #researcherInput [formControl]="researchControl" [matAutocomplete]="autoResearchers"
-						[matChipInputFor]="rTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="researchAdd($event)" />
-				</div>
-			</mat-chip-list>
-		</mat-form-field> <br>
-		<mat-autocomplete #autoResearchers="matAutocomplete" (optionSelected)="researchSelected($event)">
-			<mat-option *ngFor="let res of researchersfilteredOptions | async" [value]="res">
-				{{ res }}
-			</mat-option>
-		</mat-autocomplete>
+		<app-acomplete [allList]= "researchers" [finalList]="finalResearchers"></app-acomplete>
 		<br>
 
 		<label for="workTeam">Equipo de trabajo</label>
 		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
-		<mat-form-field>
-			<mat-chip-list #wTeam>
-				<mat-chip *ngFor="let resW of finalWorkers" [selectable]="selectable" [removable]="removable"
-					(removed)="workerRemove(resW)">
-					{{ resW }}
-					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-				</mat-chip>
-				<div class="divAutocomplete">
-					<input #workerInput [formControl]="workerControl" [matAutocomplete]="autoWorkers"
-						[matChipInputFor]="wTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="workerAdd($event)" />
-				</div>
-			</mat-chip-list>
-		</mat-form-field> <br>
-		<mat-autocomplete #autoWorkers="matAutocomplete" (optionSelected)="workerSelected($event)">
-			<mat-option *ngFor="let resW of workersfilteredOptions | async" [value]="resW">
-				{{ resW }}
-			</mat-option>
-		</mat-autocomplete>
+		<app-acomplete [allList]= "researchers" [finalList]="finalWorkers"></app-acomplete>
 		<br>
 
 		<label for="hiredStaff">Personal contratado</label>
 		<!--<input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff' name="hiredStaff" required><br>-->
-		<mat-form-field>
-			<mat-chip-list #hTeam>
-				<mat-chip *ngFor="let resH of finalHireds" [selectable]="selectable" [removable]="removable"
-					(removed)="hiredRemove(resH)">
-					{{ resH }}
-					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-				</mat-chip>
-				<div class="divAutocomplete">
-					<input #hiredInput [formControl]="hiredControl" [matAutocomplete]="autoHireds"
-						[matChipInputFor]="hTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="hiredAdd($event)" />
-				</div>
-			</mat-chip-list>
-		</mat-form-field> <br>
-		<mat-autocomplete #autoHireds="matAutocomplete" (optionSelected)="hiredSelected($event)">
-			<mat-option *ngFor="let resH of hiredsfilteredOptions | async" [value]="resH">
-				{{ resH }}
-			</mat-option>
-		</mat-autocomplete>
+		<app-acomplete [allList]= "hireds" [finalList]="finalHireds"></app-acomplete>
 		<br>
 
 		<div class="requiredInputs">
@@ -108,26 +54,7 @@
 		<br>
 
 		<label for="leader">Responsable/s</label>
-		<!--<input type="text" [(ngModel)]="project.leader" id='leader' name="leader" required #leader='ngModel'><br>-->
-		<mat-form-field>
-			<mat-chip-list #lTeam>
-				<mat-chip *ngFor="let resL of finalLeaders" [selectable]="selectable" [removable]="removable"
-					(removed)="leaderRemove(resL)">
-					{{ resL }}
-					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-				</mat-chip>
-				<div class="divAutocomplete">
-					<input #leaderInput [formControl]="leaderControl" [matAutocomplete]="autoLeaders"
-						[matChipInputFor]="lTeam" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="leaderAdd($event)" />
-				</div>
-			</mat-chip-list>
-		</mat-form-field> <br>
-		<mat-autocomplete #autoLeaders="matAutocomplete" (optionSelected)="leaderSelected($event)">
-			<mat-option *ngFor="let resL of leadersfilteredOptions | async" [value]="resL">
-				{{ resL }}
-			</mat-option>
-		</mat-autocomplete>
+		<app-acomplete [allList]= "researchers" [finalList]="finalLeaders"></app-acomplete>
 		<!--
 		<div *ngIf="leader.invalid && (leader.dirty || leader.touched)" class="alert alert-danger">
 			<div *ngIf="leader.errors.required" class="invalid-feedback">El responsable es necesario</div>
