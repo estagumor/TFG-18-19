@@ -14,7 +14,8 @@ export class Publication {
         public DOI: String,
         public ORCID: String,
         public firstAuthor: String,
-        public affiliation: String
+        public affiliation: String,
+        public assigned: Boolean
     ) {}
 
     static parse(object): Publication{
@@ -31,7 +32,7 @@ export class Publication {
         let ORCID = object["orcid"]
         let firstAuthor = object["dc:creator"]
         let affiliation = object["affiliation"][0]["affilname"]
-        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, firstAuthor, affiliation)
+        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, firstAuthor, affiliation, false)
         return pub
     }
 }

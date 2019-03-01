@@ -98,7 +98,7 @@ export class ProjectsComponent implements OnInit {
     this.project.hiredStaff = this.project.hiredStaff.toString().split(",");
     this.project.leader = this.project.leader.toString().split(",");
     if(this.project.relatedPublications!=null)
-      this.project.relatedPublications = this.project.relatedPublications.toString().split(",");
+      this.project.relatedPublications = [];
     if(this.project.relatedTools!=null)
       this.project.relatedTools = this.project.relatedTools.toString().split(",");
     this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error

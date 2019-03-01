@@ -15,15 +15,11 @@ export class ScopusComponent implements OnInit {
   ngOnInit() {
   }
 
-  getAuthor(){
-    this._service.getAuthor().subscribe((data) => {
-      this.res = data;
-      console.log(data)
-    })
-  }
-
   getPubs(){
-    console.log(this._service.getPubs())
+    this._service.getPubs().subscribe((data) => {
+      this.res = data;
+      console.log(this.res)
+    })
   }
 
 }

@@ -20,6 +20,15 @@
           <a class="nav-link" [routerLink]="['/scopus']" routerLinkActive="active">Scopus <span class="sr-only"></span></a>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pubBar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Publicaciones
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pubBar">
+              <button class="dropdown-item" [routerLink]="['/publication']" routerLinkActive="active" >Crear publicaciones</button>
+              <button class="dropdown-item" [routerLink]="['/publications']" routerLinkActive="active" >Lista de publicaciones</button>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Proyectos
           </a>

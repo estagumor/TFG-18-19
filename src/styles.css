@@ -20,6 +20,7 @@
 
 body{
     color: #2d0606;
+    font-size: 1em;
 }
 
 label {
@@ -27,7 +28,7 @@ label {
 }
 
 .custom-select {
-    width: 10em;
+    width: 20em;
     padding: 0em 1em 0em 1em;
 }
 
@@ -81,4 +82,11 @@ border-color: #4BBF73;
 .divAutocomplete{
     box-sizing: border-box;
     border-left: 5px solid; 
+}
+
+.input-hint{
+    padding: 2px 0px 5px 1px;
+    color: darkgrey;
+    font-size: 0.8em;
+    
 }
