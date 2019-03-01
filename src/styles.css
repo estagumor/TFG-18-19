@@ -32,7 +32,7 @@ input[type=text] {
     /*border-radius: 5px;*/
 }
 
-button[type=submit]:not([id*='Date']) {
+button[type=submit] {
     margin: 15px;
 }
 

@@ -30,25 +30,25 @@ describe('**Testing the BD**', () => {
      .then(project => {
        expect(project.title).to.equal('Jaja jeje')
        expect(project.workTeam).to.equal('Jeje')
-       //Se haría con todo
+       //Se haría con todas las propiedades
      })
      .then(() => service.getProjects())
      .then(projects => {
        expect(projects.length).to.equal(2)
        expect(projects[1].title).to.equal('Jaja jeje')
      })
- })
+ });
 
- it('should remove task', () => {
-   return service.getTasks()
-     .then(tasks => tasks[0]._id)
-     .then(taskId => service.deleteTask(taskId))
-     .then(() => service.getTasks())
-     .then(tasks => {
-       expect(tasks.length).to.equal(0)
+ it('should remove a project', () => {
+   return service.getProjects()
+     .then(projects => projects[0]._id)
+     .then(projectId => service.deleteProject(projectId))
+     .then(() => service.getProjects())
+     .then(projects => {
+       expect(projects.length).to.equal(1)
      })
- })
-})
+ });
+});
 
 describe("**Saving a public project**", function() {
     it("Testing chai-http. Index (request)", function() {
