@@ -7,7 +7,7 @@
 }
 
 .input{
-	border: 1px solid !important;
+    border: 1px solid !important;
 }
 
 .ng-valid[required], .ng-valid.required  {
@@ -20,15 +20,30 @@
 
 body{
     color: #2d0606;
-    font-size: 1em;
 }
 
 label {
     padding: 15px;
+    width: 250px;
+}
+
+input[type=text] {
+    width: 70%;
+    /*border-radius: 5px;*/
+}
+
+button[type=submit]:not([id*='Date']) {
+    margin: 15px;
+}
+
+fieldset {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 20px;
 }
 
 .custom-select {
-    width: 20em;
+    width: 18em;
     padding: 0em 1em 0em 1em;
 }
 
@@ -82,11 +97,94 @@ border-color: #4BBF73;
 .divAutocomplete{
     box-sizing: border-box;
     border-left: 5px solid; 
+    border-color: brown;
+    background-color: white;
 }
 
-.input-hint{
-    padding: 2px 0px 5px 1px;
-    color: darkgrey;
-    font-size: 0.8em;
-    
+body {
+	font-family: 'Open Sans', sans-serif;
+	color: #353535;
 }
+
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 15px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+
+.panel .btn-group .btn-danger{
+	background-color:indigo;
+}
+
+
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.activo {
+    color: #5cb85c;
+    float: right !important;
+}
+.table-filter .media .title span.tres {
+    color: #f0ad4e;
+    float: right !important;
+}
+.table-filter .media .title span.cinco {
+    color: indigo;
+    float: right !important;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
+
+.row {
+    display: block;
+}
+
