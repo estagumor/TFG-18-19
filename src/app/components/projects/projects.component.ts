@@ -4,6 +4,8 @@ import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/map';
 import * as $ from 'jquery';
+import { NgForm } from '@angular/forms'
+
 
 @Component({
   selector: 'app-projects',
@@ -63,7 +65,7 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
     this.project.researchTeam = this.finalResearchers;
     this.project.workTeam = this.finalWorkers;
@@ -87,6 +89,7 @@ export class ProjectsComponent implements OnInit {
       result => {
         this.responseCreate = result;
         console.log(this.responseCreate);
+        form.reset()
       },
       error => {
         console.log(error);

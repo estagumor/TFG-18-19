@@ -1,7 +1,8 @@
 <h2>Proyectos</h2>
-<!--
+
 <script type="text/javascript">
 	$(document).ready(function () {
+		console.log("ready")
 		$("#fecha").css("height", $("#endDate").css("height"));
 		$('.btn-filter').on('click', function () {
 			var $target = $(this).data('target');
@@ -14,13 +15,14 @@
 		});
 	});
 	$(window).on("load", function () {
+		console.log("load")
 		$("#fecha").css("height", "27px");
 	});
 </script>
--->
+
 <fieldset>
 	<legend>Creacion de proyectos</legend>
-	<form #formProject="ngForm" (ngSubmit)="onSubmit();" (ngSuccess)="formProject.reset()" dateLimitation>
+	<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject);" dateLimitation>
 
 		<!--añadir mensaje de error-->
 		<label for="researchTeam">Equipo de investigacion</label>

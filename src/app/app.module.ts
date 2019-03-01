@@ -15,7 +15,6 @@ import { NetComponent } from './components/net/net.component';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StartDateLimitationDirective } from './components/shared/start-date-limitation.directive';
-import { ScopusComponent } from './components/scopus/scopus.component';
 import { PublicationsComponent } from './components/publications/publications.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component';
 import { AcompleteComponent } from './components/acomplete/acomplete.component';
@@ -29,7 +28,6 @@ import { AcompleteComponent } from './components/acomplete/acomplete.component';
     ContractComponent,
     NetComponent,
     StartDateLimitationDirective,
-    ScopusComponent,
     PublicationsComponent,
     PublicationListComponent,
     AcompleteComponent,

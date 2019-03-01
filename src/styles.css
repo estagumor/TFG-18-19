@@ -27,7 +27,7 @@ label {
     width: 250px;
 }
 
-input[type=text] {
+input[type=text]:not([id*=Date]) {
     width: 70%;
     /*border-radius: 5px;*/
 }
@@ -44,6 +44,10 @@ fieldset {
 
 .custom-select {
     width: 18em;
+}
+
+ngb-datepicker-navigation-select > .custom-select{
+    width: 100%;
     padding: 0em 1em 0em 1em;
 }
 
