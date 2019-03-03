@@ -191,6 +191,7 @@ export class ProjectsComponent implements OnInit {
 
   openDialog(pro): void {
     const dialogRef = this.dialog.open(DisplayComponent, {
+      width: '50%',
       data: { objeto: pro, fields: Project.getFields()}
     });
   }

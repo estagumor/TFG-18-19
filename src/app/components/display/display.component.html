@@ -1,10 +1,11 @@
 
-  <div *ngFor="let item of properties; let i=index; let e=even">
+  <div class="modal-dialog" *ngFor="let item of properties; let i=index; let e=even; let f=first">
 
 
     <span *ngIf="e">
       <div *ngIf="objeto[properties[i]]">
-        <p class="text-secondary">{{properties[i+1]}} -- {{objeto[properties[i]]}}</p>
+        <h5 *ngIf="f" class="modal-title text-muted">{{objeto[properties[i]]}}</h5>
+        <span *ngIf="!f" class="modal-body">{{properties[i+1]}} -- {{objeto[properties[i]]}}</span>
       </div>
     </span>
 

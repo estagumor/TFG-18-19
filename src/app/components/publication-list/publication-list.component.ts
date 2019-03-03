@@ -32,6 +32,7 @@ export class PublicationListComponent implements OnInit {
 
   openDialog(pub): void {
     const dialogRef = this.dialog.open(DisplayComponent, {
+      width: '50%',
       data: { objeto: pub, fields: Publication.getFields()}
     });
   }
