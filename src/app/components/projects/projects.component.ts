@@ -5,6 +5,7 @@ import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/map';
 import * as $ from 'jquery';
 import { NgForm } from '@angular/forms'
+import { DisplayComponent } from '../display/display.component';
 
 
 @Component({
@@ -14,6 +15,10 @@ import { NgForm } from '@angular/forms'
   providers: [ProjectService]
 })
 export class ProjectsComponent implements OnInit {
+
+  public showDisplay: boolean = true;
+  public selectedPro: Project
+  public fields
 
   //AUTOCOMPLETE
   public researchers: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
@@ -180,5 +185,25 @@ export class ProjectsComponent implements OnInit {
     } else {
       return "cinco";
     }
+  }
+
+  selected(pro, comp: DisplayComponent) {
+    let tempPub = pro
+      this.fields = Project.getFields()
+      if (this.selectedPro)
+        if (this.selectedPro.title != tempPub.title) {
+          this.showDisplay = true;
+          comp.objeto = null
+          comp.fields = []
+          comp.properties = []
+        } else if (this.selectedPro.title == tempPub.title && !this.showDisplay){
+          this.showDisplay = true;
+          comp.objeto = null
+          comp.fields = []
+          comp.properties = []
+        } else
+          this.showDisplay = false
+      this.selectedPro = tempPub;
+
   }
 }

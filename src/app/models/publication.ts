@@ -35,4 +35,8 @@ export class Publication {
         var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, firstAuthor, affiliation, false)
         return pub
     }
+
+    static getFields() {
+        return { articleTitle: "Titulo del articulo", firstAuthor: "Autores", scopusId: "Id de Scopus", sourceType: "Publicado en",  documentType: "Tipo de publicación", sourceTitle: "Lugar de publicación", sourceIdentifier: "Id del lugar de publicacion", sourceVolume: "Volumen", pageRange: "Paginas del volumen", publicationDate: "Fecha de publicación", DOI: "DOI", ORCID: "ORCID", affiliation: "Afiliación"}
+    }
 }

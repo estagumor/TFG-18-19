@@ -142,6 +142,14 @@
 				<span>La fecha de inicio no puede ser posterior a la de fin.</span>
 			</div>
 
+			<label for="sponsor">Patrocinador</label>
+			<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" required
+				#sponsor='ngModel'>
+			<div *ngIf="sponsor.invalid && (sponsor.dirty || sponsor.touched)" class="alert alert-danger">
+				<div *ngIf="sponsor.errors.required" class="invalid-feedback">El patrocinador es necesario</div>
+			</div>
+			<br>
+
 
 			<label for="amount">Importe</label>
 			<span class="badge">
@@ -229,6 +237,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
+							<app-display [fields]="fields" [visible]="showDisplay" [objeto]="selectedPro" #display></app-display>
 						<div class="pull-right">
 							<div class="btn-group">
 								<button type="button" class="btn btn-success btn-filter"
@@ -243,7 +252,7 @@
 						<div class="table-container">
 							<table class="table table-filter">
 								<tbody>
-									<tr *ngFor="let invPro of listado" [attr.data-status]="getStatus(invPro)">
+									<tr *ngFor="let invPro of listado" [attr.data-status]="getStatus(invPro)" (click)="selected(invPro,display)">
 										<!--Hacer javascript para averiguarlo-->
 										<td>
 											<div class="media">

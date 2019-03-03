@@ -18,6 +18,7 @@ import { StartDateLimitationDirective } from './components/shared/start-date-lim
 import { PublicationsComponent } from './components/publications/publications.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component';
 import { AcompleteComponent } from './components/acomplete/acomplete.component';
+import { DisplayComponent } from './components/display/display.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AcompleteComponent } from './components/acomplete/acomplete.component';
     PublicationsComponent,
     PublicationListComponent,
     AcompleteComponent,
+    DisplayComponent,
   ],
   imports: [
     NgbModule,

@@ -1,0 +1,15 @@
+<div *ngIf="visible">
+  <div *ngFor="let item of properties; let i=index; let e=even">
+
+
+    <span *ngIf="e">
+      <div *ngIf="objeto[properties[i]]">
+        <p class="text-secondary">{{properties[i+1]}} -- {{objeto[properties[i]]}}</p>
+      </div>
+    </span>
+
+  </div>
+
+
+
+</div>
