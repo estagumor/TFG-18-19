@@ -1,22 +1,23 @@
-import { Component, OnInit, Input, OnChanges, AfterViewInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, OnChanges, Inject } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.css']
 })
-export class DisplayComponent implements OnInit, OnChanges{
+export class DisplayComponent implements OnInit{
   @Input() objeto: any;
-  @Input() visible: boolean;
   @Input() fields: [];
   public properties: String[] = [];
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<DisplayComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: []
+  ) { }
 
   ngOnInit() {
-  }
-
-  ngOnChanges(){
+    this.objeto = this.data["objeto"]
+    this.fields = this.data["fields"]
     if(this.fields){
       for (let key in this.fields) {
         if (this.fields.hasOwnProperty(key)) {
@@ -25,14 +26,10 @@ export class DisplayComponent implements OnInit, OnChanges{
         }
       }
     }
-    
-    if(!this.visible){
-      this.objeto = null
-      this.fields = []
-      this.properties = []
-    }
-      
+  }
 
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

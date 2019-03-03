@@ -7,11 +7,10 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
           <div class="panel-body">
-            <app-display [fields]="fields" [visible]="showDisplay" [objeto]="selectedPub" #display></app-display>
             <div class="table-container">
               <table class="table table-filter">
                 <tbody>
-                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}" (click)="selected(pub,display)">
+                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}" (click)="openDialog(pub)">
                     <td>
                       <div class="ckbox">
                         <input type="checkbox" id="checkBox" (click)="clicked(checkbox, pub)" #checkbox>

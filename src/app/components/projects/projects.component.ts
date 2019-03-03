@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import * as $ from 'jquery';
 import { NgForm } from '@angular/forms'
 import { DisplayComponent } from '../display/display.component';
+import { MatDialog } from '@angular/material';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
     private _router: Router, // Para hacer el menu de navegacion
-    private _service: ProjectService // El servicio que hace las peticiones al backend
+    private _service: ProjectService, // El servicio que hace las peticiones al backend
+    public dialog: MatDialog
   ) {
     this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
   }
@@ -187,23 +189,9 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  selected(pro, comp: DisplayComponent) {
-    let tempPub = pro
-      this.fields = Project.getFields()
-      if (this.selectedPro)
-        if (this.selectedPro.title != tempPub.title) {
-          this.showDisplay = true;
-          comp.objeto = null
-          comp.fields = []
-          comp.properties = []
-        } else if (this.selectedPro.title == tempPub.title && !this.showDisplay){
-          this.showDisplay = true;
-          comp.objeto = null
-          comp.fields = []
-          comp.properties = []
-        } else
-          this.showDisplay = false
-      this.selectedPro = tempPub;
-
+  openDialog(pro): void {
+    const dialogRef = this.dialog.open(DisplayComponent, {
+      data: { objeto: pro, fields: Project.getFields()}
+    });
   }
 }

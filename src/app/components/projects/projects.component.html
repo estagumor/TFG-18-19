@@ -237,7 +237,6 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
-							<app-display [fields]="fields" [visible]="showDisplay" [objeto]="selectedPro" #display></app-display>
 						<div class="pull-right">
 							<div class="btn-group">
 								<button type="button" class="btn btn-success btn-filter"
@@ -252,7 +251,7 @@
 						<div class="table-container">
 							<table class="table table-filter">
 								<tbody>
-									<tr *ngFor="let invPro of listado" [attr.data-status]="getStatus(invPro)" (click)="selected(invPro,display)">
+									<tr *ngFor="let invPro of listado" [attr.data-status]="getStatus(invPro)" (click)="openDialog(invPro)">
 										<!--Hacer javascript para averiguarlo-->
 										<td>
 											<div class="media">

@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Para formularios y el autocompletado(reactive)
-import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule} from '@angular/material';
+import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule, MatDialogModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {APP_BASE_HREF} from '@angular/common';
@@ -45,8 +45,10 @@ import { DisplayComponent } from './components/display/display.component';
     MatInputModule,
     BrowserAnimationsModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
   ],
+  entryComponents: [PublicationListComponent, DisplayComponent],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   bootstrap: [AppComponent],
   exports: [StartDateLimitationDirective],

@@ -4,6 +4,7 @@ import { PublicationService } from '../../services/publication.service';
 import { ScopusService } from '../../services/scopus.service';
 import { NgControl } from '@angular/forms'
 import { DisplayComponent } from '../display/display.component'
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-publication-list',
@@ -19,7 +20,8 @@ export class PublicationListComponent implements OnInit {
 
   constructor(
     private _service: PublicationService,
-    private _scopus: ScopusService
+    private _scopus: ScopusService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -28,28 +30,14 @@ export class PublicationListComponent implements OnInit {
     })
   }
 
-  clicked(obj){
-    obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
+  openDialog(pub): void {
+    const dialogRef = this.dialog.open(DisplayComponent, {
+      data: { objeto: pub, fields: Publication.getFields()}
+    });
   }
 
-  selected(pub, comp: DisplayComponent) {
-    let tempPub = pub
-      this.fields = Publication.getFields()
-      if (this.selectedPub)
-        if (this.selectedPub.articleTitle != tempPub.articleTitle) {
-          this.showDisplay = true;
-          comp.objeto = null
-          comp.fields = []
-          comp.properties = []
-        } else if (this.selectedPub.articleTitle == tempPub.articleTitle && !this.showDisplay){
-          this.showDisplay = true;
-          comp.objeto = null
-          comp.fields = []
-          comp.properties = []
-        } else
-          this.showDisplay = false
-      this.selectedPub = tempPub;
-
+  clicked(obj) {
+    obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
   }
 
   saveFromScoups() {
