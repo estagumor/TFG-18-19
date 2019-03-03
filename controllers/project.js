@@ -2,14 +2,14 @@
 var mongoose = require('mongoose');
 var Project = require('../models/project'); // Aporta el modelo y los metodos de la bd
 var db = mongoose.connection;
-
+// 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
 var controller = {
 
 	saveProject: function (req, res) { // Metodo para crear proyectos
 		var project = new Project();
 		var params = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
 		if (params == undefined) { //No se ha creado el proyecto
-			return res.status(404).send({ message: "No se puede guardar un proyecto que no existe" });
+			return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
 		} else {
 			project.researchTeam = params.researchTeam;
 			project.workTeam = params.workTeam;
@@ -32,8 +32,8 @@ var controller = {
 			project.save((err, projectStored) => { // Intenta guardarlo y segun vaya responde
 				if (err) return res.status(500).send({ message: "Error en la peticion" });
 
-				if (!projectStored) return res.status(404).send({ message: "No se ha podido guardar el proyecto" });
-				return res.status(200).send({ project: projectStored });
+				if (!projectStored) return res.status(503).send({ message: "No se ha podido guardar el proyecto" });
+				return res.status(201).send({ project: projectStored });
 			});
 		}
 	},
@@ -42,7 +42,7 @@ var controller = {
 		var projectId = req.params.id;
 
 		if (projectId == null) {
-			return res.status(404).send({ message: 'El proyecto no existe' })
+			return res.status(400).send({ message: 'El proyecto no existe' })
 		}
 
 		Project.findById(projectId, (err, project) => {
@@ -63,12 +63,19 @@ var controller = {
 	getProjects: function (req, res) {
 		//		find({year: 2019}) para filtrar que tengan ese año
 		//		find({}).sort('year') ordenar por campo
-		db.collection("projects").find({}).toArray(function (err, docs) {
-			if (err) {
-				handleError(res, err.message, "Failed to get contacts.");
-			} else {
-				res.status(200).json(docs);
-			}
+		let limit = req.query.limit ? parseInt(req.query.limit) : 25;
+		let offset = req.query.offset ? parseInt(req.query.offset) : 0;
+		let total
+		db.collection("projects").stats().then(function (stats) {
+			total = stats.count
+			db.collection("projects").find({}).skip(offset).limit(limit).toArray(function (err, docs) {
+				if (err) {
+					handleError(res, err.message, "Failed to get contacts.");
+				} else {
+					res.setHeader('X-WP-Total', total)
+					res.status(200).json(docs);
+				}
+			});
 		});
 		//		InvestigationProject.find({}).exec((err, projects)=>{
 		//			if (err) return res.status(500).send({message: 'Error al devolver los datos'})
@@ -81,12 +88,12 @@ var controller = {
 		var titulo = req.params.title;
 
 		if (titulo == null) {
-			return res.status(404).send({ message: 'No ha introducido bien el titulo' })
+			return res.status(400).send({ message: 'No ha introducido bien el titulo' })
 		}
 
 		Project.find({ title: titulo }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
-			if (!projects) return res.status(404).send({ message: 'No hay projectos que mostrar' })
+			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
 			return res.status(200).send({ projects });
 		});
 
@@ -96,12 +103,12 @@ var controller = {
 		var referencia = req.params.reference;
 
 		if (referencia == null) {
-			return res.status(404).send({ message: 'No ha introducido bien la referencia' })
+			return res.status(400).send({ message: 'No ha introducido bien la referencia' })
 		}
 
 		Project.find({ reference: referencia }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
-			if (!projects) return res.status(404).send({ message: 'No hay projectos que mostrar' })
+			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
 			return res.status(200).send({ projects });
 		});
 	},
@@ -113,7 +120,7 @@ var controller = {
 		Project.findOneAndUpdate(proyectId, datosUpdate, { new: true }, (err, projectUpdated) => {
 			if (err) return res.status(500).send({ message: "Error al actualizar" });
 
-			if (!projectUpdated) return res.status(404).send({ message: "No se ha podido actualizar" });
+			if (!projectUpdated) return res.status(503).send({ message: "No se ha podido actualizar" });
 
 			return res.status(200).send({
 				project: projectUpdated
@@ -127,7 +134,7 @@ var controller = {
 		Project.findByIdAndDelete(projectId, (err, projectDeleted) => {
 			if (err) return res.status(500).send({ message: 'No se ha podido borrar el proyecto' });
 
-			if (!projectDeleted) return res.status(404).send({ message: "No se puede eliminar ese proyecto" });
+			if (!projectDeleted) return res.status(503).send({ message: "No se puede eliminar ese proyecto" });
 
 			return res.status(200).send({
 				project: projectRemoved

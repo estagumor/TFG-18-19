@@ -43,8 +43,8 @@ export class PublicationService {
     .pipe(catchError(this.handleError));
   }
 
-  list(): Observable<Publication[]>{
-    return this._http.get<Publication[]>(this.url + "s")
+  list(limit=25, offset=0): Observable<Publication[]>{
+    return this._http.get<Publication[]>(this.url + "s?limit="+limit+"&offset="+offset)
     .pipe(catchError(this.handleError))
   }
 

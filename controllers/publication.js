@@ -2,14 +2,14 @@
 var mongoose = require('mongoose');
 var Publication = require('../models/publication'); // Aporta el modelo y los metodos de la bd
 var db = mongoose.connection;
-
+// 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
 var controller = {
 
 	save: function (req, res) { // Metodo para crear proyectos
 		var pub = new Publication();
 		var params = req.body;
 		if (params == undefined) {
-			return res.status(404).send({ message: "No se puede guardar un proyecto que no existe" });
+			return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
 		} else {
 			pub.scopusId = params.scopusId;
 			pub.articleTitle = params.articleTitle;
@@ -31,19 +31,19 @@ var controller = {
 			pub.save((err, pubStored) => { // Intenta guardarlo y segun vaya responde
 				if (err) return res.status(500).send({ message: "Error en la peticion" + err });
 
-				if (!pubStored) return res.status(404).send({ message: "No se ha podido guardar la publicacion" });
-				return res.status(200).send({ 'pub': pubStored });
+				if (!pubStored) return res.status(503).send({ message: "No se ha podido guardar la publicacion" });
+				return res.status(201).send({ 'pub': pubStored });
 			});
 		}
 	},
 
-	saveAll: function(req, res) {
+	saveAll: function (req, res) {
 		var params = req.body;
 		Publication.insertMany(params, (err, pubs) => {
 			if (err) return res.status(500).send({ message: "Error en la peticion" + err });
 
-			if (!pubs) return res.status(404).send({ message: "No se han podido guardar las publicaciones" });
-			return res.status(200).send({ pubs: pubs });
+			if (!pubs) return res.status(503).send({ message: "No se han podido guardar las publicaciones" });
+			return res.status(201).send({ pubs: pubs });
 		})
 	},
 
@@ -62,7 +62,6 @@ var controller = {
 	// 		else if (!pub) return res.status(404).send({
 	// 			message: "El pubo no existe"
 	// 		});
-
 	// 		return res.status(200).send({
 	// 			pub
 	// 		});
@@ -75,13 +74,20 @@ var controller = {
 		// 	if (!pubs) return res.status(404).send({ message: 'No hay publicaciones que mostrar' })
 		// 	return res.status(200).send({ "pubs": pubs });
 		// });
-		db.collection("publications").find({}).toArray(function(err, docs) {
-			if (err) {
-			  handleError(res, err.message, "Error al devolver los datos");
-			} else {
-			  res.status(200).json(docs);
-			}
-		  });
+		let limit = req.query.limit ? parseInt(req.query.limit) : 25;
+		let offset = req.query.offset ? parseInt(req.query.offset) : 0;
+		let total
+		db.collection("publications").stats().then(function (stats) {
+			total = stats.count
+			db.collection("publications").find({}).skip(offset).limit(limit).toArray(function (err, docs) {
+				if (err) {
+					handleError(res, err.message, "Error al devolver los datos");
+				} else {
+					res.setHeader('X-WP-Total', total)
+					res.status(200).json(docs);
+				}
+			});
+		});
 	}
 
 	// updatepub: function(req, res){

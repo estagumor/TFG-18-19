@@ -61,8 +61,8 @@ export class ProjectService {
       catchError(this.handleError)); // Se le pasa un id concreto para obtener un objeto
   }
 
-  getProjects(): Observable<any> {
-    return this._https.get<Project[]>(this.url + 's').pipe(catchError(this.handleError)); // Peticion a la url que devuelve el listado
+  getProjects(limit=25, offset=0): Observable<any> {
+    return this._https.get<Project[]>(this.url + 's?limit='+limit+'offset='+offset).pipe(catchError(this.handleError)); // Peticion a la url que devuelve el listado
   }
 
   updateProject(project): Observable<any> {
