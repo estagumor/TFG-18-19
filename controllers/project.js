@@ -86,7 +86,7 @@ var controller = {
 
 	findByTitle: function (req, res) {
 		var titulo = req.params.title;
-
+		console.log("Este es el titulo del controlador: " + titulo);
 		if (titulo == null) {
 			return res.status(400).send({ message: 'No ha introducido bien el titulo' })
 		}
@@ -94,6 +94,7 @@ var controller = {
 		Project.find({ title: titulo }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
 			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
+			console.log("Estos son los proyectos que encuentra el controlador -> titulo: " + projects)
 			return res.status(200).send({ projects });
 		});
 
@@ -101,7 +102,7 @@ var controller = {
 
 	findByReference: function (req, res) {
 		var referencia = req.params.reference;
-
+		console.log("Esta es la referencia del controlador: " + referencia);
 		if (referencia == null) {
 			return res.status(400).send({ message: 'No ha introducido bien la referencia' })
 		}
@@ -109,6 +110,7 @@ var controller = {
 		Project.find({ reference: referencia }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
 			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
+			console.log("Estos son los proyectos que encuentra el controlador -> referencia: " + projects)
 			return res.status(200).send({ projects });
 		});
 	},

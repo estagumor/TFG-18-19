@@ -57,6 +57,7 @@ export class ProjectService {
   }
 
   findByReference(reference): Observable<Project> {
+    //console.log("Esta es la url del servicio: " + this.url + '/reference/' + reference);
     return this._https.get<Project>(this.url + '/reference/' + reference).pipe(
       catchError(this.handleError)); // Se le pasa un id concreto para obtener un objeto
   }

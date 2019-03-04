@@ -128,10 +128,11 @@ export class ProjectsComponent implements OnInit {
   actualizarLista() {
     this.listado = [];
     this.finalSearch.forEach(element => {
+      console.log("Project.ts - > Este es el elemento que le llega " + element);
       if(!this.findByReference(element) == undefined) {
-        console.log("titulo " + this.findByTitle(element));
+        console.log("Project.ts -> titulo " + this.findByTitle(element));
       } else {
-        console.log("referencia " + this.findByReference(element));
+        console.log("Project.ts -> referencia " + this.findByReference(element));
       }
       /*
       try { //Por referencia

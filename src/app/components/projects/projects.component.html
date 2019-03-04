@@ -212,7 +212,7 @@
 	<br>
 	<div class="row" id="listPublicProyectsTable" *ngIf="listado != undefined">
 	<label for="searchpp">Búsqueda por nombre y referencia</label>
-	<app-acomplete id="searchpp" [allList]= "search" [finalList]="finalSearch" (keyup)="actualizarLista()"></app-acomplete>
+	<app-acomplete id="searchpp" [allList]= "search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()"></app-acomplete>
 		<section class="content">
 			<br>
 			<div class="col-md-8 col-md-offset-2">
