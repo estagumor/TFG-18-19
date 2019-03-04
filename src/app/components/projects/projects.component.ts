@@ -1,13 +1,14 @@
-import { Component, ElementRef,ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/map';
-import * as $ from 'jquery';
 import { NgForm } from '@angular/forms'
 import { DisplayComponent } from '../display/display.component';
 import { MatDialog } from '@angular/material';
 
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-projects',
@@ -38,7 +39,8 @@ export class ProjectsComponent implements OnInit {
   public projectId: any;
   public projectId2: any;
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
-  
+  public listado2: Array<Project>;
+
   //IMPROVES
   public duration: string = "1";
 
@@ -50,26 +52,15 @@ export class ProjectsComponent implements OnInit {
   ) {
     this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
   }
- 
+
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    $(document).ready(function () {
-      $("#fecha").css("height", $("#endDate").css("height"));
-      $('.btn-filter').on('click', function () {
-        var $target = $(this).data('target');
-        if ($target != 'all') {
-          $('.table tr').css('display', 'none');
-          $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
-        } else {
-          $('.table tr').css('display', 'none').fadeIn('slow');
-        }
-      });
-    });
-    $(window).on("load", function () {
-      $("#fecha").css("height", "27px");
-    });
+  boton(b){
+    if(b.localeCompare("all") == 0)
+      this.listado2 = this.listado.slice()
+    else
+      this.listado2 = this.listado.filter((pro) => this.getStatus(pro).localeCompare(b) == 0)
   }
 
   onSubmit(form: NgForm) {
@@ -121,7 +112,7 @@ export class ProjectsComponent implements OnInit {
   findByReference(reference: String): Project {
     let pro;
     this._service.findByReference(reference).subscribe(result =>  {
-      this.contenedor = result['project']; 
+      this.contenedor = result['project'];
     });
     return pro;
   }
@@ -129,7 +120,7 @@ export class ProjectsComponent implements OnInit {
   findByTitle(title: String): Project {
     let pro;
     this._service.findByTitle(title).subscribe(result =>  {
-      this.contenedor = result['project']; 
+      this.contenedor = result['project'];
     });
     return pro;
   }
@@ -161,7 +152,8 @@ export class ProjectsComponent implements OnInit {
         this.listado.forEach(element => {
           this.search.push(element.reference);
           this.search.push(element.title);
-        });
+        }); 
+      this.listado2 = this.listado.slice()
       });
     } else {
       this.listado = undefined;
