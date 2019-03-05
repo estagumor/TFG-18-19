@@ -6,36 +6,41 @@ var db = mongoose.connection;
 var controller = {
 
 	saveProject: function (req, res) { // Metodo para crear proyectos
-		var project = new Project();
-		var params = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
-		if (params == undefined) { //No se ha creado el proyecto
-			return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
-		} else {
-			project.researchTeam = params.researchTeam;
-			project.workTeam = params.workTeam;
-			project.hiredStaff = params.hiredStaff;
-			project.title = params.title;
-			project.description = params.description;
-			project.leader = params.leader;
-			project.reference = params.reference;
-			project.scope = params.scope;
-			project.status = params.status;
-			project.sponsor = params.sponsor;
-			var startDate = params.startDate;
-			project.startDate = startDate["month"] + "/" + startDate["day"] + "/" + startDate["year"];
-			var endDate = params.endDate;
-			project.endDate = endDate["month"] + "/" + endDate["day"] + "/" + endDate["year"];
-			project.amount = params.amount;
-			project.relatedPublications = params.relatedPublications;
-			project.relatedTools = params.relatedTools;
-
-			project.save((err, projectStored) => { // Intenta guardarlo y segun vaya responde
-				if (err) return res.status(500).send({ message: "Error en la peticion" });
-
-				if (!projectStored) return res.status(503).send({ message: "No se ha podido guardar el proyecto" });
-				return res.status(201).send({ project: projectStored });
-			});
+		//var project = new Project();
+		var proj = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
+		// if (params == undefined) { //No se ha creado el proyecto
+		// 	return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
+		// } else {
+		// 	project.researchTeam = params.researchTeam;
+		// 	project.workTeam = params.workTeam;
+		// 	project.hiredStaff = params.hiredStaff;
+		// 	project.title = params.title;
+		// 	project.description = params.description;
+		// 	project.leader = params.leader;
+		// 	project.reference = params.reference;
+		// 	project.scope = params.scope;
+		// 	project.status = params.status;
+		// 	project.sponsor = params.sponsor;
+		if (proj.startDate != null) {
+			var startDate = proj.startDate;
+			proj.startDate = startDate["month"] + "/" + startDate["day"] + "/" + startDate["year"];
 		}
+		if (proj.endDate != null) {
+			var endDate = proj.endDate;
+			proj.endDate = endDate["month"] + "/" + endDate["day"] + "/" + endDate["year"];
+		}
+		// var startDate = params.startDate;
+		// project.startDate = startDate["month"] + "/" + startDate["day"] + "/" + startDate["year"];
+		// var endDate = params.endDate;
+		// project.endDate = endDate["month"] + "/" + endDate["day"] + "/" + endDate["year"];
+		// project.amount = params.amount;
+		// project.relatedPublications = params.relatedPublications;
+		// project.relatedTools = params.relatedTools;
+
+		Project.create(proj, (err) => { // Intenta guardarlo y segun vaya responde
+			if (err) return res.status(500).send({ message: err });
+			return res.status(201).send({ "proj": proj });
+		});
 	},
 
 	getProject: function (req, res) {
@@ -86,7 +91,7 @@ var controller = {
 
 	findByTitle: function (req, res) {
 		var titulo = req.params.title;
-		console.log("Este es el titulo del controlador: " + titulo);
+		// console.log("Este es el titulo del controlador: " + titulo);
 		if (titulo == null) {
 			return res.status(400).send({ message: 'No ha introducido bien el titulo' })
 		}
@@ -94,7 +99,7 @@ var controller = {
 		Project.find({ title: titulo }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
 			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
-			console.log("Estos son los proyectos que encuentra el controlador -> titulo: " + projects)
+			// console.log("Estos son los proyectos que encuentra el controlador -> titulo: " + projects)
 			return res.status(200).send({ projects });
 		});
 
@@ -102,7 +107,7 @@ var controller = {
 
 	findByReference: function (req, res) {
 		var referencia = req.params.reference;
-		console.log("Esta es la referencia del controlador: " + referencia);
+		// console.log("Esta es la referencia del controlador: " + referencia);
 		if (referencia == null) {
 			return res.status(400).send({ message: 'No ha introducido bien la referencia' })
 		}
@@ -110,7 +115,7 @@ var controller = {
 		Project.find({ reference: referencia }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
 			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
-			console.log("Estos son los proyectos que encuentra el controlador -> referencia: " + projects)
+			// console.log("Estos son los proyectos que encuentra el controlador -> referencia: " + projects)
 			return res.status(200).send({ projects });
 		});
 	},

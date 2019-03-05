@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import { NgForm } from '@angular/forms'
 import { DisplayComponent } from '../display/display.component';
 import { MatDialog } from '@angular/material';
+import { Observable } from "rxjs/Rx";
 
 declare var jQuery: any;
 declare var $: any;
@@ -56,8 +57,8 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
   }
 
-  boton(b){
-    if(b.localeCompare("all") == 0)
+  boton(b) {
+    if (b.localeCompare("all") == 0)
       this.listado2 = this.listado.slice()
     else
       this.listado2 = this.listado.filter((pro) => this.getStatus(pro).localeCompare(b) == 0)
@@ -79,9 +80,9 @@ export class ProjectsComponent implements OnInit {
     this.project.startDate = new Date(this.project.startDate);
     this.project.endDate.setDate(this.project.startDate.getDate() + parseInt(this.duration));
     */
-    if(this.project.relatedPublications!=null)
+    if (this.project.relatedPublications != null)
       this.project.relatedPublications = [];
-    if(this.project.relatedTools!=null)
+    if (this.project.relatedTools != null)
       this.project.relatedTools = this.project.relatedTools.toString().split(",");
     this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
       result => {
@@ -109,52 +110,61 @@ export class ProjectsComponent implements OnInit {
     return pro;
   }
 
-  findByReference(reference: String): Project {
-    let pro;
-    this._service.findByReference(reference).subscribe(result =>  {
-      this.contenedor = result['project'];
-    });
-    return pro;
+  findByReference(reference: String): Observable<Project> {
+    return this._service.findByReference(reference);
+
   }
 
-  findByTitle(title: String): Project {
-    let pro;
-    this._service.findByTitle(title).subscribe(result =>  {
-      this.contenedor = result['project'];
-    });
-    return pro;
+  findByTitle(title: String): Observable<Project> {
+    return this._service.findByTitle(title);
   }
 
   actualizarLista() {
     this.listado = [];
-    this.finalSearch.forEach(element => {
-      console.log("Project.ts - > Este es el elemento que le llega " + element);
-      if(!this.findByReference(element) == undefined) {
-        console.log("Project.ts -> titulo " + this.findByTitle(element));
-      } else {
-        console.log("Project.ts -> referencia " + this.findByReference(element));
-      }
-      /*
-      try { //Por referencia
-        this.listado.push(this.findByReference(element));
-        console.log("Primer camino tomado: " + this.findByReference(element));
-      } catch (error) { //Por nombre
-        this.listado.push(this.findByTitle(element));
-        console.log("Segundo camino tomado: " + this.findByTitle(element));
-      }
-      */
-    });
+    this.listado2 = [];
+    if (this.finalSearch.length < 1) {
+      // console.log("todos")
+      this.listar(true)
+    } else {
+      this.finalSearch.forEach(element => {
+        // console.log("Project.ts - > Este es el elemento que le llega " + element);
+        //if (!this.findByReference(element) == undefined) {
+          // console.log("Camino referencia")
+          this.findByReference(element).subscribe(result => {
+            this.listado2 = this.listado2.concat(result['projects']);
+            // console.log("Project.ts -> referencia " + this.listado2);
+          });
+        //} else {
+          // console.log("Camino titulo");
+          this.findByTitle(element).subscribe(result => {
+            this.listado2 = this.listado2.concat(result['projects']);
+            // console.log("Project.ts -> titulo " + this.listado2);
+          });
+        //}
+      });
+    }
   }
+  /*
+    try { //Por referencia
+      this.listado.push(this.findByReference(element));
+      console.log("Primer camino tomado: " + this.findByReference(element));
+    } catch (error) { //Por nombre
+      this.listado.push(this.findByTitle(element));
+      console.log("Segundo camino tomado: " + this.findByTitle(element));
+    }
+    */
+
 
   listar(bool) {
-    if(bool == true) {
+    if (bool == true) {
+      this.search = [];
       this._service.getProjects().subscribe((lista) => {
         this.listado = lista;
         this.listado.forEach(element => {
           this.search.push(element.reference);
           this.search.push(element.title);
-        }); 
-      this.listado2 = this.listado.slice()
+        });
+        this.listado2 = this.listado.slice()
       });
     } else {
       this.listado = undefined;
@@ -173,9 +183,9 @@ export class ProjectsComponent implements OnInit {
     const eD = new Date(project.endDate);
     const now = new Date();
     var time = now.getFullYear() - eD.getFullYear();
-    if(time <= 0) {
+    if (time <= 0) {
       return "activo";
-    } else if(time <= 3 && time > 0) {
+    } else if (time <= 3 && time > 0) {
       return "tres";
     } else {
       return "cinco";
@@ -185,7 +195,7 @@ export class ProjectsComponent implements OnInit {
   openDialog(pro): void {
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
-      data: { objeto: pro, fields: Project.getFields()}
+      data: { objeto: pro, fields: Project.getFields() }
     });
   }
 }

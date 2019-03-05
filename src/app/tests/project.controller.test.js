@@ -1,56 +1,16 @@
 const chai = require("chai");
 const chai_http = require("chai-http");
 //const expect = chai.expect;
-//const sinon = require("sinon");
-
+const sinon = require("sinon");
+var Project = require('../../../models/project');
 chai.use(chai_http);
 url = 'http://localhost:3700/projects';
 
 const expect = require('chai').expect
-const mongoose = require('mongoose')
-const mongoUnit = require('../index') //?¿?¿?¿
-const service = require('./../services/project.service.ts') 
-const testMongoUrl = process.env.MONGO_URL
-
-describe('**Testing the BD**', () => {
- const testData = require('./testData.json');
- beforeEach(() => mongoUnit.initDb(testMongoUrl, testData))
- afterEach(() => mongoUnit.drop())
-
- it('should find all projects', () => {
-   return service.getProjects()
-     .then(projects => {
-       expect(projects.length).to.equal(1)
-       expect(projects[0].title).to.equal('Proyecto publico')
-     });
- });
-
- it('should create new project', () => {
-   return service.createV2({'researchTeam': "Jaja,jeje", 'workTeam': "Jeje", 'hiredStaff': "", 'title': "Jaja jeje", 'description': "Descripcion", 'leader': "Jaja", 'reference': "", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "", 'startDate': "05/05/2015", 'endDate': "08/08/2028", 'amount': 10000, 'relatedPublications': "", 'relatedTools': ""  })
-     .then(project => {
-       expect(project.title).to.equal('Jaja jeje')
-       expect(project.workTeam).to.equal('Jeje')
-       //Se haría con todas las propiedades
-     })
-     .then(() => service.getProjects())
-     .then(projects => {
-       expect(projects.length).to.equal(2)
-       expect(projects[1].title).to.equal('Jaja jeje')
-     })
- });
-
- it('should remove a project', () => {
-   return service.getProjects()
-     .then(projects => projects[0]._id)
-     .then(projectId => service.deleteProject(projectId))
-     .then(() => service.getProjects())
-     .then(projects => {
-       expect(projects.length).to.equal(1)
-     })
- });
-});
+const app = require('../../../app'); 
 
 describe("**Saving a public project**", function() {
+    /*
     it("Testing chai-http. Index (request)", function() {
         chai.request(url).get('/').end(function(err,res) {
             expect(res).to.have.status(200);
@@ -78,9 +38,50 @@ describe("**Saving a public project**", function() {
             done();
         });
     });
+    */
+    //Setear el timeout
+    //this.timeout(5000);
+    it('should create a new public project', (done) => {
+        startDate = { year: 2017, month: 3, day: 5 }
+        endDate = { year: 2019, month: 3, day: 5 }
+        var project = {'researchTeam': "Juan,Pepito", 'workTeam': "Pepito", 'hiredStaff': "Mijitas", 'title': "Prueba2", 'description': "Descripcion", 'leader': "Pepito", 'reference': "333222333", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "sponsor2", 'startDate': startDate, 'endDate': endDate, 'amount': 10000, 'relatedPublications': [], 'relatedTools': []};
+        var projectMocked = {'researchTeam': "Juan,Pepito", 'workTeam': "Pepito", 'hiredStaff': "Mijitas", 'title': "Prueba2", 'description': "Descripcion", 'leader': "Pepito", 'reference': "333222333", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "sponsor2", 'startDate': startDate["month"] + "/" + startDate["day"] + "/" + startDate["year"], 'endDate': endDate["month"] + "/" + endDate["day"] + "/" + endDate["year"], 'amount': 10000, 'relatedPublications': [], 'relatedTools': []};
+        
+        var dbMock = sinon.mock(Project);
+        dbMock.expects('create').withArgs(projectMocked).yields(null);
+        
+        chai.request(app)
+            .post('/api/project')
+            .send(project)
+            .end((err, res) => {
+                expect(res).to.have.status(201);
+                dbMock.verify();
+                done();
+            });  
+    });
+
+    it('should return 500. Wrong data', (done) => {
+        startDate = { year: 2017, month: 3, day: 5 }
+        endDate = { year: 2019, month: 3, day: 5 }
+        var project = {'researchTeam': 3, 'workTeam': "Pepito", 'hiredStaff': "Mijitas", 'title': "Prueba2", 'description': "Descripcion", 'leader': "Pepito", 'reference': "333222333", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "sponsor2", 'startDate': startDate, 'endDate': endDate, 'amount': 10000, 'relatedPublications': [], 'relatedTools': []};
+        var projectMocked = {'researchTeam': 3, 'workTeam': "Pepito", 'hiredStaff': "Mijitas", 'title': "Prueba2", 'description': "Descripcion", 'leader': "Pepito", 'reference': "333222333", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "sponsor2", 'startDate': startDate["month"] + "/" + startDate["day"] + "/" + startDate["year"], 'endDate': endDate["month"] + "/" + endDate["day"] + "/" + endDate["year"], 'amount': 10000, 'relatedPublications': [], 'relatedTools': []};
+        var dbMock = sinon.mock(Project);
+        dbMock.expects('create').withArgs(projectMocked).yields(true);
+        
+        chai.request(app)
+            .post('/api/project')
+            .send(project)
+            .end((err, res) => {
+                expect(res).to.have.status(500);
+                dbMock.verify();
+                done();
+            });  
+
+    });
 });
 
 describe("**Getting a public project**", function() {
+    /*
     it("Id null. Should raise a 404 code", function() {
         chai.request(url).get('/project/').end(function(err,res) {
             expect(res).to.have.status(404);
@@ -95,8 +96,24 @@ describe("**Getting a public project**", function() {
             done();
         });
     });
+    */
+    var project = new Project({'researchTeam': "persona1, persona2", 'workTeam': "persona2,persona3", 'hiredStaff': "persona4", 'title': "Proyecto prueba1", 'description': "Descripcion", 'leader': "persona1", 'reference': "666111666", 'scope': "REGIONAL", 'status': "ENVIADO", 'sponsor': "sponsor1", 'startDate': { year: 2017, month: 3, day: 5 }, 'endDate': { year: 2021, month: 3, day: 5 }, 'amount': 10000, 'relatedPublications': [], 'relatedTools': []})
+
+    var projectStub = sinon.stub(Project, 'find');
+    projectStub.yields(null, [project]);
+
+    it('should return all public projects', (done) => {
+        chai.request(app).get('/api/projects').end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body).to.have.lengthOf(1);
+            done();
+        });
+    });
+
 });
 
+/*
 describe("**Listing public projects**", function() {
     it("Right url. Should get 200 code", function() {
         chai.request(url).get('/projects').end(function(err,res) {
@@ -137,3 +154,4 @@ describe("**Deleting public projects**", function() {
         });
     });
 });
+*/
