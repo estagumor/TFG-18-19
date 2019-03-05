@@ -26,7 +26,8 @@ export class PublicationListComponent implements OnInit {
 
   ngOnInit() {
     this._service.list().subscribe((data: Publication[]) => {
-      this.listado = data
+      this.listado = data['pubs'];
+      
     })
   }
 

@@ -15,7 +15,7 @@ export class ScopusService {
 
   constructor(private _http: HttpClient) { }
 
-  getPubs(start = 0, count = 25): Observable<Publication[]>{
+  getPubs(start = 0, count = 25): Observable<any>{
     let pubs
     return this._http.get<Publication[]>(this.url + "AU-ID(15021461000)" + "&apiKey=" + this.apiKey+"&start=" + start + "&count=" + count)
     .map((data) => {

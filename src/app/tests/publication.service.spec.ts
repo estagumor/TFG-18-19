@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ScopusService } from './scopus.service';
+import { PublicationService } from '../services/publication.service';
 
-describe('ScopusService', () => {
+describe('PublicationService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ScopusService = TestBed.get(ScopusService);
+    const service: PublicationService = TestBed.get(PublicationService);
     expect(service).toBeTruthy();
   });
 });
