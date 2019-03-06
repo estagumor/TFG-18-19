@@ -1,8 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Para formularios y el autocompletado(reactive)
+import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule, MatDialogModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {APP_BASE_HREF} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
@@ -11,6 +13,12 @@ import { InvestigationProjectComponent } from './components/investigation-projec
 import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
 import { AppRoutingModule } from './app-routing.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { StartDateLimitationDirective } from './components/shared/start-date-limitation.directive';
+import { PublicationsComponent } from './components/publications/publications.component';
+import { PublicationListComponent } from './components/publication-list/publication-list.component';
+import { AcompleteComponent } from './components/acomplete/acomplete.component';
+import { DisplayComponent } from './components/display/display.component';
 
 @NgModule({
   declarations: [
@@ -19,17 +27,30 @@ import { AppRoutingModule } from './app-routing.module';
     ProjectsComponent,
     InvestigationProjectComponent,
     ContractComponent,
-    NetComponent
+    NetComponent,
+    StartDateLimitationDirective,
+    PublicationsComponent,
+    PublicationListComponent,
+    AcompleteComponent,
+    DisplayComponent,
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatDialogModule,
   ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+  entryComponents: [PublicationListComponent, DisplayComponent],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
+  bootstrap: [AppComponent],
+  exports: [StartDateLimitationDirective],
 })
 export class AppModule {}

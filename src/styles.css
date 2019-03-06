@@ -1,8 +1,195 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+
 .active{
 	background-color: #729fcf;
 }
 
 .input{
-	border: 1px solid !important;
+    border: 1px solid !important;
 }
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; 
+  }
+  
+.ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; 
+}
+
+body{
+    color: #2d0606;
+}
+
+label {
+    padding: 15px;
+    width: 250px;
+}
+
+input[type=text]:not([id*=Date]) {
+    width: 70%;
+    /*border-radius: 5px;*/
+}
+
+button[type=submit] {
+    margin: 15px;
+}
+
+fieldset {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.custom-select {
+    width: 18em;
+    height: auto;
+}
+
+ngb-datepicker-navigation-select > .custom-select{
+    width: 100%;
+    padding: 0em 1em 0em 1em;
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+.input-group-text{
+    padding: 1em;
+    line-height: 0px;
+}
+
+ngb-datepicker-navigation-select .custom-select{
+    padding: 0px !important;
+}
+
+div.requiredInputs input.ng-touched.ng-invalid ,div.requiredInputs select.ng-touched.ng-invalid{
+    border-color: #d9534f;
+    padding-right: 2.8125rem;
+    background-repeat: no-repeat;
+    background-position: center right calc(2.8125rem / 4);
+    background-size: calc(2.8125rem / 2) calc(2.8125rem / 2);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d9534f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") !important;
+  }
+
+div.requiredInputs input.ng-touched.ng-valid ,div.requiredInputs select.ng-touched.ng-valid{
+border-color: #4BBF73;
+  padding-right: 2.8125rem;
+  background-repeat: no-repeat;
+  background-position: center right calc(2.8125rem / 4);
+  background-size: calc(2.8125rem / 2) calc(2.8125rem / 2);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%234BBF73' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") !important;
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-calendar:before {
+    content: "\e109";
+}
+
+.divAutocomplete{
+    box-sizing: border-box;
+    border-left: 5px solid; 
+    border-color: brown;
+    background-color: white;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	color: #353535;
+}
+
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 15px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+
+.panel .btn-group .btn-danger{
+	background-color:indigo;
+}
+
+
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.activo {
+    color: #5cb85c;
+    float: right !important;
+}
+.table-filter .media .title span.tres {
+    color: #f0ad4e;
+    float: right !important;
+}
+.table-filter .media .title span.cinco {
+    color: indigo;
+    float: right !important;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
+
+.row {
+    display: block;
+}
+

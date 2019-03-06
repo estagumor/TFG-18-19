@@ -5,15 +5,19 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
 import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
+import { PublicationsComponent } from './components/publications/publications.component';
+import { PublicationListComponent } from './components/publication-list/publication-list.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
-  { path: 'nets', component: NetComponent }
+  { path: 'nets', component: NetComponent },
+  { path: 'publication', component: PublicationsComponent },
+  { path: 'publications', component: PublicationListComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({

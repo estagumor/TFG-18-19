@@ -1,0 +1,42 @@
+<button type="button" (click)="saveFromScoups()">Cargar</button>
+<fieldset>
+  <legend>Listado de publicaciones</legend>
+  <div class="row">
+    <section class="content">
+      <br>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="table-container">
+              <table class="table table-filter">
+                <tbody>
+                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}" (click)="openDialog(pub)">
+                    <td>
+                      <div class="ckbox">
+                        <input type="checkbox" id="checkBox" (click)="clicked(checkbox, pub)" #checkbox>
+                        <label for="checkbox1"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="media">
+                        <div class="media-body">
+                          <span class="media-meta pull-right">{{ pub.firstAuthor }}</span>
+                          <span class="media-meta pull-right"> / </span>
+                          <span class="media-meta pull-right">{{ pub.sourceType }}</span>
+                          <h4 class="title">
+                            {{ pub.articleTitle }}
+                          </h4>
+                          <p class="summary" *ngIf="pub.publicationDate">{{ pub.publicationDate }}</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</fieldset>

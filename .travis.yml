@@ -1,62 +1,29 @@
-<<<<<<< HEAD
-language: node_js
-node_js:
-  - stable
-
-branches:
-  only:
-  - master
-  - develop
-
-before_script:
-  - npm install -g @angular/cli
-
-script: 
-  - ng test --watch false -cc
-  - npm run-script dev
-  - npm run e2e
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: 
-90414A18B0B3B696E96323EA8DB68307493AA47B4C146A188D37B5C72795D56A,9BBE8016F668625E8840D4002C6490A353E3E19BF8E4E5126F4F096114B44B4E
-  app: isa-tfg
-    master: isa-tfg-master
-    develop: isa-tfg-develop
-  on: master, develop
-
-=======
->>>>>>> release/travisV2
 dist: trusty
 sudo: required
 addons:
   chrome: stable
-
 language: node_js
 node_js:
-  - stable
-
+- stable
 branches:
   only:
   - develop
-
 before_script:
-  - npm install -g @angular/cli
-
-script: 
-  - ng test --watch=false
-  #- npm run e2e
-
+- npm install -g @angular/cli
+- npm install
+script:
+- ng test --watch=false
+- mocha src/app/tests
 deploy:
   provider: heroku
   api_key:
-    secure: 90414A18B0B3B696E96323EA8DB68307493AA47B4C146A188D37B5C72795D56A,9BBE8016F668625E8840D4002C6490A353E3E19BF8E4E5126F4F096114B44B4E
-  on: develop
- 
+    secure: l0aj7UC7kEFUWAZ1f+eWInV8Pq/4RZRDgkTwmsjIklCDa1bOvi4IoGvhudtjfop9vs/saB4Zj3IIc60G+Gd5FJX6XeEiqdQbwmdLxM2YXOvQJHbn86dfCqMI2Vh+wgj1Pet935caP0aHpTdK6kOraauicZo17TvzYr/4XkV3kcr4gYDGt0RRebcdIKzVHm3+Bx+4V6Znwj3mRSskcsG42mpksu05SxZYXNiMfi5RZt2a6ZwRrk80RatFTJ0ebWo8WKzPyEs3UbMCZMqIABPYAlVTOkJkn9V/frjvfDz6pAPYewJ336H4x2viM6XqJGX6SPc9W1N5kUAw//XunNhhbcVXnsl2DqmTe3NwWKMYTyeN/Kjcclg22bsG/MD6BwHh3x8IOENGs4dlvzZnEUGjUhPeY+kky56qXQ7lgxINQ7+5HXGuWWG5nyNQxSUkZPOVdjgh/Mt3RU52jpN++hVK+fplQzEKOHB5N54LV4UPDpLtKizoH8icZl5Yy/rh4i8UxfnCAW1VdqU369Y++31GHs0QB/LDKvkDT5C3uwvDrZee5bzo3v7hkcJQ0HRmKsvjXjcCIYxo4Hma//KYTN9zG+CxrU+pQEDiaVu+8CiqvT0v4uxR2d2Kw17U90XskgVm7bTOY7B3P+oz0nj2YhL4avKFAWLUYZYlWaqmar1ylpg=
+  app: isa-tfg
+  on:
+    repo: Wordsan/TFG-18-19
+    branch: develop
 cache:
   directories:
-     - ./node_modules
- 
+  - "./node_modules"
 install:
-  - npm install
+- npm install

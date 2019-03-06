@@ -13,7 +13,7 @@ var ProjectSchema = Schema({
 	title : String,
 	description : String,
 	leader : [ String ],
-	reference : String,
+	reference : {type: String, unique: true, required: true},
 	scope : {
 		type : String,
 		enum : [ 'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS' ]
