@@ -19,6 +19,8 @@ import { PublicationsComponent } from './components/publications/publications.co
 import { PublicationListComponent } from './components/publication-list/publication-list.component';
 import { AcompleteComponent } from './components/acomplete/acomplete.component';
 import { DisplayComponent } from './components/display/display.component';
+import { LeadersRestrictionDirective } from './components/shared/leaders-restriction.directive';
+import { ProjectListComponent } from '../app/components/project-list/project-list.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { DisplayComponent } from './components/display/display.component';
     PublicationListComponent,
     AcompleteComponent,
     DisplayComponent,
+    LeadersRestrictionDirective,
+    ProjectListComponent,
   ],
   imports: [
     NgbModule,

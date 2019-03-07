@@ -9,6 +9,7 @@ import { ProjectService } from '../services/project.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule } from '@angular/material';
+import { AcompleteComponent } from '../components/acomplete/acomplete.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
@@ -25,7 +26,7 @@ describe("Project's component", () => {
   beforeEach(async(() => {
     // Set the component configuration and add it the necessary imports
     TestBed.configureTestingModule({
-      declarations: [ProjectsComponent],
+      declarations: [ProjectsComponent, AcompleteComponent],
       imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })

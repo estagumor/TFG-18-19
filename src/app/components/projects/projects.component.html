@@ -4,20 +4,24 @@
 <fieldset>
 	<legend>Creacion de proyectos</legend>
 	<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject);" dateLimitation>
+		<!--appLeadersRestriction>-->
 
 		<!--añadir mensaje de error-->
 		<label for="researchTeam">Equipo de investigacion</label>
-		<app-acomplete [allList]= "researchers" [finalList]="finalResearchers"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" ng-focus="mostrar = false" ng-blur="mostrar = true"></app-acomplete>
+		<div *ngIf="!finalResearchers.length >=1 && mostrar" class="alert alert-danger">
+			<span>El equipo de investigación es necesario.</span>
+		</div>
 		<br>
 
 		<label for="workTeam">Equipo de trabajo</label>
 		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
-		<app-acomplete [allList]= "researchers" [finalList]="finalWorkers"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalWorkers"></app-acomplete>
 		<br>
 
 		<label for="hiredStaff">Personal contratado</label>
 		<!--<input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff' name="hiredStaff" required><br>-->
-		<app-acomplete [allList]= "hireds" [finalList]="finalHireds"></app-acomplete>
+		<app-acomplete [allList]="hireds" [finalList]="finalHireds"></app-acomplete>
 		<br>
 
 		<div class="requiredInputs">
@@ -27,74 +31,76 @@
 				<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
 			</div>
 			<br>
+		</div>
 
-
-			<label for="description">Descripcion</label>
-			<input type="text" [(ngModel)]="project.description" id='description' name="description" required
-				#description='ngModel'>
-			<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
-				<div *ngIf="description.errors.required" class="invalid-feedback">La descripción es necesaria</div>
-			</div>
+		<label for="description">Descripcion</label>
+		<input type="text" [(ngModel)]="project.description" id='description' name="description"
+			#description='ngModel'>
+		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+			<span>Error en la descripción</span>
 		</div>
 		<br>
 
 		<label for="leader">Responsable/s</label>
-		<app-acomplete [allList]= "researchers" [finalList]="finalLeaders"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalLeaders"></app-acomplete>
+		<div *ngIf="validateLeader() == false" class="alert alert-danger">
+		<span>El líder tiene que ser un investigador.</span>
+		</div>
 		<!--
-		<div *ngIf="leader.invalid && (leader.dirty || leader.touched)" class="alert alert-danger">
-			<div *ngIf="leader.errors.required" class="invalid-feedback">El responsable es necesario</div>
-		</div> -->
+		<div *ngIf="formProject.errors?.badLeader && (formProject.touched || formProject.dirty)"
+			class="cross-validation-error-message alert alert-danger">
+			<span>El líder tiene que ser un investigador</span>
+		</div>-->
 		<br>
 
-		<div class="requiredInputs">
-			<label for="reference">Referencia</label>
-			<input type="text" [(ngModel)]="project.reference" id='reference' name="reference" required
-				#reference='ngModel'>
-			<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
-				<div *ngIf="reference.errors.required" class="invalid-feedback">La referencia es necesaria</div>
-			</div>
-			<br>
+
+		<label for="reference">Referencia</label>
+		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
+			#reference='ngModel'>
+		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+			<span>Error en la referencia</span>
+		</div>
+		<br>
 
 
-			<label for="scope">Competencia</label>
-			<select [(ngModel)]='project.scope' id='scope' name='scope' required #scope='ngModel' class="custom-select">
-				<option value="REGIONAL">Regional</option>
-				<option value="NACIONAL">Nacional</option>
-				<option value="EUROPEO">Europeo</option>
-				<option value="OTROS">Otros</option>
-			</select>
-			<div *ngIf="scope.invalid && (scope.dirty || scope.touched)" class="alert alert-danger">
-				<div *ngIf="scope.errors.required" class="invalid-feedback">La competencia es necesaria</div>
-			</div>
-			<br>
+		<label for="scope">Competencia</label>
+		<select [(ngModel)]='project.scope' id='scope' name='scope' #scope='ngModel' class="custom-select">
+			<option value="REGIONAL">Regional</option>
+			<option value="NACIONAL">Nacional</option>
+			<option value="EUROPEO">Europeo</option>
+			<option value="OTROS">Otros</option>
+		</select>
+		<div *ngIf="scope.invalid && (scope.dirty || scope.touched)" class="alert alert-danger">
+			<span>Error en la competencia</span>
+		</div>
+		<br>
 
 
-			<label for="status">Estado</label>
-			<select [(ngModel)]='project.status' id='status' name='status' required #status='ngModel'
-				class="custom-select">
-				<option value="ENVIADO">Enviado</option>
-				<option value="RECHAZADO">Rechazado</option>
-				<option value="ACEPTADO">Aceptado</option>
-			</select>
-			<div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
-				<div *ngIf="status.errors.required" class="invalid-feedback">El estado es necesario</div>
-			</div>
-			<br>
+		<label for="status">Estado</label>
+		<select [(ngModel)]='project.status' id='status' name='status' #status='ngModel' class="custom-select">
+			<option value="ENVIADO">Enviado</option>
+			<option value="RECHAZADO">Rechazado</option>
+			<option value="ACEPTADO">Aceptado</option>
+		</select>
+		<div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+			<span>Error en el estado</span>
+		</div>
+		<br>
 
 
-			<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
-			<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate'
-				name="startDate" required #startDate='ngModel' />
-			<span class="badge">
-				<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar"
-					aria-hidden="true"></span>
-			</span>
-			<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
-				<div *ngIf="startDate.errors.required" class="invalid-feedback">La fecha de inicio es necesaria</div>
-			</div>
-			<br>
+		<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
+		<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate'
+			name="startDate" #startDate='ngModel' />
+		<span class="badge">
+			<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar"
+				aria-hidden="true"></span>
+		</span>
+		<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
+			<span>Error en la fecha de inicio</span>
+		</div>
+		<br>
 
-			<!--
+		<!--
 			<label for="duration">Duracion</label>
 			<select name="durationSelect" id="durationSelect" [(ngModel)]="duration">
 				<option value="1">Un año</option> 
@@ -106,46 +112,44 @@
 			</div>
 			<br>
 			-->
-			<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
-			<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate'
-				name="endDate" required #endDate='ngModel' #endDate="formControl" />
-			<span class="badge">
-				<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar"
-					aria-hidden="true"></span>
-			</span>
-			<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
-				<div *ngIf="endDate.errors.required" class="invalid-feedback">La fecha de fin es necesaria</div>
-			</div>
-
-			<br>
-			<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)"
-				class="cross-validation-error-message alert alert-danger">
-				<span>La fecha de inicio no puede ser posterior a la de fin.</span>
-			</div>
-
-			<label for="sponsor">Patrocinador</label>
-			<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" required
-				#sponsor='ngModel'>
-			<div *ngIf="sponsor.invalid && (sponsor.dirty || sponsor.touched)" class="alert alert-danger">
-				<div *ngIf="sponsor.errors.required" class="invalid-feedback">El patrocinador es necesario</div>
-			</div>
-			<br>
-
-
-			<label for="amount">Importe</label>
-			<span class="badge">
-				<span class="input-group-text">€</span>
-			</span>
-			<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0"
-				#amount='ngModel'>
-			<span class="badge">
-				<span class="input-group-text">.00</span>
-			</span>
-			<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
-				<div *ngIf="amount.errors.required" class="invalid-feedback">El importe es necesario</div>
-			</div>
-			<br>
+		<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
+		<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
+			#endDate='ngModel' #endDate="formControl" />
+		<span class="badge">
+			<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar"
+				aria-hidden="true"></span>
+		</span>
+		<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
+			<span>Error en la fecha de fin</span>
 		</div>
+
+		<br>
+		<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)"
+			class="cross-validation-error-message alert alert-danger">
+			<span>La fecha de inicio no puede ser posterior a la de fin.</span>
+		</div>
+
+		<label for="sponsor">Patrocinador</label>
+		<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" #sponsor='ngModel'>
+		<div *ngIf="sponsor.invalid && (sponsor.dirty || sponsor.touched)" class="alert alert-danger">
+			<span>Error en el patrocinador</span>
+		</div>
+		<br>
+
+
+		<label for="amount">Importe</label>
+		<span class="badge">
+			<span class="input-group-text">€</span>
+		</span>
+		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel'>
+		<span class="badge">
+			<span class="input-group-text">.00</span>
+		</span>
+		<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
+			<div *ngIf="amount.errors.required" class="invalid-feedback">El importe debe ser mayor o igual a 0</div>
+		</div>
+		<br>
+
 
 		<!--
 		Como no se han implementado las publicaciones se quedará como input de texto
@@ -171,11 +175,11 @@
 
 
 		<button type="submit" class="btn btn-primary" id="submitForm"
-			[disabled]="!formProject.form.valid || formProject.errors">Enviar</button>
+			[disabled]="!formProject.form.valid || formProject.errors || validateLeader() == false || !finalResearchers.length >=1 || !finalWorkers.length >=1 || !finalLeaders.length >=1">Enviar</button>
 	</form>
 </fieldset>
 
-
+<!--
 <fieldset>
 	<legend>Busqueda por id</legend>
 	<input type="text" [(ngModel)]="projectId" (keyup.enter)="find()" id="idInput" />
@@ -203,62 +207,4 @@
 	<legend>Borrado de proyectos</legend>
 	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" id="idInput2" />
 </fieldset>
-
-<fieldset>
-	<legend>Listado de proyectos</legend>
-	<button type="button" class="btn btn-primary" (click)="listar(true)" id="listPublicProyectsButton">Listar</button>
-	<button type="button" class="btn btn-primary" (click)="listar(false)"
-		id="unlistPublicProyectsButton">Ocultar</button>
-	<br>
-	<div class="row" id="listPublicProyectsTable" *ngIf="listado != undefined">
-	<label for="searchpp">Búsqueda por nombre y referencia</label>
-	<app-acomplete id="searchpp" [allList]= "search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()"></app-acomplete>
-		<section class="content">
-			<br>
-			<div class="col-md-8 col-md-offset-2">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-success btn-filter"
-									data-target="activo" (click)="boton('activo')">Activos</button>
-								<button type="button" class="btn btn-warning btn-filter" data-target="tres" (click)="boton('tres')">3
-									años</button>
-								<button type="button" class="btn btn-danger btn-filter" data-target="cinco" (click)="boton('cinco')">5
-									años</button>
-								<button type="button" class="btn btn-light btn-filter" data-target="all" (click)="boton('all')">Todos</button>
-							</div>
-						</div>
-						<div class="table-container">
-							<table class="table table-filter">
-								<tbody>
-									<tr *ngFor="let invPro of listado2" [attr.data-status]="getStatus(invPro)" (click)="openDialog(invPro)">
-										<!--Hacer javascript para averiguarlo-->
-										<td>
-											<div class="media">
-												<div class="media-body">
-													<!--datos-->
-													<span class="media-meta pull-right">{{ invPro.startDate }}</span>
-													<span class="media-meta pull-right"> / </span>
-													<span class="media-meta pull-right">{{ invPro.endDate }}</span>
-													<h4 class="title">
-														{{ invPro.title }}
-														<span
-															[attr.class]="getStatus(invPro)">{{ getStatus(invPro) }}</span>
-														<!--Rellenar una vez tengamos javascript-->
-													</h4>
-													<p class="summary">{{ invPro.scope }} - {{ invPro.reference }}</p>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-</fieldset>
-<br>
+-->

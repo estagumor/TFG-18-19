@@ -1,0 +1,64 @@
+<fieldset>
+	<legend>Listado de proyectos</legend>
+	<!--
+	<button type="button" class="btn btn-primary" (click)="listar(true)" id="listPublicProyectsButton">Listar</button>
+	<button type="button" class="btn btn-primary" (click)="listar(false)"
+		id="unlistPublicProyectsButton">Ocultar</button>-->
+	<div class="row" id="listPublicProyectsTable">
+		<label for="searchpp">Búsqueda por nombre y referencia</label>
+		<app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
+		</app-acomplete>
+		<button onclick="location.href='/project'">Crear proyecto</button>
+		<section class="content">
+			<br>
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-success btn-filter" data-target="activo"
+									(click)="boton('activo')">Activos</button>
+								<button type="button" class="btn btn-warning btn-filter" data-target="tres"
+									(click)="boton('tres')">3
+									años</button>
+								<button type="button" class="btn btn-danger btn-filter" data-target="cinco"
+									(click)="boton('cinco')">5
+									años</button>
+								<button type="button" class="btn btn-light btn-filter" data-target="all"
+									(click)="boton('all')">Todos</button>
+							</div>
+						</div>
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+									<tr *ngFor="let invPro of listado2" [attr.data-status]="getStatus(invPro)"
+										(click)="openDialog(invPro)">
+										<!--Hacer javascript para averiguarlo-->
+										<td>
+											<div class="media">
+												<div class="media-body">
+													<!--datos-->
+													<span class="media-meta pull-right">{{ invPro.startDate | date}}</span>
+													<span class="media-meta pull-right"> / </span>
+													<span class="media-meta pull-right">{{ invPro.endDate | date}}</span>
+													<h4 class="title">
+														{{ invPro.title }}
+														<span
+															[attr.class]="getStatus(invPro)">{{ getStatus(invPro) }}</span>
+														<!--Rellenar una vez tengamos javascript-->
+													</h4>
+													<p class="summary">{{ invPro.scope }} - {{ invPro.reference }}</p>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</fieldset>
+<br>

@@ -63,7 +63,7 @@
       </div>
       <br>
 
-      <label for="sourceTitle">Lugar de publicacion</label>
+      <label for="sourceTitle">Libro/Web/Revista</label>
       <input type="text" [(ngModel)]="pub.sourceTitle" id="sourceTitle" name="sourceTitle" required
         placeholder="Lecture Notes in Computer Science" #sourceTitle='ngModel'>
       <div *ngIf="sourceTitle.invalid && (sourceTitle.dirty || sourceTitle.touched)" class="alert alert-danger">
