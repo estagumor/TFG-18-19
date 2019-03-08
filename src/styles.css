@@ -3,7 +3,9 @@
 @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
 .active{
-	background-color: #729fcf;
+    background-color: transparent;
+    border-radius:5px;
+    color: #f6f1c7 !important;
 }
 
 .input{
@@ -20,10 +22,8 @@
 
 body{
     color: #2d0606;
-    background-image: url("../images/background3.jpg");
-    background-size: cover;
-    /*background-size: 200px 200px; */
-    background-position: initial
+    background-image: url("../images/background4.jpg");
+    background-size: 500px;
 }
 
 label {
@@ -40,10 +40,42 @@ button[type=submit] {
     margin: 15px;
 }
 
+h1 {
+    font-size: 2em;
+    color: #383026;
+}
+
+.navbar {
+    background-color: #86725a !important;
+    width: 100% !important;
+    height: fit-content !important;
+    padding-top: 0.5% !important;
+    padding-bottom: 0.5% !important;
+    font-weight: 800 !important;
+    font-size: 0.9em !important;
+}
+
+.nav-link:hover {
+    color: #1f1a14 !important;
+}
+
+.img-logo {
+    padding-left:1em;
+}
+
+.container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0% !important;
+}
+
 fieldset {
-    border-radius: 15px;
-    background-color: #f2f2f2;
+    border-radius: 8px;
+    background-color: #f6f6f1;
     padding: 20px;
+    max-width: 1140px !important;
+    margin: auto;
+    align-content: center !important;
 }
 
 .custom-select {
