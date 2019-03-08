@@ -20,6 +20,10 @@
 
 body{
     color: #2d0606;
+    background-image: url("../images/background3.jpg");
+    background-size: cover;
+    /*background-size: 200px 200px; */
+    background-position: initial
 }
 
 label {
