@@ -97,18 +97,7 @@
 		</div>
 		<br>
 
-		<!--
-			<label for="duration">Duracion</label>
-			<select name="durationSelect" id="durationSelect" [(ngModel)]="duration">
-				<option value="1">Un año</option> 
-				<option value="2">Dos años</option>
-				<option value="3">Tres años</option>
-			</select>
-			<div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="alert alert-danger">
-				<div *ngIf="duration.errors.required" class="invalid-feedback">La duracion es necesaria</div>
-			</div>
-			<br>
-			-->
+
 		<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
 		<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
 			#endDate='ngModel' #endDate="formControl" />
@@ -119,6 +108,14 @@
 		<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
 			<span>Error en la fecha de fin</span>
 		</div>
+
+		<label for="duration">Añadir años</label>
+			<select name="durationSelect" id="durationSelect" #duration (change)="console(endDate,duration, startDate)">
+				<option value="1">Un año</option> 
+				<option value="2">Dos años</option>
+				<option value="3">Tres años</option>
+			</select>
+			<button type="button" (click)="console(endDate)">Añadir</button>
 
 		<br>
 		<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)"

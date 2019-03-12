@@ -104,4 +104,20 @@ export class ProjectsComponent implements OnInit {
       return found;
     }
   }
+
+  console(obj, select, start){
+    console.log(obj)
+    let fecha = start.value
+    let newFecha = new Date((fecha["year"]-select.value)+"/"+fecha["month"]+"/"+(fecha["day"]-1))
+    obj.model = {year: fecha["year"]-select.value, month: fecha["month"], day: fecha["day"]-1}
+    this.project.endDate = newFecha
+    
+    // console.log(start);
+    // obj.value = {year: 2018, month: 3, day: 4}
+    // console.log(select);
+    // obj.viewToModelUpdate({year: 2018, month: 8, day: 5})
+    
+    // console.log(obj);
+    // this.project.endDate = new Date(o)
+  }
 }

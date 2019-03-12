@@ -229,3 +229,17 @@ body {
     display: block;
 }
 
+button.press {
+    border: none;
+    box-shadow: 0 10px #27496d;
+}
+
+button.press:hover, button.press.hover {
+    background-color: #417cb8
+}
+  
+button.press:active, button.press.active {
+    background-color: #417cb8;
+    box-shadow: 0 5px #27496d;
+    transform: translateY(5px);
+}
