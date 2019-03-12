@@ -4,7 +4,8 @@ import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/map';
 import { NgForm } from '@angular/forms';
-
+import { FormControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
 
 declare var jQuery: any;
 declare var $: any;
@@ -21,6 +22,7 @@ export class ProjectsComponent implements OnInit {
   public researchers: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
   public hireds: string[] = [];
   public finalResearchers: string[] = [];
+  public ctrlResearchers = new FormControl();
   public finalWorkers: string[] = [];
   public finalHireds: string[] = [];
   public finalLeaders: string[] = [];
@@ -30,13 +32,12 @@ export class ProjectsComponent implements OnInit {
   public responseCreate: Project;
   public contenedor: Project; //Se usa en el buscador
   public projectId: any;
- 
 
   //IMPROVES
   public duration: string = "1";
 
-  //HTML
-  public mostrar: boolean = false;
+  //VALIDATION
+  public errors = [];
 
   constructor(
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
@@ -51,6 +52,13 @@ export class ProjectsComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
+    this.validateAutocomplete()
+
+    if(this.errors) {
+      console.log(this.errors)
+      return false;
+    }
+
     this.project.researchTeam = this.finalResearchers;
     this.project.workTeam = this.finalWorkers;
     this.project.hiredStaff = this.finalHireds;
@@ -102,6 +110,27 @@ export class ProjectsComponent implements OnInit {
     } else {
       const found = this.finalResearchers.some(r => this.finalLeaders.indexOf(r) >= 0);
       return found;
+    }
+  }
+
+  validateAutocomplete() {
+    if(this.finalResearchers.length < 1){
+      this.errors['badResearchers'] = "Los investigadores no pueden ser vacíos"
+      // form.form.controls['researchTeam'].setErrors({'badResearchers': "Los investigadores no pueden ser vacíos"})
+    } else {
+      this.errors['badResearchers'] = null
+    }
+    if(this.finalWorkers.length < 1){
+      this.errors['badWorkers'] = "Los trabajadores no pueden ser vacíos"
+      //form.errors.controls['workTeam'].setErrors({'badWorkers':"Los trabajadores no pueden ser vacíos"})
+    } else {
+      this.errors['badWorkers'] = null
+    }
+    if(this.finalResearchers.some(r=> this.finalWorkers.includes(r))) {
+      this.errors['workersNotResearchers'] = "Los trabajadores no pueden ser parte de los investigadores"
+      //form.errors.controls['workTeam'].setErrors({'workersNotResearchers':"Los trabajadores no pueden ser parte de los investigadores"})
+    } else {
+      this.errors['workersNotResearchers'] = null
     }
   }
 

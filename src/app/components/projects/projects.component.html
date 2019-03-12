@@ -5,15 +5,21 @@
 
 		<!--añadir mensaje de error-->
 		<label for="researchTeam">Equipo de investigacion</label>
-		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" ng-focus="mostrar = false" ng-blur="mostrar = true"></app-acomplete>
-		<div *ngIf="!finalResearchers.length >=1 && mostrar" class="alert alert-danger">
-			<span>El equipo de investigación es necesario.</span>
+		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" (keyup)="validateAutocomplete()"></app-acomplete>
+		<div *ngIf="errors.badResearchers" class="alert alert-danger">
+			<span>{{ errors.badResearchers }}</span>
 		</div>
 		<br>
 
 		<label for="workTeam">Equipo de trabajo</label>
 		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
-		<app-acomplete [allList]="researchers" [finalList]="finalWorkers"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalWorkers" (keyup)="validateAutocomplete()"></app-acomplete>
+		<div *ngIf="errors.badWorkers" class="alert alert-danger">
+				<span>{{ errors.badWorkers }}</span>
+		</div>
+		<div *ngIf="errors.workersNotResearchers" class="alert alert-danger">
+				<span>{{ errors.workersNotResearchers }}</span>
+		</div>
 		<br>
 
 		<label for="hiredStaff">Personal contratado</label>
@@ -169,7 +175,7 @@
 
 
 		<button type="submit" class="btn btn-primary" id="submitForm"
-			[disabled]="!formProject.form.valid || formProject.errors || validateLeader() == false || !finalResearchers.length >=1 || !finalWorkers.length >=1 || !finalLeaders.length >=1">Enviar</button>
+			[disabled]="!formProject.form.valid || formProject.errors || validateLeader() == false">Enviar</button>
 	</form>
 </fieldset>
 
