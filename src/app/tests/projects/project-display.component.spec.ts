@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectDisplayComponent } from './project-display.component';
+import { ProjectDisplayComponent } from '../../components/project-display/project-display.component';
 
 describe('ProjectDisplayComponent', () => {
   let component: ProjectDisplayComponent;

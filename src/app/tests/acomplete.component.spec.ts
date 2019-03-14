@@ -1,24 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AcompleteComponent } from '../acomplete/acomplete.component';
 import { MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule } from '@angular/material';
+import { AcompleteComponent } from '../components/acomplete/acomplete.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProjectListComponent } from './project-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-describe('ProjectListComponent', () => {
-  let component: ProjectListComponent;
-  let fixture: ComponentFixture<ProjectListComponent>;
+describe('AcompleteComponent', () => {
+  let component: AcompleteComponent;
+  let fixture: ComponentFixture<AcompleteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectListComponent, AcompleteComponent],
+      declarations: [ AcompleteComponent ],
       imports: [MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule,ReactiveFormsModule, FormsModule]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectListComponent);
+    fixture = TestBed.createComponent(AcompleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

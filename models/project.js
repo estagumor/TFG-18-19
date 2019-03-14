@@ -7,12 +7,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProjectSchema = Schema({
-	researchTeam : [ String ],
-	workTeam : [ String ],
+	researchTeam : {type: [String], required: true},
+	workTeam : {type: [String], required: true},
 	hiredStaff : [ String ],
-	title : String,
+	title : {type: String, required: true},
 	description : String,
-	leader : [ String ],
+	leader : {type: [String], required: true},
 	reference : {type: String, unique: true, required: true},
 	scope : {
 		type : String,
@@ -25,7 +25,7 @@ var ProjectSchema = Schema({
 	sponsor : String,
 	startDate : Date,
 	endDate : Date,
-	amount : Number,
+	amount : {type: Number, required: true},
 	relatedPublications : [ String ],
 	relatedTools : [ String ]
 });

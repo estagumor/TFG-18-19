@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicationListComponent } from './publication-list.component';
+import { PublicationListComponent } from '../../components/publication-list/publication-list.component';
 
 describe('PublicationListComponent', () => {
   let component: PublicationListComponent;

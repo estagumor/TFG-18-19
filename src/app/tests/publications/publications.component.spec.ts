@@ -2,14 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { PublicationsComponent } from '../components/publications/publications.component';
+import { PublicationsComponent } from '../../components/publications/publications.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { DebugElement } from '@angular/core';
-import { PublicationService } from '../services/publication.service';
+import { PublicationService } from '../../services/publication.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule } from '@angular/material';
-import { AcompleteComponent } from '../components/acomplete/acomplete.component';
+import { AcompleteComponent } from '../../components/acomplete/acomplete.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
@@ -91,7 +91,6 @@ describe("Publication's component", () => {
     expect(createSpy).toHaveBeenCalled();
   })
 
-  //TODO PREGUNTAR A MANOLO
   /*
   it('should get a project', () => {
     // Get the id input to set his value

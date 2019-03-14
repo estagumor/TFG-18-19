@@ -8,12 +8,14 @@ import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
 import { PublicationsComponent } from './components/publications/publications.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component';
+import { ProjectDisplayComponent } from './components/project-display/project-display.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'project', component: ProjectsComponent },
   { path: 'projects', component:  ProjectListComponent},
+  { path: 'project/:id', component: ProjectDisplayComponent},
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
   { path: 'nets', component: NetComponent },

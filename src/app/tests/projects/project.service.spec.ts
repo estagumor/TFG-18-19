@@ -1,9 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
-import { ProjectService } from '../services/project.service';
+import { ProjectService } from '../../services/project.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpErrorResponse } from '@angular/common/http'
 import { defer } from 'rxjs';
-import { Project } from '../models/project';
+import { Project } from '../../models/project';
 
 function asyncData<T>(data: T) {
     return defer(() => Promise.resolve(data));
