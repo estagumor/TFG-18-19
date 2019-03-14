@@ -37,6 +37,6 @@ export class Publication {
     }
 
     static getFields() {
-        return { articleTitle: "Titulo del articulo", firstAuthor: "Autores", scopusId: "Id de Scopus", sourceType: "Publicado en",  documentType: "Tipo de publicación", sourceTitle: "Lugar de publicación", sourceIdentifier: "Id del lugar de publicacion", sourceVolume: "Volumen", pageRange: "Paginas del volumen", publicationDate: "Fecha de publicación", DOI: "DOI", ORCID: "ORCID", affiliation: "Afiliación"}
+        return { articleTitle: "Titulo del articulo", firstAuthor: "Autores", scopusId: "Id de Scopus", sourceType: "Publicado en",  documentType: "Tipo de publicación", sourceTitle: "Libro/Web/Revista", sourceIdentifier: "Id del lugar de publicacion", sourceVolume: "Volumen", pageRange: "Paginas del volumen", publicationDate: "Fecha de publicación", DOI: "DOI", ORCID: "ORCID", affiliation: "Afiliación"}
     }
 }
