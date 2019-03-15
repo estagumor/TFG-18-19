@@ -68,9 +68,10 @@ export class ProjectListComponent implements OnInit {
   }*/
 
   openDialog(pro): void {
+    this.selectedPro = pro;
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
-      data: { objeto: pro, fields: Project.getFields() }
+      data: { objeto: pro, fields: Project.getFields(), buttonText: "Mostrar detalles del proyecto" }
     });
   }
 

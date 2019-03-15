@@ -13,15 +13,14 @@ var ProjectSchema = Schema({
 	title : {type: String, required: true},
 	description : String,
 	leader : {type: [String], required: true},
-	//TODO: quitar el unique y required
-	reference : {type: String, unique: true, required: true},
+	reference : {type: String, unique: false},
 	scope : {
 		type : String,
-		enum : [ 'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS' ]
+		enum : [ 'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS', 'NONE' ]
 	},
 	status : {
 		type : String,
-		enum : [ 'RECHAZADO', 'ENVIADO', 'ACEPTADO' ]
+		enum : [ 'RECHAZADO', 'ENVIADO', 'ACEPTADO', 'NONE' ]
 	},
 	sponsor : String,
 	startDate : Date,

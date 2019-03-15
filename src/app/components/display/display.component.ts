@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, Inject } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Inject, Output } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
@@ -9,6 +9,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class DisplayComponent implements OnInit{
   @Input() objeto: any;
   @Input() fields: [];
+  @Input() buttonText: String;
   public properties: String[] = [];
   constructor(
     public dialogRef: MatDialogRef<DisplayComponent>,

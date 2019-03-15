@@ -57,8 +57,9 @@ export class ProjectsComponent implements OnInit {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
     this.validateAutocomplete()
 
-    if(this.errors) {
+    if(this.errors.length > 1) { //HAY ERRORES
       console.log(this.errors)
+      //TODO arreglar para que no salte siempre false
       return false;
     }
 
@@ -79,7 +80,7 @@ export class ProjectsComponent implements OnInit {
     if (this.project.relatedPublications != null)
       this.project.relatedPublications = [];
     if (this.project.relatedTools != null)
-      this.project.relatedTools = this.project.relatedTools.toString().split(",");
+      this.project.relatedTools = [];
       console.log(this.project);
     this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
       result => {

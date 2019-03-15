@@ -68,6 +68,7 @@
 
 		<label for="scope">Competencia</label>
 		<select [(ngModel)]='project.scope' id='scope' name='scope' #scope='ngModel' class="custom-select">
+			<option value="NONE">---</option>
 			<option value="REGIONAL">Regional</option>
 			<option value="NACIONAL">Nacional</option>
 			<option value="EUROPEO">Europeo</option>
@@ -81,6 +82,7 @@
 
 		<label for="status">Estado</label>
 		<select [(ngModel)]='project.status' id='status' name='status' #status='ngModel' class="custom-select">
+			<option value="NONE">---</option>
 			<option value="ENVIADO">Enviado</option>
 			<option value="RECHAZADO">Rechazado</option>
 			<option value="ACEPTADO">Aceptado</option>
