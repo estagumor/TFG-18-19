@@ -7,13 +7,10 @@ var controller = {
 
 	save: function (req, res) { // Metodo para crear proyectos
 		var pub = req.body;
+		
 		if (pub == undefined) {
 			return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
 		} else {
-			if (pub.publicationDate != null) {
-				var publicationDate = pub.publicationDate;
-				pub.publicationDate = publicationDate["month"] + "/" + publicationDate["day"] + "/" + publicationDate["year"];
-			}
 			
 			Publication.create(pub, (err) => {
 				if (err) return res.status(500).send({ message: "Error en la peticion" + err });

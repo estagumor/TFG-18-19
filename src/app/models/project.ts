@@ -13,7 +13,7 @@ export class Project {
     public status: String,
     public sponsor: String,
     public startDate: Date,
-    public endDate: Date,
+    public endDate: Date|{},
     public amount: Number,
     public relatedPublications: Array<Publication>,
     public relatedTools: Array<String>

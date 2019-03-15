@@ -13,6 +13,7 @@ var ProjectSchema = Schema({
 	title : {type: String, required: true},
 	description : String,
 	leader : {type: [String], required: true},
+	//TODO: quitar el unique y required
 	reference : {type: String, unique: true, required: true},
 	scope : {
 		type : String,

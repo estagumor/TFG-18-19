@@ -103,6 +103,15 @@
 		</div>
 		<br>
 
+		<label for="duration">Añadir duracion</label>
+		<select name="durationSelect" id="durationSelect" #duration (change)="addDuration(f,duration, startDate)" class="custom-select">
+			<option value="0">---</option>
+			<option value="1">Un año</option> 
+			<option value="2">Dos años</option>
+			<option value="3">Tres años</option>
+		</select>
+		<br>
+
 
 		<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
 		<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
@@ -112,16 +121,9 @@
 				aria-hidden="true"></span>
 		</span>
 		<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
-			<span>Error en la fecha de fin</span>
+			<span>Error en la fecha de fin</span><p>{{endDate.errors}}</p>
 		</div>
-
-		<label for="duration">Añadir años</label>
-			<select name="durationSelect" id="durationSelect" #duration (change)="console(endDate,duration, startDate)">
-				<option value="1">Un año</option> 
-				<option value="2">Dos años</option>
-				<option value="3">Tres años</option>
-			</select>
-			<button type="button" (click)="console(endDate)">Añadir</button>
+			
 
 		<br>
 		<div *ngIf="formProject.errors?.badDates && (formProject.touched || formProject.dirty)"

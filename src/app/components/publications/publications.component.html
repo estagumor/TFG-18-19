@@ -99,12 +99,15 @@
 			</div> -->
 
 
-    <label for="publicationDate" style="padding: 0px 15px 0px 15px">Fecha de publicacion</label>
-    <input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="pub.publicationDate" id='publicationDate'
-      name="publicationDate" #publicationDate='ngModel' />
-    <span class="badge">
+    <label for="publicationDate" style="padding: 0px 15px 0px 15px">Año de publicacion</label>
+    <input type="text" [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate" #publicationDate='ngModel' />
+    <!---<span class="badge">
       <span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
-    </span>
+    </span> -->
+    <!-- <select [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate" #publicationDate='ngModel' class="custom-select"  style="overflow:scroll;">
+      <option *ngFor="let item of years" value="{{item}}">{{item}}</option>
+
+    </select> -->
     <!-- <div *ngIf="publicationDate.invalid && (publicationDate.dirty || publicationDate.touched)" class="alert alert-danger">
 				<div *ngIf="publicationDate.errors.required" class="invalid-feedback">La fecha de publicacion</div>
 			</div> -->

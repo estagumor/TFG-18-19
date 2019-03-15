@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var PublicationSchema = Schema({
     scopusId: String,
-    articleTitle: String,
+    articleTitle: {type: String, required: true},
     sourceType: {
         type: String,
         enum: ['Journal','Book','Book Series','Conference Proceeding', 
@@ -22,10 +22,10 @@ var PublicationSchema = Schema({
     sourceIdentifier: String,
     sourceVolume: String,
     pageRange: String,
-    publicationDate: Date,
+    publicationDate: String,
     DOI: String,
     ORCID: String,
-    firstAuthor: String,
+    firstAuthor: {type: String, required: true},
     affiliation: String,
     assigned: Boolean
 });

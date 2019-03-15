@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import { NgForm } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
+import { ChangeDetectorRef } from '@angular/core';
+import { } from '@angular/core/src/render'
 
 declare var jQuery: any;
 declare var $: any;
@@ -40,6 +42,7 @@ export class ProjectsComponent implements OnInit {
   public errors = [];
 
   constructor(
+    private ref: ChangeDetectorRef,
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
     private _router: Router, // Para hacer el menu de navegacion
     private _service: ProjectService, // El servicio que hace las peticiones al backend
@@ -134,19 +137,12 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  console(obj, select, start){
-    console.log(obj)
+  addDuration(obj, select, start){
     let fecha = start.value
-    let newFecha = new Date((fecha["year"]-select.value)+"/"+fecha["month"]+"/"+(fecha["day"]-1))
-    obj.model = {year: fecha["year"]-select.value, month: fecha["month"], day: fecha["day"]-1}
-    this.project.endDate = newFecha
-    
-    // console.log(start);
-    // obj.value = {year: 2018, month: 3, day: 4}
-    // console.log(select);
-    // obj.viewToModelUpdate({year: 2018, month: 8, day: 5})
-    
-    // console.log(obj);
-    // this.project.endDate = new Date(o)
+    let newFecha = new Date((parseInt(fecha["year"])+parseInt(select.value))+"/"+fecha["month"]+"/"+(fecha["day"]-1))
+    obj._writeModelValue({year: newFecha.getFullYear(), month: newFecha.getMonth()+1, day: newFecha.getDate()})
+    // Next line is marked as error in VS Code but it doesn't trigger a real error
+    this.project.endDate = {year: newFecha.getFullYear(), month: newFecha.getMonth()+1, day: newFecha.getDate()}
+    this.ref.detectChanges();
   }
 }
