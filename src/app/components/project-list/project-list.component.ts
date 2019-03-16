@@ -33,7 +33,8 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this._service.getProjects().subscribe((lista) => {
-      this.listado = lista;
+      this.listado = lista['projects'];
+      // console.log(this.listado)
       this.listado.forEach(element => {
         this.search.push(element.reference);
         this.search.push(element.title);
@@ -71,7 +72,7 @@ export class ProjectListComponent implements OnInit {
     this.selectedPro = pro;
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
-      data: { objeto: pro, fields: Project.getFields(), buttonText: "Mostrar detalles del proyecto" }
+      data: { objeto: pro, fields: Project.getFields()}
     });
   }
 
@@ -140,4 +141,23 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
+  displayProject(id) {
+    // console.log("hola!")
+    // console.log(id)
+      if (id !== undefined) {
+        this._service.getProject(id).subscribe(project => {
+          // console.log(project)
+          if(project) {
+            this.selectedPro = project
+            this._router.navigate(['project/' + id])
+          }else {
+            //TODO Añadir aviso de error.
+            //En principio está pensado como una ventana desplegable, usando el display y 
+            //cambiandole las clases CSS
+            this._router.navigate(['/projects'])
+          }});
+      } else {
+        this._router.navigate(['/projects']) //Goes to the list of projects
+      }
+    };  
 }

@@ -8,7 +8,7 @@ var controller = {
 	saveProject: function (req, res) { // Metodo para crear proyectos
 		//var project = new Project();
 		var proj = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
-		console.log(req.body)
+		// console.log(req.body)
 		// if (params == undefined) { //No se ha creado el proyecto
 		// 	return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
 		// } else {
@@ -39,7 +39,7 @@ var controller = {
 		// project.relatedTools = params.relatedTools;
 
 		Project.create(proj, (err) => { // Intenta guardarlo y segun vaya responde
-			console.log(err)
+			// console.log(err)
 			if (err) return res.status(500).send({ message: err });
 			return res.status(201).send({ "proj": proj });
 		});

@@ -10,18 +10,21 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectDisplayComponent implements OnInit {
   public project: Project;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private route: Router
   ) {}
+
   ngOnInit() {
     this.activatedRoute.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        const id = +params['id'];
+      if(params['id'] !== undefined) {
+        // console.log(params['id'])
+        const id = params['id'];
         this.projectService.getProject(id).subscribe(project => {
           if(project) {
-            this.project = project
+            this.project = project['project']
           }else {
             //TODO Añadir aviso de error.
             //En principio está pensado como una ventana desplegable, usando el display y 
@@ -33,5 +36,4 @@ export class ProjectDisplayComponent implements OnInit {
       }
     });
   }
-
 }
