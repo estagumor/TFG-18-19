@@ -7,27 +7,16 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <img class="img-logo" src="images/isa_icon.png" width="100px" />
-        </li>
-        <li class="nav-item">
+      <ul class="navbar-nav">
+        <img class="img-logo" src="images/isa_icon.png" width="100px" style="margin-right: 0.5em"/>
+        <li class="nav-item left">
           <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Inicio <span
               class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pubBar" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Publicaciones
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pubBar">
-            <button class="dropdown-item" [routerLink]="['/publication']" routerLinkActive="active">Crear
-              publicaciones</button>
-            <button class="dropdown-item" [routerLink]="['/publications']" routerLinkActive="active">Lista de
-              publicaciones</button>
-          </div>
+        <li class="nav-item right">
+          <a class="nav-link" [routerLink]="['/publication']" routerLinkActive="active">Crear publicación</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item right">
           <a class="nav-link" [routerLink]="['/projects']" routerLinkActive="active">Proyectos públicos</a>
           <!--
               <button class="dropdown-item" [routerLink]="['/projects']" routerLinkActive="active">Proyectos

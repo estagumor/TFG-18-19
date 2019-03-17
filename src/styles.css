@@ -5,7 +5,7 @@
 .active{
     background-color: transparent;
     border-radius:5px;
-    color: #f6f1c7 !important;
+    color: #294B5E !important;
 }
 
 .input{
@@ -22,8 +22,10 @@
 
 body{
     color: #2d0606;
-    background-image: url("../images/background4.jpg");
-    background-size: 500px;
+    /* background-image: url("../images/background4.jpg"); */
+    /* background-size: 500px; */
+    background-color: #F9F9FF;
+    font-family: 'Poppins', sans-serif !important;
 }
 
 label {
@@ -40,24 +42,45 @@ button[type=submit] {
     margin: 15px;
 }
 
+.navbar-nav {
+    width: 100%;
+}
+
 h1 {
     font-size: 2em;
+    font-style: italic;
     color: #383026;
-    margin: auto;
+    padding: 2em;
+    background-image: url("../images/background4.jpg");
+    background-size: 500px;
+    text-align: center;
+}
+
+.nav-item {
+    margin: 0;
+    float: right;
+    position: relative;
 }
 
 .navbar {
-    background-color: #86725a !important;
+    background-color: #FFFFFF !important;
     width: 100% !important;
     height: fit-content !important;
     padding-top: 0.5% !important;
     padding-bottom: 0.5% !important;
     font-weight: 800 !important;
     font-size: 0.9em !important;
+    border-style: none;
+    float: right !important;
+}
+
+.nav-link{
+    float: right !important;
+    clear: left;
 }
 
 .nav-link:hover {
-    color: #1f1a14 !important;
+    color: #294B5E !important;
 }
 
 .img-logo {
@@ -72,7 +95,7 @@ h1 {
 
 fieldset {
     border-radius: 8px;
-    background-color: #f6f6f1;
+    background-color: #F9F9FF;
     padding: 20px;
     max-width: 90% !important;
     margin: auto;
@@ -247,4 +270,31 @@ button.press:active, button.press.active {
 
 .col-md-8 {
     margin: auto;
+}
+
+.thead-display {
+    color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+    line-height: normal;
+} 
+
+.thbody-display .encabezado {
+    color: #86725a;
+	line-height: normal;
+}
+
+li.right.nav-item {
+    float: right;
+    display: block;
+}
+
+li.left.nav-item {
+    float: left;
+    display: block;
+}
+
+ul.navbar-nav.mr-auto {
+    width: 100% !important;
+    display: block !important;
 }

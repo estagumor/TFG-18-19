@@ -26,6 +26,5 @@ export class HandleError {
             message = `Objeto/s creados correctamente`
         // else if(error.status == 200)
         //     message = `Peticion correcta`
-        console.log(message)
       };
 }
