@@ -44,7 +44,7 @@ describe("Publication's component", () => {
     publicationsService = bannerDe.injector.get(PublicationService)
     // Instantiate the spies to listen in the service methods
     // It returns true because we don't verify the response, just check that it is called
-    createSpy = spyOn(publicationsService, 'saveAll').and.returnValue(of(true));
+    createSpy = spyOn(publicationsService, 'create').and.returnValue(of(true));
 
   });
 
@@ -67,15 +67,15 @@ describe("Publication's component", () => {
     let articleTitle: HTMLInputElement = element.querySelector("input[name='articleTitle']")
     let sourceType: HTMLSelectElement = element.querySelector("select[name='sourceType']")
     let documentType: HTMLSelectElement = element.querySelector("select[name='documentType']")
-    let sourceTitle: HTMLInputElement = element.querySelector("select[name='sourceTitle']")
+    let sourceTitle: HTMLInputElement = element.querySelector("input[name='sourceTitle']")
     let firstAuthor: HTMLInputElement = element.querySelector("input[name='firstAuthor']")
     let affiliation: HTMLInputElement = element.querySelector("input[name='affiliation']")
-    documentType.value = 'Book'
-    articleTitle.value = 'Titulo de prueba';
-    sourceType.value = 'Book';
-    sourceTitle.value = 'Titulo de prueba2';
-    firstAuthor.value = 'autor';
-    affiliation.value = 'US';
+    documentType.setAttribute('value','Book');
+    articleTitle.setAttribute('value','US');
+    sourceType.setAttribute('selected','Book')
+    sourceTitle.setAttribute('value','US');
+    firstAuthor.setAttribute('value','US');
+    affiliation.setAttribute('value','US');
     // Makes Angular detect changes in the page and simulate the click
     fixture.detectChanges();
     boton.click();
