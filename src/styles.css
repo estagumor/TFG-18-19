@@ -43,6 +43,7 @@ button[type=submit] {
 h1 {
     font-size: 2em;
     color: #383026;
+    margin: auto;
 }
 
 .navbar {
@@ -73,7 +74,7 @@ fieldset {
     border-radius: 8px;
     background-color: #f6f6f1;
     padding: 20px;
-    max-width: 1140px !important;
+    max-width: 90% !important;
     margin: auto;
     align-content: center !important;
 }
@@ -242,4 +243,8 @@ button.press:active, button.press.active {
     background-color: #417cb8;
     box-shadow: 0 5px #27496d;
     transform: translateY(5px);
+}
+
+.col-md-8 {
+    margin: auto;
 }

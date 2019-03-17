@@ -22,6 +22,7 @@ import { DisplayComponent } from './components/display/display.component';
 import { LeadersRestrictionDirective } from './components/shared/leaders-restriction.directive';
 import { ProjectListComponent } from '../app/components/project-list/project-list.component';
 import { ProjectDisplayComponent } from '../app/components/project-display/project-display.component';
+import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProjectDisplayComponent } from '../app/components/project-display/proje
     LeadersRestrictionDirective,
     ProjectListComponent,
     ProjectDisplayComponent,
+    FilterProjectsPipe
   ],
   imports: [
     NgbModule,

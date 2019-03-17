@@ -19,8 +19,8 @@ export class ProjectListComponent implements OnInit {
   
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
   public listado2: Array<Project>;
-  public search: String[] = [];
-  public finalSearch: String[] = [];
+  // public search: String[] = [];
+  // public finalSearch: String[] = [];
 
   public projectId2: any;
 
@@ -35,10 +35,10 @@ export class ProjectListComponent implements OnInit {
     this._service.getProjects().subscribe((lista) => {
       this.listado = lista['projects'];
       // console.log(this.listado)
-      this.listado.forEach(element => {
-        this.search.push(element.reference);
-        this.search.push(element.title);
-      });
+      // this.listado.forEach(element => {
+      //   this.search.push(element.reference);
+      //   this.search.push(element.title);
+      // });
       this.listado2 = this.listado.slice()
     });
   }
@@ -77,31 +77,31 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
-  actualizarLista() {
-    this.listado = [];
-    this.listado2 = [];
-    if (this.finalSearch.length < 1) {
-      // console.log("todos")
-      this.listar(true)
-    } else {
-      this.finalSearch.forEach(element => {
-        // console.log("Project.ts - > Este es el elemento que le llega " + element);
-        //if (!this.findByReference(element) == undefined) {
-        // console.log("Camino referencia")
-        this.findByReference(element).subscribe(result => {
-          this.listado2 = this.listado2.concat(result['projects']);
-          // console.log("Project.ts -> referencia " + this.listado2);
-        });
-        //} else {
-        // console.log("Camino titulo");
-        this.findByTitle(element).subscribe(result => {
-          this.listado2 = this.listado2.concat(result['projects']);
-          // console.log("Project.ts -> titulo " + this.listado2);
-        });
-        //}
-      });
-    }
-  }
+  // actualizarLista() {
+  //   this.listado = [];
+  //   this.listado2 = [];
+  //   if (this.finalSearch.length < 1) {
+  //     // console.log("todos")
+  //     this.listar(true)
+  //   } else {
+  //     this.finalSearch.forEach(element => {
+  //       // console.log("Project.ts - > Este es el elemento que le llega " + element);
+  //       //if (!this.findByReference(element) == undefined) {
+  //       // console.log("Camino referencia")
+  //       this.findByReference(element).subscribe(result => {
+  //         this.listado2 = this.listado2.concat(result['projects']);
+  //         // console.log("Project.ts -> referencia " + this.listado2);
+  //       });
+  //       //} else {
+  //       // console.log("Camino titulo");
+  //       this.findByTitle(element).subscribe(result => {
+  //         this.listado2 = this.listado2.concat(result['projects']);
+  //         // console.log("Project.ts -> titulo " + this.listado2);
+  //       });
+  //       //}
+  //     });
+  //   }
+  // }
   /*
     try { //Por referencia
       this.listado.push(this.findByReference(element));
@@ -113,21 +113,21 @@ export class ProjectListComponent implements OnInit {
     */
 
 
-  listar(bool) {
-    if (bool == true) {
-      this.search = [];
-      this._service.getProjects().subscribe((lista) => {
-        this.listado = lista;
-        this.listado.forEach(element => {
-          this.search.push(element.reference);
-          this.search.push(element.title);
-        });
-        this.listado2 = this.listado.slice()
-      });
-    } else {
-      this.listado = undefined;
-    }
-  }
+  // listar(bool) {
+  //   if (bool == true) {
+  //     this.search = [];
+  //     this._service.getProjects().subscribe((lista) => {
+  //       this.listado = lista;
+  //       this.listado.forEach(element => {
+  //         this.search.push(element.reference);
+  //         this.search.push(element.title);
+  //       });
+  //       this.listado2 = this.listado.slice()
+  //     });
+  //   } else {
+  //     this.listado = undefined;
+  //   }
+  // }
 
   getStatus(project) {
     const eD = new Date(project.endDate);
