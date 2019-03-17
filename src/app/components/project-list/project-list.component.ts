@@ -145,11 +145,10 @@ export class ProjectListComponent implements OnInit {
   displayProject(id) {
       if (id !== undefined) {
         this._service.getProject(id).subscribe(result => {
-          // console.log(project)
-          let project = result.body
+          let project = result.body['project']
           if(project) {
             this.selectedPro = project
-            this._router.navigateByUrl('/projects/display/'+id)
+            this._router.navigateByUrl('/project/display/' + id)
             // this._router.navigate(['project/display/' + id])
           }else {
             //TODO Añadir aviso de error.
