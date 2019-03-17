@@ -10,6 +10,7 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectDisplayComponent implements OnInit {
   public project: Project;
+  public id: string;
   
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,9 +21,9 @@ export class ProjectDisplayComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.forEach((params: Params) => {
       if(params['id'] !== undefined) {
-        // console.log(params['id'])
-        const id = params['id'];
-        this.projectService.getProject(id).subscribe(project => {
+        // console.log(typeof(params['id']))
+        this.id = params['id'];
+        this.projectService.getProject(this.id).subscribe(project => {
           if(project) {
             this.project = project['project']
           }else {
@@ -34,6 +35,20 @@ export class ProjectDisplayComponent implements OnInit {
       } else {
         this.route.navigate(['/projects']) //Goes to the list of projects
       }
+    });
+  }
+
+  addPublications() {
+    this.route.navigate(['project/' + this.id + '/publications'])
+  }
+
+  editProject() {
+    this.route.navigate(['project/' + this.id])
+  }
+
+  deleteProject() {
+    this.projectService.deleteProject(this.id).subscribe(s => {
+      this.route.navigate(['projects'])
     });
   }
 }

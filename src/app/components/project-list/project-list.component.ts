@@ -70,9 +70,10 @@ export class ProjectListComponent implements OnInit {
 
   openDialog(pro): void {
     this.selectedPro = pro;
+    // console.log(Project.getFields())
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
-      data: { objeto: pro, fields: Project.getFields()}
+      data: { objeto: pro, fields: {title: 'Título', leader: 'Responsables', researchTeam: 'Equipo de investigación', amount: 'Importe'}}
     });
   }
 
@@ -149,7 +150,7 @@ export class ProjectListComponent implements OnInit {
           // console.log(project)
           if(project) {
             this.selectedPro = project
-            this._router.navigate(['project/' + id])
+            this._router.navigate(['project/display/' + id])
           }else {
             //TODO Añadir aviso de error.
             //En principio está pensado como una ventana desplegable, usando el display y 

@@ -13,9 +13,10 @@ import { ProjectDisplayComponent } from './components/project-display/project-di
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'project', component: ProjectsComponent },
+  { path: 'project', component: ProjectsComponent},
+  { path: 'project/:id?', component: ProjectsComponent },
   { path: 'projects', component:  ProjectListComponent},
-  { path: 'project/:id', component: ProjectDisplayComponent},
+  { path: 'project/display/:id', component: ProjectDisplayComponent},
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
   { path: 'nets', component: NetComponent },

@@ -138,7 +138,17 @@ var controller = {
 		var proyectId = req.params.id;
 		var datosUpdate = req.body;
 
+		if (datosUpdate.startDate != null) {
+			var startDate = datosUpdate.startDate;
+			datosUpdate.startDate = startDate["month"] + "/" + startDate["day"] + "/" + startDate["year"];
+		}
+		if (datosUpdate.endDate != null) {
+			var endDate = datosUpdate.endDate;
+			datosUpdate.endDate = endDate["month"] + "/" + endDate["day"] + "/" + endDate["year"];
+		}
+
 		Project.findOneAndUpdate(proyectId, datosUpdate, { new: true }, (err, projectUpdated) => {
+			// console.log(err)
 			if (err) return res.status(500).send({ message: "Error al actualizar" });
 
 			if (!projectUpdated) return res.status(503).send({ message: "No se ha podido actualizar" });
@@ -151,14 +161,15 @@ var controller = {
 
 	deleteProject: function (req, res) {
 		var projectId = req.params.id;
-
+		// console.log("he entrado al controlador oie")
 		Project.findByIdAndDelete(projectId, (err, projectDeleted) => {
+			// console.log(err)
 			if (err) return res.status(500).send({ message: 'No se ha podido borrar el proyecto' });
 
 			if (!projectDeleted) return res.status(503).send({ message: "No se puede eliminar ese proyecto" });
 
 			return res.status(200).send({
-				project: projectRemoved
+				project: projectDeleted
 			})
 		});
 	}
