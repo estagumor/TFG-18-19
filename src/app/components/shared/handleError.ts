@@ -24,8 +24,8 @@ export class HandleError {
             message = `Petición mal estructurada`
         else if(error.status == 201)
             message = `Objeto/s creados correctamente`
-        // else if(error.status == 200)
-        //     message = `Peticion correcta`
+        else if(error.status == 200)
+            message = `Peticion correcta`
         console.log(message)
       };
 }

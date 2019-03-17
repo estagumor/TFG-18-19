@@ -26,6 +26,7 @@ describe('PublicationListComponent', () => {
   });
 
   it('should create', () => {
+    component.projectId = ""
     expect(component).toBeTruthy();
   });
 });

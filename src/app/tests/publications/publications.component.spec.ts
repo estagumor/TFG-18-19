@@ -55,6 +55,7 @@ describe("Publication's component", () => {
   it('bind publication properties through a form', () => {
     // Get the form input corresponding to the title and set his value to 'isa'
     document.querySelector("input[name='articleTitle']").textContent = 'Titulo de prueba';
+    fixture.detectChanges();
     // Check that the binding of the object 'project' works
     expect(component.pub.articleTitle = 'Titulo de prueba');
   });

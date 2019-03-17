@@ -34,7 +34,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this._service.getProjects().subscribe((lista) => {
-      this.listado = lista['projects'];
+      this.listado = lista.body['projects'];
       // console.log(this.listado)
       // this.listado.forEach(element => {
       //   this.search.push(element.reference);
@@ -149,15 +149,16 @@ export class ProjectListComponent implements OnInit {
           let project = result.body
           if(project) {
             this.selectedPro = project
-            this._router.navigate(['project/display/' + id])
+            this._router.navigateByUrl('/projects/display/'+id)
+            // this._router.navigate(['project/display/' + id])
           }else {
             //TODO Añadir aviso de error.
             //En principio está pensado como una ventana desplegable, usando el display y 
             //cambiandole las clases CSS
-            this._router.navigate(['/projects'])
+            this._router.navigateByUrl('/projects')
           }});
       } else {
-        this._router.navigate(['/projects']) //Goes to the list of projects
+        this._router.navigateByUrl('/projects') //Goes to the list of projects
       }
     };  
 }

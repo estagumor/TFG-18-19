@@ -63,14 +63,6 @@ describe("Project's component", () => {
     expect(component.project.title = 'isa');
   });
 
-  it('should list all the projects', () => {
-    // Get the button that calls to the list function and simulate the click
-    let boton: HTMLButtonElement = element.querySelector("button[id='listButton']")
-    boton.click();
-    // Check that the list method has been called
-    expect(listSpy).toHaveBeenCalled();
-  })
-
   it('should create a project', () => {
     // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
     // Get the button that send the form and two inputs to set their values
@@ -84,15 +76,5 @@ describe("Project's component", () => {
     boton.click();
     // Check that the create method has been called in the service
     expect(createSpy).toHaveBeenCalled();
-  })
-
-  it('should get a project', () => {
-    // Get the id input to set his value
-    const input = fixture.debugElement.query(By.css('#idInput'));
-    component.projectId = "5bd79886addca429f504da62"
-    // Simulate that user press the key 'enter', which calls to the method
-    input.triggerEventHandler('keyup.enter', {})
-    // Check that the method has been called in the service
-    expect(getterSpy).toHaveBeenCalled();
   })
 });

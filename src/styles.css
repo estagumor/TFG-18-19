@@ -248,3 +248,18 @@ button.press:active, button.press.active {
 .col-md-8 {
     margin: auto;
 }
+
+li.right.nav-item {
+    float: right;
+    display: block;
+}
+
+li.left.nav-item {
+    float: left;
+    display: block;
+}
+
+ul.navbar-nav.mr-auto {
+    width: 100% !important;
+    display: block !important;
+}

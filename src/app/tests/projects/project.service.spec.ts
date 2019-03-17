@@ -93,7 +93,7 @@ describe("Project's service", () => {
         // Makes the request and expects the returned error contains the message from 'errorResponse'
         projectService.getProjects().subscribe(
           projects => fail('expected an error, not projects'),
-          error  => expect(error).toContain('test 404 error')
+          error  => expect(error.error).toContain('test 404 error')
         );
       });
       

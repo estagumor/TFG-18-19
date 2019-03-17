@@ -66,7 +66,7 @@ describe("Publication's service", () => {
         
         fail('expected an error, not pub')
       },
-      error => expect(error).toContain('test 500 error')
+      error => expect(error.error).toContain('test 500 error')
     );
     // Expect that the httpClientSpy has received just one request
     expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
