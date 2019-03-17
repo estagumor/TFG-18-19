@@ -31,10 +31,9 @@
 						<div class="table-container">
 							<table class="table table-filter">
 								<tbody>
-									<tr *ngFor="let invPro of listado2" [attr.data-status]="getStatus(invPro)"
-										(click)="openDialog(invPro)">
+									<tr *ngFor="let invPro of listado2" [attr.data-status]="getStatus(invPro)">
 										<!--Hacer javascript para averiguarlo-->
-										<td>
+										<td (click)="openDialog(invPro)">
 											<div class="media">
 												<div class="media-body">
 													<!--datos-->
@@ -50,6 +49,9 @@
 													<p class="summary">{{ invPro.scope }} - {{ invPro.reference }}</p>
 												</div>
 											</div>
+										</td>
+										<td>
+											<button class="btn-primary" type="button" (click)="displayProject(invPro._id)">Display</button>
 										</td>
 									</tr>
 								</tbody>

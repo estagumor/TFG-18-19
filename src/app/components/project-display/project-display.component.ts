@@ -10,18 +10,21 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectDisplayComponent implements OnInit {
   public project: Project;
+  public id: string;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private route: Router
   ) {}
+
   ngOnInit() {
     this.activatedRoute.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        const id = +params['id'];
-        this.projectService.getProject(id).subscribe(project => {
+      if(params['id'] !== undefined) {
+        this.id = params['id'];
+        this.projectService.getProject(this.id).subscribe(project => {
           if(project) {
-            this.project = project
+            this.project = project['project']
           }else {
             //TODO Añadir aviso de error.
             //En principio está pensado como una ventana desplegable, usando el display y 
@@ -34,4 +37,17 @@ export class ProjectDisplayComponent implements OnInit {
     });
   }
 
+  addPublications() {
+    this.route.navigate(['project/' + this.id + '/publications'])
+  }
+
+  editProject() {
+    this.route.navigate(['project/' + this.id])
+  }
+
+  deleteProject() {
+    this.projectService.deleteProject(this.id).subscribe(s => {
+      this.route.navigate(['projects'])
+    });
+  }
 }

@@ -14,11 +14,13 @@ import { PublicationListComponent } from './components/publication-list/publicat
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'project', component: ProjectsComponent },
+  { path: 'project', component: ProjectsComponent},
+  { path: 'project/:id?', component: ProjectsComponent },
   { path: 'projects', component:  ProjectListComponent},
   { path: 'project/:id', component: ProjectDisplayComponent},
   { path: 'project/:id/publication', component: PublicationAddListComponent },
   { path: 'project/:id/publications', component: PublicationListComponent },
+  { path: 'project/display/:id', component: ProjectDisplayComponent},
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
   { path: 'nets', component: NetComponent },

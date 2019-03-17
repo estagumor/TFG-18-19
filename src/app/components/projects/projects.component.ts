@@ -21,13 +21,16 @@ declare var $: any;
 export class ProjectsComponent implements OnInit {
 
   //AUTOCOMPLETE
-  public researchers: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
-  public hireds: string[] = [];
-  public finalResearchers: string[] = [];
+  public researchers: String[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
+  public hireds: String[] = [];
+  public finalResearchers: String[] = [];
   public ctrlResearchers = new FormControl();
-  public finalWorkers: string[] = [];
-  public finalHireds: string[] = [];
-  public finalLeaders: string[] = [];
+  public finalWorkers: String[] = [];
+  public finalHireds: String[] = [];
+  public finalLeaders: String[] = [];
+
+  //EDIT
+  public edit: boolean = false;
 
   public project: Project;
   public responseFind: Project;
@@ -41,23 +44,42 @@ export class ProjectsComponent implements OnInit {
   //VALIDATION
   public errors = [];
 
+  //EVITAR ERRORES EN LA CONSOLA DEL NAVEGADOR
+  public bool: boolean = false;
+  
+
   constructor(
     private ref: ChangeDetectorRef,
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
     private _router: Router, // Para hacer el menu de navegacion
     private _service: ProjectService, // El servicio que hace las peticiones al backend
   ) {
-    this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
   }
 
   ngOnInit() {
+    this._route.params.forEach((params: Params) => {
+      if (params['id?'] !== undefined) { //ESTAMOS EN EL EDIT
+        this._service.getProject(params['id?']).subscribe(project => {
+          this.project = project['project']
+          this.bool = true;
+          this.edit = true;
+          this.finalResearchers = this.project.researchTeam
+          this.finalWorkers = this.project.workTeam
+          this.finalHireds = this.project.hiredStaff
+          this.finalLeaders = this.project.leader
+        });
+      } else { //estamos en el create
+        this.bool = true;
+        this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
+      }
+    });
   }
 
   onSubmit(form: NgForm) {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []); // Instancia para guardar el resultado
     this.validateAutocomplete()
 
-    if(this.errors.length > 1) { //HAY ERRORES
+    if (this.errors.length > 1) { //HAY ERRORES
       console.log(this.errors)
       //TODO arreglar para que no salte siempre false
       return false;
@@ -67,10 +89,10 @@ export class ProjectsComponent implements OnInit {
     this.project.workTeam = this.finalWorkers;
     this.project.hiredStaff = this.finalHireds;
     this.project.leader = this.finalLeaders;
-    console.log("research Team " + this.finalResearchers);
-    console.log("work Team " + this.finalWorkers);
-    console.log("hired Staff " + this.finalHireds);
-    console.log("leaders " + this.finalLeaders);
+    // console.log("research Team " + this.finalResearchers);
+    // console.log("work Team " + this.finalWorkers);
+    // console.log("hired Staff " + this.finalHireds);
+    // console.log("leaders " + this.finalLeaders);
     /*
     console.log(this.project.startDate);
     this.project.endDate = new Date();
@@ -81,17 +103,30 @@ export class ProjectsComponent implements OnInit {
     //   this.project.relatedPublications = [];
     if (this.project.relatedTools != null)
       this.project.relatedTools = [];
-      console.log(this.project);
-    this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
-      result => {
+    // console.log(this.project);
+    if (this.edit == true) { //estamos editando
+      this._service.updateProject(this.project).subscribe(result => {
         this.responseCreate = result;
         console.log(this.responseCreate);
         form.reset()
+        this._router.navigate(['projects'])
       },
-      error => {
-        console.log(error);
-      }
-    );
+        error => {
+          console.log(error);
+        });
+    } else { //estamos creando
+      this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
+        result => {
+          this.responseCreate = result;
+          console.log(this.responseCreate);
+          form.reset()
+          this._router.navigate(['projects'])
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   find() {
@@ -118,19 +153,19 @@ export class ProjectsComponent implements OnInit {
   }
 
   validateAutocomplete() {
-    if(this.finalResearchers.length < 1){
+    if (this.finalResearchers.length < 1) {
       this.errors['badResearchers'] = "Los investigadores no pueden ser vacíos"
       // form.form.controls['researchTeam'].setErrors({'badResearchers': "Los investigadores no pueden ser vacíos"})
     } else {
       this.errors['badResearchers'] = null
     }
-    if(this.finalWorkers.length < 1){
+    if (this.finalWorkers.length < 1) {
       this.errors['badWorkers'] = "Los trabajadores no pueden ser vacíos"
       //form.errors.controls['workTeam'].setErrors({'badWorkers':"Los trabajadores no pueden ser vacíos"})
     } else {
       this.errors['badWorkers'] = null
     }
-    if(this.finalResearchers.some(r=> this.finalWorkers.includes(r))) {
+    if (this.finalResearchers.some(r => this.finalWorkers.includes(r))) {
       this.errors['workersNotResearchers'] = "Los trabajadores no pueden ser parte de los investigadores"
       //form.errors.controls['workTeam'].setErrors({'workersNotResearchers':"Los trabajadores no pueden ser parte de los investigadores"})
     } else {
@@ -138,12 +173,12 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  addDuration(obj, select, start){
+  addDuration(obj, select, start) {
     let fecha = start.value
-    let newFecha = new Date((parseInt(fecha["year"])+parseInt(select.value))+"/"+fecha["month"]+"/"+(fecha["day"]-1))
-    obj._writeModelValue({year: newFecha.getFullYear(), month: newFecha.getMonth()+1, day: newFecha.getDate()})
+    let newFecha = new Date((parseInt(fecha["year"]) + parseInt(select.value)) + "/" + fecha["month"] + "/" + (fecha["day"] - 1))
+    obj._writeModelValue({ year: newFecha.getFullYear(), month: newFecha.getMonth() + 1, day: newFecha.getDate() })
     // Next line is marked as error in VS Code but it doesn't trigger a real error
-    this.project.endDate = {year: newFecha.getFullYear(), month: newFecha.getMonth()+1, day: newFecha.getDate()}
+    this.project.endDate = { year: newFecha.getFullYear(), month: newFecha.getMonth() + 1, day: newFecha.getDate() }
     this.ref.detectChanges();
   }
 }

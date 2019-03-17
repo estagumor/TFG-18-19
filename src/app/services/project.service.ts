@@ -21,20 +21,19 @@ export class ProjectService {
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred:', error);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error}`);
     }
     // return an observable with a user-facing error message
     return throwError(
       `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
   };
-
   createV2(project): Observable<Project> {
     const params = JSON.stringify(project); // Para convertir el objeto Project a json que es lo que entiende el backend
     const headers = new HttpHeaders().set('Content-Type', 'application/json'); // Para decirle al backend lo que se le manda
@@ -68,13 +67,15 @@ export class ProjectService {
 
   updateProject(project): Observable<any> {
     const params = JSON.stringify(project); // Para convertir el objeto Project a json que es lo que entiende el backend
+    // console.log("Hemos entrado al update de servicio " + params)
     const headers = new HttpHeaders().set('Content-Type', 'application/json'); // Para decirle al backend lo que se le manda
-
-    return this._https.put<Project>(this.url, params, { headers: headers }).pipe(
+    return this._https.put<Project>(this.url + '/' + project._id, params, { headers: headers }).pipe(
       catchError(this.handleError));; // Peticion post con los datos
   }
 
   deleteProject(projectId): Observable<any> {
+    // console.log("Has entrado al delete del servicio. Id:" + projectId)
+    ///project/:id
     return this._https.delete<Project>(this.url + '/' + projectId).pipe(
       catchError(this.handleError));;
   }
