@@ -243,3 +243,8 @@ button.press:active, button.press.active {
     box-shadow: 0 5px #27496d;
     transform: translateY(5px);
 }
+
+.col-md-8 {
+    max-width: 90%;
+    margin: auto;
+}

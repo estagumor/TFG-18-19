@@ -22,8 +22,7 @@ export class PublicationListComponent implements OnInit {
   ngOnInit() {
     this.projectId = this._route.snapshot.paramMap.get('id');
     this._service.filterByProject(this.projectId).subscribe(result => {
-      console.log(result)
-      this.listado = result['pubs'];
+      this.listado = result.body['pubs'];
     }, err => {
       console.log(err);
       

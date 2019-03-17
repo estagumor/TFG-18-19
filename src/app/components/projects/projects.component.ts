@@ -60,7 +60,7 @@ export class ProjectsComponent implements OnInit {
     this._route.params.forEach((params: Params) => {
       if (params['id?'] !== undefined) { //ESTAMOS EN EL EDIT
         this._service.getProject(params['id?']).subscribe(project => {
-          this.project = project['project']
+          this.project = project.body['project']
           this.bool = true;
           this.edit = true;
           this.finalResearchers = this.project.researchTeam
@@ -106,7 +106,7 @@ export class ProjectsComponent implements OnInit {
     // console.log(this.project);
     if (this.edit == true) { //estamos editando
       this._service.updateProject(this.project).subscribe(result => {
-        this.responseCreate = result;
+        this.responseCreate = result.body;
         console.log(this.responseCreate);
         form.reset()
         this._router.navigate(['projects'])
@@ -117,7 +117,7 @@ export class ProjectsComponent implements OnInit {
     } else { //estamos creando
       this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
         result => {
-          this.responseCreate = result;
+          this.responseCreate = result.body;
           console.log(this.responseCreate);
           form.reset()
           this._router.navigate(['projects'])
@@ -131,14 +131,14 @@ export class ProjectsComponent implements OnInit {
 
   find() {
     this._service.getProject(this.projectId).subscribe(result => {
-      this.responseFind = result['project'];
+      this.responseFind = result.body['project'];
     });
   }
 
   findById(id: number): Project {
     let pro;
     this._service.getProject(id).subscribe(result => {
-      this.responseFind = result['project'];
+      this.responseFind = result.body['project'];
     });
     return pro;
   }

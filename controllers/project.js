@@ -115,7 +115,6 @@ var controller = {
 
 	findByTitle: function (req, res) {
 		var titulo = req.params.title;
-		// console.log("Este es el titulo del controlador: " + titulo);
 		if (titulo == null) {
 			return res.status(400).send({ message: 'Title is empty' })
 		}
@@ -123,7 +122,6 @@ var controller = {
 		Project.find({ title: titulo }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: err })
 			if (!projects) return res.status(503).send({ message: 'There are no projects to show' })
-			// console.log("Estos son los proyectos que encuentra el controlador -> titulo: " + projects)
 			return res.status(200).send({ projects });
 		});
 
@@ -131,7 +129,6 @@ var controller = {
 
 	findByReference: function (req, res) {
 		var referencia = req.params.reference;
-		// console.log("Esta es la referencia del controlador: " + referencia);
 		if (referencia == null) {
 			return res.status(400).send({ message: 'Reference is empty' })
 		}
@@ -139,7 +136,6 @@ var controller = {
 		Project.find({ reference: referencia }).exec((err, projects) => {
 			if (err) return res.status(500).send({ message: err })
 			if (!projects) return res.status(503).send({ message: 'There are no projects to show' })
-			// console.log("Estos son los proyectos que encuentra el controlador -> referencia: " + projects)
 			return res.status(200).send({ projects });
 		});
 	},
@@ -170,7 +166,6 @@ var controller = {
 
 	deleteProject: function (req, res) {
 		var projectId = req.params.id;
-		// console.log("he entrado al controlador oie")
 		Project.findByIdAndDelete(projectId, (err, projectDeleted) => {
 			if (err) return res.status(500).send({ message: err });
 

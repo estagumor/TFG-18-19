@@ -5,10 +5,12 @@
 	<button type="button" class="btn btn-primary" (click)="listar(false)"
 		id="unlistPublicProyectsButton">Ocultar</button>-->
 	<div class="row" id="listPublicProyectsTable">
+			<div class="col-md-8 col-md-offset-2">
 		<label for="searchpp">Búsqueda por nombre y referencia</label>
 		<app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete>
 		<button onclick="location.href='/project'">Crear proyecto</button>
+		</div>
 		<section class="content">
 			<br>
 			<div class="col-md-8 col-md-offset-2">

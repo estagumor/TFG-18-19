@@ -24,7 +24,7 @@ export class ProjectDisplayComponent implements OnInit {
         this.id = params['id'];
         this.projectService.getProject(this.id).subscribe(project => {
           if(project) {
-            this.project = project['project']
+            this.project = project.body['project']
           }else {
             //TODO Añadir aviso de error.
             //En principio está pensado como una ventana desplegable, usando el display y 
@@ -38,7 +38,7 @@ export class ProjectDisplayComponent implements OnInit {
   }
 
   addPublications() {
-    this.route.navigate(['project/' + this.id + '/publications'])
+    this.route.navigate(['project/' + this.id + '/publication'])
   }
 
   editProject() {

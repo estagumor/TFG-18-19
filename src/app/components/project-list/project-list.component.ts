@@ -5,6 +5,7 @@ import { Observable } from "rxjs/Rx";
 import { Project } from '../../models/project';
 import { DisplayComponent } from '../display/display.component';
 import { MatDialog } from '@angular/material';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-project-list',
@@ -33,8 +34,8 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this._service.getProjects().subscribe((lista) => {
-      this.listado = lista['projects'];
-      // console.log(this.listado)
+      this.listado = lista.body['projects'];
+      
       this.listado.forEach(element => {
         this.search.push(element.reference);
         this.search.push(element.title);
@@ -43,12 +44,12 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
-  findByReference(reference: String): Observable<Project> {
+  findByReference(reference: String): Observable<HttpResponse<any>> {
     return this._service.findByReference(reference);
 
   }
 
-  findByTitle(title: String): Observable<Project> {
+  findByTitle(title: String): Observable<HttpResponse<any>>  {
     return this._service.findByTitle(title);
   }
 
@@ -70,7 +71,6 @@ export class ProjectListComponent implements OnInit {
 
   openDialog(pro): void {
     this.selectedPro = pro;
-    // console.log(Project.getFields())
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
       data: { objeto: pro, fields: {title: 'Título', leader: 'Responsables', researchTeam: 'Equipo de investigación', amount: 'Importe'}}
@@ -88,14 +88,14 @@ export class ProjectListComponent implements OnInit {
         // console.log("Project.ts - > Este es el elemento que le llega " + element);
         //if (!this.findByReference(element) == undefined) {
         // console.log("Camino referencia")
-        this.findByReference(element).subscribe(result => {
-          this.listado2 = this.listado2.concat(result['projects']);
+        this.findByReference(element).subscribe((result => {
+          this.listado2 = this.listado2.concat(result.body['projects']);
           // console.log("Project.ts -> referencia " + this.listado2);
-        });
+        }));
         //} else {
         // console.log("Camino titulo");
         this.findByTitle(element).subscribe(result => {
-          this.listado2 = this.listado2.concat(result['projects']);
+          this.listado2 = this.listado2.concat(result.body['projects']);
           // console.log("Project.ts -> titulo " + this.listado2);
         });
         //}
@@ -117,7 +117,7 @@ export class ProjectListComponent implements OnInit {
     if (bool == true) {
       this.search = [];
       this._service.getProjects().subscribe((lista) => {
-        this.listado = lista;
+        this.listado = lista.body;
         this.listado.forEach(element => {
           this.search.push(element.reference);
           this.search.push(element.title);
@@ -143,11 +143,10 @@ export class ProjectListComponent implements OnInit {
   }
 
   displayProject(id) {
-    // console.log("hola!")
-    // console.log(id)
       if (id !== undefined) {
-        this._service.getProject(id).subscribe(project => {
+        this._service.getProject(id).subscribe(result => {
           // console.log(project)
+          let project = result.body
           if(project) {
             this.selectedPro = project
             this._router.navigate(['project/display/' + id])

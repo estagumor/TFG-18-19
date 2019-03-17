@@ -37,8 +37,7 @@ export class PublicationAddListComponent implements OnInit {
     this.projectId = this._route.snapshot.paramMap.get('id');
     this._scopus.getPubs().subscribe((data) => {
       this._service.filterNewPublications(data).subscribe((nuevos) => {
-        this.listado = nuevos['pubs'];
-        console.log(this.listado);
+        this.listado = nuevos.body['pubs'];
         
       })
     })
