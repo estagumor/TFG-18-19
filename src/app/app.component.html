@@ -9,36 +9,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item left">
-          <img class="img-logo" src="images/isa_icon.png" width="100px" />
+          <img class="img-logo" src="images/isa_icon.png" width="100px" style="margin-right: 0.5em"/>
         </li>
-        <li class="nav-item right">
-          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Inicio <span
-              class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item dropdown right">
-          <a class="nav-link dropdown-toggle" href="#" id="pubBar" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Publicaciones
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pubBar">
-            <button class="dropdown-item" [routerLink]="['/publication']" routerLinkActive="active">Crear
-              publicaciones</button>
-            <button class="dropdown-item" [routerLink]="['/publications']" routerLinkActive="active">Lista de
-              publicaciones</button>
-          </div>
-        </li>
+        
         <li class="nav-item right">
           <a class="nav-link" [routerLink]="['/projects']" routerLinkActive="active">Proyectos públicos</a>
-          <!--
-              <button class="dropdown-item" [routerLink]="['/projects']" routerLinkActive="active">Proyectos
-              publicos</button>
-            
-            <button class="dropdown-item" [routerLink]="['/contracts']" routerLinkActive="active">Contratos</button>
-            <button class="dropdown-item" [routerLink]="['/nets']" routerLinkActive="active">Redes</button>-->
         </li>
+        <li class="nav-item right">
+           <a class="nav-link" [routerLink]="['/publication']" routerLinkActive="active">Crear publicación</a>
+        </li>
+        <li class="nav-item right">
+            <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Inicio <span
+                class="sr-only">(current)</span></a>
+          </li>
       </ul>
     </div>
   </nav>
+
+  
 
   <!-- <div class="row">
   <div class="col">

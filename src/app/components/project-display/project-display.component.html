@@ -1,70 +1,70 @@
 <fieldset *ngIf="project">
     <table class="table">
-        <thead>
+        <thead class="thead-display">
             <th scope="col">Propiedad</th>
             <th scope="col">Detalles</th>
         </thead>
-        <tbody>
+        <tbody class="thbody-display">
             <tr>
-                <th scope="row">Título</th>
+                <th scope="row" class="encabezado">Título</th>
                 <td>{{ project.title }}</td>
             </tr>
             <tr *ngIf="project.reference">
-                <th scope="row">Referencia</th>
+                <th scope="row" class="encabezado">Referencia</th>
                 <td>{{ project.reference }}</td>
             </tr>
             <tr>
-                <th scope="row">Jefes de proyecto</th>
+                <th scope="row" class="encabezado">Jefes de proyecto</th>
                 <td>{{ project.leader }}</td>
             </tr>
             <tr *ngIf="project.description">
-                <th scope="row">Descripción</th>
+                <th scope="row" class="encabezado">Descripción</th>
                 <td>{{ project.description }}</td>
             </tr>
             <tr>
-                <th scope="row">Equipo de investigación</th>
+                <th scope="row" class="encabezado">Equipo de investigación</th>
                 <td>{{ project.researchTeam }}</td>
             </tr>
             <tr>
-                <th scope="row">Equipo de trabajo</th>
+                <th scope="row" class="encabezado">Equipo de trabajo</th>
                 <td>{{ project.workTeam }}</td>
             </tr>
             <tr *ngIf="project.hiredStaff.length > 1">
-                <th scope="row">Personal contratado</th>
+                <th scope="row" class="encabezado">Personal contratado</th>
                 <td>{{ project.hiredStaff }}</td>
             </tr>
             <tr>
-                <th scope="row">Importe</th>
+                <th scope="row" class="encabezado">Importe</th>
                 <td>{{ project.amount }}</td>
             </tr>
             <tr *ngIf="project.scope != 'NONE'">
-                <th scope="row">Competencia</th>
+                <th scope="row" class="encabezado">Competencia</th>
                 <td>{{ project.scope }}</td>
             </tr>
             <tr *ngIf="project.status != 'NONE'">
-                <th scope="row">Estado</th>
+                <th scope="row" class="encabezado">Estado</th>
                 <td>{{ project.status }}</td>
             </tr>
             <tr *ngIf="project.sponsor">
-                <th scope="row">Patrocinador</th>
+                <th scope="row" class="encabezado">Patrocinador</th>
                 <td>{{ project.sponsor }}</td>
             </tr>
             <tr *ngIf="project.startDate != null">
-                <th scope="row">Fecha de inicio</th>
+                <th scope="row" class="encabezado">Fecha de inicio</th>
                 <td>{{ project.startDate | date }}</td>
             </tr>
             <tr *ngIf="project.endDate != null">
-                <th scope="row">Fecha de finalización</th>
+                <th scope="row" class="encabezado">Fecha de finalización</th>
                 <td>{{ project.endDate | date }}</td>
             </tr>
             <!--TODO hacer esto como enlaces o a saber, hay que pensarlo-->
             <tr>
-                <th scope="row">Publicaciones relacionadas</th>
+                <th scope="row" class="encabezado">Publicaciones relacionadas</th>
                 <td>{{ project.relatedPublications }}</td>
                 <button class="btn-primary" type="button" (click)="addPublications()">Añadir</button>
             </tr>
             <tr *ngIf="project.relatedTools.length > 1">
-                <th scope="row">Herramientas relacionadas</th>
+                <th scope="row" class="encabezado">Herramientas relacionadas</th>
                 <td>{{ project.relatedTools }}</td>
             </tr>
             <tr>
