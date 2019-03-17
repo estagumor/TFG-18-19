@@ -1,3 +1,4 @@
+<button type="button" (click)="saveFromScoups()">Cargar</button>
 <fieldset>
   <legend>Listado de publicaciones</legend>
   <div class="row">
@@ -11,6 +12,12 @@
                 <tbody>
                   <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}" (click)="openDialog(pub)">
                     <td>
+                      <div class="ckbox">
+                        <input type="checkbox" id="checkBox" (click)="clicked(checkbox,pub)" #checkbox>
+                        <label for="checkbox1"></label>
+                      </div>
+                    </td>
+                    <td>
                       <div class="media">
                         <div class="media-body">
                           <span class="media-meta pull-right">{{ pub.firstAuthor }}</span>
@@ -20,7 +27,6 @@
                             {{ pub.articleTitle }}
                           </h4>
                           <p class="summary" *ngIf="pub.publicationDate">{{ pub.publicationDate }}</p>
-                          <p><a href="https://dx.doi.org/{{pub.DOI}}">Ir a la publicación</a></p>
                         </div>
                       </div>
                     </td>

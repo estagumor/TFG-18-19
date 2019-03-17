@@ -31,7 +31,7 @@ export class NetComponent implements OnInit {
         private _router: Router, // Para hacer el menu de navegacion
         private _service: NetService // El servicio que hace las peticiones al backend
     ) {
-        this.net = new Net( [], [], [], '', '', [], '', '', '', '', null, null, null, [], [] );
+        this.net = new Net( [], [], [], '', '', [], '', '', '', '', null, null, null, [] );
     }
 
     ngOnInit() {
@@ -39,7 +39,7 @@ export class NetComponent implements OnInit {
 
     onSubmit() {
         // tslint:disable-next-line:max-line-length
-        this.responseCreate = new Net( [], [], [], '', '', [], '', '', '', '', null, null, null, [], [] ); // Instancia para guardar el resultado
+        this.responseCreate = new Net( [], [], [], '', '', [], '', '', '', '', null, null, null, [] ); // Instancia para guardar el resultado
         this._service.create( this.net ).subscribe(
             result => {
                 this.responseCreate = result.project;

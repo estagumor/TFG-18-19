@@ -1,3 +1,4 @@
+import { Project } from "./project";
 
 
 export class Publication {
@@ -15,7 +16,8 @@ export class Publication {
         public ORCID: String,
         public firstAuthor: String,
         public affiliation: String,
-        public assigned: Boolean
+        public assigned: Boolean,
+        public project: Project
     ) {}
 
     static parse(object): Publication{
@@ -31,8 +33,9 @@ export class Publication {
         let DOI = object["prism:doi"]
         let ORCID = object["orcid"]
         let firstAuthor = object["dc:creator"]
-        let affiliation = object["affiliation"][0]["affilname"]
-        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, firstAuthor, affiliation, false)
+        if(object["affiliation"])
+            var affiliation = object["affiliation"][0]["affilname"]
+        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, firstAuthor, affiliation, false, null)
         return pub
     }
 

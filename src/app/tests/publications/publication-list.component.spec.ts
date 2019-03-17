@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router'
+import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { PublicationListComponent } from '../../components/publication-list/publication-list.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material';
 
 describe('PublicationListComponent', () => {
   let component: PublicationListComponent;
@@ -11,7 +12,9 @@ describe('PublicationListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PublicationListComponent ],
-      imports: [HttpClientModule, MatDialogModule]
+      imports: [ RouterModule.forRoot([]),HttpClientModule] ,
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
+
     })
     .compileComponents();
   }));

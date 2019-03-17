@@ -47,14 +47,14 @@ export class ProjectsComponent implements OnInit {
     private _router: Router, // Para hacer el menu de navegacion
     private _service: ProjectService, // El servicio que hace las peticiones al backend
   ) {
-    this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
+    this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
   }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
-    this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
+    this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []); // Instancia para guardar el resultado
     this.validateAutocomplete()
 
     if(this.errors.length > 1) { //HAY ERRORES
@@ -77,8 +77,8 @@ export class ProjectsComponent implements OnInit {
     this.project.startDate = new Date(this.project.startDate);
     this.project.endDate.setDate(this.project.startDate.getDate() + parseInt(this.duration));
     */
-    if (this.project.relatedPublications != null)
-      this.project.relatedPublications = [];
+    // if (this.project.relatedPublications != null)
+    //   this.project.relatedPublications = [];
     if (this.project.relatedTools != null)
       this.project.relatedTools = [];
       console.log(this.project);

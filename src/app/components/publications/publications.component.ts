@@ -12,15 +12,13 @@ import { NgForm } from '@angular/forms'
 })
 export class PublicationsComponent implements OnInit {
   public pub: Publication
-  public years: Array<Number>
   constructor(
     private _service: PublicationService
   ) {
-    this.pub = new Publication('','','','','',null,'','',null,'','','','',false)
+    this.pub = new Publication('','','','','',null,'','',null,'','','','',false,null)
    }
 
   ngOnInit() {
-    this.years = new Array(20).fill(new Date().getFullYear()).map((n,index) => n-index)
   }
 
   onSubmit(form: NgForm){

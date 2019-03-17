@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router'
+import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ProjectDisplayComponent } from '../../components/project-display/project-display.component';
 
@@ -8,7 +11,9 @@ describe('ProjectDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectDisplayComponent ]
+      declarations: [ ProjectDisplayComponent ],
+      imports: [ RouterModule.forRoot([]),HttpClientModule] ,
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
     .compileComponents();
   }));

@@ -1,4 +1,4 @@
-import { Publication } from './publication'
+// import { Publication } from './publication'
 
 export class Project {
   constructor(
@@ -15,7 +15,7 @@ export class Project {
     public startDate: Date,
     public endDate: Date|{},
     public amount: Number,
-    public relatedPublications: Array<Publication>,
+    // public relatedPublications: Array<Publication>,
     public relatedTools: Array<String>
   ) {  }
 

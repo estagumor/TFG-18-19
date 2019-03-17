@@ -48,7 +48,15 @@ export class PublicationService {
     .pipe(catchError(this.handleError))
   }
 
-  saveAll(publications: Publication[]): Observable<Publication[]> {
-    return this._http.post<Publication[]>(this.url+"/all",publications).pipe(catchError(this.handleError));
+  saveAll(publications: Publication[], proj): Observable<Publication[]> {
+    return this._http.post<Publication[]>(this.url+"/all",{publications: publications, project: proj}).pipe(catchError(this.handleError));
+  }
+
+  filterNewPublications(publications: Publication[]): Observable<Publication[]> {
+    return this._http.post<Publication[]>(this.url+"/filter",publications)
+  }
+
+  filterByProject(id: String): Observable<Publication[]> {
+    return this._http.get<Publication[]>(this.url+"/project/"+id)
   }
 }
