@@ -8,7 +8,6 @@ var controller = {
 	saveProject: function (req, res) { // Metodo para crear proyectos
 		//var project = new Project();
 		var proj = req.body; // Recoje los parametros que le llegan y los mete en un project nuevo
-		// console.log(req.body)
 		// if (params == undefined) { //No se ha creado el proyecto
 		// 	return res.status(400).send({ message: "No se puede guardar un proyecto que no existe" });
 		// } else {
@@ -39,8 +38,19 @@ var controller = {
 		// project.relatedTools = params.relatedTools;
 
 		Project.create(proj, (err) => { // Intenta guardarlo y segun vaya responde
-			// console.log(err)
-			if (err) return res.status(500).send({ message: err });
+			if (err) {
+				let errores = {}
+				// if(err.name="ValidationError"){
+				// 	if(err.message.indexOf('Cast to Date failed for value "undefined/undefined/undefined" at path "startDate"')!=-1){
+				// 		errores.startDate = 'El formato adecuado para las fechas es {"year": 2019, "month": 5, "day": 25}'
+				// 	}
+				// 	if(err.message.indexOf('Cast to Date failed for value "undefined/undefined/undefined" at path "endDate"')!=-1){
+				// 		errores.endDate = 'El formato adecuado para las fechas es {"year": 2019, "month": 5, "day": 25}'
+				// 	}
+				// 	return res.status(500).send({ message: err });
+				// }
+				return res.status(500).send({ message: err });
+			}
 			return res.status(201).send({ "proj": proj });
 		});
 	},
@@ -54,11 +64,11 @@ var controller = {
 
 		Project.findById(projectId, (err, project) => {
 			if (err) return res.status(500).send({
-				message: "Error al devolver los datos"
+				message: err
 			});
 
 			else if (!project) return res.status(404).send({
-				message: "El projecto no existe"
+				message: "There is no project with that id"
 			});
 
 			return res.status(200).send({
@@ -78,8 +88,8 @@ var controller = {
 		})
 
 		Project.find({}, null, { limit: limit, skip: offset }, (err, projects) => {
-			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
-			if (!projects) return res.status(404).send({ message: 'No hay projectos públicos que mostrar' })
+			if (err) return res.status(500).send({ message: err })
+			if (!projects) return res.status(404).send({ message: 'There are no projects to show' })
 			if (!req.body) // Esto esta aqui porque en el test le paso un string para que ignore esta parte, no he conseguido hacer stub del metodo que genera este dato
 				res.setHeader('X-WP-Total', total);
 			return res.status(200).send({ "projects": projects });
@@ -105,15 +115,13 @@ var controller = {
 
 	findByTitle: function (req, res) {
 		var titulo = req.params.title;
-		// console.log("Este es el titulo del controlador: " + titulo);
 		if (titulo == null) {
-			return res.status(400).send({ message: 'No ha introducido bien el titulo' })
+			return res.status(400).send({ message: 'Title is empty' })
 		}
 
 		Project.find({ title: titulo }).exec((err, projects) => {
-			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
-			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
-			// console.log("Estos son los proyectos que encuentra el controlador -> titulo: " + projects)
+			if (err) return res.status(500).send({ message: err })
+			if (!projects) return res.status(503).send({ message: 'There are no projects to show' })
 			return res.status(200).send({ projects });
 		});
 
@@ -121,15 +129,13 @@ var controller = {
 
 	findByReference: function (req, res) {
 		var referencia = req.params.reference;
-		// console.log("Esta es la referencia del controlador: " + referencia);
 		if (referencia == null) {
-			return res.status(400).send({ message: 'No ha introducido bien la referencia' })
+			return res.status(400).send({ message: 'Reference is empty' })
 		}
 
 		Project.find({ reference: referencia }).exec((err, projects) => {
-			if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
-			if (!projects) return res.status(503).send({ message: 'No hay projectos que mostrar' })
-			// console.log("Estos son los proyectos que encuentra el controlador -> referencia: " + projects)
+			if (err) return res.status(500).send({ message: err })
+			if (!projects) return res.status(503).send({ message: 'There are no projects to show' })
 			return res.status(200).send({ projects });
 		});
 	},
@@ -148,10 +154,9 @@ var controller = {
 		}
 
 		Project.findOneAndUpdate(proyectId, datosUpdate, { new: true }, (err, projectUpdated) => {
-			// console.log(err)
-			if (err) return res.status(500).send({ message: "Error al actualizar" });
+			if (err) return res.status(500).send({ message: err });
 
-			if (!projectUpdated) return res.status(503).send({ message: "No se ha podido actualizar" });
+			if (!projectUpdated) return res.status(503).send({ message: "Error when trying to update the project" });
 
 			return res.status(200).send({
 				project: projectUpdated
@@ -161,12 +166,10 @@ var controller = {
 
 	deleteProject: function (req, res) {
 		var projectId = req.params.id;
-		// console.log("he entrado al controlador oie")
 		Project.findByIdAndDelete(projectId, (err, projectDeleted) => {
-			// console.log(err)
-			if (err) return res.status(500).send({ message: 'No se ha podido borrar el proyecto' });
+			if (err) return res.status(500).send({ message: err });
 
-			if (!projectDeleted) return res.status(503).send({ message: "No se puede eliminar ese proyecto" });
+			if (!projectDeleted) return res.status(503).send({ message: "Error when trying to delete the project" });
 
 			return res.status(200).send({
 				project: projectDeleted

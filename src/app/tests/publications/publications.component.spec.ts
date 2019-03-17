@@ -18,8 +18,6 @@ describe("Publication's component", () => {
   let fixture: ComponentFixture<PublicationsComponent>;
   let element: HTMLElement;
   // Spies to intercept calls to the service
-  let listSpy;
-  let getterSpy;
   let createSpy;
   let publicationsService: PublicationService;
 
@@ -46,8 +44,6 @@ describe("Publication's component", () => {
     publicationsService = bannerDe.injector.get(PublicationService)
     // Instantiate the spies to listen in the service methods
     // It returns true because we don't verify the response, just check that it is called
-    listSpy = spyOn(publicationsService, 'create').and.returnValue(of(true));
-    getterSpy = spyOn(publicationsService, 'list').and.returnValue(of(true));
     createSpy = spyOn(publicationsService, 'saveAll').and.returnValue(of(true));
 
   });
@@ -63,27 +59,22 @@ describe("Publication's component", () => {
     expect(component.pub.articleTitle = 'Titulo de prueba');
   });
 
-  //PREGUNTAR SOBRE ESTO
-  it('should list all the publications', () => {
-    // Get the button that calls to the list function and simulate the click
-    let boton: HTMLButtonElement = element.querySelector("button[id='listButton']")
-    boton.click();
-    // Check that the list method has been called
-    expect(listSpy).toHaveBeenCalled();
-  })
-
   it('should create a publication', () => {
     // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
     // Get the button that send the form and two inputs to set their values
     let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
-    let articleTitle: HTMLInputElement = element.querySelector("select[name='articleTitle']")
-    let sourceType: HTMLInputElement = element.querySelector("select[name='sourceType']")
-    let documentType: HTMLInputElement = element.querySelector("select[name='documentType']")
+    let articleTitle: HTMLInputElement = element.querySelector("input[name='articleTitle']")
+    let sourceType: HTMLSelectElement = element.querySelector("select[name='sourceType']")
+    let documentType: HTMLSelectElement = element.querySelector("select[name='documentType']")
     let sourceTitle: HTMLInputElement = element.querySelector("select[name='sourceTitle']")
+    let firstAuthor: HTMLInputElement = element.querySelector("input[name='firstAuthor']")
+    let affiliation: HTMLInputElement = element.querySelector("input[name='affiliation']")
+    documentType.value = 'Book'
     articleTitle.value = 'Titulo de prueba';
-    sourceType.value = 'Journal';
-    documentType.value = 'Article';
+    sourceType.value = 'Book';
     sourceTitle.value = 'Titulo de prueba2';
+    firstAuthor.value = 'autor';
+    affiliation.value = 'US';
     // Makes Angular detect changes in the page and simulate the click
     fixture.detectChanges();
     boton.click();
@@ -91,15 +82,4 @@ describe("Publication's component", () => {
     expect(createSpy).toHaveBeenCalled();
   })
 
-  /*
-  it('should get a project', () => {
-    // Get the id input to set his value
-    const input = fixture.debugElement.query(By.css('#idInput'));
-    component.projectId = "5bd79886addca429f504da62"
-    // Simulate that user press the key 'enter', which calls to the method
-    input.triggerEventHandler('keyup.enter', {})
-    // Check that the method has been called in the service
-    expect(getterSpy).toHaveBeenCalled();
-  })
-  */
 });

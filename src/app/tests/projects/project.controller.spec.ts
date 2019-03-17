@@ -26,7 +26,7 @@ describe("Project's controller", () => {
 
     it('get projects', () => {
         // A mock of the project the server should return
-        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
         let url = baseUrl + "s";
         // Make an HTTP GET request
         httpClient.get(url)
@@ -53,7 +53,7 @@ describe("Project's controller", () => {
 
     it('get project by id', () => {
         // A mock of the project the server should return
-        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
         let url = baseUrl + "/5bd79886addca429f504da62";
         // Make an HTTP GET request
         httpClient.get(url)
@@ -80,7 +80,7 @@ describe("Project's controller", () => {
 
     it('save project', () => {
         // A mock of the project the server should return and it is used as data on the POST request
-        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [] }];
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedTools": [] }];
         let url = baseUrl;
         // Make an HTTP POST request
         httpClient.post(url, datos)
@@ -107,7 +107,7 @@ describe("Project's controller", () => {
 
     it('delete project by id', () => {
         // A mock of the project the server should return
-        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedPublications": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
+        var datos = [{ "researchTeam": [], "workTeam": [], "hiredStaff": [], "leader": [], "relatedTools": [], "_id": "5bd79886addca429f504da62", "__v": 0 }];
         let url = baseUrl + "/5bd79886addca429f504da62";
         // Make an HTTP DELETE request
         httpClient.delete(url)

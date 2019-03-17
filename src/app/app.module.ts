@@ -23,6 +23,7 @@ import { LeadersRestrictionDirective } from './components/shared/leaders-restric
 import { ProjectListComponent } from '../app/components/project-list/project-list.component';
 import { ProjectDisplayComponent } from '../app/components/project-display/project-display.component';
 import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
+import { PublicationAddListComponent } from '../app/components/publication-add-list/publication-add-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
     LeadersRestrictionDirective,
     ProjectListComponent,
     ProjectDisplayComponent,
-    FilterProjectsPipe
+    FilterProjectsPipe,
+    PublicationAddListComponent
   ],
   imports: [
     NgbModule,

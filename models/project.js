@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 //var Actor = require('./actor');
-//var Publication = require('./publication')
+// var Publication = require('./publication')
 //var Tool = require('./tool')
 var Schema = mongoose.Schema;
 
@@ -26,7 +26,7 @@ var ProjectSchema = Schema({
 	startDate : Date,
 	endDate : Date,
 	amount : {type: Number, required: true},
-	relatedPublications : [ String ],
+	// relatedPublications : [ {type: Schema.Types.ObjectId, ref:'Publication'} ],
 	relatedTools : [ String ]
 });
 

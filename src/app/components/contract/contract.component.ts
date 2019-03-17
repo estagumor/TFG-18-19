@@ -30,7 +30,7 @@ export class ContractComponent implements OnInit {
         private _router: Router, // Para hacer el menu de navegacion
         private _service: ContractService // El servicio que hace las peticiones al backend
     ) {
-        this.contract = new Contract( [], [], [], '', '', [], '', '', '', '', null, null, null, [], [] );
+        this.contract = new Contract( [], [], [], '', '', [], '', '', '', '', null, null, null, [] );
     }
 
     ngOnInit() {
@@ -38,7 +38,7 @@ export class ContractComponent implements OnInit {
 
     onSubmit() {
         // tslint:disable-next-line:max-line-length
-        this.responseCreate = new Contract( [], [], [], '', '', [], '', '', '', '', null, null, null, [], [] ); // Instancia para guardar el resultado
+        this.responseCreate = new Contract( [], [], [], '', '', [], '', '', '', '', null, null, null, [] ); // Instancia para guardar el resultado
         this._service.create( this.contract).subscribe(
             result => {
                 this.responseCreate = result.contract;

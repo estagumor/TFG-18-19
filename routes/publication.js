@@ -8,5 +8,7 @@ var router = express.Router();
 router.post('/publication', PublicationController.save);
 router.get('/publications', PublicationController.getPubs);
 router.post('/publication/all', PublicationController.saveAll);
+router.post('/publication/filter', PublicationController.filterNewPubs);
+router.get('/publication/project/:id', PublicationController.filterByProject)
 
 module.exports = router;

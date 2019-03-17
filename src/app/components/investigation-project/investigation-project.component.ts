@@ -31,7 +31,7 @@ export class InvestigationProjectComponent implements OnInit {
         private _router: Router, // Para hacer el menu de navegacion
         private _service: InvestigationProjectService // El servicio que hace las peticiones al backend
     ) {
-        this.investigationProject = new InvestigationProject( [], [], [], '', '', [], '', '', '', '', null, null, null, [], [] );
+        this.investigationProject = new InvestigationProject( [], [], [], '', '', [], '', '', '', '', null, null, null, [] );
     }
 
     ngOnInit() {
@@ -41,7 +41,7 @@ export class InvestigationProjectComponent implements OnInit {
     }
 
     onSubmit() {
-        this.responseCreate = new InvestigationProject( [], [], [], '', '', [], '', '', '', '', null, null, null, [], [] ); // Instancia para guardar el resultado
+        this.responseCreate = new InvestigationProject( [], [], [], '', '', [], '', '', '', '', null, null, null, []); // Instancia para guardar el resultado
         this._service.create( this.investigationProject ).subscribe(
             result => {
                 this.responseCreate = result.project;
