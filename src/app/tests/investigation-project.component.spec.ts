@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
-import { InvestigationProjectComponent } from './investigation-project.component';
+import { InvestigationProjectComponent } from '../components/investigation-project/investigation-project.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { InvestigationProject } from 'src/app/models/investigationProject';
-import { InvestigationProjectService } from '../../services/investigation.project.service';
+import { InvestigationProjectService } from '../services/investigation.project.service';
 
 describe('InvestigationProjectComponent', () => {
   let component: InvestigationProjectComponent;

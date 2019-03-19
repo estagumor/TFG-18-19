@@ -15,7 +15,7 @@ export class PublicationsComponent implements OnInit {
   constructor(
     private _service: PublicationService
   ) {
-    this.pub = new Publication('','','','','',null,'','',null,'','','','',false)
+    this.pub = new Publication('','','','','',null,'','',null,'','','','',false,null)
    }
 
   ngOnInit() {

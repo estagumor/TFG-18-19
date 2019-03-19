@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router'
+import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
-import { PublicationListComponent } from './publication-list.component';
+import { PublicationListComponent } from '../../components/publication-list/publication-list.component';
 
 describe('PublicationListComponent', () => {
   let component: PublicationListComponent;
@@ -8,7 +11,10 @@ describe('PublicationListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublicationListComponent ]
+      declarations: [ PublicationListComponent ],
+      imports: [ RouterModule.forRoot([]),HttpClientModule] ,
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
+
     })
     .compileComponents();
   }));
@@ -20,6 +26,7 @@ describe('PublicationListComponent', () => {
   });
 
   it('should create', () => {
+    component.projectId = ""
     expect(component).toBeTruthy();
   });
 });

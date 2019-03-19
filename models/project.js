@@ -2,31 +2,31 @@
 
 var mongoose = require('mongoose');
 //var Actor = require('./actor');
-//var Publication = require('./publication')
+// var Publication = require('./publication')
 //var Tool = require('./tool')
 var Schema = mongoose.Schema;
 
 var ProjectSchema = Schema({
-	researchTeam : [ String ],
-	workTeam : [ String ],
+	researchTeam : {type: [String], required: true},
+	workTeam : {type: [String], required: true},
 	hiredStaff : [ String ],
-	title : String,
+	title : {type: String, required: true},
 	description : String,
-	leader : [ String ],
-	reference : {type: String, unique: true, required: true},
+	leader : {type: [String], required: true},
+	reference : {type: String, unique: false},
 	scope : {
 		type : String,
-		enum : [ 'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS' ]
+		enum : [ 'REGIONAL', 'NACIONAL', 'EUROPEO', 'OTROS', 'NONE' ]
 	},
 	status : {
 		type : String,
-		enum : [ 'RECHAZADO', 'ENVIADO', 'ACEPTADO' ]
+		enum : [ 'RECHAZADO', 'ENVIADO', 'ACEPTADO', 'NONE' ]
 	},
 	sponsor : String,
 	startDate : Date,
 	endDate : Date,
-	amount : Number,
-	relatedPublications : [ String ],
+	amount : {type: Number, required: true},
+	// relatedPublications : [ {type: Schema.Types.ObjectId, ref:'Publication'} ],
 	relatedTools : [ String ]
 });
 

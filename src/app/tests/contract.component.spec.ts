@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { ContractComponent } from './contract.component';
+import { ContractComponent } from '../components/contract/contract.component';
 import {APP_BASE_HREF} from '@angular/common';
 
 

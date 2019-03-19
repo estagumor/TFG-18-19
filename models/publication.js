@@ -2,10 +2,12 @@
 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
+var Project = require('./project')
+var ObjectId = mongoose.Types.ObjectId
 
 var PublicationSchema = Schema({
     scopusId: String,
-    articleTitle: String,
+    articleTitle: {type: String, required: true},
     sourceType: {
         type: String,
         enum: ['Journal','Book','Book Series','Conference Proceeding', 
@@ -22,12 +24,22 @@ var PublicationSchema = Schema({
     sourceIdentifier: String,
     sourceVolume: String,
     pageRange: String,
-    publicationDate: Date,
+    publicationDate: String,
     DOI: String,
     ORCID: String,
-    firstAuthor: String,
+    firstAuthor: {type: String, required: true},
     affiliation: String,
-    assigned: Boolean
+    assigned: Boolean,
+    project: {type: Schema.Types.ObjectId, ref:'Project'}
 });
+
+PublicationSchema.statics.findByProject = function(project, callback) {
+    var query = this.find()
+
+    Project.find({"_id":ObjectId(project)},null,{limit: 1}, function(error, project) {
+        query.where({project: project._id}).exec(callback)
+    })
+    return query
+}
 
 module.exports = mongoose.model('Publication', PublicationSchema)

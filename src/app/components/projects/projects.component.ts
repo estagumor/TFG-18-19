@@ -3,10 +3,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/map';
-import { NgForm } from '@angular/forms'
-import { DisplayComponent } from '../display/display.component';
-import { MatDialog } from '@angular/material';
-import { Observable } from "rxjs/Rx";
+import { NgForm } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
+import { ChangeDetectorRef } from '@angular/core';
+import { } from '@angular/core/src/render'
 
 declare var jQuery: any;
 declare var $: any;
@@ -19,183 +20,165 @@ declare var $: any;
 })
 export class ProjectsComponent implements OnInit {
 
-  public showDisplay: boolean = true;
-  public selectedPro: Project
-  public fields
-
   //AUTOCOMPLETE
-  public researchers: string[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
-  public hireds: string[] = [];
-  public finalResearchers: string[] = [];
-  public finalWorkers: string[] = [];
-  public finalHireds: string[] = [];
-  public finalLeaders: string[] = [];
-  public search: String[] = [];
-  public finalSearch: String[] = [];
+  public researchers: String[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
+  public hireds: String[] = [];
+  public finalResearchers: String[] = [];
+  public ctrlResearchers = new FormControl();
+  public finalWorkers: String[] = [];
+  public finalHireds: String[] = [];
+  public finalLeaders: String[] = [];
+
+  //EDIT
+  public edit: boolean = false;
 
   public project: Project;
   public responseFind: Project;
   public responseCreate: Project;
   public contenedor: Project; //Se usa en el buscador
   public projectId: any;
-  public projectId2: any;
-  public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
-  public listado2: Array<Project>;
 
   //IMPROVES
   public duration: string = "1";
 
+  //VALIDATION
+  public errors = [];
+
+  //EVITAR ERRORES EN LA CONSOLA DEL NAVEGADOR
+  public bool: boolean = false;
+  
+
   constructor(
+    private ref: ChangeDetectorRef,
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
     private _router: Router, // Para hacer el menu de navegacion
     private _service: ProjectService, // El servicio que hace las peticiones al backend
-    public dialog: MatDialog
   ) {
-    this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []);
   }
 
   ngOnInit() {
-  }
-
-  boton(b) {
-    if (b.localeCompare("all") == 0)
-      this.listado2 = this.listado.slice()
-    else
-      this.listado2 = this.listado.filter((pro) => this.getStatus(pro).localeCompare(b) == 0)
+    this._route.params.forEach((params: Params) => {
+      if (params['id?'] !== undefined) { //ESTAMOS EN EL EDIT
+        this._service.getProject(params['id?']).subscribe(project => {
+          this.project = project.body['project']
+          this.bool = true;
+          this.edit = true;
+          this.finalResearchers = this.project.researchTeam
+          this.finalWorkers = this.project.workTeam
+          this.finalHireds = this.project.hiredStaff
+          this.finalLeaders = this.project.leader
+        });
+      } else { //estamos en el create
+        this.bool = true;
+        this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
+      }
+    });
   }
 
   onSubmit(form: NgForm) {
-    this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, [], []); // Instancia para guardar el resultado
+    this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []); // Instancia para guardar el resultado
+    this.validateAutocomplete()
+
+    if (this.errors.length > 1) { //HAY ERRORES
+      console.log(this.errors)
+      //TODO arreglar para que no salte siempre false
+      return false;
+    }
+
     this.project.researchTeam = this.finalResearchers;
     this.project.workTeam = this.finalWorkers;
     this.project.hiredStaff = this.finalHireds;
     this.project.leader = this.finalLeaders;
-    console.log("research Team " + this.finalResearchers);
-    console.log("work Team " + this.finalWorkers);
-    console.log("hired Staff " + this.finalHireds);
-    console.log("leaders " + this.finalLeaders);
+    // console.log("research Team " + this.finalResearchers);
+    // console.log("work Team " + this.finalWorkers);
+    // console.log("hired Staff " + this.finalHireds);
+    // console.log("leaders " + this.finalLeaders);
     /*
     console.log(this.project.startDate);
     this.project.endDate = new Date();
     this.project.startDate = new Date(this.project.startDate);
     this.project.endDate.setDate(this.project.startDate.getDate() + parseInt(this.duration));
     */
-    if (this.project.relatedPublications != null)
-      this.project.relatedPublications = [];
+    // if (this.project.relatedPublications != null)
+    //   this.project.relatedPublications = [];
     if (this.project.relatedTools != null)
-      this.project.relatedTools = this.project.relatedTools.toString().split(",");
-    this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
-      result => {
-        this.responseCreate = result;
+      this.project.relatedTools = [];
+    // console.log(this.project);
+    if (this.edit == true) { //estamos editando
+      this._service.updateProject(this.project).subscribe(result => {
+        this.responseCreate = result.body;
         console.log(this.responseCreate);
         form.reset()
+        this._router.navigate(['projects'])
       },
-      error => {
-        console.log(error);
-      }
-    );
+        error => {
+          console.log(error);
+        });
+    } else { //estamos creando
+      this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
+        result => {
+          this.responseCreate = result.body;
+          console.log(this.responseCreate);
+          form.reset()
+          this._router.navigate(['projects'])
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   find() {
     this._service.getProject(this.projectId).subscribe(result => {
-      this.responseFind = result['project'];
+      this.responseFind = result.body['project'];
     });
   }
 
   findById(id: number): Project {
     let pro;
     this._service.getProject(id).subscribe(result => {
-      this.responseFind = result['project'];
+      this.responseFind = result.body['project'];
     });
     return pro;
   }
 
-  findByReference(reference: String): Observable<Project> {
-    return this._service.findByReference(reference);
-
-  }
-
-  findByTitle(title: String): Observable<Project> {
-    return this._service.findByTitle(title);
-  }
-
-  actualizarLista() {
-    this.listado = [];
-    this.listado2 = [];
-    if (this.finalSearch.length < 1) {
-      // console.log("todos")
-      this.listar(true)
+  validateLeader() {
+    if (this.finalLeaders.length < 1) {
+      return true;
     } else {
-      this.finalSearch.forEach(element => {
-        // console.log("Project.ts - > Este es el elemento que le llega " + element);
-        //if (!this.findByReference(element) == undefined) {
-          // console.log("Camino referencia")
-          this.findByReference(element).subscribe(result => {
-            this.listado2 = this.listado2.concat(result['projects']);
-            // console.log("Project.ts -> referencia " + this.listado2);
-          });
-        //} else {
-          // console.log("Camino titulo");
-          this.findByTitle(element).subscribe(result => {
-            this.listado2 = this.listado2.concat(result['projects']);
-            // console.log("Project.ts -> titulo " + this.listado2);
-          });
-        //}
-      });
+      const found = this.finalResearchers.some(r => this.finalLeaders.indexOf(r) >= 0);
+      return found;
     }
   }
-  /*
-    try { //Por referencia
-      this.listado.push(this.findByReference(element));
-      console.log("Primer camino tomado: " + this.findByReference(element));
-    } catch (error) { //Por nombre
-      this.listado.push(this.findByTitle(element));
-      console.log("Segundo camino tomado: " + this.findByTitle(element));
-    }
-    */
 
-
-  listar(bool) {
-    if (bool == true) {
-      this.search = [];
-      this._service.getProjects().subscribe((lista) => {
-        this.listado = lista;
-        this.listado.forEach(element => {
-          this.search.push(element.reference);
-          this.search.push(element.title);
-        });
-        this.listado2 = this.listado.slice()
-      });
+  validateAutocomplete() {
+    if (this.finalResearchers.length < 1) {
+      this.errors['badResearchers'] = "Los investigadores no pueden ser vacíos"
+      // form.form.controls['researchTeam'].setErrors({'badResearchers': "Los investigadores no pueden ser vacíos"})
     } else {
-      this.listado = undefined;
+      this.errors['badResearchers'] = null
     }
-  }
-
-  delete() {
-    if (confirm('¿Esta seguro?')) {
-      this._service.deleteProject(this.projectId2).subscribe((response) => console.log(response));
-      let temp = this.findById(this.projectId2);
-      this.listado = this.listado.filter(h => h !== temp);
-    }
-  }
-
-  getStatus(project) {
-    const eD = new Date(project.endDate);
-    const now = new Date();
-    var time = now.getFullYear() - eD.getFullYear();
-    if (time <= 0) {
-      return "activo";
-    } else if (time <= 3 && time > 0) {
-      return "tres";
+    if (this.finalWorkers.length < 1) {
+      this.errors['badWorkers'] = "Los trabajadores no pueden ser vacíos"
+      //form.errors.controls['workTeam'].setErrors({'badWorkers':"Los trabajadores no pueden ser vacíos"})
     } else {
-      return "cinco";
+      this.errors['badWorkers'] = null
+    }
+    if (this.finalResearchers.some(r => this.finalWorkers.includes(r))) {
+      this.errors['workersNotResearchers'] = "Los trabajadores no pueden ser parte de los investigadores"
+      //form.errors.controls['workTeam'].setErrors({'workersNotResearchers':"Los trabajadores no pueden ser parte de los investigadores"})
+    } else {
+      this.errors['workersNotResearchers'] = null
     }
   }
 
-  openDialog(pro): void {
-    const dialogRef = this.dialog.open(DisplayComponent, {
-      width: '50%',
-      data: { objeto: pro, fields: Project.getFields() }
-    });
+  addDuration(obj, select, start) {
+    let fecha = start.value
+    let newFecha = new Date((parseInt(fecha["year"]) + parseInt(select.value)) + "/" + fecha["month"] + "/" + (fecha["day"] - 1))
+    obj._writeModelValue({ year: newFecha.getFullYear(), month: newFecha.getMonth() + 1, day: newFecha.getDate() })
+    // Next line is marked as error in VS Code but it doesn't trigger a real error
+    this.project.endDate = { year: newFecha.getFullYear(), month: newFecha.getMonth() + 1, day: newFecha.getDate() }
+    this.ref.detectChanges();
   }
 }

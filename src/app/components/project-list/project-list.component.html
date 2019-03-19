@@ -1,0 +1,74 @@
+<fieldset>
+	<h1>Listado de proyectos</h1>
+	<!--
+	<button type="button" class="btn btn-primary" (click)="listar(true)" id="listPublicProyectsButton">Listar</button>
+	<button type="button" class="btn btn-primary" (click)="listar(false)"
+		id="unlistPublicProyectsButton">Ocultar</button>-->
+	<br>
+	<div class="row" id="listPublicProyectsTable">
+		<label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre y referencia</label>
+		<input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado">
+		<!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
+		</app-acomplete> -->
+		<button style="margin-left: 1em" class="btn-primary" onclick="location.href='/project'">Crear proyecto</button>
+		<section class="content">
+			<br>
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-success btn-filter press" data-target="activo"
+									(click)="boton('activo')">Activos</button>
+								<button type="button" class="btn btn-warning btn-filter press" data-target="tres"
+									(click)="boton('tres')">3
+									años</button>
+								<button type="button" class="btn btn-danger btn-filter press" data-target="cinco"
+									(click)="boton('cinco')">5
+									años</button>
+								<button type="button" class="btn btn-light btn-filter press" data-target="all"
+									(click)="boton('all')">Todos</button>
+							</div>
+						</div>
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+									<tr *ngFor="let invPro of listado2 | filterProjects: searchText"
+										[attr.data-status]="getStatus(invPro)">
+										<!--Hacer javascript para averiguarlo-->
+										<td>
+											<div class="media" (click)="openDialog(invPro)">
+												<div class="media-body">
+													<!--datos-->
+													<span
+														class="media-meta pull-right">{{ invPro.startDate | date}}</span>
+													<span class="media-meta pull-right" *ngIf="invPro.startDate"> / </span>
+													<span
+														class="media-meta pull-right">{{ invPro.endDate | date}}</span>
+													<h4 class="title">
+														{{ invPro.title }}
+														<div>
+														<span
+															[attr.class]="getStatus(invPro)">{{ getStatus(invPro) }}</span>
+														</div>
+														<!--Rellenar una vez tengamos javascript-->
+													</h4>
+													<p class="summary" *ngIf="invPro.scope != 'NONE' && invPro.reference">{{ invPro.scope }} - {{ invPro.reference }}</p>
+													<p class="summary" *ngIf="invPro.scope != 'NONE' && !invPro.reference">{{ invPro.scope }}</p>
+													<p class="summary" *ngIf="invPro.scope == 'NONE'">{{ invPro.reference }}</p>
+												</div>
+											</div>
+											<button class="btn-primary" type="button"
+												(click)="displayProject(invPro._id)">Display</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</fieldset>
+<br>

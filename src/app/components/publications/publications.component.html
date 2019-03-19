@@ -1,6 +1,5 @@
-<h2>Publicaciones</h2>
 <fieldset>
-  <legend>Creacion de publicaciones</legend>
+  <h1>Creacion de publicaciones</h1>
   <form #form="ngForm" (ngSubmit)=onSubmit(form)>
 
     <label for="scopusId">Id del lugar de publicacion</label>
@@ -63,7 +62,7 @@
       </div>
       <br>
 
-      <label for="sourceTitle">Lugar de publicacion</label>
+      <label for="sourceTitle">Libro/Web/Revista</label>
       <input type="text" [(ngModel)]="pub.sourceTitle" id="sourceTitle" name="sourceTitle" required
         placeholder="Lecture Notes in Computer Science" #sourceTitle='ngModel'>
       <div *ngIf="sourceTitle.invalid && (sourceTitle.dirty || sourceTitle.touched)" class="alert alert-danger">
@@ -100,12 +99,15 @@
 			</div> -->
 
 
-    <label for="publicationDate" style="padding: 0px 15px 0px 15px">Fecha de publicacion</label>
-    <input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="pub.publicationDate" id='publicationDate'
-      name="publicationDate" #publicationDate='ngModel' />
-    <span class="badge">
+    <label for="publicationDate" style="padding: 0px 15px 0px 15px">Año de publicacion</label>
+    <input type="text" [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate" #publicationDate='ngModel' />
+    <!---<span class="badge">
       <span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
-    </span>
+    </span> -->
+    <!-- <select [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate" #publicationDate='ngModel' class="custom-select"  style="overflow:scroll;">
+      <option *ngFor="let item of years" value="{{item}}">{{item}}</option>
+
+    </select> -->
     <!-- <div *ngIf="publicationDate.invalid && (publicationDate.dirty || publicationDate.touched)" class="alert alert-danger">
 				<div *ngIf="publicationDate.errors.required" class="invalid-feedback">La fecha de publicacion</div>
 			</div> -->
@@ -147,7 +149,7 @@
 
     </div>
 
-    <button type="submit" class="btn btn-primary" id="submitForm"
+    <button type="submit" class="btn btn-primary" id="submitForm" name="submitForm"
       [disabled]="!form.form.valid || form.errors">Enviar</button>
   </form>
 </fieldset>

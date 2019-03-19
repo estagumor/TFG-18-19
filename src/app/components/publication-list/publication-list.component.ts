@@ -1,51 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Publication } from '../../models/publication';
 import { PublicationService } from '../../services/publication.service';
-import { ScopusService } from '../../services/scopus.service';
-import { NgControl } from '@angular/forms'
-import { DisplayComponent } from '../display/display.component'
-import { MatDialog } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-publication-list',
   templateUrl: './publication-list.component.html',
-  styleUrls: ['./publication-list.component.css'],
-  providers: [PublicationService, ScopusService]
+  styleUrls: ['./publication-list.component.css']
 })
 export class PublicationListComponent implements OnInit {
   public listado: Array<Publication> = []
-  public showDisplay: boolean = true;
-  public selectedPub: Publication
-  public fields
+
+  @Input() projectId: String
 
   constructor(
     private _service: PublicationService,
-    private _scopus: ScopusService,
-    public dialog: MatDialog
-  ) { }
+    private _route: ActivatedRoute,
+    private _router: Router
+    ) { }
 
   ngOnInit() {
-    this._service.list().subscribe((data: Publication[]) => {
-      this.listado = data['pubs'];
+    this.projectId = this._route.snapshot.paramMap.get('id');
+    this._service.filterByProject(this.projectId).subscribe(result => {
+      this.listado = result.body['pubs'];
+    }, err => {
+      console.log(err);
       
-    })
-  }
-
-  openDialog(pub): void {
-    const dialogRef = this.dialog.open(DisplayComponent, {
-      width: '50%',
-      data: { objeto: pub, fields: Publication.getFields()}
-    });
-  }
-
-  clicked(obj) {
-    obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
-  }
-
-  saveFromScoups() {
-    this._scopus.getPubs().subscribe((data) => {
-      this._service.saveAll(data).subscribe((data) => {
-      })
     })
   }
 

@@ -31,5 +31,4 @@ export class DisplayComponent implements OnInit{
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }
