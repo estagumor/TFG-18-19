@@ -24,6 +24,7 @@ import { ProjectListComponent } from '../app/components/project-list/project-lis
 import { ProjectDisplayComponent } from '../app/components/project-display/project-display.component';
 import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
 import { PublicationAddListComponent } from '../app/components/publication-add-list/publication-add-list.component';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { PublicationAddListComponent } from '../app/components/publication-add-l
     MatDialogModule,
   ],
   entryComponents: [PublicationListComponent, DisplayComponent],
-  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
+  providers: [],
   bootstrap: [AppComponent],
   exports: [StartDateLimitationDirective],
 })

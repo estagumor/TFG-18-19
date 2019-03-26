@@ -109,7 +109,7 @@ export class ProjectsComponent implements OnInit {
         this.responseCreate = result.body;
         console.log(this.responseCreate);
         form.reset()
-        this._router.navigate(['projects'])
+        this._router.navigate(['/projects'])
       },
         error => {
           console.log(error);
@@ -120,7 +120,7 @@ export class ProjectsComponent implements OnInit {
           this.responseCreate = result.body;
           console.log(this.responseCreate);
           form.reset()
-          this._router.navigate(['projects'])
+          this._router.navigate(['/projects'])
         },
         error => {
           console.log(error);

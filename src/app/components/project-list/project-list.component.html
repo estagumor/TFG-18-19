@@ -10,7 +10,7 @@
 		<input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado">
 		<!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
-		<button style="margin-left: 1em" class="btn-primary" onclick="location.href='/project'">Crear proyecto</button>
+		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/project']">Crear proyecto</button>
 		<section class="content">
 			<br>
 			<div class="col-md-8 col-md-offset-2">

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule } from '@angular/material';
 import { AcompleteComponent } from '../../components/acomplete/acomplete.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 describe("Project's component", () => {
   let component: ProjectsComponent;
@@ -22,6 +22,8 @@ describe("Project's component", () => {
   let getterSpy;
   let createSpy;
   let projectService: ProjectService;
+  let routerSpy;
+  let router;
 
   beforeEach(async(() => {
     // Set the component configuration and add it the necessary imports
@@ -44,12 +46,13 @@ describe("Project's component", () => {
     element = bannerEl;
 
     projectService = bannerDe.injector.get(ProjectService)
+    router = bannerDe.injector.get(Router)
     // Instantiate the spies to listen in the service methods
     // It returns true because we don't verify the response, just check that it is called
     listSpy = spyOn(projectService, 'getProjects').and.returnValue(of(true));
     getterSpy = spyOn(projectService, 'getProject').and.returnValue(of(true));
     createSpy = spyOn(projectService, 'createV2').and.returnValue(of(true));
-
+    routerSpy = spyOn(router, 'navigate').and.returnValue("url")
   });
 
   it('should create', () => {
