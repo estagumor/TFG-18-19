@@ -20,6 +20,7 @@ export class ProjectListComponent implements OnInit {
   
   public listado: Array<Project>; // La variable donde se guarda la lista y despues sale por consola
   public listado2: Array<Project>;
+  public searchText: string = "";
   // public search: String[] = [];
   // public finalSearch: String[] = [];
 
