@@ -1,0 +1,19 @@
+<fieldset *ngIf="bool">
+  <h1>Creacion de perfiles</h1>
+  <form #formPerson="ngForm" (ngSubmit)="onSubmit(formPerson);">
+    <div class="requiredInputs">
+      <!-- <label for="a"></label>
+      <input type="a" [(ngModel)]="a" id="a" name="a" required #a='ngModel'>
+      <div *ngIf="a.invalid && (a.dirty || a.touched)" class="alert alert-danger">
+        <span *ngIf="a.errors.required" class="invalid-feedback"></span>
+
+      </div> -->
+      <br>
+      
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="submitForm"
+			[disabled]="!formPerson.form.valid || formPerson.errors">Enviar</button>
+	</form>
+
+</fieldset>

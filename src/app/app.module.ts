@@ -25,6 +25,7 @@ import { ProjectDisplayComponent } from '../app/components/project-display/proje
 import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
 import { PublicationAddListComponent } from '../app/components/publication-add-list/publication-add-list.component';
 import { Router } from '@angular/router';
+import { PersonComponent } from './components/person/person.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { Router } from '@angular/router';
     ProjectListComponent,
     ProjectDisplayComponent,
     FilterProjectsPipe,
-    PublicationAddListComponent
+    PublicationAddListComponent,
+    PersonComponent
   ],
   imports: [
     NgbModule,

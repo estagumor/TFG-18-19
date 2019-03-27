@@ -10,6 +10,7 @@ import { PublicationsComponent } from './components/publications/publications.co
 import { PublicationAddListComponent } from './components/publication-add-list/publication-add-list.component';
 import { ProjectDisplayComponent } from './components/project-display/project-display.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component'
+import { PersonComponent } from './components/person/person.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'contracts', component: ContractComponent },
   { path: 'nets', component: NetComponent },
   { path: 'publication', component: PublicationsComponent },
+  { path: 'person', component: PersonComponent},
+  { path: 'person/:id?', component: PersonComponent},
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

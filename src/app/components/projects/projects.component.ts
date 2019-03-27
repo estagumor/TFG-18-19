@@ -9,9 +9,6 @@ import { ErrorStateMatcher } from '@angular/material';
 import { ChangeDetectorRef } from '@angular/core';
 import { } from '@angular/core/src/render'
 
-declare var jQuery: any;
-declare var $: any;
-
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -104,10 +101,9 @@ export class ProjectsComponent implements OnInit {
     if (this.project.relatedTools != null)
       this.project.relatedTools = [];
     // console.log(this.project);
-    if (this.edit == true) { //estamos editando
+    if (this.edit) { //estamos editando
       this._service.updateProject(this.project).subscribe(result => {
         this.responseCreate = result.body;
-        console.log(this.responseCreate);
         form.reset()
         this._router.navigate(['/projects'])
       },
@@ -118,7 +114,6 @@ export class ProjectsComponent implements OnInit {
       this._service.createV2(this.project).subscribe( // Subscribe es para recibir la respuesta y actuar segun sea un resultado o un error
         result => {
           this.responseCreate = result.body;
-          console.log(this.responseCreate);
           form.reset()
           this._router.navigate(['/projects'])
         },

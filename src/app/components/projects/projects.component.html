@@ -156,21 +156,10 @@
 
 
 		<!--
-		Como no se han implementado las publicaciones se quedará como input de texto
-		<label for="relatedPublications">Publicaciones relacionadas</label>
-		<input type="text" [(ngModel)]="project.relatedPublications" id='relatedPublications' name="relatedPublications"
-		 #relatedPublications='ngModel'>
-		<div *ngIf="relatedPublications.invalid && (relatedPublications.dirty || relatedPublications.touched)" class="alert alert-danger">
-
-		</div>
-		<br>
-
-
 		Como no se han implementado las herramientas se quedará como input de texto
 		<label for="relatedTools">Herramientas relacionadas</label> <input type="text" [(ngModel)]="project.relatedTools" id='relatedTools'
 		 name="relatedTools" #relatedTools='ngModel'>
 		<div *ngIf="relatedTools.invalid && (relatedTools.dirty || relatedTools.touched)" class="alert alert-danger">
-
 		</div>
 		<br>
 		-->
@@ -180,33 +169,3 @@
 			[disabled]="!formProject.form.valid || formProject.errors || validateLeader() == false">Enviar</button>
 	</form>
 </fieldset>
-
-<!--
-<fieldset>
-	<legend>Busqueda por id</legend>
-	<input type="text" [(ngModel)]="projectId" (keyup.enter)="find()" id="idInput" />
-	<div *ngIf="responseFind">
-		<h5>Equipo de investigacion: {{responseFind.researchTeam}}</h5>
-		<h5>Equipo de trabajo: {{responseFind.workTeam}}</h5>
-		<h5>Personal contratado: {{responseFind.hiredStaff}}</h5>
-		<h5>Titulo: {{responseFind.title}}</h5>
-		<h5>Descripcion: {{responseFind.description}}</h5>
-		<h5>Responsable: {{responseFind.leader}}</h5>
-		<h5>Referencia: {{responseFind.reference}}</h5>
-		<h5>Competencia: {{responseFind.scope}}</h5>
-		<h5>Estado: {{responseFind.status}}</h5>
-		<h5>Patrocinador: {{responseFind.sponsor}}</h5>
-		<h5>Fecha de inicio: {{responseFind.startDate | date:'longDate'}}</h5>
-		<h5>Fecha de fin: {{responseFind.endDate | date:'longDate'}}</h5>
-		<h5>Importe: {{responseFind.amount}}</h5>
-		<h5>Publicaciones relacionadas: {{responseFind.relatedPublications}}</h5>
-		<h5>Herramientas relacionadas: {{responseFind.relatedTools}}</h5>
-
-	</div>
-</fieldset>
-
-<fieldset>
-	<legend>Borrado de proyectos</legend>
-	<input type="text" [(ngModel)]="projectId2" (keyup.enter)="delete()" id="idInput2" />
-</fieldset>
--->
