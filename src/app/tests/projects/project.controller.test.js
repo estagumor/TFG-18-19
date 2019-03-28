@@ -2,12 +2,12 @@ const chai = require("chai");
 const chai_http = require("chai-http");
 //const expect = chai.expect;
 const sinon = require("sinon");
-var Project = require('../../../models/project');
+var Project = require('../../../../models/project');
 chai.use(chai_http);
 url = 'http://localhost:3700/projects';
 
 const expect = require('chai').expect
-const app = require('../../../app');
+const app = require('../../../../app');
 
 describe("**Saving a public project**", function () {
     /*
