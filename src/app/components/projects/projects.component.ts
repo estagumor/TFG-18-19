@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
+import { PersonService } from '../../services/person.service';
 import 'rxjs/add/operator/map';
 import { NgForm } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -13,7 +14,7 @@ import { } from '@angular/core/src/render'
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css'],
-  providers: [ProjectService]
+  providers: [ProjectService, PersonService]
 })
 export class ProjectsComponent implements OnInit {
 

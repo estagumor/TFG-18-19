@@ -7,7 +7,7 @@ var PersonSchema = Schema({
     name: {type: String, required: true},
     surname: {type: String, required: true},
     email: {type: String, required: true},
-    photo: {type: String, required: true},
+    photo: {type: String},
     telf: {type: String, required: true},
     allowed: {type: Boolean, required: true},
     job: {
