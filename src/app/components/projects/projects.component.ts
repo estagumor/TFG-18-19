@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { ChangeDetectorRef } from '@angular/core';
 import { } from '@angular/core/src/render'
+import { Person } from '../../models/person';
 
 @Component({
   selector: 'app-projects',
@@ -19,13 +20,14 @@ import { } from '@angular/core/src/render'
 export class ProjectsComponent implements OnInit {
 
   //AUTOCOMPLETE
-  public researchers: String[] = ['Javier Troya', 'Carlos Muller', 'Jose A. Parejo', 'Manuel Resinas']; // La lista que sale en el input al escribir
-  public hireds: String[] = [];
+  public researchers: String[];
+  public hireds: Person[] = [];
   public finalResearchers: String[] = [];
   public ctrlResearchers = new FormControl();
   public finalWorkers: String[] = [];
   public finalHireds: String[] = [];
   public finalLeaders: String[] = [];
+  public people: Person[];
 
   //EDIT
   public edit: boolean = false;
@@ -51,6 +53,7 @@ export class ProjectsComponent implements OnInit {
     private _route: ActivatedRoute, // Para señalar el link del menu que esta activo
     private _router: Router, // Para hacer el menu de navegacion
     private _service: ProjectService, // El servicio que hace las peticiones al backend
+    private _personService: PersonService,
   ) {
   }
 
@@ -61,16 +64,40 @@ export class ProjectsComponent implements OnInit {
           this.project = project.body['project']
           this.bool = true;
           this.edit = true;
-          this.finalResearchers = this.project.researchTeam
-          this.finalWorkers = this.project.workTeam
-          this.finalHireds = this.project.hiredStaff
-          this.finalLeaders = this.project.leader
+          this.finalResearchers = this.getPeopleAsString(this.project.researchTeam)
+          this.finalWorkers = this.getPeopleAsString(this.project.workTeam)
+          this.finalHireds = this.getPeopleAsString(this.project.hiredStaff)
+          this.finalLeaders = this.getPeopleAsString(this.project.leader)
         });
       } else { //estamos en el create
         this.bool = true;
         this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
       }
     });
+    this._personService.getAll().subscribe(response => {
+      this.people = response.body['person']
+      this.researchers = this.people.map((p) => {
+        return p.name + " " + p.surname
+      })
+    })
+  }
+
+  getPeople(team: String[]): Person[]{
+    let res: Person[];
+    res = team.map((str: string) => {
+      return this.people.filter((p: Person) => {
+        str.indexOf(p.name) != -1 && str.indexOf(p.surname) != -1
+      })[0]
+    })
+    return res
+  }
+
+  getPeopleAsString(team: Person[]): String[]{
+    let res: String[];
+    res = team.map((p: Person) => {
+      return p.name + " " + p.surname
+    })
+    return res
   }
 
   onSubmit(form: NgForm) {
@@ -83,10 +110,10 @@ export class ProjectsComponent implements OnInit {
       return false;
     }
 
-    this.project.researchTeam = this.finalResearchers;
-    this.project.workTeam = this.finalWorkers;
-    this.project.hiredStaff = this.finalHireds;
-    this.project.leader = this.finalLeaders;
+    this.project.researchTeam = this.getPeople(this.finalResearchers);
+    this.project.workTeam = this.getPeople(this.finalWorkers);
+    this.project.hiredStaff = this.getPeople(this.finalHireds);
+    this.project.leader = this.getPeople(this.finalLeaders);
     // console.log("research Team " + this.finalResearchers);
     // console.log("work Team " + this.finalWorkers);
     // console.log("hired Staff " + this.finalHireds);

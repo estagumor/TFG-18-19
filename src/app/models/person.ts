@@ -1,7 +1,7 @@
 export class Person {
     constructor( 
-        public name: String,
-        public surname: String,
+        public name: string,
+        public surname: string,
         public email: String,
         public photo: String,
         public telf: String,
