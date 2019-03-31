@@ -32,7 +32,7 @@ export class PersonComponent implements OnInit {
         })
       } else {
         this.bool = true;
-        this.person = new Person();
+        this.person = new Person("","","","","",true,"","","","","",true);
       }
     })
   }

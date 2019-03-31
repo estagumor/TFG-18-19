@@ -1,13 +1,15 @@
+import { Person } from "./person";
+
 // import { Publication } from './publication'
 
 export class Project {
   constructor(
-    public researchTeam: Array<String>,
-    public workTeam: Array<String>,
-    public hiredStaff: Array<String>,
+    public researchTeam: Array<Person>,
+    public workTeam: Array<Person>,
+    public hiredStaff: Array<Person>,
     public title: String,
     public description: String,
-    public leader: Array<String>,
+    public leader: Array<Person>,
     public reference: String,
     public scope: String,
     public status: String,

@@ -1,8 +1,8 @@
-var server = require("../../../app");
+var server = require("../../../../app");
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var sinon = require("sinon");
-var Publication = require("../../../models/publication");
+var Publication = require("../../../../models/publication");
 var expect = chai.expect;
 
 chai.use(chaiHttp);
@@ -69,6 +69,7 @@ describe("***Save publications***", function () {
             "DOI": "10.1109/TSC.2017.2772256",
             "firstAuthor": "Marquez-Chamorro A.",
             "affiliation": "University of Seville",
+            "project": null,
             "assigned": false
         }, {
             "scopusId": "SCOPUS_ID:85033573149",
@@ -79,6 +80,7 @@ describe("***Save publications***", function () {
             "sourceVolume": "11",
             "pageRange": "122-977",
             "publicationDate": publicationDate,
+            "project": null,
             "assigned": false
         }]
         var pubMock = sinon.mock(Publication);
@@ -88,6 +90,8 @@ describe("***Save publications***", function () {
             .post("/api/publication/all")
             .send(pub)
             .end((err, res) => {
+                console.log(res);
+                
                 expect(res).to.have.status(201);
                 pubMock.verify();
                 done();

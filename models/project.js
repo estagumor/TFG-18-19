@@ -1,18 +1,32 @@
 'use strict'
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
+	Person = require('./person');
 //var Actor = require('./actor');
 // var Publication = require('./publication')
 //var Tool = require('./tool')
-var Schema = mongoose.Schema;
+
+var PersonSchema = require('mongoose').model('Person').schema;
 
 var ProjectSchema = Schema({
-	researchTeam : {type: [String], required: true},
-	workTeam : {type: [String], required: true},
-	hiredStaff : [ String ],
+	researchTeam : {type: [PersonSchema],
+		ref: 'Person',
+		required: true},
+
+	workTeam : {type: [PersonSchema],
+		ref: 'Person', 
+		required: true},
+
+	hiredStaff : {type: [PersonSchema],
+		ref: 'Person'},
+
 	title : {type: String, required: true},
 	description : String,
-	leader : {type: [String], required: true},
+	leader : {type: [PersonSchema],
+		ref: 'Person',
+		required: true},
+		
 	reference : {type: String, unique: false},
 	scope : {
 		type : String,
