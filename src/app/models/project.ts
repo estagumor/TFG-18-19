@@ -26,5 +26,10 @@ export class Project {
     description: "Descripción", leader: "Responsable", reference: "Referencia", scope: "Competencia", status: "Estado", sponsor: "Patrocinador", 
     startDate: "Fecha de inicio", endDate: "Fecha de fin", amount: "Importe", relatedPublications: "Publicaciones relacionadas", relatedTools: "Herramientas relacionadas"}
 }
+
+  public toString = (): string => {
+    return this.title + ' ';
+  }
+
 }
 

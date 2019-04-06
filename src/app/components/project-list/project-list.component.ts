@@ -72,6 +72,7 @@ export class ProjectListComponent implements OnInit {
 
   openDialog(pro): void {
     this.selectedPro = pro;
+    console.log(pro)
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
       data: { objeto: pro, fields: {title: 'Título', leader: 'Responsables', researchTeam: 'Equipo de investigación', amount: 'Importe'}}

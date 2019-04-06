@@ -13,7 +13,7 @@ var controller = {
 				let errores = {}
 				return res.status(500).send({ message: err });
 			}
-			return res.status(201).send({ "per": person });
+			return res.status(201).send({ "person": person });
 		});
 	},
 
@@ -52,7 +52,7 @@ var controller = {
 			if (!persons) return res.status(404).send({ message: 'There are no persons to show' })
 			// if (!req.body) // Esto esta aqui porque en el test le paso un string para que ignore esta parte, no he conseguido hacer stub del metodo que genera este dato
 			// 	res.setHeader('X-WP-Total', total);
-			return res.status(200).send({ "persons": persons });
+			return res.status(200).send({ "person": persons });
 		})
 	},
 

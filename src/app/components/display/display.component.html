@@ -5,7 +5,7 @@
     <span *ngIf="e">
       <div *ngIf="objeto[properties[i]]">
         <h5 *ngIf="f" class="modal-title text-muted">{{objeto[properties[i]]}}</h5>
-        <span *ngIf="!f" class="modal-body">{{properties[i+1]}} -- {{objeto[properties[i]]}}</span>
+        <span *ngIf="!f" class="modal-body">{{properties[i+1]}} -- {{objeto[properties[i]].toString()}}</span>
       </div>
     </span>
   </div>

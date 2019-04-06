@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
@@ -27,7 +27,7 @@ export class ProjectsComponent implements OnInit {
   public finalWorkers: String[] = [];
   public finalHireds: String[] = [];
   public finalLeaders: String[] = [];
-  public people: Person[];
+  public people: Person[] = [];
 
   //EDIT
   public edit: boolean = false;
@@ -72,14 +72,14 @@ export class ProjectsComponent implements OnInit {
       } else { //estamos en el create
         this.bool = true;
         this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
+        this._personService.getAll().subscribe(response => {
+          this.people = response.body['person']
+          this.researchers = this.people.map((p) => {
+            return p.name + " " + p.surname
+          })
+        });
       }
     });
-    this._personService.getAll().subscribe(response => {
-      this.people = response.body['person']
-      this.researchers = this.people.map((p) => {
-        return p.name + " " + p.surname
-      })
-    })
   }
 
   getPeople(team: String[]): Person[]{
