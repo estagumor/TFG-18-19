@@ -13,6 +13,7 @@ var investigation_routes = require('./routes/investigationProject')
 var contract_routes = require('./routes/contract')
 var net_routes = require('./routes/net')
 var publication_routes = require('./routes/publication')
+var person_routes = require('./routes/person')
 
 // middlewares
 app.use(bodyParser.urlencoded({extended:false}));
@@ -32,7 +33,8 @@ app.use('/api', project_routes);
 app.use('/api', investigation_routes);
 app.use('/api', contract_routes);
 app.use('/api', net_routes);
-app.use('/api', publication_routes)
+app.use('/api', publication_routes);
+app.use('/api', person_routes);
 // Toda aquella url que no pertenezca a la api la redirige al index html donde el Router de Angular se encarga de redirigir
 app.all('*', (req, res) => {  
     res.status(200).sendFile(__dirname + '/dist/index.html');  

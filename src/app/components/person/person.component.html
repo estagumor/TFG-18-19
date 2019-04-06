@@ -2,12 +2,84 @@
   <h1>Creacion de perfiles</h1>
   <form #formPerson="ngForm" (ngSubmit)="onSubmit(formPerson);">
     <div class="requiredInputs">
-      <!-- <label for="a"></label>
-      <input type="a" [(ngModel)]="a" id="a" name="a" required #a='ngModel'>
-      <div *ngIf="a.invalid && (a.dirty || a.touched)" class="alert alert-danger">
-        <span *ngIf="a.errors.required" class="invalid-feedback"></span>
+      <label for="name">Nombre</label>
+      <input type="text" [(ngModel)]="person.name" id="name" name="name" required #name='ngModel'>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+          <span>Error en el nombre</span>
+      </div>
+      <br>
 
-      </div> -->
+      <label for="surname">Apellidos</label>
+      <input type="text" [(ngModel)]="person.surname" id="surname" name="surname" required #surname='ngModel'>
+      <div *ngIf="surname.invalid && (surname.dirty || surname.touched)" class="alert alert-danger">
+          <span>Error en los apellidos</span>
+      </div>
+      <br>
+
+      <label for="email">Email</label>
+      <input type="email" [(ngModel)]="person.email" id="email" name="email" required #email='ngModel'>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+          <span>Error en el email</span>
+      </div>
+      <br>
+    </div>
+      <label for="photo">Foto (Url)</label>
+      <input type="text" [(ngModel)]="person.photo" id="photo" name="photo" #photo='ngModel'>
+      <div *ngIf="photo.invalid && (photo.dirty || photo.touched)" class="alert alert-danger">
+          <span>Error en el foto</span>
+      </div>
+      <br>
+    <div>
+      <label for="telf">Telefono</label>
+      <input type="text" [(ngModel)]="person.telf" id="telf" name="telf" #telf='ngModel' required>
+      <div *ngIf="telf.invalid && (telf.dirty || telf.touched)" class="alert alert-danger">
+          <span>Error en el telefono</span>
+      </div>
+      <br>
+
+      <label for="job">Rol</label>
+      <select [(ngModel)]='person.job' id='job' name='job' #job='ngModel' class="custom-select" required>
+        <option value="RESEARCHER">Investigador</option>
+        <option value="HIRED">Personal externo</option>
+      </select>
+      <div *ngIf="job.invalid && (job.dirty || job.touched)" class="alert alert-danger">
+        <span>Error en el rol</span>
+      </div>
+      <br>
+    </div>
+      <br>
+    <div *ngIf="person.job == 'RESEARCHER'">
+      <label for="office">Despacho</label>
+      <input type="text" [(ngModel)]="person.office" id="office" name="office" #office='ngModel'>
+      <div *ngIf="office.invalid && (office.dirty || office.touched)" class="alert alert-danger">
+          <span>Error en el despacho</span>
+      </div>
+      <br>
+
+      <label for="scopusId">Id de Scopus</label>
+      <input type="text" [(ngModel)]="person.scopusId" id="scopusId" name="scopusId" #scopusId='ngModel'>
+      <div *ngIf="scopusId.invalid && (scopusId.dirty || scopusId.touched)" class="alert alert-danger">
+          <span>Error en el Id de Scopus</span>
+      </div>
+      <br>
+
+      <label for="professionalStatus">Situación profesional</label>
+      <select [(ngModel)]='person.professionalStatus' id='professionalStatus' name='professionalStatus' #professionalStatus='ngModel' class="custom-select">
+        <option value="NONE" selected>---</option>
+        <option value="RESEARCHER">Investigador</option>
+        <option value="STUDENT">Estudiante</option>
+        <option value="TECHNICIAN">Técnico</option>
+      </select>
+      <div *ngIf="professionalStatus.invalid && (professionalStatus.dirty || professionalStatus.touched)" class="alert alert-danger">
+        <span>Error en la situación profesional</span>
+      </div>
+      <br>
+
+      <label for="urls">Perfiles externos (Urls)</label>
+      <textarea [(ngModel)]="person.urls" name="urls" id="urls" #urls='ngModel'></textarea>
+      <div *ngIf="urls.invalid && (urls.dirty || urls.touched)" class="alert alert-danger">
+          <span>Error en los perfiles</span>
+      </div>
       <br>
       
     </div>

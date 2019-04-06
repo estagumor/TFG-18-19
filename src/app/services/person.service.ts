@@ -15,7 +15,7 @@ export class PersonService {
   constructor(
     private _http: HttpClient
   ) { 
-    this.url = environment.serverUrl + 'api/person';
+    this.url = environment.serverUrl + '/api/person';
   }
 
   create(person): Observable<any> {

@@ -25,6 +25,7 @@ export class PersonComponent implements OnInit {
   ngOnInit() {
     this._route.params.forEach((params: Params) => {
       if (params['id?'] != undefined) {
+        console.log("entra")
         this._service.getPerson(params['id?']).subscribe(response => {
           this.person = response.body['person'];
           this.bool = true;
@@ -32,9 +33,10 @@ export class PersonComponent implements OnInit {
         })
       } else {
         this.bool = true;
-        this.person = new Person("","","","","",true,"","","","","",true);
+        this.person = new Person("","","","","",true,"RESEARCHER","","","NONE","",true);
       }
     })
+    console.log(this.person)
   }
 
   onSubmit(form: NgForm) {

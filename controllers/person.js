@@ -13,7 +13,7 @@ var controller = {
 				let errores = {}
 				return res.status(500).send({ message: err });
 			}
-			return res.status(201).send({ "per": per });
+			return res.status(201).send({ "per": person });
 		});
 	},
 
@@ -55,34 +55,6 @@ var controller = {
 			return res.status(200).send({ "persons": persons });
 		})
 	},
-
-    //PUEDE SERVIR MAS ADELANTE
-	// findByTitle: function (req, res) {
-	// 	var titulo = req.params.title;
-	// 	if (titulo == null) {
-	// 		return res.status(400).send({ message: 'Title is empty' })
-	// 	}
-
-	// 	Project.find({ title: titulo }).exec((err, projects) => {
-	// 		if (err) return res.status(500).send({ message: err })
-	// 		if (!projects) return res.status(503).send({ message: 'There are no projects to show' })
-	// 		return res.status(200).send({ projects });
-	// 	});
-
-	// },
-
-	// findByReference: function (req, res) {
-	// 	var referencia = req.params.reference;
-	// 	if (referencia == null) {
-	// 		return res.status(400).send({ message: 'Reference is empty' })
-	// 	}
-
-	// 	Project.find({ reference: referencia }).exec((err, projects) => {
-	// 		if (err) return res.status(500).send({ message: err })
-	// 		if (!projects) return res.status(503).send({ message: 'There are no projects to show' })
-	// 		return res.status(200).send({ projects });
-	// 	});
-	// },
 
 	updatePerson: function (req, res) {
 		var personId = req.params.id;
