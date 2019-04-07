@@ -25,5 +25,9 @@ export class Person {
     }
 }
 
+// Person.prototype.toString = function personToString(){
+//     return this.name + ' ' + this.surname;
+// }
+
 // let p: Person = new Person('a','a','cagoendio@gmail.com','akdsflj','662312232',true,'RESEARCHER','01.42','123456789','RESEARCHER','ADFADF',true);
 // console.log(p)

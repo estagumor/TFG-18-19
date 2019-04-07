@@ -46,7 +46,7 @@ export class PublicationAddListComponent implements OnInit {
   openDialog(pub): void {
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
-      data: { objeto: pub, fields: Publication.getFields()}
+      data: { objeto: pub, fields: {articleTitle: 'Título', scopusId: 'Id de Scopus'}}
     });
     // console.log(pub._id)
   }
