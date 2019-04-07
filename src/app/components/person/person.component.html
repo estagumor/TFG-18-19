@@ -57,7 +57,7 @@
       <br>
 
       <label for="scopusId">Id de Scopus</label>
-      <input type="text" [(ngModel)]="person.scopusId" id="scopusId" name="scopusId" #scopusId='ngModel'>
+      <input type="text" [(ngModel)]="person.scopusId" id="scopusId" name="scopusId" #scopusId='ngModel' [required]="person.job == 'RESEARCHER'">
       <div *ngIf="scopusId.invalid && (scopusId.dirty || scopusId.touched)" class="alert alert-danger">
           <span>Error en el Id de Scopus</span>
       </div>
