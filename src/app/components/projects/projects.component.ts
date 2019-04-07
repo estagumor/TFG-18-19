@@ -72,13 +72,13 @@ export class ProjectsComponent implements OnInit {
       } else { //estamos en el create
         this.bool = true;
         this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
-        this._personService.getAll().subscribe(response => {
-          this.people = response.body['person']
-          this.researchers = this.people.map((p) => {
-            return p.name + " " + p.surname
-          })
-        });
       }
+    });
+    this._personService.getAll().subscribe(response => {
+      this.people = response.body['persons']
+      this.researchers = this.people.map((p) => {
+        return p.name + " " + p.surname
+      })
     });
   }
 
@@ -86,7 +86,7 @@ export class ProjectsComponent implements OnInit {
     let res: Person[];
     res = team.map((str: string) => {
       return this.people.filter((p: Person) => {
-        str.indexOf(p.name) != -1 && str.indexOf(p.surname) != -1
+        return str.indexOf(p.name) != -1 && str.indexOf(p.surname) != -1
       })[0]
     })
     return res
