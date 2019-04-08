@@ -11,14 +11,14 @@
             <div class="table-container">
               <table class="table table-filter">
                 <tbody>
-                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}" (click)="openDialog(pub)">
+                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}">
                     <td>
                       <div class="ckbox">
                         <input type="checkbox" id="checkBox" (click)="clicked(checkbox,pub)" #checkbox>
                         <label for="checkbox1"></label>
                       </div>
                     </td>
-                    <td>
+                    <td (click)="openDialog(pub)">
                       <div class="media">
                         <div class="media-body">
                           <span class="media-meta pull-right">{{ pub.firstAuthor }}</span>

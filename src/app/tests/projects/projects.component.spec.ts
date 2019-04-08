@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { ProjectsComponent } from '../../components/projects/projects.component';
+import { ProjectsComponent } from '../../components/project-create/projects.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import { ProjectService } from '../../services/project.service';

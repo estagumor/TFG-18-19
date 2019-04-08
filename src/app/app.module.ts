@@ -8,14 +8,14 @@ import {APP_BASE_HREF} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
-import {ProjectsComponent} from './components/projects/projects.component';
+import {ProjectsComponent} from './components/project-create/projects.component';
 import { InvestigationProjectComponent } from './components/investigation-project/investigation-project.component';
 import { ContractComponent } from './components/contract/contract.component';
 import { NetComponent } from './components/net/net.component';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StartDateLimitationDirective } from './components/shared/start-date-limitation.directive';
-import { PublicationsComponent } from './components/publications/publications.component';
+import { PublicationsComponent } from './components/publication-create/publications.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component';
 import { AcompleteComponent } from './components/acomplete/acomplete.component';
 import { DisplayComponent } from './components/display/display.component';
@@ -25,7 +25,7 @@ import { ProjectDisplayComponent } from '../app/components/project-display/proje
 import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
 import { PublicationAddListComponent } from '../app/components/publication-add-list/publication-add-list.component';
 import { Router } from '@angular/router';
-import { PersonComponent } from './components/person/person.component';
+import { PersonComponent } from './components/person-create/person.component';
 
 @NgModule({
   declarations: [

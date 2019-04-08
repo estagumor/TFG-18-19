@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
@@ -27,7 +27,7 @@ export class ProjectsComponent implements OnInit {
   public finalWorkers: String[] = [];
   public finalHireds: String[] = [];
   public finalLeaders: String[] = [];
-  public people: Person[];
+  public people: Person[] = [];
 
   //EDIT
   public edit: boolean = false;
@@ -75,18 +75,18 @@ export class ProjectsComponent implements OnInit {
       }
     });
     this._personService.getAll().subscribe(response => {
-      this.people = response.body['person']
+      this.people = response.body['persons']
       this.researchers = this.people.map((p) => {
         return p.name + " " + p.surname
       })
-    })
+    });
   }
 
   getPeople(team: String[]): Person[]{
     let res: Person[];
     res = team.map((str: string) => {
       return this.people.filter((p: Person) => {
-        str.indexOf(p.name) != -1 && str.indexOf(p.surname) != -1
+        return str.indexOf(p.name) != -1 && str.indexOf(p.surname) != -1
       })[0]
     })
     return res

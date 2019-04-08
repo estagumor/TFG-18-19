@@ -13,7 +13,7 @@ var controller = {
 				let errores = {}
 				return res.status(500).send({ message: err });
 			}
-			return res.status(201).send({ "per": person });
+			return res.status(201).send({ "person": person });
 		});
 	},
 
