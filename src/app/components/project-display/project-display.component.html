@@ -82,6 +82,7 @@
                 <th>
                     <button class="btn-primary" type="button" (click)="editProject()">Editar proyecto</button>
                     <button class="btn-primary" type="button" (click)="deleteProject()">Borrar proyecto</button>
+                    <button class="btn-primary" type="button" (click)="addPublications()">Añadir publicaciones</button>
                 </th>
                 <td></td>
             </tr>
@@ -92,18 +93,20 @@
         <thead class="thead-display">
             <th scope="col">Publicaciones relacionadas</th>
             <th scope="col">Título</th>
-            <th><button class="btn-primary" type="button" (click)="addPublications()">Añadir</button></th>
+            <th scope="col">Enlace</th>
         </thead>
         <tbody class="thbody-display">
             <!--TODO hacer esto como enlaces o a saber, hay que pensarlo-->
             <tr *ngFor="let pub of publications" (click)="openDialog(pub)">
                 <th>{{ pub.scopusId }}</th>
                 <td>{{ pub.articleTitle }}</td>
+                <td><a href="https://dx.doi.org/{{pub.DOI}}">Ir a la publicación</a></td>
             </tr>
             <tr *ngIf="project.relatedTools.length > 1">
                 <th scope="row" class="encabezado">Herramientas relacionadas</th>
                 <td>{{ project.relatedTools }}</td>
             </tr>
+           
         </tbody>
     </table>
     <button class="btn-primary" type="button" onclick="window.location.href='/projects'">Volver</button>
