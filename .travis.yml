@@ -5,15 +5,15 @@ addons:
 language: node_js
 node_js:
 - stable
-branches:
-  only:
-  - develop
+# branches:
+#   only:
+#   - develop
 before_script:
 - npm install -g @angular/cli
 - npm install
 script:
 - ng test --watch=false
-- mocha src/app/tests
+- mocha --recursive src/app/tests
 deploy:
   provider: heroku
   api_key:
