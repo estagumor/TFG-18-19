@@ -5,9 +5,9 @@ addons:
 language: node_js
 node_js:
 - stable
-# branches:
-#   only:
-#   - develop
+branches:
+  only:
+  - develop
 before_script:
 - npm install -g @angular/cli
 - npm install
