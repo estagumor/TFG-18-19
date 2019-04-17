@@ -27,19 +27,9 @@ var controller = {
 		var params = req.body;
 		var projId = params.project
 		Project.findById(projId, (error, result) => {
-			if (error)
-				console.log(error)
-			console.log("Id proyecto")
-			console.log(projId)
-			console.log("Projecto del find")
-			console.log(result)
-			console.log("publicaciones para guardar")
-			console.log(params.publications);
 
 			var toSavePub = params.publications;
 			toSavePub.forEach((p) => p.project = result._id)
-			console.log("publicaciones con proyecto")
-			console.log(toSavePub);
 
 			Publication.create(toSavePub, (err, pubs) => {
 				if (err != null) return res.status(500).send({ message: err });
