@@ -3,6 +3,7 @@ var chai = require("chai");
 var chaiHttp = require("chai-http");
 var sinon = require("sinon");
 var Publication = require("../../../../models/publication");
+var Project = require("../../../../models/project")
 var expect = chai.expect;
 
 chai.use(chaiHttp);
@@ -10,7 +11,7 @@ chai.use(chaiHttp);
 describe("***Save publications***", function () {
 
     it('It should save a publication corretly', (done) => {
-        publicationDate = { year: 2019, month: 3, day: 5 }
+        publicationDate = 2019
         var pub = {
             "scopusId": "SCOPUS_ID:85034273149",
             "articleTitle": "Predictive monitoring of business processes: A survey",
@@ -34,7 +35,7 @@ describe("***Save publications***", function () {
             "sourceTitle": "IEEE Transactions on Services Computing",
             "sourceVolume": "11",
             "pageRange": "962-977",
-            "publicationDate": publicationDate["month"] + "/" + publicationDate["day"] + "/" + publicationDate["year"],
+            "publicationDate": publicationDate,
             "DOI": "10.1109/TSC.2017.2772256",
             "firstAuthor": "Marquez-Chamorro A.",
             "affiliation": "University of Seville",
@@ -55,7 +56,34 @@ describe("***Save publications***", function () {
     })
 
     it('It should save several publications', (done) => {
-        publicationDate = { year: 2019, month: 3, day: 5 }
+        publicationDate = 2019
+
+        pubMocked = {"publications": [{
+            "scopusId": "SCOPUS_ID:85034273149",
+            "articleTitle": "Predictive monitoring of business processes: A survey",
+            "sourceType": "Journal",
+            "documentType": "Article",
+            "sourceTitle": "IEEE Transactions on Services Computing",
+            "sourceVolume": "11",
+            "pageRange": "962-977",
+            "publicationDate": publicationDate,
+            "DOI": "10.1109/TSC.2017.2772256",
+            "firstAuthor": "Marquez-Chamorro A.",
+            "affiliation": "University of Seville",
+            "project": 1,
+            "assigned": false
+        }, {
+            "scopusId": "SCOPUS_ID:85033573149",
+            "articleTitle": "Predictive monitoring of business processes: A survey",
+            "sourceType": "Journal",
+            "documentType": "Article",
+            "sourceTitle": "IEEE Transactions on Services Computing",
+            "sourceVolume": "11",
+            "pageRange": "122-977",
+            "publicationDate": publicationDate,
+            "project": 1,
+            "assigned": false
+        }],"project":1}
 
         pub = [{
             "scopusId": "SCOPUS_ID:85034273149",
@@ -69,7 +97,7 @@ describe("***Save publications***", function () {
             "DOI": "10.1109/TSC.2017.2772256",
             "firstAuthor": "Marquez-Chamorro A.",
             "affiliation": "University of Seville",
-            "project": null,
+            "project": 1,
             "assigned": false
         }, {
             "scopusId": "SCOPUS_ID:85033573149",
@@ -80,20 +108,21 @@ describe("***Save publications***", function () {
             "sourceVolume": "11",
             "pageRange": "122-977",
             "publicationDate": publicationDate,
-            "project": null,
+            "project": 1,
             "assigned": false
         }]
         var pubMock = sinon.mock(Publication);
+        var project = sinon.mock(Project);
+        project.expects('findById').withArgs(1).yields(null, {"_id":1})
         pubMock.expects('create').withArgs(pub).yields(null, pub);
 
         chai.request(server)
             .post("/api/publication/all")
-            .send(pub)
+            .send(pubMocked)
             .end((err, res) => {
-                console.log(res);
-                
                 expect(res).to.have.status(201);
                 pubMock.verify();
+                project.verify();
                 done();
             })
 
