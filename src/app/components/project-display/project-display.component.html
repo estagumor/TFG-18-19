@@ -74,10 +74,12 @@
                 <th scope="row" class="encabezado">Fecha de finalización</th>
                 <td>{{ project.endDate | date }}</td>
             </tr>
-            <tr *ngIf="publications.length > 0" (click)="showPublications()">
+            <tr *ngIf="publications.length > 0" (click)="showPublications()" class="tooltip2">
                 <th scope="row" class="encabezado">Número de publicaciones</th>
                 <td>{{ publications.length }}</td>
             </tr>
+            <span class="tooltiptext2">Haga en la línea mostrar las publicaciones</span>
+            <br>
             <tr>
                 <th>
                     <button class="btn-primary" type="button" (click)="editProject()">Editar proyecto</button>
