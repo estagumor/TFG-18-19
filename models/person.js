@@ -6,9 +6,9 @@ var Schema = mongoose.Schema;
 var PersonSchema = Schema({
     name: {type: String, required: true},
     surname: {type: String, required: true},
-    email: {type: String, required: true},
+    email: {type: String},
     photo: {type: String},
-    telf: {type: String, required: true},
+    telf: {type: String},
     allowed: {type: Boolean, required: true},
     job: {
         type: String,
