@@ -3,10 +3,10 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Person = require('./person'),
-    Project = require('./project'),
     ObjectId = mongoose.Types.ObjectId;
 
 var PersonSchema = require('mongoose').model('Person').schema;
+var ProjectSchema = require('mongoose').model('Project').schema;
 
 var PublicationSchema = Schema({
     scopusId: String,
@@ -37,16 +37,8 @@ var PublicationSchema = Schema({
     },
     affiliation: String,
     assigned: Boolean,
-    project: { type: Schema.Types.ObjectId, ref: 'Project' }
+    project: { type: [ProjectSchema], ref: 'Project' }
 });
 
-PublicationSchema.statics.findByProject = function (project, callback) {
-    var query = this.find()
-
-    Project.find({ "_id": ObjectId(project) }, null, { limit: 1 }, function (error, project) {
-        query.where({ project: project._id }).exec(callback)
-    })
-    return query
-}
-
 module.exports = mongoose.model('Publication', PublicationSchema)
+

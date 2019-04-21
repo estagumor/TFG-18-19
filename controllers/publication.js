@@ -82,12 +82,51 @@ var controller = {
 
 
 	filterNewPubs: function (req, res) {
-		var pubs = req.body;
-		var filteredPubs = []
-		Publication.find({}, (err, all) => {
-			var titles = all.map(pub => pub.articleTitle)
-			filteredPubs = pubs.filter((p) => titles.indexOf(p.articleTitle) == -1)
-			res.status(200).send({ "pubs": filteredPubs })
+		var pubs = req.body.pubs;
+		var projects = req.body.projects;
+
+		const step1 = new Promise((resolve, reject) => {
+			pubs.forEach(pub => {
+				let ids = projects.map((pro) => { return pro._id })
+				Publication.find({ "articleTitle": pub.articleTitle}).then((results) => {
+					var nuevos = []
+					if (results.length > 0) {
+						nuevos = results.map((r) => {
+							if(!(r.projects instanceof Array)){
+								r.projects = []
+							}
+							projects.forEach((pro) => {
+								if(r.project.indexOf(pro) == -1){
+									r.project.push(pro)
+								}
+							})
+							return r
+						})
+					}
+					return nuevos
+				}).then((data) => {
+					if (data.length > 0) {
+						Publication.updateMany(data).then(() => {
+							Promise.resolve()
+						})
+					} else {
+						pub.project = projects
+						Publication.create(pub).then((date) => {
+							Promise.resolve()
+						})
+					}
+				})
+			})
+			if(1)
+				resolve()
+			else
+				reject()
+		})
+
+		step1.then((d) => {
+			res.status(200).send({})
+		}).catch((reason) => {
+			res.status(500).send({reason})
 		})
 
 	},
