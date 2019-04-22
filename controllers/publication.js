@@ -137,7 +137,7 @@ var controller = {
 		// Project.findById(projectId,(er,pro)=>{
 		// 	return res.status(200).send({pro})
 		// })
-		Publication.find({ 'project': projectId }, (err, pubs) => {
+		Publication.find({ 'project._id': projectId }, (err, pubs) => {
 			if (err) {
 				return res.status(500).send({ err })
 			}
