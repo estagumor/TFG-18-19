@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'project/:id', component: ProjectDisplayComponent},
   { path: 'project/:id/publication', component: PublicationAddListComponent },
   { path: 'project/:id/publications', component: PublicationListComponent },
+  { path: 'publications', component: PublicationListComponent },
   { path: 'project/display/:id', component: ProjectDisplayComponent},
   { path: 'investigationProjects', component: InvestigationProjectComponent },
   { path: 'contracts', component: ContractComponent },
