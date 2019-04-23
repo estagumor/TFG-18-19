@@ -78,7 +78,7 @@
                 <th scope="row" class="encabezado">Número de publicaciones</th>
                 <td>{{ publications.length }}</td>
             </tr>
-            <span class="tooltiptext2">Haga en la línea mostrar las publicaciones</span>
+            <span class="tooltiptext2">Haga click para mostrar las publicaciones</span>
             <br>
             <tr>
                 <th>
@@ -99,7 +99,7 @@
             <!--TODO hacer esto como enlaces o a saber, hay que pensarlo-->
             <tr *ngFor="let pub of publications" (click)="openDialog(pub)">
                 <td>
-                    <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}}</span>: 
+                    <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>: 
                     <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
                 </td>
             </tr>
