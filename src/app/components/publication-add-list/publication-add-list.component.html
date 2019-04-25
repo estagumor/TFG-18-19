@@ -1,43 +1,83 @@
 
 <fieldset>
   <h1>Listado de publicaciones</h1>
-  <button type="button" (click)="saveFromScoups()">Cargar</button>
+  <button type="button" (click)="saveFromScoups()" class="btn btn-primary">Guardar</button>
   <div class="row">
     <section class="content">
       <br>
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-6 col-md-offset-2 left nav-item">
+          <h4>Publicaciones</h4>
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="table-container">
               <table class="table table-filter">
                 <tbody>
-                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}">
-                    <td>
-                      <div class="ckbox">
-                        <input type="checkbox" id="checkBox" (click)="clicked(checkbox,pub)" #checkbox>
-                        <label for="checkbox1"></label>
-                      </div>
-                    </td>
-                    <td (click)="openDialog(pub)">
-                      <div class="media">
-                        <div class="media-body">
-                          <span class="media-meta pull-right">{{ pub.firstAuthor }}</span>
-                          <span class="media-meta pull-right"> / </span>
-                          <span class="media-meta pull-right">{{ pub.sourceType }}</span>
-                          <h4 class="title">
-                            {{ pub.articleTitle }}
-                          </h4>
-                          <p class="summary" *ngIf="pub.publicationDate">{{ pub.publicationDate }}</p>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                    <tr *ngFor="let pub of listado" (click)="clicked(checkbox,pub)">
+                      <td style="width: 10%; height: auto;">
+                          <input type="checkbox" id="checkBox" #checkbox>
+                          <label for="checkbox1"></label>
+                      </td>
+                      <td>
+                          <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>: 
+                          <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
+                      </td>
+                    </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-md-6 col-md-offset-2 right nav-item">
+          <h4>Proyectos</h4>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="table-container">
+                <table class="table table-filter">
+                  <tbody>
+                      <!-- <tr *ngFor="let pro of projects" (click)="clickedPro(checkbox,pro)">
+                        <td style="width: 10%; height: auto;">
+                            <input type="checkbox" id="checkBox" #checkbox>
+                            <label for="checkbox1"></label>
+                        </td>
+                        <td>
+                            <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>: 
+                            <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
+                        </td>
+                      </tr> -->
+                      <tr *ngFor="let pro of projects" (click)="clickedPro(checkbox,pro)">
+                          <td style="width: 10%; height: auto;">
+                              <input type="checkbox" id="checkBox" #checkbox>
+                              <label for="checkbox1"></label>
+                          </td>
+										<td>
+											<div class="media">
+												<div class="media-body">
+													<!--datos-->
+													<span
+														class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.startDate | date}}</span>
+													<span class="media-meta pull-right" *ngIf="pro.startDate"> / </span>
+													<span
+														class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.endDate | date}}</span>
+													<h4 class="title">
+														{{ pro.title }}
+														<div>
+														</div>
+														<!--Rellenar una vez tengamos javascript-->
+													</h4>
+													<p class="summary" *ngIf="pro.scope != 'NONE' && pro.reference">{{ pro.scope }} - {{ pro.reference }}</p>
+													<p class="summary" *ngIf="pro.scope != 'NONE' && !pro.reference">{{ pro.scope }}</p>
+													<p class="summary" *ngIf="pro.scope == 'NONE'">{{ pro.reference }}</p>
+												</div>
+											</div>
+										</td>
+									</tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
   </div>
 </fieldset>

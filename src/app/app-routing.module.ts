@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'project/:id?', component: ProjectsComponent },
   { path: 'projects', component:  ProjectListComponent},
   { path: 'project/:id', component: ProjectDisplayComponent},
-  { path: 'project/:id/publication', component: PublicationAddListComponent },
+  { path: 'scopus/publications', component: PublicationAddListComponent },
   { path: 'project/:id/publications', component: PublicationListComponent },
   { path: 'publications', component: PublicationListComponent },
   { path: 'project/display/:id', component: ProjectDisplayComponent},

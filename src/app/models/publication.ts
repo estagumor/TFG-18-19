@@ -40,9 +40,7 @@ export class Publication {
             let auth = new Person(actual["given-name"],actual["surname"],"","","",true,"RESEARCHER","",actual["authid"],"NONE",actual["author-url"],false);
             authors.push(auth);
         }
-        if(object["affiliation"])
-            var affiliation = object["affiliation"][0]["affilname"]
-        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, authors, affiliation, false, null)
+        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, authors, null, false, null)
         return pub
     }
 

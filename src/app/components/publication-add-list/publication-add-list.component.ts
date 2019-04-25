@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Publication } from '../../models/publication';
 import { PublicationService } from '../../services/publication.service';
+import { Project } from '../../models/project';
+import { ProjectService } from '../../services/project.service';
 import { ScopusService } from '../../services/scopus.service';
 import { NgControl } from '@angular/forms'
 import { DisplayComponent } from '../display/display.component'
@@ -19,11 +21,13 @@ export class PublicationAddListComponent implements OnInit {
   public selectedPub: Publication
   public fields
   public pubsToSave: Array<Publication> = [];
-  @Input() projectId: String
+  public projects: Array<Project> = [];
+  public prosToSave: Array<Project> = [];
 
   constructor(
     private _service: PublicationService,
     private _scopus: ScopusService,
+    private _projectService: ProjectService,
     public dialog: MatDialog,
     private _route: ActivatedRoute,
     private _router: Router
@@ -34,24 +38,17 @@ export class PublicationAddListComponent implements OnInit {
     //   this.listado = data['pubs'];
       
     // })
-    this.projectId = this._route.snapshot.paramMap.get('id');
     this._scopus.getPubs().subscribe((data) => {
-      this._service.filterNewPublications(data).subscribe((nuevos) => {
-        this.listado = nuevos.body['pubs'];
-        
-      })
+        this.listado = data;
+        console.log(data)
+    })
+    this._projectService.getProjects().subscribe((response) => {
+      this.projects = response.body['projects']
     })
   }
 
-  openDialog(pub): void {
-    const dialogRef = this.dialog.open(DisplayComponent, {
-      width: '50%',
-      data: { objeto: pub, fields: {articleTitle: 'Título', scopusId: 'Id de Scopus'}}
-    });
-    // console.log(pub._id)
-  }
-
   clicked(obj,pub) {
+    obj.checked = !obj.checked
     obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
     if(obj.checked){
       this.pubsToSave.push(pub)
@@ -60,9 +57,19 @@ export class PublicationAddListComponent implements OnInit {
     }
   }
 
+  clickedPro(obj,pub) {
+    obj.checked = !obj.checked
+    obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
+    if(obj.checked){
+      this.prosToSave.push(pub)
+    } else {
+      this.prosToSave = this.prosToSave.filter(p => p!=pub)
+    }
+  }
+
   saveFromScoups() {
-    this._service.saveAll(this.pubsToSave, this.projectId).subscribe(data => {
-      this._router.navigateByUrl('/project'+"/"+this.projectId+"/"+'publications')
+    this._service.saveAll(this.pubsToSave, this.prosToSave).subscribe(data => {
+      this._router.navigateByUrl('/publications')
       
     },err => {
       console.log(err);
