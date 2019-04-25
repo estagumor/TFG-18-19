@@ -17,7 +17,7 @@ export class Publication {
         public authors: Array<Person>,
         public affiliation: String,
         public assigned: Boolean,
-        public project: [Project]
+        public project: Project[]
     ) {}
 
     static parse(object): Publication{
