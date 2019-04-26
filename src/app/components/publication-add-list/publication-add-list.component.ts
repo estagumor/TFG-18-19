@@ -38,10 +38,10 @@ export class PublicationAddListComponent implements OnInit {
     //   this.listado = data['pubs'];
       
     // })
-    this._scopus.getPubs().subscribe((data) => {
-        this.listado = data;
-        console.log(data)
-    })
+    // this._scopus.getPubs().subscribe((data) => {
+    //     this.listado = data;
+    //     console.log(data)
+    // })
     this._projectService.getProjects().subscribe((response) => {
       this.projects = response.body['projects']
     })
@@ -60,9 +60,29 @@ export class PublicationAddListComponent implements OnInit {
   clickedPro(obj,pub) {
     obj.checked = !obj.checked
     obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
+    //Guardamos los scopus ids del proyecto
+    let r //Iterador
+    let scopusIds = []
+    for(r in pub.researchTeam) {
+      scopusIds.push(r.scopusId)
+    }
+    //Si se selecciona, se guarda el y los pubs que tienen sus scopus ids
     if(obj.checked){
+      this._scopus.getPubs(0,25,scopusIds).subscribe(res => {
+        this.listado.push(res)
+      }, err => {
+        console.log(err);
+      });
       this.prosToSave.push(pub)
-    } else {
+    } else { //Si no, se quita el y los pubs que tienen sus scopus ids
+      this._scopus.getPubs(0,25,scopusIds).subscribe(res => {
+        let re
+        for(re in res){
+          this.listado = this.listado.filter(p => p!=re)
+        }
+      }, err => {
+        console.log(err);
+      });
       this.prosToSave = this.prosToSave.filter(p => p!=pub)
     }
   }
