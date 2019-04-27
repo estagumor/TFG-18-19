@@ -26,6 +26,8 @@ import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
 import { PublicationAddListComponent } from '../app/components/publication-add-list/publication-add-list.component';
 import { Router } from '@angular/router';
 import { PersonComponent } from './components/person-create/person.component';
+import { PublicationStatsComponent } from './components/publication-stats/publication-stats.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { PersonComponent } from './components/person-create/person.component';
     ProjectDisplayComponent,
     FilterProjectsPipe,
     PublicationAddListComponent,
-    PersonComponent
+    PersonComponent,
+    PublicationStatsComponent
   ],
   imports: [
     NgbModule,
@@ -60,6 +63,7 @@ import { PersonComponent } from './components/person-create/person.component';
     MatChipsModule,
     MatIconModule,
     MatDialogModule,
+    ChartsModule,
   ],
   entryComponents: [PublicationListComponent, DisplayComponent],
   providers: [],

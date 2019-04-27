@@ -5,12 +5,57 @@ var ProjectController = require("./project");
 var Project = require("../models/project");
 var ObjectId = mongoose.Types.ObjectId
 var db = mongoose.connection;
+var XLSX = require('xlsx');
+const quartiles = readExcel()
 // 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
+function readExcel(){
+	var res = {"Q1": [], "Q2":[], "Q3": [], "Q4": []}
+	
+	var workbook = XLSX.readFile(__dirname + '/excels/JCR_2017-All_Journals-.xlsx');
+	var q1 = workbook.Sheets['Q1']
+	var nRows = XLSX.utils.decode_range(q1['!ref']).e.r
+	for(var i = 4; i<nRows; i++){
+		res["Q1"].push(q1['B'+i].v)
+	}
+	var q2 = workbook.Sheets['Q2']
+	nRows = XLSX.utils.decode_range(q2['!ref']).e.r
+	for(i = 4; i<nRows; i++){
+		res["Q2"].push(q2['B'+i].v)
+	}
+	var q3 = workbook.Sheets['Q3']
+	nRows = XLSX.utils.decode_range(q3['!ref']).e.r
+	for(i = 4; i<nRows; i++){
+		res["Q3"].push(q3['B'+i].v)
+	}
+	var q4 = workbook.Sheets['Q4']
+	nRows = XLSX.utils.decode_range(q4['!ref']).e.r
+	for(i = 4; i<nRows; i++){
+		res["Q4"].push(q4['B'+i].v)
+	}
+	return res
+}
+
 var controller = {
 
 	save: function (req, res) { // Metodo para crear proyectos
 		var pub = req.body;
-
+		try {
+			
+			if (pub.sourceTpe == "Journal") {
+				if (quartiles.Q1.indexOf(pub.sourceTitle) != -1) {
+					pub.quartil = "Q1"
+				} else if (quartiles.Q2.indexOf(pub.sourceTitle) != -1) {
+					pub.quartil = "Q2"
+				} else if (quartiles.Q3.indexOf(pub.sourceTitle) != -1) {
+					pub.quartil = "Q3"
+				} else if (quartiles.Q4.indexOf(pub.sourceTitle) != -1) {
+					pub.quartil = "Q4"
+				}
+			}
+		} catch (error) {
+			console.log(error)
+			res.status(503).send({error})
+		}
 		if (pub == undefined) {
 			return res.status(400).send({ message: "Can't save an empty publication" });
 		} else {
@@ -23,21 +68,35 @@ var controller = {
 		}
 	},
 
-	saveAll: function (req, res) {
-		var params = req.body;
-		var projId = params.project
-		Project.findById(projId, (error, result) => {
+	saveAll: function (pubs) {
+		
+		for (let ind in pubs) {
+			let pub = pubs[ind]
+			try {
 
-			var toSavePub = params.publications;
-			toSavePub.forEach((p) => p.project = result._id)
+				if (pub.sourceType == "Journal") {
+					if (quartiles.Q1.indexOf(pub.sourceTitle) != -1) {
+						pub.quartil = "Q1"
+					} else if (quartiles.Q2.indexOf(pub.sourceTitle) != -1) {
+						pub.quartil = "Q2"
+					} else if (quartiles.Q3.indexOf(pub.sourceTitle) != -1) {
+						pub.quartil = "Q3"
+					} else if (quartiles.Q4.indexOf(pub.sourceTitle) != -1) {
+						pub.quartil = "Q4"
+					}
+				}
+			} catch (error) {
+				console.log(error)
+				res.status(503).send({ error })
+			}
+		}
 
-			Publication.create(toSavePub, (err, pubs) => {
-				if (err != null) return res.status(500).send({ message: err });
-
-				if (!pubs) return res.status(503).send({ message: "Error when trying to save the publications" });
-				return res.status(201).send({ pubs: pubs });
-			})
+		Publication.create(pubs, (err) => {
+			if (err) return res.status(500).send({ message_es: "Error en la petición", message_en: "Error in the request", message_data: err });
+			if (!pubs) return res.status(503).send({ message: "Error when trying to save the publication" });
+			return pubs
 		})
+
 
 	},
 
