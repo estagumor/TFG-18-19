@@ -11,6 +11,7 @@ import { PublicationAddListComponent } from './components/publication-add-list/p
 import { ProjectDisplayComponent } from './components/project-display/project-display.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component'
 import { PersonComponent } from './components/person-create/person.component';
+import { PublicationStatsComponent } from './components/publication-stats/publication-stats.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'publication', component: PublicationsComponent },
   { path: 'person', component: PersonComponent},
   { path: 'person/:id?', component: PersonComponent},
+  { path: 'stats/publication', component: PublicationStatsComponent},
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

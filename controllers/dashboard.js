@@ -4,6 +4,7 @@ var Publication = require('../models/publication'); // Aporta el modelo y los me
 var Project = require("../models/project");
 var Person = require("../models/person")
 var db = mongoose.connection;
+var pubController = require("./publication");
 // 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
 var controller = {
 
@@ -150,7 +151,7 @@ var controller = {
 				articleTitle: "Automated Validation of Compensable SLAs",
 				sourceType: "Journal",
 				documentType: "Article in Press",
-				sourceTitle: "IEEE Transactions on Services Computing",
+				sourceTitle: "IEEE Transactions on Software Engineering",
 				pageRange: "",
 				publicationDate: "2018",
 				DOI: "10.1109/TSC.2018.2885766",
@@ -202,7 +203,7 @@ var controller = {
 				assigned: true
 			}
 	
-			return [Publication.create([pub1, pub2, pub3, pub4, pub5]),data]
+			return pubController.saveAll([pub1, pub2, pub3, pub4, pub5])
 		}
 		createProject.then(createPublication).then(createPerson).then(() => {
 			return res.status(201).send({});

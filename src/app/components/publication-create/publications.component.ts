@@ -24,7 +24,7 @@ export class PublicationsComponent implements OnInit {
     private _projectService: ProjectService,
     private _router: Router, // Para hacer el menu de navegacion
   ) {
-    this.pub = new Publication('','','','','',null,'','',null,'','',[],'',false,null)
+    this.pub = new Publication('','','','','',null,'','',null,'','',[],'',false,null,null,null)
    }
 
   ngOnInit() {

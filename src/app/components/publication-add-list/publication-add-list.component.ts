@@ -38,10 +38,9 @@ export class PublicationAddListComponent implements OnInit {
     //   this.listado = data['pubs'];
       
     // })
-    // this._scopus.getPubs().subscribe((data) => {
-    //     this.listado = data;
-    //     console.log(data)
-    // })
+    this._scopus.getPubs().subscribe((data) => {
+        this.listado = data;
+    })
     this._projectService.getProjects().subscribe((response) => {
       this.projects = response.body['projects']
     })
