@@ -15,22 +15,22 @@ function readExcel(){
 	var q1 = workbook.Sheets['Q1']
 	var nRows = XLSX.utils.decode_range(q1['!ref']).e.r
 	for(var i = 4; i<nRows; i++){
-		res["Q1"].push(q1['B'+i].v)
+		res["Q1"].push(q1['B'+i].v.toUpperCase())
 	}
 	var q2 = workbook.Sheets['Q2']
 	nRows = XLSX.utils.decode_range(q2['!ref']).e.r
 	for(i = 4; i<nRows; i++){
-		res["Q2"].push(q2['B'+i].v)
+		res["Q2"].push(q2['B'+i].v.toUpperCase())
 	}
 	var q3 = workbook.Sheets['Q3']
 	nRows = XLSX.utils.decode_range(q3['!ref']).e.r
 	for(i = 4; i<nRows; i++){
-		res["Q3"].push(q3['B'+i].v)
+		res["Q3"].push(q3['B'+i].v.toUpperCase())
 	}
 	var q4 = workbook.Sheets['Q4']
 	nRows = XLSX.utils.decode_range(q4['!ref']).e.r
 	for(i = 4; i<nRows; i++){
-		res["Q4"].push(q4['B'+i].v)
+		res["Q4"].push(q4['B'+i].v.toUpperCase())
 	}
 	return res
 }
@@ -42,13 +42,13 @@ var controller = {
 		try {
 			
 			if (pub.sourceTpe == "Journal") {
-				if (quartiles.Q1.indexOf(pub.sourceTitle) != -1) {
+				if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 					pub.quartil = "Q1"
-				} else if (quartiles.Q2.indexOf(pub.sourceTitle) != -1) {
+				} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 					pub.quartil = "Q2"
-				} else if (quartiles.Q3.indexOf(pub.sourceTitle) != -1) {
+				} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 					pub.quartil = "Q3"
-				} else if (quartiles.Q4.indexOf(pub.sourceTitle) != -1) {
+				} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 					pub.quartil = "Q4"
 				}
 			}
@@ -75,13 +75,13 @@ var controller = {
 			try {
 
 				if (pub.sourceType == "Journal") {
-					if (quartiles.Q1.indexOf(pub.sourceTitle) != -1) {
+					if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 						pub.quartil = "Q1"
-					} else if (quartiles.Q2.indexOf(pub.sourceTitle) != -1) {
+					} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 						pub.quartil = "Q2"
-					} else if (quartiles.Q3.indexOf(pub.sourceTitle) != -1) {
+					} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 						pub.quartil = "Q3"
-					} else if (quartiles.Q4.indexOf(pub.sourceTitle) != -1) {
+					} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 						pub.quartil = "Q4"
 					}
 				}
@@ -165,11 +165,50 @@ var controller = {
 					return nuevos
 				}).then((data) => {
 					if (data.length > 0) {
+						if(data.length > 1){
+							for (pub in data){
+								if (pub.sourceType == "Journal") {
+									if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q1"
+									} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q2"
+									} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q3"
+									} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q4"
+									}
+								}
+							}
+						} else {
+							if (data[0].sourceType == "Journal") {
+								if (quartiles.Q1.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q1"
+								} else if (quartiles.Q2.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q2"
+								} else if (quartiles.Q3.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q3"
+								} else if (quartiles.Q4.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q4"
+								}
+							}
+						}
+						
 						Publication.updateMany(data).then(() => {
 							Promise.resolve()
 						})
 					} else {
 						pub.project = projects
+						if (pub.sourceType == "Journal") {
+							if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q1"
+							} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q2"
+							} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q3"
+							} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q4"
+							}
+						}
 						Publication.create(pub).then((date) => {
 							Promise.resolve()
 						})

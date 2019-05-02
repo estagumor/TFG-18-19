@@ -151,7 +151,7 @@ var controller = {
 				articleTitle: "Automated Validation of Compensable SLAs",
 				sourceType: "Journal",
 				documentType: "Article in Press",
-				sourceTitle: "IEEE Transactions on Services Computing",
+				sourceTitle: "IEEE Transactions on Software Engineering",
 				pageRange: "",
 				publicationDate: "2018",
 				DOI: "10.1109/TSC.2018.2885766",
