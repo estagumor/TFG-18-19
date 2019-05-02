@@ -31,8 +31,8 @@ export class PublicationStatsComponent implements OnInit {
   public cat6: Array<Publication> = [];
   public cat7: Array<Publication> = [];
 
-  public barChartData = [];
-  public barChartData2 = [];
+  public barChartData = [{data: [], label: "Journals"}];
+  public barChartData2 = [{data: [], label: "Conferences"}];
 
   constructor(
     public _service: PublicationService
@@ -60,7 +60,6 @@ export class PublicationStatsComponent implements OnInit {
               break;
           }
         } else if (pub.sourceType.indexOf("Conference") != -1){
-          console.log(pub)
           switch(pub.congress){
             case "A++":
               this.cat1.push(pub)
