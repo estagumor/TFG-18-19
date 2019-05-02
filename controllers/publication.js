@@ -7,6 +7,7 @@ var ObjectId = mongoose.Types.ObjectId
 var db = mongoose.connection;
 var XLSX = require('xlsx');
 const quartiles = readExcel()
+const congress = readExcel2()
 // 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
 function readExcel(){
 	var res = {"Q1": [], "Q2":[], "Q3": [], "Q4": []}
@@ -35,13 +36,32 @@ function readExcel(){
 	return res
 }
 
+function readExcel2(){
+	var res = {"A++": [], "A+": [], "A": [], "A-": [], "B": [], "B-": [], "C": [], "": []};
+
+	var workbook = XLSX.readFile(__dirname + '/excels/GII-GRIN-SCIE-Conference-Rating-30-mag-2018-11.54.45-Output.xlsx');
+	var sheet = workbook.Sheets['GII-GRIN-SCIE-Conference-Rating']
+
+	var nRows = XLSX.utils.decode_range(sheet['!ref']).e.r;
+	for (var i = 3; i<nRows; i++){
+		if(sheet['K'+i] != undefined)
+			res[sheet['K'+i].v].push(sheet['B'+i].v.toUpperCase())
+	}
+	return res
+}
+
 var controller = {
+
+	test: function (req,res ){
+		console.log(congress)
+		res.status(200).send({congress})
+	},
 
 	save: function (req, res) { // Metodo para crear proyectos
 		var pub = req.body;
 		try {
 			
-			if (pub.sourceTpe == "Journal") {
+			if (pub.sourceType == "Journal") {
 				if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 					pub.quartil = "Q1"
 				} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
@@ -50,6 +70,13 @@ var controller = {
 					pub.quartil = "Q3"
 				} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 					pub.quartil = "Q4"
+				}
+			} else if (pub.sourceType.indexOf("Conference") != -1){
+				for(let categoria in congress){
+					if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+						pub.congress = categoria
+						break;
+					}
 				}
 			}
 		} catch (error) {
@@ -83,6 +110,13 @@ var controller = {
 						pub.quartil = "Q3"
 					} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 						pub.quartil = "Q4"
+					}
+				} else if (pub.sourceType.indexOf("Conference") != -1){
+					for(let categoria in congress){
+						if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+							pub.congress = categoria
+							break;
+						}
 					}
 				}
 			} catch (error) {
@@ -177,6 +211,13 @@ var controller = {
 									} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 										pub.quartil = "Q4"
 									}
+								} else if (pub.sourceType.indexOf("Conference") != -1){
+									for(let categoria in congress){
+										if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+											pub.congress = categoria
+											break;
+										}
+									}
 								}
 							}
 						} else {
@@ -189,6 +230,13 @@ var controller = {
 									data[0].quartil = "Q3"
 								} else if (quartiles.Q4.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
 									data[0].quartil = "Q4"
+								}
+							} else if (pub.sourceType.indexOf("Conference") != -1){
+								for(let categoria in congress){
+									if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+										pub.congress = categoria
+										break;
+									}
 								}
 							}
 						}
@@ -207,6 +255,13 @@ var controller = {
 								pub.quartil = "Q3"
 							} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
 								pub.quartil = "Q4"
+							}
+						} else if (pub.sourceType.indexOf("Conference") != -1){
+							for(let categoria in congress){
+								if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+									pub.congress = categoria
+									break;
+								}
 							}
 						}
 						Publication.create(pub).then((date) => {

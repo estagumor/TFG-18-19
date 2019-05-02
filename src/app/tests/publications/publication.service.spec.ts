@@ -39,7 +39,7 @@ describe("Publication's service", () => {
       "assigned": false,
       "project": null
     }
-    var pro: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false, null,null);
+    var pro: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false, null,null,null);
     // The httpClientSpy will return the previous project on a 'POST' request
     var test = httpClientSpy.post.and.returnValue(asyncData(pubMocked));
     // Makes the request to the server and expect the returned data to be equal than 'pro'
@@ -57,7 +57,7 @@ describe("Publication's service", () => {
       error: 'test 500 error',
       status: 500, statusText: 'Error while creating'
     });
-    var pro: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false,null,null);
+    var pro: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false,null,null,null);
     // The httpClientSpy will return the previous array on a 'POST' request
     var test = httpClientSpy.post.and.returnValue(asyncError(errorResponse));
     // Makes the request to the server and expects the returned data to be equal than 'data'
@@ -210,7 +210,7 @@ describe("Publication's service", () => {
       "project":null,
       "assigned": false
     }]
-    var pro: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false, null,null);
+    var pro: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false, null,null,null);
     var project: Project = new Project([],[],[], "sfds", "", [], "sfds", "REGIONAL","OTROS","", null, null, 200, [])
     // The httpClientSpy will return the previous project on a 'POST' request
     var test = httpClientSpy.post.and.returnValue(asyncData(pubMocked));

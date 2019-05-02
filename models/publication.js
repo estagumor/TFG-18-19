@@ -39,7 +39,7 @@ var PublicationSchema = Schema({
     assigned: Boolean,
     project: { type: [ProjectSchema], ref: 'Project' },
     quartil: String,
-    indice: String
+    congress: String
 });
 
 module.exports = mongoose.model('Publication', PublicationSchema)
