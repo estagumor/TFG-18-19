@@ -7,7 +7,7 @@ export class Project {
     public researchTeam: Array<Person>,
     public workTeam: Array<Person>,
     public hiredStaff: Array<Person>,
-    public title: String,
+    public title: string,
     public description: String,
     public leader: Array<Person>,
     public reference: String,

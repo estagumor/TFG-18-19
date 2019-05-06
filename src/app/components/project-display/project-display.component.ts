@@ -47,10 +47,6 @@ export class ProjectDisplayComponent implements OnInit {
     });
   }
 
-  addPublications() {
-    this.route.navigate(['project/' + this.id + '/publication'])
-  }
-
   editProject() {
     this.route.navigate(['project/' + this.id])
   }

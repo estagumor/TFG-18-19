@@ -5,6 +5,7 @@ import { Publication } from '../models/publication'
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { HandleError } from '../components/shared/handleError'
+import { Project } from '../models/project';
 
 @Injectable({
   providedIn: 'root'
@@ -32,15 +33,15 @@ export class PublicationService {
     .pipe(tap(HandleError.handleError));
   }
 
-  saveAll(publications: Publication[], proj): Observable<any> {
-    return this._http.post<Publication[]>(this.url+"/all",{publications: publications, project: proj},{observe: 'response'})
+  saveAll(publications: Publication[], projects: Project[]): Observable<any> {
+    return this._http.post<Publication[]>(this.url+"/filter",{pubs: publications, projects: projects},{observe: 'response'})
     .pipe(tap(HandleError.handleError));
   }
 
-  filterNewPublications(publications: Publication[]): Observable<any> {
-    return this._http.post<Publication[]>(this.url+"/filter",publications, { observe: 'response' })
-    .pipe(tap(HandleError.handleError))
-  }
+  // filterNewPublications(publications: Publication[]): Observable<any> {
+  //   return this._http.post<Publication[]>(this.url+"/filter",publications, { observe: 'response' })
+  //   .pipe(tap(HandleError.handleError))
+  // }
 
   filterByProject(id: String): Observable<any> {
     return this._http.get<Publication[]>(this.url+"/project/"+id, { observe: 'response' })

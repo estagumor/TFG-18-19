@@ -10,5 +10,5 @@ router.get('/publications', PublicationController.getPubs);
 router.post('/publication/all', PublicationController.saveAll);
 router.post('/publication/filter', PublicationController.filterNewPubs);
 router.get('/publication/project/:id', PublicationController.filterByProject)
-
+router.get('/test', PublicationController.test)
 module.exports = router;

@@ -1,5 +1,5 @@
 import { Project } from "./project";
-
+import { Person } from "./person";
 
 export class Publication {
     constructor(
@@ -14,10 +14,12 @@ export class Publication {
         public publicationDate: String,
         public DOI: String,
         public ORCID: String,
-        public firstAuthor: String,
+        public authors: Array<Person>,
         public affiliation: String,
         public assigned: Boolean,
-        public project: Project
+        public project: Project[],
+        public quartil: String,
+        public congress: String
     ) {}
 
     static parse(object): Publication{
@@ -32,10 +34,15 @@ export class Publication {
         let publicationDate = new Date(object["prism:coverDate"]).getFullYear().toString()
         let DOI = object["prism:doi"]
         let ORCID = object["orcid"]
-        let firstAuthor = object["dc:creator"]
-        if(object["affiliation"])
-            var affiliation = object["affiliation"][0]["affilname"]
-        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, firstAuthor, affiliation, false, null)
+        let arrayAuthors = object["author"]
+        let authors = []
+        for (let index = 0; index < arrayAuthors.length; index++) {
+            let actual = arrayAuthors[index]
+            //TODO HAY QUE COMPROBAR QUE LA PERSONA NO EXISTA YA
+            let auth = new Person(actual["given-name"],actual["surname"],"","","",true,"RESEARCHER","",actual["authid"],"NONE",actual["author-url"],false);
+            authors.push(auth);
+        }
+        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, authors, null, false, null, null, null)
         return pub
     }
 

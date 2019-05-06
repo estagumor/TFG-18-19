@@ -298,3 +298,24 @@ ul.navbar-nav.mr-auto {
     width: 100% !important;
     display: block !important;
 }
+
+.tooltip2:hover {
+    background-color: #f8e6aace;
+}
+
+.tooltip2 + .tooltiptext2 {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip2:hover + .tooltiptext2 {
+    visibility: visible;
+}

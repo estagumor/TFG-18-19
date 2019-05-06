@@ -13,13 +13,9 @@
                     <td>
                       <div class="media">
                         <div class="media-body">
-                          <span class="media-meta pull-right">{{ pub.firstAuthor }}</span>
-                          <span class="media-meta pull-right"> / </span>
-                          <span class="media-meta pull-right">{{ pub.sourceType }}</span>
-                          <h4 class="title">
-                            {{ pub.articleTitle }}
-                          </h4>
-                          <p class="summary" *ngIf="pub.publicationDate">{{ pub.publicationDate }}</p>
+                          <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>:
+                          <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}:
+                          {{pub.pageRange}} ({{pub.publicationDate}})
                           <p><a href="https://dx.doi.org/{{pub.DOI}}">Ir a la publicación</a></p>
                         </div>
                       </div>
