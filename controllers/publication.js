@@ -5,12 +5,84 @@ var ProjectController = require("./project");
 var Project = require("../models/project");
 var ObjectId = mongoose.Types.ObjectId
 var db = mongoose.connection;
+var XLSX = require('xlsx');
+const quartiles = readExcel()
+const congress = readExcel2()
 // 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
+function readExcel(){
+	var res = {"Q1": [], "Q2":[], "Q3": [], "Q4": []}
+	
+	var workbook = XLSX.readFile(__dirname + '/excels/JCR_2017-All_Journals-.xlsx');
+	var q1 = workbook.Sheets['Q1']
+	var nRows = XLSX.utils.decode_range(q1['!ref']).e.r
+	for(var i = 4; i<nRows; i++){
+		res["Q1"].push(q1['B'+i].v.toUpperCase())
+	}
+	var q2 = workbook.Sheets['Q2']
+	nRows = XLSX.utils.decode_range(q2['!ref']).e.r
+	for(i = 4; i<nRows; i++){
+		res["Q2"].push(q2['B'+i].v.toUpperCase())
+	}
+	var q3 = workbook.Sheets['Q3']
+	nRows = XLSX.utils.decode_range(q3['!ref']).e.r
+	for(i = 4; i<nRows; i++){
+		res["Q3"].push(q3['B'+i].v.toUpperCase())
+	}
+	var q4 = workbook.Sheets['Q4']
+	nRows = XLSX.utils.decode_range(q4['!ref']).e.r
+	for(i = 4; i<nRows; i++){
+		res["Q4"].push(q4['B'+i].v.toUpperCase())
+	}
+	return res
+}
+
+function readExcel2(){
+	var res = {"A++": [], "A+": [], "A": [], "A-": [], "B": [], "B-": [], "C": [], "": []};
+
+	var workbook = XLSX.readFile(__dirname + '/excels/GII-GRIN-SCIE-Conference-Rating-30-mag-2018-11.54.45-Output.xlsx');
+	var sheet = workbook.Sheets['GII-GRIN-SCIE-Conference-Rating']
+
+	var nRows = XLSX.utils.decode_range(sheet['!ref']).e.r;
+	for (var i = 3; i<nRows; i++){
+		if(sheet['K'+i] != undefined)
+			res[sheet['K'+i].v].push(sheet['B'+i].v.toUpperCase())
+	}
+	return res
+}
+
 var controller = {
+
+	test: function (req,res ){
+		console.log(congress)
+		res.status(200).send({congress})
+	},
 
 	save: function (req, res) { // Metodo para crear proyectos
 		var pub = req.body;
-
+		try {
+			
+			if (pub.sourceType == "Journal") {
+				if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q1"
+				} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q2"
+				} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q3"
+				} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q4"
+				}
+			} else if (pub.sourceType.indexOf("Conference") != -1){
+				for(let categoria in congress){
+					if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+						pub.congress = categoria
+						break;
+					}
+				}
+			}
+		} catch (error) {
+			console.log(error)
+			res.status(503).send({error})
+		}
 		if (pub == undefined) {
 			return res.status(400).send({ message: "Can't save an empty publication" });
 		} else {
@@ -23,21 +95,42 @@ var controller = {
 		}
 	},
 
-	saveAll: function (req, res) {
-		var params = req.body;
-		var projId = params.project
-		Project.findById(projId, (error, result) => {
+	saveAll: function (pubs) {
+		
+		for (let ind in pubs) {
+			let pub = pubs[ind]
+			try {
 
-			var toSavePub = params.publications;
-			toSavePub.forEach((p) => p.project = result._id)
+				if (pub.sourceType == "Journal") {
+					if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q1"
+					} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q2"
+					} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q3"
+					} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q4"
+					}
+				} else if (pub.sourceType.indexOf("Conference") != -1){
+					for(let categoria in congress){
+						if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+							pub.congress = categoria
+							break;
+						}
+					}
+				}
+			} catch (error) {
+				console.log(error)
+				res.status(503).send({ error })
+			}
+		}
 
-			Publication.create(toSavePub, (err, pubs) => {
-				if (err != null) return res.status(500).send({ message: err });
-
-				if (!pubs) return res.status(503).send({ message: "Error when trying to save the publications" });
-				return res.status(201).send({ pubs: pubs });
-			})
+		Publication.create(pubs, (err) => {
+			if (err) return res.status(500).send({ message_es: "Error en la petición", message_en: "Error in the request", message_data: err });
+			if (!pubs) return res.status(503).send({ message: "Error when trying to save the publication" });
+			return pubs
 		})
+
 
 	},
 
@@ -106,11 +199,71 @@ var controller = {
 					return nuevos
 				}).then((data) => {
 					if (data.length > 0) {
+						if(data.length > 1){
+							for (pub in data){
+								if (pub.sourceType == "Journal") {
+									if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q1"
+									} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q2"
+									} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q3"
+									} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+										pub.quartil = "Q4"
+									}
+								} else if (pub.sourceType.indexOf("Conference") != -1){
+									for(let categoria in congress){
+										if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+											pub.congress = categoria
+											break;
+										}
+									}
+								}
+							}
+						} else {
+							if (data[0].sourceType == "Journal") {
+								if (quartiles.Q1.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q1"
+								} else if (quartiles.Q2.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q2"
+								} else if (quartiles.Q3.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q3"
+								} else if (quartiles.Q4.indexOf(data[0].sourceTitle.toUpperCase()) != -1) {
+									data[0].quartil = "Q4"
+								}
+							} else if (pub.sourceType.indexOf("Conference") != -1){
+								for(let categoria in congress){
+									if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+										pub.congress = categoria
+										break;
+									}
+								}
+							}
+						}
+						
 						Publication.updateMany(data).then(() => {
 							Promise.resolve()
 						})
 					} else {
 						pub.project = projects
+						if (pub.sourceType == "Journal") {
+							if (quartiles.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q1"
+							} else if (quartiles.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q2"
+							} else if (quartiles.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q3"
+							} else if (quartiles.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+								pub.quartil = "Q4"
+							}
+						} else if (pub.sourceType.indexOf("Conference") != -1){
+							for(let categoria in congress){
+								if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+									pub.congress = categoria
+									break;
+								}
+							}
+						}
 						Publication.create(pub).then((date) => {
 							Promise.resolve()
 						})

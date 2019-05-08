@@ -17,7 +17,9 @@ export class Publication {
         public authors: Array<Person>,
         public affiliation: String,
         public assigned: Boolean,
-        public project: Project[]
+        public project: Project[],
+        public quartil: String,
+        public congress: String
     ) {}
 
     static parse(object): Publication{
@@ -40,7 +42,7 @@ export class Publication {
             let auth = new Person(actual["given-name"],actual["surname"],"","","",true,"RESEARCHER","",actual["authid"],"NONE",actual["author-url"],false);
             authors.push(auth);
         }
-        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, authors, null, false, null)
+        var pub = new Publication(scopusId, articleTitle, sourceType, documentType, sourceTitle, sourceIdentifier, sourceVolume, pageRange, publicationDate, DOI, ORCID, authors, null, false, null, null, null)
         return pub
     }
 
