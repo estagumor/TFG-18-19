@@ -1,14 +1,14 @@
 const express = require("express");
 const app = express();
 
-app.get('/scopus', function (req, res) {
+app.post('/scopus', function (req, res) {
   //Cogemos los datos a usar del post
   let url = "https://api.elsevier.com/content/search/scopus?query="
   let apiKey = "f7f75a8f1e48b03f87da28cc8eb055b7"
-  let authors = req.POST['authors']
-  let startDateProject = req.POST['date']
-  let start = req.POST['start']
-  let count = req.POST['count']
+  let authors = req.body['authors']
+  let startDateProject = req.body['date']
+  let start = req.body['start']
+  let count = req.body['count']
 
   //Creamos la url
   let finalUrl = url
