@@ -1,6 +1,7 @@
 <fieldset *ngIf="bool">
 	<h1>Creacion de proyectos</h1>
 	<form #formProject="ngForm" (ngSubmit)="onSubmit(formProject);" dateLimitation>
+		<div class="form-group">
 		<!--appLeadersRestriction>-->
 
 		<!--añadir mensaje de error-->
@@ -13,7 +14,7 @@
 
 		<label for="workTeam">Equipo de trabajo</label>
 		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
-		<app-acomplete [allList]="researchers" [finalList]="finalWorkers" (keyup)="validateAutocomplete()"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalWorkers" (keyup)="validateAutocomplete()" ></app-acomplete>
 		<div *ngIf="errors.badWorkers" class="alert alert-danger">
 				<span>{{ errors.badWorkers }}</span>
 		</div>
@@ -29,7 +30,7 @@
 
 		<div class="requiredInputs">
 			<label for="title">Titulo</label>
-			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel'>
+			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel' class="form-control">
 			<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
 				<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
 			</div>
@@ -38,7 +39,7 @@
 
 		<label for="description">Descripcion</label>
 		<input type="text" [(ngModel)]="project.description" id='description' name="description"
-			#description='ngModel'>
+			#description='ngModel' class="form-control">
 		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
 			<span>Error en la descripción</span>
 		</div>
@@ -59,7 +60,7 @@
 
 		<label for="reference">Referencia</label>
 		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
-			#reference='ngModel'>
+			#reference='ngModel' class="form-control">
 		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
 			<span>Error en la referencia</span>
 		</div>
@@ -67,7 +68,7 @@
 
 
 		<label for="scope">Competencia</label>
-		<select [(ngModel)]='project.scope' id='scope' name='scope' #scope='ngModel' class="custom-select">
+		<select [(ngModel)]='project.scope' id='scope' name='scope' #scope='ngModel' class="form-control">
 			<option value="NONE">---</option>
 			<option value="REGIONAL">Regional</option>
 			<option value="NACIONAL">Nacional</option>
@@ -81,7 +82,7 @@
 
 
 		<label for="status">Estado</label>
-		<select [(ngModel)]='project.status' id='status' name='status' #status='ngModel' class="custom-select">
+		<select [(ngModel)]='project.status' id='status' name='status' #status='ngModel' class="form-control">
 			<option value="NONE">---</option>
 			<option value="ENVIADO">Enviado</option>
 			<option value="RECHAZADO">Rechazado</option>
@@ -95,7 +96,7 @@
 
 		<label for="startDate" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
 		<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="project.startDate" id='startDate'
-			name="startDate" #startDate='ngModel' />
+			name="startDate" #startDate='ngModel'  class="form-control"/>
 		<span class="badge">
 			<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar"
 				aria-hidden="true"></span>
@@ -106,7 +107,7 @@
 		<br>
 
 		<label for="duration">Añadir duracion</label>
-		<select name="durationSelect" id="durationSelect" #duration (change)="addDuration(f,duration, startDate)" class="custom-select">
+		<select name="durationSelect" id="durationSelect" #duration (change)="addDuration(f,duration, startDate)"  class="form-control">
 			<option value="0">---</option>
 			<option value="1">Un año</option> 
 			<option value="2">Dos años</option>
@@ -117,7 +118,7 @@
 
 		<label for="endDate" style="padding: 0px 15px 0px 15px">Fecha de fin</label>
 		<input type="text" ngbDatepicker #f="ngbDatepicker" [(ngModel)]="project.endDate" id='endDate' name="endDate"
-			#endDate='ngModel' #endDate="formControl" />
+			#endDate='ngModel' #endDate="formControl" class="form-control" />
 		<span class="badge">
 			<span (click)="f.toggle()" class="input-group-text oi oi-calendar" title="calendar"
 				aria-hidden="true"></span>
@@ -134,7 +135,7 @@
 		</div>
 
 		<label for="sponsor">Patrocinador</label>
-		<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" #sponsor='ngModel'>
+		<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" #sponsor='ngModel' class="form-control">
 		<div *ngIf="sponsor.invalid && (sponsor.dirty || sponsor.touched)" class="alert alert-danger">
 			<span>Error en el patrocinador</span>
 		</div>
@@ -145,7 +146,7 @@
 		<span class="badge">
 			<span class="input-group-text">€</span>
 		</span>
-		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel'>
+		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel' class="form-control">
 		<span class="badge">
 			<span class="input-group-text">.00</span>
 		</span>
@@ -163,7 +164,7 @@
 		</div>
 		<br>
 		-->
-
+</div>
 
 		<button type="submit" class="btn btn-primary" id="submitForm"
 			[disabled]="!formProject.form.valid || formProject.errors || validateLeader() == false">Enviar</button>

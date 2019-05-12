@@ -1,5 +1,5 @@
-<mat-form-field>
-  <mat-chip-list #chipList>
+
+  <mat-chip-list #chipList class="col-lg-7">
     <mat-chip *ngFor="let element of finalList" [selectable]="selectable" [removable]="removable"
       (removed)="remove(element)">
       {{element}}
@@ -8,7 +8,7 @@
     <div class="divAutocomplete">
       <input #basicInput [formControl]="basicCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-        (matChipInputTokenEnd)="add($event)">
+        (matChipInputTokenEnd)="add($event)" class="form-control col-lg-7">
     </div>
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
@@ -16,4 +16,3 @@
       {{el}}
     </mat-option>
   </mat-autocomplete>
-</mat-form-field>
