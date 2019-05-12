@@ -6,6 +6,8 @@ import { ProjectService } from '../../services/project.service';
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Person } from 'src/app/models/person';
+import { PersonService } from 'src/app/services/person.service';
 
 @Component({
   selector: 'app-publications',
@@ -18,9 +20,13 @@ export class PublicationsComponent implements OnInit {
   public StringProjects: String[];
   public finalProjects: String[] = [];
   public projects: Project[] = [];
+  public StringPersons: String[];
+  public persons: Person[] = [];
+  public finalAutores: String[] = [];
 
   constructor(
     private _service: PublicationService,
+    private _personService: PersonService,
     private _projectService: ProjectService,
     private _router: Router, // Para hacer el menu de navegacion
   ) {
@@ -34,6 +40,13 @@ export class PublicationsComponent implements OnInit {
       this.StringProjects = this.projects.map((p) => {
         return p.title
       })
+    })
+    this._personService.getAll().subscribe(response => {
+      this.persons = response.body['persons'];
+      this.StringPersons = this.persons.map(p => {
+        return p.name + " " + p.surname;
+      })
+      console.log(this.StringPersons)
     })
   }
 
@@ -55,8 +68,27 @@ export class PublicationsComponent implements OnInit {
     return res
   }
 
+  getPersons(team: String[]): Person[]{
+    let res: Person[];
+    res = team.map((str: string) => {
+      return this.persons.filter((p: Person) => {
+        return str.indexOf(p.name) != -1 || str.indexOf(p.surname) != -1
+      })[0]
+    })
+    return res
+  }
+
+  getStringPersons(persona: Person[]): String[]{
+    let res: String[];
+    res = persona.map((p: Person) => {
+      return p.name + " " + p.surname
+    })
+    return res
+  }
+
   onSubmit(form: NgForm){
     this.pub.project = this.getProjects(this.finalProjects)
+    this.pub.authors = this.getPersons(this.finalAutores)
     this._service.create(this.pub).subscribe(
       result => {
         form.resetForm()

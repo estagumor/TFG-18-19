@@ -133,14 +133,8 @@
 			</div> -->
 
     <div class="requiredInputs">
-      <label for="firstAuthor">Autores</label>
-      <input aria-describedby="authors-hint" type="text" [(ngModel)]="pub.firstAuthor" id="firstAuthor"
-        name="firstAuthor" required #firstAuthor='ngModel' class="form-control">
-      <p id="authors-hint" class="form-text text-muted">Apellidos, nombre de los autores separados por comas</p>
-      <div *ngIf="firstAuthor.invalid && (firstAuthor.dirty || firstAuthor.touched)" class="alert alert-danger">
-        <div *ngIf="firstAuthor.errors.required" class="invalid-feedback">Debe indicarse al menos un autor</div>
-      </div>
-
+      <label for="authors">Autores</label>
+      <app-acomplete [allList]="StringPersons" [finalList]="finalAutores"></app-acomplete>
 
       <label for="affiliation">Afiliacion</label>
       <input aria-describedby="affiliation" type="text" [(ngModel)]="pub.affiliation" id="affiliation"
