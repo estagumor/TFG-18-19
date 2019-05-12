@@ -7,7 +7,7 @@
   <br>
   <div class="row" id="listPersonTable">
     <label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre y apellidos</label>
-    <input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado" #filtro (keyup)=filter(filtro)>
+    <input placeholder="Introduce aquí tu filtrado" #filtro (keyup)=filter(filtro)>
     <!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
     <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/person']">Crear perfil</button>
