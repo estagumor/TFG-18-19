@@ -28,6 +28,8 @@ import { Router } from '@angular/router';
 import { PersonComponent } from './components/person-create/person.component';
 import { PublicationStatsComponent } from './components/publication-stats/publication-stats.component';
 import { ChartsModule } from 'ng2-charts';
+import { PersonListComponent } from './components/person-list/person-list.component';
+import { PersonDisplayComponent } from './components/person-display/person-display.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ChartsModule } from 'ng2-charts';
     FilterProjectsPipe,
     PublicationAddListComponent,
     PersonComponent,
-    PublicationStatsComponent
+    PublicationStatsComponent,
+    PersonListComponent,
+    PersonDisplayComponent
   ],
   imports: [
     NgbModule,

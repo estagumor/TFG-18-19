@@ -23,6 +23,9 @@ var controller = {
 			office: "I0.71",
 			scopusId: "24802465400",
 			professionalStatus: "RESEARCHER",
+			telf: "954556877",
+			email: "japarejo at us punto es",
+			photo: "https://www.isa.us.es/2.0/assets/img/members/picture-11995321950.jpg",
 			active: true
 		}
 		var person2 = {
@@ -33,16 +36,22 @@ var controller = {
 			office: "F0.43",
 			scopusId: "55728096900",
 			professionalStatus: "RESEARCHER",
+			telf: "954553868",
+			email: "cmuller at us punto es",
+			photo: "https://www.isa.us.es/2.0/assets/img/members/picture-1378798236.jpg",
 			active: true
 		}
 		var person3 = {
-			name: "David", 
-			surname: "Benavides", 
+			name: "Adela", 
+			surname: "del Rio", 
 			allowed: true, 
 			job: "RESEARCHER",
-			office: "F0.48",
+			office: "F0.54",
 			scopusId: "22333640600",
 			professionalStatus: "RESEARCHER",
+			telf: "954559814",
+			email: "adeladelrio at us punto es",
+			photo: "https://www.isa.us.es/2.0/assets/img/members/picture-11384027785.jpg",
 			active: true
 		}
 		var person4 = {
@@ -53,17 +62,32 @@ var controller = {
 			office: "F0.47",
 			scopusId: "15021461000",
 			professionalStatus: "RESEARCHER",
+			telf: "954553867",
+			email: "resinas at us punto es",
+			photo: "https://www.isa.us.es/2.0/assets/img/members/picture-1265317244.jpg",
 			active: true
 		}
 		var person5 = {
-			name: "Rafael", 
-			surname: "Corchuelo", 
+			name: "Javier", 
+			surname: "Troya", 
 			allowed: true, 
 			job: "RESEARCHER",
 			office: "F1.63",
 			scopusId: "6602485427",
 			professionalStatus: "RESEARCHER",
+			telf: "954556973",
+			email: "jtroya at us punto es",
+			photo: "https://www.isa.us.es/2.0/assets/img/members/picture-60171131659.png",
 			active: true
+		}
+		var person6 = {
+			name: "Alberto",
+			surname: "Martin",
+			allowed: false,
+			job: "HIRED",
+			telf: "954556356",
+			email: "amarlop at us punto es",
+			photo: "https://www.isa.us.es/2.0/assets/img/members/picture-1187068722.jpg"
 		}
 
 		//Project
@@ -128,7 +152,7 @@ var controller = {
 			relatedTools: []
 		}
 
-		const createPerson = Person.create([person1,person2,person3,person4,person5])
+		const createPerson = Person.create([person1,person2,person3,person4,person5,person6])
 		
 		const createProject = Project.create([pro1, pro2, pro3, pro4, pro5])
 		const createPublication = data => {
