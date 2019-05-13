@@ -1,14 +1,21 @@
 const express = require("express");
 const app = express();
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-app.post('/scopus', function (req, res) {
+// app.post('/scopus', function (req, res) {
+app.get('/scopus', function (req, res) {
   //Cogemos los datos a usar del post
+  console.log(req.body)
   let url = "https://api.elsevier.com/content/search/scopus?query="
   let apiKey = "f7f75a8f1e48b03f87da28cc8eb055b7"
-  let authors = req.body['authors']
-  let startDateProject = req.body['date']
-  let start = req.body['start']
-  let count = req.body['count']
+  // let authors = req.body['authors']
+  let authors = ["15021461000","22333640600"]
+  // let startDateProject = req.body['date']
+  let startDateProject = new Date("01-01-2017")
+  // let start = req.body['start']
+  let start = 0
+  // let count = req.body['count']
+  let count = 25
 
   //Creamos la url
   let finalUrl = url
@@ -19,17 +26,18 @@ app.post('/scopus', function (req, res) {
   });
 
   finalUrl = finalUrl + "%20AND%20PUBYEAR%20%3E%20" + (startDateProject.getFullYear() - 1) + "%20OR%20PUBYEAR%20%3D%20" + (startDateProject.getFullYear() - 1) + "&apiKey=" + apiKey + "&start=" + start + "&count=" + count
-
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function() {
-    if(xmlHttp.readyState == 4 && xmlHttp.status==200) {
-      res.send(xmlHttp.responseText);
+  console.log(finalUrl)
+  var xmlHttp = new XMLHttpRequest(); //Declara la variable
+  xmlHttp.open("GET",finalUrl); //Abre la conexion con la url y método GET
+  xmlHttp.send(); //Envia la petición
+  xmlHttp.onload = function() { //Cuando se ha cargado la petición entra a este metodo
+    if(xmlHttp.readyState == 4 && xmlHttp.status == 200) { //Comprueba que el stado y el status estén bien
+      console.log(xmlHttp)
+      res.send(xmlHttp.responseText["search-results"]); //devuelve el resultado
     } else {
-      res.status(404).send('No se ha realizado bien la petición.')
+      res.status(500).send('Ha habido un error en la petición.')
     }
-  }
-  xmlHttp.open("GET",finalUrl, true); //Hace la peticion asincrona
-  xmlHttp.send(null);
+  };
 });
 
 app.get('/', function (req, res) {
