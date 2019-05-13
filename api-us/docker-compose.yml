@@ -1,8 +1,0 @@
-web:
-  build: .
-  command: sh -c 'npm install; node index.js'
-  ports: 
-    - '3080:3080'
-  volumes:
-    - ./app:/app
-  container_name: "api-us"
