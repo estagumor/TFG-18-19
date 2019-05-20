@@ -1,3 +1,13 @@
-<p>
-  project-stats works!
-</p>
+<fieldset>
+  <h1>Estadísticas de proyectos</h1>
+  <div style="display: block">
+    <h3>Financiación media</h3>
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+
+    <h3>Media de proyectos</h3>
+    <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels" [options]="barChartOptions"
+      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+  </div>
+</fieldset>
+
