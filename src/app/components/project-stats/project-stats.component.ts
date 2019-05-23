@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { isString } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { start } from 'repl';
 
 @Component({
   selector: 'app-project-stats',
@@ -43,65 +44,74 @@ export class ProjectStatsComponent implements OnInit {
   ngOnInit() {
     this._service.getProjects().subscribe((projs) => {
       //TODO no me encuentra los proyectos, revisar esto
-      this.projects = projs.body['project']
+      this.projects = projs.body['projects']
       this.projects.forEach((proj) => {
         /* FINANCIACION MEDIA 
            EL COUNT NOS SIRVE PARA EL NUMERO DE PROYECTOS ACTIVOS CADA MES */
         //Vamos a obtener la fecha, volverla usable y a partir de ahi trabajar
         //es de tipo string, tenemos que convertirla a date para trabajar con ella
-        let startDate = new Date(proj.startDate)
-        let endDate = new Date(proj.endDate.toString())
-        //Milisegundos que tiene un dia
-        let one_day = 1000 * 60 * 60 * 24
-        //diferencia en milisegundos
-        let difference = endDate.getTime() - startDate.getTime()
-        //diferencia en dias
-        let dias = Math.round(difference / one_day)
-        let financXdia = Math.round(proj.amount / dias)
+        let startDate;
+        let endDate;
+        if(proj.startDate != undefined) {
+          startDate = new Date(proj.startDate)
+          if(proj.endDate != undefined) {
+            endDate = new Date(proj.endDate.toString())
+          } else {
+            endDate = new Date()
+          }
 
-        if (startDate.getFullYear() == this.año) {
-          if (endDate.getFullYear() == this.año) { //comprobamos que el año de finalizacion no sea tambien el mismo
-            let i;
-            for (i = startDate.getMonth(); i == endDate.getMonth(); i++) {
-              if (i == startDate.getMonth()) { //primer mes
-                this.avgAm[i] += financXdia * startDate.getDate()
-              } else if (i == endDate.getMonth()) { //ultimo mes
-                this.avgAm[i] += financXdia * endDate.getDate()
-              } else {
-                this.avgAm[i] += financXdia * 30
+          //Milisegundos que tiene un dia
+          let one_day = 1000 * 60 * 60 * 24
+          //diferencia en milisegundos
+          let difference = endDate.getTime() - startDate.getTime()
+          //diferencia en dias
+          let dias = Math.round(difference / one_day)
+          let financXdia = Math.round(proj.amount / dias)
+
+          if (startDate.getFullYear() == this.año) {
+            if (endDate.getFullYear() == this.año) { //comprobamos que el año de finalizacion no sea tambien el mismo
+              let i;
+              for (i = startDate.getMonth(); i == endDate.getMonth(); i++) {
+                if (i == startDate.getMonth()) { //primer mes
+                  this.avgAm[i] += financXdia * startDate.getDate()
+                } else if (i == endDate.getMonth()) { //ultimo mes
+                  this.avgAm[i] += financXdia * endDate.getDate()
+                } else {
+                  this.avgAm[i] += financXdia * 30
+                }
+                this.count[i] += 1
               }
-              this.count[i] += 1
+            } else {
+              let i;
+              for (i = startDate.getMonth(); i == 11; i++) {
+                if (i == startDate.getMonth()) { //primer mes
+                  this.avgAm[i] += financXdia * startDate.getDate()
+                } else {
+                  this.avgAm[i] += financXdia * 30
+                }
+                this.count[i] += 1
+              }
             }
-          } else {
-            let i;
-            for (i = startDate.getMonth(); i == 11; i++) {
-              if (i == startDate.getMonth()) { //primer mes
-                this.avgAm[i] += financXdia * startDate.getDate()
-              } else {
-                this.avgAm[i] += financXdia * 30
+          } else { //Solo tenemos que comprobar que el año de finalización sea o no el mismo 
+            if (endDate.getFullYear() == this.año) { //comprobamos que el año de finalizacion no sea el mismo
+              let i;
+              for (i = 0; i == endDate.getMonth(); i++) {
+                if (i == endDate.getMonth()) { //ultimo mes
+                  this.avgAm[i] += financXdia * endDate.getDate()
+                } else {
+                  this.avgAm[i] += financXdia * 30
+                }
+                this.count[i] += 1
               }
-              this.count[i] += 1
+            } else {
+              let i;
+              for (i = 0; i == 11; i++) {
+                this.avgAm[i] += financXdia * 30
+                this.count[i] += 1
+              }
             }
           }
-        } else { //Solo tenemos que comprobar que el año de finalización sea o no el mismo 
-          if (endDate.getFullYear() == this.año) { //comprobamos que el año de finalizacion no sea el mismo
-            let i;
-            for (i = 0; i == endDate.getMonth(); i++) {
-              if (i == endDate.getMonth()) { //ultimo mes
-                this.avgAm[i] += financXdia * endDate.getDate()
-              } else {
-                this.avgAm[i] += financXdia * 30
-              }
-              this.count[i] += 1
-            }
-          } else {
-            let i;
-            for (i = 0; i == 11; i++) {
-              this.avgAm[i] += financXdia * 30
-              this.count[i] += 1
-            }
-          }
-        }
+        } //Si no tiene fecha de inicio pasamos de el
       })
     })
     this.barChartData = [
