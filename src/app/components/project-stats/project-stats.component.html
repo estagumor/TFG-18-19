@@ -1,5 +1,9 @@
 <fieldset>
   <h1>Estadísticas de proyectos</h1>
+  <h3>Escoge un año</h3>
+  <ng-select [items]="sOptions" (data)="refreshValue($event)" (selected)="selected($event)"
+    (removed)="removed($event)" (typed)="typed($event)" placeholder="Año...">
+  </ng-select>
   <div style="display: block">
     <h3>Financiación media</h3>
     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
@@ -10,4 +14,3 @@
       [legend]="barChartLegend" [chartType]="barChartType"></canvas>
   </div>
 </fieldset>
-
