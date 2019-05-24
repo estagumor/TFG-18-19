@@ -57,18 +57,30 @@ export class ProjectStatsComponent implements OnInit {
         let endDate;
         if(proj.startDate != undefined) {
           startDate = new Date(proj.startDate)
-          if(!(startDate.getFullYear() in this.sOptions)) {
+          if(!(startDate.getFullYear().toString() in this.sOptions)) {
             this.sOptions.push(startDate.getFullYear().toString())
           }
           if(proj.endDate != undefined) {
             endDate = new Date(proj.endDate.toString())
-            if(!(endDate.getFullYear() in this.sOptions)) {
+            if(!(endDate.getFullYear().toString() in this.sOptions)) {
               this.sOptions.push(endDate.getFullYear().toString())
             }
           } 
         }
       })
     })
+  }
+
+  private _disabledV:string = '0';
+  public disabled:boolean = false;
+ 
+  private get disabledV():string {
+    return this._disabledV;
+  }
+ 
+  private set disabledV(value:string) {
+    this._disabledV = value;
+    this.disabled = this._disabledV === '1';
   }
 
   public selected(value:any):void {
@@ -81,14 +93,9 @@ export class ProjectStatsComponent implements OnInit {
       let endDate;
       if(proj.startDate != undefined) {
         startDate = new Date(proj.startDate)
-        if(!(startDate.getFullYear() in this.sOptions)) {
-          this.sOptions.push(startDate.getFullYear())
-        }
+
         if(proj.endDate != undefined) {
           endDate = new Date(proj.endDate.toString())
-          if(!(endDate.getFullYear() in this.sOptions)) {
-            this.sOptions.push(endDate.getFullYear())
-          }
         } else {
           endDate = new Date()
         }
@@ -100,8 +107,8 @@ export class ProjectStatsComponent implements OnInit {
         //diferencia en dias
         let dias = Math.round(difference / one_day)
         let financXdia = Math.round(proj.amount / dias)
-        if (startDate.getFullYear() == value) {
-          if (endDate.getFullYear() == value) { //comprobamos que el anyo de finalizacion no sea tambien el mismo
+        if (startDate.getFullYear() == Number(value)) {
+          if (endDate.getFullYear() == Number(value)) { //comprobamos que el anyo de finalizacion no sea tambien el mismo
             let i;
             for (i = startDate.getMonth(); i <= endDate.getMonth(); i++) {
               if (i == startDate.getMonth()) { //primer mes
@@ -124,8 +131,8 @@ export class ProjectStatsComponent implements OnInit {
               this.count[i] += 1
             }
           }
-        } else if (startDate.getFullYear() < value) { //Solo tenemos que comprobar que el anyo de finalización sea o no el mismo 
-          if (endDate.getFullYear() == value) { //comprobamos que el anyo de finalizacion no sea el mismo
+        } else if (startDate.getFullYear() < Number(value)) { //Solo tenemos que comprobar que el anyo de finalización sea o no el mismo 
+          if (endDate.getFullYear() == Number(value)) { //comprobamos que el anyo de finalizacion no sea el mismo
             let i;
             for (i = 0; i <= endDate.getMonth(); i++) {
               if (i == endDate.getMonth()) { //ultimo mes
@@ -135,7 +142,7 @@ export class ProjectStatsComponent implements OnInit {
               }
               this.count[i] += 1
             }
-          } else if (endDate.getFullYear() > value) {
+          } else if (endDate.getFullYear() > Number(value)) {
             let i;
             for (i = 0; i <= 11; i++) {
               this.avgAm[i] += financXdia * 30
@@ -159,6 +166,7 @@ export class ProjectStatsComponent implements OnInit {
  
   public typed(value:any):void {
     console.log('Se ha introducido este año ' + value);
+    console.log(this.sOptions)
   }
  
   public refreshValue(value:any):void {
