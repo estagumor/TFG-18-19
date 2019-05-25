@@ -71,7 +71,7 @@ export class ProjectsComponent implements OnInit {
         });
       } else { //estamos en el create
         this.bool = true;
-        this.project = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []);
+        this.project = new Project([], [], [], '', '', [], '', 'NONE', 'NONE', '', null, null, null, []);
       }
     });
     this._personService.getAll().subscribe(response => {
