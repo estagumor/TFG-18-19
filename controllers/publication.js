@@ -95,6 +95,55 @@ function readExcel2() {
 	congress = result // Guarda el resultado en la variable global congress
 	
 }
+/*
+	Metodo para actualizar los indices de revistas y congresos de las publicaciones existentes
+*/
+function refreshIndexes(){
+	var pubs
+	Publication.find({}).then((data) => {
+		pubs = data
+		pubs.forEach((pub) => {
+			if (pub.sourceType == "Journal") { // Si la publicacion es de una revista
+				// Se coge el año de la publicacion, y existe en el indice quartiles se sigue adelante, mientras no, intenta coger el anterior hasta eñ 2000
+				// en cuyo caso le pone undefined
+				var anyo = parseInt(pub.publicationDate)
+				while(quartiles[anyo] == undefined){
+					anyo = anyo -1
+					if(anyo == 2000 ){
+						pub.quartil = undefined
+					}
+				}
+				var quartilTemp = quartiles[anyo]
+				// Cuando tiene el año coge del indice la informacion correspondiente y busca a que cuartil corresponde la revista
+				if (quartilTemp.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q1"
+				} else if (quartilTemp.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q2"
+				} else if (quartilTemp.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q3"
+				} else if (quartilTemp.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+					pub.quartil = "Q4"
+				}
+			} else if (pub.sourceType.indexOf("Conference") != -1){ // Si es una conferencia
+				var anyo = parseInt(pub.publicationDate) // Igual que antes intenta coger el año
+				while(congress[anyo] == undefined){
+					anyo = anyo -1
+					if(anyo == 2000 ){
+						pub.congress = undefined
+					}
+				}
+				var congressTemp = congress[anyo] // Cuando lo encuentra busca a que categoria pertenece su congreso
+				for(let categoria in congressTemp){
+					if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+						pub.congress = categoria
+						break;
+					}
+				}
+			}
+			pub.save()
+		})
+	})
+}
 
 readExcel()
 readExcel2()
@@ -103,6 +152,7 @@ var controller = {
 
 	test: function (req,res ){
 		console.log(congress)
+		refreshIndexes()
 		res.status(200).send({quartiles})
 	},
 
@@ -113,6 +163,7 @@ var controller = {
 		try {
 			readExcel()
 			readExcel2()
+			setTimeout(refreshIndexes,5000)
 			res.status(200).send({result:"Estadisticas actualizadas"})
 			
 		} catch (error) {
