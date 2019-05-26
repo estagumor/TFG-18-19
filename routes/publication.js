@@ -10,5 +10,7 @@ router.get('/publications', PublicationController.getPubs);
 router.post('/publication/all', PublicationController.saveAll);
 router.post('/publication/filter', PublicationController.filterNewPubs);
 router.get('/publication/project/:id', PublicationController.filterByProject)
+router.post('/publication/excel', PublicationController.uploadExcel);
+router.get('/publication/loadStats', PublicationController.loadStats);
 router.get('/test', PublicationController.test)
 module.exports = router;

@@ -17,8 +17,8 @@ var person_routes = require('./routes/person')
 var dashboard_routes = require('./routes/dashboard')
 
 // middlewares
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // CORS para el tema de permisos y lo que permite el servidor
 app.use((req, res, next) => {

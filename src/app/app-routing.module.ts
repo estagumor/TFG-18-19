@@ -14,6 +14,7 @@ import { PersonComponent } from './components/person-create/person.component';
 import { PublicationStatsComponent } from './components/publication-stats/publication-stats.component';
 import { PersonListComponent } from './components/person-list/person-list.component';
 import { PersonDisplayComponent } from './components/person-display/person-display.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'person/display/:id', component: PersonDisplayComponent},
   { path: 'persons', component: PersonListComponent},
   { path: 'stats/publication', component: PublicationStatsComponent},
+  { path: 'dashboard', component: DashboardComponent},
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
