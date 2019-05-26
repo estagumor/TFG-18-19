@@ -24,6 +24,10 @@ export class PublicationAddListComponent implements OnInit {
   public projects: Array<Project> = [];
   public prosToSave: Array<Project> = [];
 
+  //Filter
+  public searchText1: string = "";
+  public searchText: string = "";
+
   constructor(
     private _service: PublicationService,
     private _scopus: ScopusService,
@@ -38,11 +42,16 @@ export class PublicationAddListComponent implements OnInit {
     //   this.listado = data['pubs'];
       
     // })
-    this._scopus.getPubs().subscribe((data) => {
-        this.listado = data;
-    })
     this._projectService.getProjects().subscribe((response) => {
       this.projects = response.body['projects']
+      this._scopus.getPubs().subscribe((data) => {
+        this.listado = data;
+        for(var i = 0; i < this.listado.length; i++) {
+          if(this.listado[i].project == this.projects) {
+            this.listado.splice(i,1)
+          }
+        } //forEach pub
+      }) // getPubs
     })
   }
 
@@ -54,6 +63,15 @@ export class PublicationAddListComponent implements OnInit {
     } else {
       this.pubsToSave = this.pubsToSave.filter(p => p!=pub)
     }
+  }
+
+  selectAllPublications() {
+    var checkboxes = document.getElementsByClassName("publicationCheckbox");
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].getAttribute("type") == 'checkbox') {
+              checkboxes[i].setAttribute("checked", "true");
+          }
+      }
   }
 
   clickedPro(obj,pub) {
