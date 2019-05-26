@@ -20,7 +20,7 @@ export class PublicationsComponent implements OnInit {
   public StringProjects: String[];
   public finalProjects: String[] = [];
   public projects: Project[] = [];
-  public StringPersons: String[];
+  public StringPersons: String[] = [];
   public persons: Person[] = [];
   public finalAutores: String[] = [];
 
@@ -43,10 +43,11 @@ export class PublicationsComponent implements OnInit {
     })
     this._personService.getAll().subscribe(response => {
       this.persons = response.body['persons'];
-      this.StringPersons = this.persons.map(p => {
-        return p.name + " " + p.surname;
+      this.persons.map((p) => {
+        if(p.job == 'RESEARCHER') {
+          this.StringPersons.push(p.name + " " + p.surname)
+        }
       })
-      console.log(this.StringPersons)
     })
   }
 

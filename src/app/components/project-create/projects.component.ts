@@ -20,8 +20,8 @@ import { Person } from '../../models/person';
 export class ProjectsComponent implements OnInit {
 
   //AUTOCOMPLETE
-  public researchers: String[];
-  public hireds: Person[] = [];
+  public researchers: String[] = [];
+  public hireds: String[] = [];
   public finalResearchers: String[] = [];
   public ctrlResearchers = new FormControl();
   public finalWorkers: String[] = [];
@@ -76,8 +76,12 @@ export class ProjectsComponent implements OnInit {
     });
     this._personService.getAll().subscribe(response => {
       this.people = response.body['persons']
-      this.researchers = this.people.map((p) => {
-        return p.name + " " + p.surname
+      this.people.map((p) => {
+        if(p.job == 'RESEARCHER') {
+          this.researchers.push(p.name + " " + p.surname)
+        } else { //HIRED
+          this.hireds.push(p.name + " " + p.surname)
+        }
       })
     });
   }
