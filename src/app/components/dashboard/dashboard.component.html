@@ -2,13 +2,13 @@
   <h1>Panel de administración</h1>
   <h3 class="my-5">Para cargar nuevos archivos excel para actualizar los datos de estadísticas se deben subir archivos con los siguientes formatos:</h3>
   <div class="row">
-    <div class="card bg-secondary d-inline-flex col-6">
+    <!-- <div class="card bg-secondary d-inline-flex col-6">
       <div class="card-header">Proyectos</div>
       <div class="card-body">
         
       </div>
-    </div>
-    <div class="card bg-secondary d-inline-flex col-6" >
+    </div> -->
+    <div class="card bg-secondary d-inline-flex col-12" >
       <div class="card-header">Publicaciones</div>
       <div class="card-body">
         <h4 class="card-title">Congresos</h4>
@@ -24,8 +24,9 @@
         <p class="card-text">El excel debe incluir el año en el nombre y estar compuesto de al menos cuatro hojas con los nombres 'Q1', 'Q2', 'Q3' y 'Q4', donde aparecen las revistas que corresponden a cada cuartil, y que en la columna B aparezca el nombre de la revista en cuestión, a diferencia de antes los datos se contabilizarán a partir de la cuarta fila, como se ve en la imagen</p>
         <img src="../../../assets/formato excel revistas.png" class="img-fluid mb-1" alt="Ejemplo del formato de excel para revistas">
         <div class="form-group">
-            <label for="excelRevistas">Subir archivo</label>
-            <input type="file" class="form-control-file" id="excelRevistas">
+          <label for="excelRevistas">Subir archivo</label>
+          <input type="file" class="form-control-file" id="excelRevistas #excelRevistas">
+          <button type="button" class="btn btn-primary" (click)="enviarRevistar(excelRevistas)">Enviar</button>
           </div>
       </div>
     </div>

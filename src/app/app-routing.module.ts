@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'person/display/:id', component: PersonDisplayComponent},
   { path: 'persons', component: PersonListComponent},
   { path: 'stats/publication', component: PublicationStatsComponent},
+  { path: 'stats/publication/:id', component: PublicationStatsComponent},
   { path: 'dashboard', component: DashboardComponent},
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

@@ -16,15 +16,23 @@ export class DashboardComponent implements OnInit {
   }
 
   enviarCongresos(input){
-    // TODO Quitar esto
-    console.log(input.files[0]);
     var reader = new FileReader()
     reader.readAsDataURL(input.files[0])
     reader.addEventListener("load", ()=>{
       this.pubService.sendExcel("congreso", reader.result, input.files[0].name).subscribe((response) => {
-      // TODO Quitar esto
-      console.log(response);
+        alert("Índices actualizados correctamente")
+      })
     })
+    
+  }
+
+  enviarRevistas(input){
+    var reader = new FileReader()
+    reader.readAsDataURL(input.files[0])
+    reader.addEventListener("load", ()=>{
+      this.pubService.sendExcel("revista", reader.result, input.files[0].name).subscribe((response) => {
+      alert("Índices actualizados correctamente")
+      })
     })
     
   }
