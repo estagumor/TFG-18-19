@@ -1,15 +1,20 @@
 <fieldset>
   <h1>Estadísticas de proyectos</h1>
-  <h3>Escoge un año</h3>
-  <ng-select [allowClear]="false" [multiple]="false" [items]="sOptions" [disabled]="disabled"
-    (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" (typed)="typed($event)"
-    placeholder="Año...">
-  </ng-select>
+  <label for="anyo" style="padding: 0px 15px 0px 15px">Fecha de inicio</label>
+		<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="anyo" id='anyo'
+			name="anyo" (keyup)="actualiza()"/>
+		<span class="badge">
+			<span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar"
+				aria-hidden="true"></span>
+    </span>
+    <br>
+    <br>
   <div style="display: block">
     <h3>Financiación media</h3>
     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
       [legend]="barChartLegend" [chartType]="barChartType"></canvas>
-
+    <br>
+    <br>
     <h3>Media de proyectos</h3>
     <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels" [options]="barChartOptions"
       [legend]="barChartLegend" [chartType]="barChartType"></canvas>
