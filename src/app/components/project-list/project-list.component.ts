@@ -36,7 +36,8 @@ export class ProjectListComponent implements OnInit {
   ngOnInit() {
     this._service.getProjects().subscribe((lista) => {
       this.listado = lista.body['projects'];
-      // console.log(this.listado)
+      //TODO borrar el console log de aqui cuando termine de hacer comprobaciones
+      console.log(this.listado)
       // this.listado.forEach(element => {
       //   this.search.push(element.reference);
       //   this.search.push(element.title);

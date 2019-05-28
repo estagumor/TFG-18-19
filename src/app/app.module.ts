@@ -5,6 +5,7 @@ import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule, Mat
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {APP_BASE_HREF} from '@angular/common';
+import {SelectModule} from 'ng2-select';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
@@ -32,6 +33,7 @@ import { ChartsModule } from 'ng2-charts';
 import { PersonListComponent } from './components/person-list/person-list.component';
 import { PersonDisplayComponent } from './components/person-display/person-display.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProjectStatsComponent } from './components/project-stats/project-stats.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     PublicationStatsComponent,
     PersonListComponent,
     PersonDisplayComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProjectStatsComponent
   ],
   imports: [
     NgbModule,
@@ -72,6 +75,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatIconModule,
     MatDialogModule,
     ChartsModule,
+    SelectModule
   ],
   entryComponents: [PublicationListComponent, DisplayComponent],
   providers: [],

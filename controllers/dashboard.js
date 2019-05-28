@@ -101,7 +101,9 @@ var controller = {
 			scope: "EUROPEO",
 			status: "ACEPTADO",
 			amount: 200000,
-			relatedTools: []
+			relatedTools: [],
+			startDate: new Date("2017-01-01"),
+			endDate: new Date("2017-12-31")
 		}
 		var pro2 = {
 			researchTeam : [person2, person4],
@@ -113,7 +115,9 @@ var controller = {
 			scope: "EUROPEO",
 			status: "ACEPTADO",
 			amount: 200000,
-			relatedTools: []
+			relatedTools: [],
+			startDate: new Date("2015-01-01"),
+			endDate: new Date("2017-06-31")
 		}
 		var pro3 = {
 			researchTeam : [person3],
@@ -125,7 +129,8 @@ var controller = {
 			scope: "EUROPEO",
 			status: "ACEPTADO",
 			amount: 200000,
-			relatedTools: []
+			relatedTools: [],
+			startDate: new Date("2019-01-01")
 		}
 		var pro4 = {
 			researchTeam : [person4],
@@ -137,7 +142,8 @@ var controller = {
 			scope: "EUROPEO",
 			status: "ACEPTADO",
 			amount: 200000,
-			relatedTools: []
+			relatedTools: [],			
+			startDate: new Date("2015-01-01")
 		}
 		var pro5 = {
 			researchTeam : [person5],
@@ -149,7 +155,8 @@ var controller = {
 			scope: "EUROPEO",
 			status: "ACEPTADO",
 			amount: 200000,
-			relatedTools: []
+			relatedTools: [],
+			startDate: new Date("2017-09-01")
 		}
 
 		const createPerson = Person.create([person1,person2,person3,person4,person5,person6])
