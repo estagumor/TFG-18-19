@@ -61,10 +61,10 @@
 												<div class="media-body">
 													<!--datos-->
 													<span
-														class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.startDate | date}}</span>
+														class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.endDate | date}}</span>
 													<span class="media-meta pull-right" *ngIf="pro.startDate"> / </span>
 													<span
-														class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.endDate | date}}</span>
+														class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.startDate | date}}</span>
 													<h4 class="title">
 														{{ pro.title }}
 														<div>

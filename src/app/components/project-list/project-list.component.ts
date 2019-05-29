@@ -140,7 +140,9 @@ export class ProjectListComponent implements OnInit {
       return "activo";
     } else if (time <= 3 && time > 0) {
       return "tres";
-    } else {
+    } else if (project.endDate == undefined) {
+      return "activo"
+    }else {
       return "cinco";
     }
   }

@@ -5,7 +5,6 @@ import {MatAutocompleteModule,MatInputModule, MatChipsModule, MatIconModule, Mat
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {APP_BASE_HREF} from '@angular/common';
-import {SelectModule} from 'ng2-select';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
@@ -74,8 +73,7 @@ import { ProjectStatsComponent } from './components/project-stats/project-stats.
     MatChipsModule,
     MatIconModule,
     MatDialogModule,
-    ChartsModule,
-    SelectModule
+    ChartsModule
   ],
   entryComponents: [PublicationListComponent, DisplayComponent],
   providers: [],
