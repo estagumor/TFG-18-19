@@ -1,0 +1,53 @@
+<fieldset *ngIf="person">
+  <h1>Detalles del perfil</h1>
+  <table class="table">
+    <thead class="thead-display">
+      <th scope="col">Propiedad</th>
+      <th scope="col">Detalles</th>
+    </thead>
+    <tbody class="thbody-display">
+      <tr>
+        <th scope="row" class="encabezado">Nombre completo</th>
+        <td>{{ person.name }} {{person.surname}}</td>
+      </tr>
+      <tr *ngIf="person.email">
+        <th scope="row" class="encabezado">Email</th>
+        <td>{{ person.email }}</td>
+      </tr>
+      <tr *ngIf="person.telf">
+        <th scope="row" class="encabezado">Telefono</th>
+        <td>{{person.telf}}</td>
+      </tr>
+
+      <tr>
+        <th scope="row" class="encabezado">Rol</th>
+        <td>{{ person.job }}</td>
+      </tr>
+
+        <tr *ngIf="person.office">
+          <th scope="row" class="encabezado">Despacho</th>
+          <td>{{person.office}}</td>
+        </tr>
+        <tr *ngIf="person.professionalStatus">
+          <th scope="row" class="encabezado">Rol profesional</th>
+          <td>{{person.professionalStatus}}</td>
+        </tr>
+        <tr *ngFor="let url of person.urls">
+          <th scope="row" class="encabezado">Perfiles externos</th>
+          <td>{{ url }}</td>
+        </tr>
+
+
+      <br>
+      <tr>
+        <th>
+          <button class="btn-primary" type="button" (click)="editPerson()">Editar perfil</button>
+          <button class="btn-primary" type="button" (click)="deletePerson()">Borrar perfil</button>
+        </th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn-primary" type="button" onclick="window.location.href='/persons'">Volver</button>
+</fieldset>

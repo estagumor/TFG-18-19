@@ -12,6 +12,10 @@ import { ProjectDisplayComponent } from './components/project-display/project-di
 import { PublicationListComponent } from './components/publication-list/publication-list.component'
 import { PersonComponent } from './components/person-create/person.component';
 import { PublicationStatsComponent } from './components/publication-stats/publication-stats.component';
+import { PersonListComponent } from './components/person-list/person-list.component';
+import { PersonDisplayComponent } from './components/person-display/person-display.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProjectStatsComponent } from './components/project-stats/project-stats.component';
 
 
 const routes: Routes = [
@@ -30,7 +34,13 @@ const routes: Routes = [
   { path: 'publication', component: PublicationsComponent },
   { path: 'person', component: PersonComponent},
   { path: 'person/:id?', component: PersonComponent},
+  { path: 'person/:id', component: PersonDisplayComponent},
+  { path: 'person/display/:id', component: PersonDisplayComponent},
+  { path: 'persons', component: PersonListComponent},
   { path: 'stats/publication', component: PublicationStatsComponent},
+  { path: 'stats/publication/:id', component: PublicationStatsComponent},
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'stats/project', component: ProjectStatsComponent},
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

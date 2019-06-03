@@ -16,7 +16,7 @@ export class Project {
     public sponsor: String,
     public startDate: Date,
     public endDate: Date|{},
-    public amount: Number,
+    public amount: number,
     // public relatedPublications: Array<Publication>,
     public relatedTools: Array<String>
   ) {  }

@@ -23,11 +23,16 @@ import { LeadersRestrictionDirective } from './components/shared/leaders-restric
 import { ProjectListComponent } from '../app/components/project-list/project-list.component';
 import { ProjectDisplayComponent } from '../app/components/project-display/project-display.component';
 import { FilterProjectsPipe} from './components/shared/filter.projects.pipe';
+import { FilterPublicationsPipe} from './components/shared/filter.publications.pipe';
 import { PublicationAddListComponent } from '../app/components/publication-add-list/publication-add-list.component';
 import { Router } from '@angular/router';
 import { PersonComponent } from './components/person-create/person.component';
 import { PublicationStatsComponent } from './components/publication-stats/publication-stats.component';
 import { ChartsModule } from 'ng2-charts';
+import { PersonListComponent } from './components/person-list/person-list.component';
+import { PersonDisplayComponent } from './components/person-display/person-display.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProjectStatsComponent } from './components/project-stats/project-stats.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +51,14 @@ import { ChartsModule } from 'ng2-charts';
     ProjectListComponent,
     ProjectDisplayComponent,
     FilterProjectsPipe,
+    FilterPublicationsPipe,
     PublicationAddListComponent,
     PersonComponent,
-    PublicationStatsComponent
+    PublicationStatsComponent,
+    PersonListComponent,
+    PersonDisplayComponent,
+    DashboardComponent,
+    ProjectStatsComponent
   ],
   imports: [
     NgbModule,
@@ -63,7 +73,7 @@ import { ChartsModule } from 'ng2-charts';
     MatChipsModule,
     MatIconModule,
     MatDialogModule,
-    ChartsModule,
+    ChartsModule
   ],
   entryComponents: [PublicationListComponent, DisplayComponent],
   providers: [],

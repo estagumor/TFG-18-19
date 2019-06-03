@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Publication } from 'src/app/models/publication';
 import { PublicationService } from 'src/app/services/publication.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-publication-stats',
@@ -8,6 +9,8 @@ import { PublicationService } from 'src/app/services/publication.service';
   styleUrls: ['./publication-stats.component.css']
 })
 export class PublicationStatsComponent implements OnInit {
+  public projectId: string
+
   public publications: Array<Publication> = []
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -35,63 +38,124 @@ export class PublicationStatsComponent implements OnInit {
   public barChartData2 = [{data: [], label: "Conferences"}];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     public _service: PublicationService
   ) { }
 
   ngOnInit() {
-    this._service.list().subscribe((pubs) => {
-      this.publications = pubs.body['pubs']
-      this.publications.forEach((pub) => {
-        if(pub.sourceType=="Journal"){
-          switch(pub.quartil){
-            case "Q1":
-              this.Q1.push(pub)
-              break;
-            case "Q2":
-              this.Q2.push(pub)
-              break;
-            case "Q3":
-              this.Q3.push(pub)
-              break;
-            case "Q4":
-              this.Q4.push(pub)
-              break;
-            default:
-              break;
-          }
-        } else if (pub.sourceType.indexOf("Conference") != -1){
-          switch(pub.congress){
-            case "A++":
-              this.cat1.push(pub)
-              break;
-            case "A+":
-              this.cat2.push(pub)
-              break;
-            case "A":
-              this.cat3.push(pub)
-              break;
-            case "A-":
-              this.cat4.push(pub)
-              break;
-            case "B":
-              this.cat5.push(pub)
-              break;
-            case "B-":
-              this.cat6.push(pub)
-              break;
-            case "C":
-              this.cat7.push(pub)
-              break;
-            default:
-              break;
-        }
-      }})
-      this.barChartData = [
-        {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Journals"}
-      ]
-      this.barChartData2 = [
-        {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congress"}
-      ]
+    this.activatedRoute.params.forEach((params: Params) => {
+      this.projectId = params['id']
+      if(this.projectId == undefined){
+        this._service.list().subscribe((pubs) => {
+          this.publications = pubs.body['pubs']
+          this.publications.forEach((pub) => {
+            if(pub.sourceType=="Journal"){
+              switch(pub.quartil){
+                case "Q1":
+                  this.Q1.push(pub)
+                  break;
+                case "Q2":
+                  this.Q2.push(pub)
+                  break;
+                case "Q3":
+                  this.Q3.push(pub)
+                  break;
+                case "Q4":
+                  this.Q4.push(pub)
+                  break;
+                default:
+                  break;
+              }
+            } else if (pub.sourceType.indexOf("Conference") != -1){
+              switch(pub.congress){
+                case "A++":
+                  this.cat1.push(pub)
+                  break;
+                case "A+":
+                  this.cat2.push(pub)
+                  break;
+                case "A":
+                  this.cat3.push(pub)
+                  break;
+                case "A-":
+                  this.cat4.push(pub)
+                  break;
+                case "B":
+                  this.cat5.push(pub)
+                  break;
+                case "B-":
+                  this.cat6.push(pub)
+                  break;
+                case "C":
+                  this.cat7.push(pub)
+                  break;
+                default:
+                  break;
+            }
+          }})
+          this.barChartData = [
+            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Journals"}
+          ]
+          this.barChartData2 = [
+            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congress"}
+          ]
+        })
+      } else {
+        this._service.filterByProject(this.projectId).subscribe((pubs) => {
+          this.publications = pubs.body['pubs']
+          this.publications.forEach((pub) => {
+            if(pub.sourceType=="Journal"){
+              switch(pub.quartil){
+                case "Q1":
+                  this.Q1.push(pub)
+                  break;
+                case "Q2":
+                  this.Q2.push(pub)
+                  break;
+                case "Q3":
+                  this.Q3.push(pub)
+                  break;
+                case "Q4":
+                  this.Q4.push(pub)
+                  break;
+                default:
+                  break;
+              }
+            } else if (pub.sourceType.indexOf("Conference") != -1){
+              switch(pub.congress){
+                case "A++":
+                  this.cat1.push(pub)
+                  break;
+                case "A+":
+                  this.cat2.push(pub)
+                  break;
+                case "A":
+                  this.cat3.push(pub)
+                  break;
+                case "A-":
+                  this.cat4.push(pub)
+                  break;
+                case "B":
+                  this.cat5.push(pub)
+                  break;
+                case "B-":
+                  this.cat6.push(pub)
+                  break;
+                case "C":
+                  this.cat7.push(pub)
+                  break;
+                default:
+                  break;
+            }
+          }})
+          this.barChartData = [
+            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Journals"}
+          ]
+          this.barChartData2 = [
+            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congress"}
+          ]
+        })
+      }
     })
   }
 }

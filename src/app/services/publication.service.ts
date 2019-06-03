@@ -47,4 +47,9 @@ export class PublicationService {
     return this._http.get<Publication[]>(this.url+"/project/"+id, { observe: 'response' })
     .pipe(tap(HandleError.handleError))
   }
+
+  sendExcel(tipo: string, excel: string | ArrayBuffer, name: string){
+    return this._http.post<any>(this.url +"/excel", {tipo: tipo, excel: excel, name: name}, {observe: "response"})
+    .pipe(tap(HandleError.handleError))
+  }
 }

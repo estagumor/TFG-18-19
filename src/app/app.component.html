@@ -1,4 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<!--Esta en orden contrario porque el css lo coloca al reves-->
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -11,12 +11,23 @@
         <li class="nav-item left">
           <img class="img-logo" alt="Logo de ISA" src="../assets/isa_icon.png" width="100px" style="margin-right: 0.5em"/>
         </li>
+
+        <li class="nav-item right">
+          <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">Administración</a>
+        </li>
+
+        <li class="nav-item right">
+          <a class="nav-link" [routerLink]="['/persons']" routerLinkActive="active">Personal</a>
+        </li>
         
         <li class="nav-item right">
           <a class="nav-link" [routerLink]="['/projects']" routerLinkActive="active">Proyectos públicos</a>
         </li>
         <li class="nav-item right">
           <a class="nav-link" [routerLink]="['/publications']" routerLinkActive="active">Publicaciones</a>
+        </li>
+        <li class="nav-item right">
+          <a class="nav-link" [routerLink]="['/stats/publication']" routerLinkActive="active">Estadísticas de publicaciones</a>
         </li>
         <li class="nav-item right">
             <a class="nav-link" [routerLink]="['/scopus/publications']" routerLinkActive="active">Añadir publicaciones</a>

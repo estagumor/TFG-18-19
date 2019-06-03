@@ -2,6 +2,12 @@
 <fieldset>
   <h1>Listado de publicaciones</h1>
   <button type="button" (click)="saveFromScoups()" class="btn btn-primary">Guardar</button>
+  <button type="button" (click)="selectAllPublications()" class="btn btn-warning">Seleccionar todas las publicaciones</button>
+  <br>
+  <br>
+  <input [(ngModel)]="searchText1" placeholder="Busca proyectos...">
+  <br>
+  <input [(ngModel)]="searchText" placeholder="Busca publicaciones...">
   <div class="row">
     <section class="content">
       <br>
@@ -12,9 +18,9 @@
             <div class="table-container">
               <table class="table table-filter">
                 <tbody>
-                    <tr *ngFor="let pub of listado" (click)="clicked(checkbox,pub)">
+                    <tr *ngFor="let pub of listado | filterPublications: searchText" (click)="clicked(checkbox,pub)">
                       <td style="width: 10%; height: auto;">
-                          <input type="checkbox" id="checkBox" #checkbox>
+                          <input type="checkbox" id="checkBox" class="publicationCheckbox" #checkbox>
                           <label for="checkbox1"></label>
                       </td>
                       <td>
@@ -45,7 +51,7 @@
                             <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
                         </td>
                       </tr> -->
-                      <tr *ngFor="let pro of projects" (click)="clickedPro(checkbox,pro)">
+                      <tr *ngFor="let pro of projects | filterProjects: searchText1" (click)="clickedPro(checkbox,pro)">
                           <td style="width: 10%; height: auto;">
                               <input type="checkbox" id="checkBox" #checkbox>
                               <label for="checkbox1"></label>
@@ -55,10 +61,10 @@
 												<div class="media-body">
 													<!--datos-->
 													<span
-														class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.startDate | date}}</span>
+														class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.endDate | date}}</span>
 													<span class="media-meta pull-right" *ngIf="pro.startDate"> / </span>
 													<span
-														class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.endDate | date}}</span>
+														class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.startDate | date}}</span>
 													<h4 class="title">
 														{{ pro.title }}
 														<div>

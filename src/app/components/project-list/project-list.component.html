@@ -11,6 +11,7 @@
 		<!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
 		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/project']">Crear proyecto</button>
+		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/project']">Estadísticas</button>
 		<section class="content">
 			<br>
 			<div class="col-md-8 col-md-offset-2">
@@ -41,10 +42,10 @@
 												<div class="media-body">
 													<!--datos-->
 													<span
-														class="media-meta pull-right">{{ invPro.startDate | date}}</span>
+														class="media-meta pull-right">{{ invPro.endDate | date}}</span>
 													<span class="media-meta pull-right" *ngIf="invPro.startDate"> / </span>
 													<span
-														class="media-meta pull-right">{{ invPro.endDate | date}}</span>
+														class="media-meta pull-right">{{ invPro.startDate | date}}</span>
 													<h4 class="title">
 														{{ invPro.title }}
 														<div>

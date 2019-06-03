@@ -4,6 +4,8 @@ import { PublicationAddListComponent } from '../../components/publication-add-li
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material';
 import { RouterModule } from '@angular/router'
+import { FilterPublicationsPipe} from '../../components/shared/filter.publications.pipe';
+import { FilterProjectsPipe} from '../../components/shared/filter.projects.pipe';
 import { APP_BASE_HREF } from '@angular/common';
 
 describe('PublicationAddListComponent', () => {
@@ -12,7 +14,7 @@ describe('PublicationAddListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublicationAddListComponent ],
+      declarations: [ PublicationAddListComponent, FilterPublicationsPipe, FilterProjectsPipe],
       imports: [HttpClientModule, RouterModule.forRoot([]),MatDialogModule],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
