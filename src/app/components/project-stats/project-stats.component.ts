@@ -49,7 +49,7 @@ export class ProjectStatsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._service.getProjects().subscribe((projs) => {
+    this._service.getNewsProjects().subscribe((projs) => {
       //Guardamos los proyectos y rellenamos los años
       this.projects = projs.body['projects']
     })

@@ -12,5 +12,6 @@ router.get('/project/reference/:reference', ProjectController.findByReference);
 router.get('/projects', ProjectController.getProjects);
 router.put('/project/:id', ProjectController.updateProject);
 router.delete('/project/:id', ProjectController.deleteProject);
+router.get('/projects/news', ProjectController.get10YearsProject);
 
 module.exports = router;
