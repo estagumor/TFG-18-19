@@ -16,7 +16,7 @@ export class ProjectStatsComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true,
     scales: {
-      xAxes: [{
+      yAxes: [{
         display: true,
         ticks: {
           beginAtZero: true
@@ -27,7 +27,7 @@ export class ProjectStatsComponent implements OnInit {
   //Vamos a ir rellenandolos conforme recorramos los
   //proyectos
   public barChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-  public barChartType = 'horizontalBar'
+  public barChartType = 'bar'
   public barChartLegend = true;
 
   //Guarda la suma de la financiacion y el numero cada mes
