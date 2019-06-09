@@ -185,7 +185,7 @@ var controller = {
 			total = number;
 		})
 		let fecha = new Date()
-		let fechaVieja = new Date(fecha.getFullYear() - 10, fecha.getMonth(), fecha.getDate())
+		let fechaVieja = new Date(fecha.getFullYear() - 15, fecha.getMonth(), fecha.getDate())
 
 		Project.find({startDate: {$gte: fechaVieja}}, null, { limit: limit, skip: offset }, (err, projects) => {
 			if (err) return res.status(500).send({ message: err })
