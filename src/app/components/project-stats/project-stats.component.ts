@@ -30,16 +30,16 @@ export class ProjectStatsComponent implements OnInit {
   };
   //Vamos a ir rellenandolos conforme recorramos los
   //proyectos
-  public barChartLabels = [(this.anyo - 9).toString() + ' FS', (this.anyo - 9).toString() + ' SS',
-  (this.anyo - 8).toString() + ' FS', (this.anyo - 8).toString() + ' SS',
-  (this.anyo - 7).toString() + ' FS', (this.anyo - 7).toString() + ' SS',
-  (this.anyo - 6).toString() + ' FS', (this.anyo - 6).toString() + ' SS',
-  (this.anyo - 5).toString() + ' FS', (this.anyo - 5).toString() + ' SS',
-  (this.anyo - 4).toString() + ' FS', (this.anyo - 4).toString() + ' SS',
-  (this.anyo - 3).toString() + ' FS', (this.anyo - 3).toString() + ' SS',
-  (this.anyo - 2).toString() + ' FS', (this.anyo - 2).toString() + ' SS',
+  public barChartLabels = [this.anyo.toString() + ' FS', this.anyo.toString() + ' SS',
   (this.anyo - 1).toString() + ' FS', (this.anyo - 1).toString() + ' SS',
-  this.anyo.toString() + ' FS', this.anyo.toString() + ' SS']
+  (this.anyo - 2).toString() + ' FS', (this.anyo - 2).toString() + ' SS',
+  (this.anyo - 3).toString() + ' FS', (this.anyo - 3).toString() + ' SS',
+  (this.anyo - 4).toString() + ' FS', (this.anyo - 4).toString() + ' SS',
+  (this.anyo - 5).toString() + ' FS', (this.anyo - 5).toString() + ' SS',
+  (this.anyo - 6).toString() + ' FS', (this.anyo - 6).toString() + ' SS',
+  (this.anyo - 7).toString() + ' FS', (this.anyo - 7).toString() + ' SS',
+  (this.anyo - 8).toString() + ' FS', (this.anyo - 8).toString() + ' SS',
+  (this.anyo - 9).toString() + ' FS', (this.anyo - 9).toString() + ' SS']
 
   public barChartType = 'bar'
   public barChartLegend = true;
@@ -56,6 +56,24 @@ export class ProjectStatsComponent implements OnInit {
     //Declaramos el servicio para utilizarlo mas adelante
     public _service: ProjectService
   ) { }
+
+  daysOfMonth(month) {
+    var days = {
+      0: 31,
+      1: 28,
+      2: 31,
+      3: 30,
+      4: 31,
+      5: 30,
+      6: 31,
+      7: 31,
+      8: 30,
+      9: 31,
+      10: 30,
+      11: 31,
+    };
+    return days[month]
+  }
 
   ngOnInit() {
     this._service.getNewsProjects().subscribe((projs) => {
@@ -86,43 +104,45 @@ export class ProjectStatsComponent implements OnInit {
           let financXdia = Math.round(proj.amount / dias)
           for (let a = 0; a < 10; a++) { //Recorremos los 10 años
             let anyoActual = this.anyo - a
-            if (startDate.getFullYear() == anyoActual) {
+            if (startDate.getFullYear() > anyoActual) {
+              break;
+            } else if (startDate.getFullYear() == anyoActual) {
               if (endDate.getFullYear() == anyoActual) { //comprobamos que el anyo de finalizacion no sea tambien el mismo
                 if (startDate.getMonth() <= 5) {
-                  if (endDate.getMonth() <= 5) { //Empieza y termina en el primer semestre
+                  if (endDate.getMonth() <= 5) { //Empieza y termina en el primer semestre COMPROBADO
                     let mesesEnteros = endDate.getMonth() - startDate.getMonth() - 1
-                    this.avgAm[a + a] += (financXdia * mesesEnteros * 30) + financXdia * endDate.getDate() + financXdia * startDate.getDate()
+                    this.avgAm[a + a] += (financXdia * mesesEnteros * 30) + financXdia * endDate.getDate() + financXdia * (this.daysOfMonth(startDate.getMonth()) - startDate.getDate())
                     this.count[a + a] += 1
-                  } else { //Empieza en el primer semestre y termina en el segundo
-                    this.avgAm[a + a] += (financXdia * (5 - startDate.getMonth()) * 30) + financXdia * startDate.getDate()
+                  } else { //Empieza en el primer semestre y termina en el segundo COMPROBADO
+                    this.avgAm[a + a] += (financXdia * (5 - startDate.getMonth()) * 30) + financXdia * (this.daysOfMonth(startDate.getMonth()) - startDate.getDate())
                     this.count[a + a] += 1
-                    this.avgAm[a + a + 1] += (financXdia * (endDate.getMonth() - 4) * 30) + financXdia * endDate.getDate()
+                    this.avgAm[a + a + 1] += (financXdia * (endDate.getMonth() - 6) * 30) + financXdia * endDate.getDate()
                     this.count[a + a + 1] += 1
                   }
                 }
               } else { //El año de finalización es mayor al año actual
-                if (startDate.getMonth() <= 5) { //Primer y segundo semestre
-                  this.avgAm[a + a] += (financXdia * (5 - startDate.getMonth()) * 30) + financXdia * startDate.getDate()
+                if (startDate.getMonth() <= 5) { //Primer y segundo semestre COMPROBADO
+                  this.avgAm[a + a] += (financXdia * (5 - startDate.getMonth()) * 30) + financXdia * (this.daysOfMonth(startDate.getMonth()) - startDate.getDate())
                   this.count[a + a] += 1
                   this.avgAm[a + a + 1] += (financXdia * 6 * 30)
                   this.count[a + a + 1] += 1
-                } else { //Solo segundo semestre
-                  this.avgAm[a + a + 1] += (financXdia * (10 - startDate.getMonth()) * 30) + financXdia * startDate.getDate()
+                } else { //Solo segundo semestre COMPROBADO
+                  this.avgAm[a + a + 1] += (financXdia * (startDate.getMonth() - 6) * 30) + financXdia * (this.daysOfMonth(startDate.getMonth()) - startDate.getDate())
                   this.count[a + a + 1] += 1
                 }
               }
             } else if (startDate.getFullYear() < anyoActual) { //Solo tenemos que comprobar que el anyo de finalización sea o no el mismo 
               if (endDate.getFullYear() == anyoActual) { //comprobamos que el anyo de finalizacion no sea el mismo
-                if (endDate.getMonth() <= 5) { //Primer semestre
+                if (endDate.getMonth() <= 5) { //Primer semestre COMPROBADO
                   this.avgAm[a + a] += (financXdia * endDate.getMonth() * 30) + financXdia * endDate.getDate()
                   this.count[a + a] += 1
-                } else { //Primer y segundo semestre
+                } else { //Primer y segundo semestre COMPROBADO
                   this.avgAm[a + a] += (financXdia * 6 * 30)
                   this.count[a + a] += 1
-                  this.avgAm[a + a + 1] += (financXdia * endDate.getMonth() * 30) + financXdia * endDate.getDate()
+                  this.avgAm[a + a + 1] += (financXdia * (endDate.getMonth() - 6) * 30) + financXdia * endDate.getDate()
                   this.count[a + a + 1] += 1
                 }
-              } else if (endDate.getFullYear() > anyoActual) { //Dura todo el año
+              } else if (endDate.getFullYear() > anyoActual) { //Dura todo el año COMPROBADO
                 this.avgAm[a + a] += (financXdia * 6 * 30)
                 this.count[a + a] += 1
                 this.avgAm[a + a + 1] += (financXdia * 6 * 30)
