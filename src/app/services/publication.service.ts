@@ -52,4 +52,9 @@ export class PublicationService {
     return this._http.post<any>(this.url +"/excel", {tipo: tipo, excel: excel, name: name}, {observe: "response"})
     .pipe(tap(HandleError.handleError))
   }
+
+  getCongressTitles(): Observable<any> {
+    return this._http.get<string[]>(this.url + "/congress", {observe: 'response'})
+    .pipe(tap(HandleError.handleError));
+  }
 }

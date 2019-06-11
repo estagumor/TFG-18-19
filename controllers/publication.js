@@ -9,6 +9,7 @@ var XLSX = require('xlsx'); // Libreria utilizada para el manejo de excels
 // Las dos siguientes almacenan en tiempo de ejecución los nombres y categorias de las revistas y congresos
 var quartiles = {}
 var congress = {}
+var congressTitles = []
 var fs = require('fs') // Libreria de manejo de archivos
 // 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
 /*
@@ -77,6 +78,7 @@ function readExcel2() {
 	var res = { "A++": [], "A+": [], "A": [], "A-": [], "B": [], "B-": [], "C": [], "": [] };
 	var result = {}
 	fs.readdir(__dirname + '/excels/congresos/', (err, files) => { // Devuelve en files un array con todos los archivos existentes en dicha ruta
+		congressTitles = []
 		for (let file in files) { 
 			file=files[file] // Coge el valor segun el indice, realiza una copia de res y coge el año
 			let local = Object.assign({}, res)
@@ -86,14 +88,35 @@ function readExcel2() {
 
 			var nRows = XLSX.utils.decode_range(sheet['!ref']).e.r; // Coge el nº de lineas
 			for (var i = 3; i < nRows; i++) {
-				if (sheet['K' + i] != undefined) // Coge el valor de la celda K y la almacena pasandola a mayuscula
+				if (sheet['K' + i] != undefined){ // Coge el valor de la celda K y la almacena pasandola a mayuscula
 					local[sheet['K' + i].v].push(sheet['B' + i].v.toUpperCase())
+					congressTitles.push(sheet['B' + i].v.toUpperCase())
+				}
 			}
 			result[anyo] = local
 		}
 	})
 	congress = result // Guarda el resultado en la variable global congress
 	
+}
+
+function loadCongressTitles(){
+	fs.readdir(__dirname + '/excels/congresos/', (err, files) => { // Devuelve en files un array con todos los archivos existentes en dicha ruta
+		for (let file in files) { 
+			file=files[file] // Coge el valor segun el indice, realiza una copia de res y coge el año
+			var workbook = XLSX.readFile(__dirname + "/excels/congresos/" + file); // Carga el archivo en el lector de excels
+			var sheet = workbook.Sheets['GII-GRIN-SCIE-Conference-Rating'] // Coge la hoja indicada
+
+			var nRows = XLSX.utils.decode_range(sheet['!ref']).e.r; // Coge el nº de lineas
+			for (var i = 3; i < nRows; i++) {
+				if (sheet['K' + i] != undefined){ // Coge el valor de la celda K y la almacena pasandola a mayuscula
+					congressTitles.push(sheet['B' + i].v.toUpperCase())
+				}
+			}
+
+			break;
+		}
+	})
 }
 /*
 	Metodo para actualizar los indices de revistas y congresos de las publicaciones existentes
@@ -134,7 +157,7 @@ function refreshIndexes(){
 				}
 				var congressTemp = congress[anyo] // Cuando lo encuentra busca a que categoria pertenece su congreso
 				for(let categoria in congressTemp){
-					if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+					if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
 						pub.congress = categoria
 						break;
 					}
@@ -147,13 +170,14 @@ function refreshIndexes(){
 
 readExcel()
 readExcel2()
+loadCongressTitles()
 
 var controller = {
 
 	test: function (req,res ){
 		console.log(congress)
 		refreshIndexes()
-		res.status(200).send({quartiles})
+		res.status(200).send({congressTitles})
 	},
 
 	/*
@@ -238,7 +262,7 @@ var controller = {
 				}
 				var congressTemp = congress[anyo] // Cuando lo encuentra busca a que categoria pertenece su congreso
 				for(let categoria in congressTemp){
-					if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+					if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
 						pub.congress = categoria
 						break;
 					}
@@ -294,7 +318,7 @@ var controller = {
 					}
 					var congressTemp = congress[anyo]
 					for(let categoria in congressTemp){
-						if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+						if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
 							pub.congress = categoria
 							break;
 						}
@@ -415,7 +439,7 @@ var controller = {
 									}
 									var congressTemp = congress[anyo]
 									for(let categoria in congressTemp){
-										if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+										if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
 											pub.congress = categoria
 											break;
 										}
@@ -451,7 +475,7 @@ var controller = {
 								}
 								var congressTemp = congress[anyo]
 								for(let categoria in congressTemp){
-									if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+									if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
 										pub.congress = categoria
 										break;
 									}
@@ -492,7 +516,7 @@ var controller = {
 							}
 							var congressTemp = congress[anyo]
 							for(let categoria in congressTemp){
-								if(congress[categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+								if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
 									pub.congress = categoria
 									break;
 								}
@@ -550,7 +574,15 @@ var controller = {
 		// 	return res.status(200).send({pubs})
 		// })
 		// {"project":ObjectId("5c8ce4688c84505ba102729d")}
-	}
+	},
+
+	getCongressTitles: function(req, res){
+		if (congressTitles == []){
+			res.status(503).send({error: 'We are sorry, server is not ready for that request'})
+		} else {
+			res.status(200).send({congressTitles})
+		}
+	} 
 
 	// updatepub: function(req, res){
 	// 	var pr{"project":ObjectId("5c8ce4688c84505ba102729d")}oyectId = req.params.id;

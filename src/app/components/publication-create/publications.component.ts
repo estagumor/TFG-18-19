@@ -23,6 +23,8 @@ export class PublicationsComponent implements OnInit {
   public StringPersons: String[] = [];
   public persons: Person[] = [];
   public finalAutores: String[] = [];
+  public congressTitles: string[] = [];
+  public filteredCongress: string[] = [];
 
   constructor(
     private _service: PublicationService,
@@ -48,6 +50,9 @@ export class PublicationsComponent implements OnInit {
           this.StringPersons.push(p.name + " " + p.surname)
         }
       })
+    })
+    this._service.getCongressTitles().subscribe((response) => {
+      this.congressTitles = response.body['congressTitles']
     })
   }
 
@@ -90,6 +95,9 @@ export class PublicationsComponent implements OnInit {
   onSubmit(form: NgForm){
     this.pub.project = this.getProjects(this.finalProjects)
     this.pub.authors = this.getPersons(this.finalAutores)
+    if(this.pub.sourceType.indexOf('Conference') != -1){
+      this.pub.sourceTitle = this.filteredCongress[0]
+    }
     this._service.create(this.pub).subscribe(
       result => {
         form.resetForm()
