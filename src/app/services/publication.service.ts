@@ -28,6 +28,11 @@ export class PublicationService {
     .pipe(tap(HandleError.handleError));
   }
 
+  getPublication(publicationId): Observable<any> {
+    return this._http.get<Publication>(this.url + '/' + publicationId, { observe: 'response' })
+    .pipe(tap(HandleError.handleError)); // Se le pasa un id concreto para obtener un objeto
+  }
+
   list(limit=25, offset=0): Observable<any>{
     return this._http.get<Publication[]>(this.url + "s?limit="+limit+"&offset="+offset, { observe: 'response' })
     .pipe(tap(HandleError.handleError));

@@ -25,6 +25,7 @@ export class PublicationListComponent implements OnInit {
       this._service.list().subscribe(result => {
         //TODO comprobar que esto funciona aqui
         this.listado = result.body['pubs']; 
+        console.log(this.listado[0])
       }, err => {
         console.log(err);
       })
