@@ -11,11 +11,11 @@ import { PersonService } from 'src/app/services/person.service';
 
 @Component({
   selector: 'app-publications',
-  templateUrl: './publications.component.html',
-  styleUrls: ['./publications.component.css'],
+  templateUrl: './publication.create.component.html',
+  styleUrls: ['./publication.create.component.css'],
   providers: [PublicationService]
 })
-export class PublicationsComponent implements OnInit {
+export class PublicationCreateComponent implements OnInit {
   public pub: Publication
   public StringProjects: String[];
   public finalProjects: String[] = [];

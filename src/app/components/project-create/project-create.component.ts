@@ -13,11 +13,11 @@ import { Person } from '../../models/person';
 
 @Component({
   selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css'],
+  templateUrl: './project-create.component.html',
+  styleUrls: ['./project-create.component.css'],
   providers: [ProjectService, PersonService]
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectCreateComponent implements OnInit {
 
   //AUTOCOMPLETE
   public researchers: String[] = [];

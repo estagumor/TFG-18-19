@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { PublicationsComponent } from '../../components/publication-create/publications.component';
+import { PublicationCreateComponent } from '../../components/publication-create/publication.create.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import { PublicationService } from '../../services/publication.service';
@@ -14,8 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 describe("Publication's component", () => {
-  let component: PublicationsComponent;
-  let fixture: ComponentFixture<PublicationsComponent>;
+  let component: PublicationCreateComponent;
+  let fixture: ComponentFixture<PublicationCreateComponent>;
   let element: HTMLElement;
   // Spies to intercept calls to the service
   let createSpy;
@@ -24,7 +24,7 @@ describe("Publication's component", () => {
   beforeEach(async(() => {
     // Set the component configuration and add it the necessary imports
     TestBed.configureTestingModule({
-      declarations: [PublicationsComponent, AcompleteComponent],
+      declarations: [PublicationCreateComponent, AcompleteComponent],
       imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
@@ -33,7 +33,7 @@ describe("Publication's component", () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PublicationsComponent);
+    fixture = TestBed.createComponent(PublicationCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     // Tools to navigate in the DOM
@@ -68,13 +68,11 @@ describe("Publication's component", () => {
     let sourceType: HTMLSelectElement = element.querySelector("select[name='sourceType']")
     let documentType: HTMLSelectElement = element.querySelector("select[name='documentType']")
     let sourceTitle: HTMLInputElement = element.querySelector("input[name='sourceTitle']")
-    let firstAuthor: HTMLInputElement = element.querySelector("input[name='firstAuthor']")
     let affiliation: HTMLInputElement = element.querySelector("input[name='affiliation']")
     documentType.setAttribute('value','Book');
     articleTitle.setAttribute('value','US');
     sourceType.setAttribute('selected','Book')
     sourceTitle.setAttribute('value','US');
-    firstAuthor.setAttribute('value','US');
     affiliation.setAttribute('value','US');
     // Makes Angular detect changes in the page and simulate the click
     fixture.detectChanges();
