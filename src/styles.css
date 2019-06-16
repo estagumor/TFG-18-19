@@ -326,3 +326,9 @@ ul.navbar-nav.mr-auto {
     align-items: initial !important;
     margin: initial !important;
 }
+
+@media (max-width: 800px){
+    .nav-item{
+        padding: 0em 0.3em;
+    }
+}
