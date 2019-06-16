@@ -175,7 +175,6 @@ loadCongressTitles()
 var controller = {
 
 	test: function (req,res ){
-		console.log(congress)
 		refreshIndexes()
 		res.status(200).send({congressTitles})
 	},
@@ -545,7 +544,6 @@ var controller = {
 	// Este metodo diria que ya no se usa
 	filterByProject: function (req, res) {
 		var projectId = req.params.id;
-		console.log({ project: projectId });
 		// Project.findById(projectId,(er,pro)=>{
 		// 	return res.status(200).send({pro})
 		// })
