@@ -39,4 +39,22 @@ export class PublicationListComponent implements OnInit {
     }
   }
 
+  displayPublication(id) {
+    if (id !== undefined) {
+      this._service.getPublication(id).subscribe(result => {
+        let publication = result.body['pub']
+        if(publication) {
+          this._router.navigateByUrl('/publication/display/' + id)
+          // this._router.navigate(['project/display/' + id])
+        }else {
+          //TODO Añadir aviso de error.
+          //En principio está pensado como una ventana desplegable, usando el display y 
+          //cambiandole las clases CSS
+          this._router.navigateByUrl('/publications')
+        }});
+    } else {
+      this._router.navigateByUrl('/publications') //Goes to the list of projects
+    }
+  };  
+
 }

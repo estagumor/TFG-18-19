@@ -28,13 +28,17 @@ export class PublicationDisplayComponent implements OnInit {
         if(pub) {
           //TODO who knows? :D
           console.log(pub)
-          this.publication = pub.body['project']
+          this.publication = pub.body['pub']
           console.log(this.publication)
         } else {
           this.route.navigate(['/publications'])
         }
       });
     });
+  }
+
+  editpublication() {
+    this.route.navigate(['publication/' + this.id])
   }
 
 }

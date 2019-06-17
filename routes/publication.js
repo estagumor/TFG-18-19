@@ -14,5 +14,6 @@ router.post('/publication/excel', PublicationController.uploadExcel);
 router.get('/publication/loadStats', PublicationController.loadStats);
 router.get('/publication/congress', PublicationController.getCongressTitles);
 router.get('/publication/:id', PublicationController.getPublication);
+router.put('/publication/:id', PublicationController.updatePublication);
 router.get('/test', PublicationController.test) //TODO eliminar este metodo
 module.exports = router;

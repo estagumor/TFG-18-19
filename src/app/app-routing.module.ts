@@ -16,6 +16,7 @@ import { PersonListComponent } from './components/person-list/person-list.compon
 import { PersonDisplayComponent } from './components/person-display/person-display.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProjectStatsComponent } from './components/project-stats/project-stats.component';
+import { PublicationDisplayComponent } from './components/publication-display/publication-display.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'contracts', component: ContractComponent },
   { path: 'nets', component: NetComponent },
   { path: 'publication', component: PublicationsComponent },
+  { path: 'publication/display/:id', component: PublicationDisplayComponent},
   { path: 'person', component: PersonComponent},
   { path: 'person/:id?', component: PersonComponent},
   { path: 'person/:id', component: PersonDisplayComponent},

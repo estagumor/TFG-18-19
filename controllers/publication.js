@@ -361,6 +361,26 @@ var controller = {
 		});
 	},
 
+	updatePublication: function (req, res) {
+		var publicationId = req.params.id;
+		var datosUpdate = req.body;
+
+		if (datosUpdate.publicationDate != null) {
+			var publicationDate = datosUpdate.publicationDate;
+			datosUpdate.publicationDate = publicationDate["month"] + "/" + publicationDate["day"] + "/" + publicationDate["year"];
+		}
+
+		Publication.findOneAndUpdate(publicationId, datosUpdate, { new: true }, (err, publicationUpdated) => {
+			if (err) return res.status(500).send({ message: err });
+
+			if (!publicationUpdated) return res.status(503).send({ message: "Error when trying to update the publication" });
+
+			return res.status(200).send({
+				publication: publicationUpdated
+			})
+		});
+	},
+
 	getPubs: function (req, res) {
 		let limit = req.query.limit ? parseInt(req.query.limit) : 25;
 		let offset = req.query.offset ? parseInt(req.query.offset) : 0;

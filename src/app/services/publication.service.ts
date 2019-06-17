@@ -33,6 +33,13 @@ export class PublicationService {
     .pipe(tap(HandleError.handleError)); // Se le pasa un id concreto para obtener un objeto
   }
 
+  updatePublication(publication): Observable<any> {
+    const params = JSON.stringify(publication); 
+    const headers = new HttpHeaders().set('Content-Type', 'application/json'); // Para decirle al backend lo que se le manda
+    return this._http.put<Publication>(this.url + '/' + publication._id, params, { headers: headers, observe: 'response' })
+    .pipe(tap(HandleError.handleError));; // Peticion post con los datos
+  }
+
   list(limit=25, offset=0): Observable<any>{
     return this._http.get<Publication[]>(this.url + "s?limit="+limit+"&offset="+offset, { observe: 'response' })
     .pipe(tap(HandleError.handleError));

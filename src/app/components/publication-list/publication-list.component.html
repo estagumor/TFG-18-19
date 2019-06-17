@@ -17,6 +17,8 @@
                           <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}:
                           {{pub.pageRange}} ({{pub.publicationDate}})
                           <p><a href="https://dx.doi.org/{{pub.DOI}}">Ir a la publicación</a></p>
+                          <button class="btn-primary" type="button"
+												  (click)="displayPublication(pub._id)">Display</button>
                         </div>
                       </div>
                     </td>
