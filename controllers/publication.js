@@ -338,26 +338,47 @@ var controller = {
 
 	},
 
-	// getpub: function(req, res){
-	// 	var pubId = req.params.id;
+	getPublication: function(req, res){
+		var pubId = req.params.id;
 
-	// 	if(pubId == null){
-	// 		return res.status(404).send({message: 'El proyecto no existe'})
-	// 	}
+		if(pubId == null){
+			return res.status(400).send({message: 'La publicacion no existe'})
+		}
 
-	// 	pub.findById(pubId, (err, pub) => {
-	// 		if (err) return res.status(500).send({
-	// 			message: "Error al devolver los datos"
-	// 		});
+		Publication.findById(pubId, (err, pub) => {
+			if (err) return res.status(500).send({
+				message: err
+			});
 
-	// 		else if (!pub) return res.status(404).send({
-	// 			message: "El pubo no existe"
-	// 		});
-	// 		return res.status(200).send({
-	// 			pub
-	// 		});
-	// 	});
-	// },
+			else if (!pub) return res.status(404).send({
+				message: "No hay una publicacion con este ID"
+			});
+
+			return res.status(200).send({
+				pub
+			});
+		});
+	},
+
+	updatePublication: function (req, res) {
+		var publicationId = req.params.id;
+		var datosUpdate = req.body;
+
+		if (datosUpdate.publicationDate != null) {
+			var publicationDate = datosUpdate.publicationDate;
+			datosUpdate.publicationDate = publicationDate["month"] + "/" + publicationDate["day"] + "/" + publicationDate["year"];
+		}
+
+		Publication.findOneAndUpdate(publicationId, datosUpdate, { new: true }, (err, publicationUpdated) => {
+			if (err) return res.status(500).send({ message: err });
+
+			if (!publicationUpdated) return res.status(503).send({ message: "Error when trying to update the publication" });
+
+			return res.status(200).send({
+				publication: publicationUpdated
+			})
+		});
+	},
 
 	getPubs: function (req, res) {
 		let limit = req.query.limit ? parseInt(req.query.limit) : 25;

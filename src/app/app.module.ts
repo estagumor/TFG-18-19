@@ -30,6 +30,7 @@ import { PersonListComponent } from './components/person-list/person-list.compon
 import { PersonDisplayComponent } from './components/person-display/person-display.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProjectStatsComponent } from './components/project-stats/project-stats.component';
+import { PublicationDisplayComponent } from './components/publication-display/publication-display.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ProjectStatsComponent } from './components/project-stats/project-stats.
     PersonListComponent,
     PersonDisplayComponent,
     DashboardComponent,
-    ProjectStatsComponent
+    ProjectStatsComponent,
+    PublicationDisplayComponent
   ],
   imports: [
     NgbModule,

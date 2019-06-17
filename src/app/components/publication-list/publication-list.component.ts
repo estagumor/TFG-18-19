@@ -25,6 +25,7 @@ export class PublicationListComponent implements OnInit {
       this._service.list().subscribe(result => {
         //TODO comprobar que esto funciona aqui
         this.listado = result.body['pubs']; 
+        console.log(this.listado[0])
       }, err => {
         console.log(err);
       })
@@ -37,5 +38,23 @@ export class PublicationListComponent implements OnInit {
       })
     }
   }
+
+  displayPublication(id) {
+    if (id !== undefined) {
+      this._service.getPublication(id).subscribe(result => {
+        let publication = result.body['pub']
+        if(publication) {
+          this._router.navigateByUrl('/publication/display/' + id)
+          // this._router.navigate(['project/display/' + id])
+        }else {
+          //TODO Añadir aviso de error.
+          //En principio está pensado como una ventana desplegable, usando el display y 
+          //cambiandole las clases CSS
+          this._router.navigateByUrl('/publications')
+        }});
+    } else {
+      this._router.navigateByUrl('/publications') //Goes to the list of projects
+    }
+  };  
 
 }
