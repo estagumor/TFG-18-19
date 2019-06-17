@@ -9,9 +9,6 @@ app.use(express.static(distDir));
 
 // archivos de rutas
 var project_routes = require('./routes/project')
-var investigation_routes = require('./routes/investigationProject')
-var contract_routes = require('./routes/contract')
-var net_routes = require('./routes/net')
 var publication_routes = require('./routes/publication')
 var person_routes = require('./routes/person')
 var dashboard_routes = require('./routes/dashboard')
@@ -31,9 +28,6 @@ app.use((req, res, next) => {
 
 // rutas
 app.use('/api', project_routes);
-app.use('/api', investigation_routes);
-app.use('/api', contract_routes);
-app.use('/api', net_routes);
 app.use('/api', publication_routes);
 app.use('/api', person_routes);
 app.use('/api', dashboard_routes)
