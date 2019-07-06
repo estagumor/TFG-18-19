@@ -6,11 +6,11 @@ import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.css'],
+  templateUrl: './person-create.component.html',
+  styleUrls: ['./person-create.component.css'],
   providers: [PersonService]
 })
-export class PersonComponent implements OnInit {
+export class PersonCreateComponent implements OnInit {
   public person: Person;
   public edit: boolean = false;
   public errors = [];

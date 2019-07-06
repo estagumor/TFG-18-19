@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { ProjectsComponent } from '../../components/project-create/projects.component';
+import { ProjectCreateComponent } from '../../components/project-create/project-create.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
@@ -14,8 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Router } from '@angular/router';
 
 describe("Project's component", () => {
-  let component: ProjectsComponent;
-  let fixture: ComponentFixture<ProjectsComponent>;
+  let component: ProjectCreateComponent;
+  let fixture: ComponentFixture<ProjectCreateComponent>;
   let element: HTMLElement;
   // Spies to intercept calls to the service
   let listSpy;
@@ -28,7 +28,7 @@ describe("Project's component", () => {
   beforeEach(async(() => {
     // Set the component configuration and add it the necessary imports
     TestBed.configureTestingModule({
-      declarations: [ProjectsComponent, AcompleteComponent],
+      declarations: [ProjectCreateComponent, AcompleteComponent],
       imports: [ReactiveFormsModule, FormsModule,NgbModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
@@ -37,7 +37,7 @@ describe("Project's component", () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectsComponent);
+    fixture = TestBed.createComponent(ProjectCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     // Tools to navigate in the DOM

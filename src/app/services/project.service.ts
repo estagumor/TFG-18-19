@@ -65,4 +65,9 @@ export class ProjectService {
     return this._https.delete<Project>(this.url + '/' + projectId, { observe: 'response' })
     .pipe(tap(HandleError.handleError));;
   }
+
+  getNewsProjects(limit = 25, offset = 0): Observable<any> {
+    return this._https.get<Project[]>(this.url + 's/news?limit=' + limit + '&offset=' + offset, {observe: 'response'})
+    .pipe(tap(HandleError.handleError));
+  }
 }

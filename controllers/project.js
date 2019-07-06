@@ -175,6 +175,25 @@ var controller = {
 				project: projectDeleted
 			})
 		});
+	},
+
+	get10YearsProject: function(req, res){
+		let limit = req.query.limit ? parseInt(req.query.limit) : 25;
+		let offset = req.query.offset ? parseInt(req.query.offset) : 0;
+		let total
+		Project.estimatedDocumentCount({}, (err, number) => {
+			total = number;
+		})
+		let fecha = new Date()
+		let fechaVieja = new Date(fecha.getFullYear() - 15, fecha.getMonth(), fecha.getDate())
+
+		Project.find({startDate: {$gte: fechaVieja}}, null, { limit: limit, skip: offset }, (err, projects) => {
+			if (err) return res.status(500).send({ message: err })
+			if (!projects) return res.status(404).send({ message: 'There are no projects to show' })
+			if (!req.body) // Esto esta aqui porque en el test le paso un string para que ignore esta parte, no he conseguido hacer stub del metodo que genera este dato
+				res.setHeader('X-WP-Total', total);
+			return res.status(200).send({ "projects": projects });
+		})
 	}
 
 

@@ -28,6 +28,18 @@ export class PublicationService {
     .pipe(tap(HandleError.handleError));
   }
 
+  getPublication(publicationId): Observable<any> {
+    return this._http.get<Publication>(this.url + '/' + publicationId, { observe: 'response' })
+    .pipe(tap(HandleError.handleError)); // Se le pasa un id concreto para obtener un objeto
+  }
+
+  updatePublication(publication): Observable<any> {
+    const params = JSON.stringify(publication); 
+    const headers = new HttpHeaders().set('Content-Type', 'application/json'); // Para decirle al backend lo que se le manda
+    return this._http.put<Publication>(this.url + '/' + publication._id, params, { headers: headers, observe: 'response' })
+    .pipe(tap(HandleError.handleError));; // Peticion post con los datos
+  }
+
   list(limit=25, offset=0): Observable<any>{
     return this._http.get<Publication[]>(this.url + "s?limit="+limit+"&offset="+offset, { observe: 'response' })
     .pipe(tap(HandleError.handleError));
@@ -51,5 +63,10 @@ export class PublicationService {
   sendExcel(tipo: string, excel: string | ArrayBuffer, name: string){
     return this._http.post<any>(this.url +"/excel", {tipo: tipo, excel: excel, name: name}, {observe: "response"})
     .pipe(tap(HandleError.handleError))
+  }
+
+  getCongressTitles(): Observable<any> {
+    return this._http.get<string[]>(this.url + "/congress", {observe: 'response'})
+    .pipe(tap(HandleError.handleError));
   }
 }

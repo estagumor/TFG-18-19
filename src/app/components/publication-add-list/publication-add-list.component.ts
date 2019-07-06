@@ -81,12 +81,12 @@ export class PublicationAddListComponent implements OnInit {
     let r //Iterador
     let scopusIds = []
     for(r in pub.researchTeam) {
-      scopusIds.push(r.scopusId)
+      scopusIds.push(pub.researchTeam[r].scopusId)
     }
     //Si se selecciona, se guarda el y los pubs que tienen sus scopus ids
     if(obj.checked){
       this._scopus.getPubs(0,25,scopusIds).subscribe(res => {
-        this.listado.push(res)
+        this.listado = this.listado.concat(res.filter((pub) => {return this.listado.includes(pub)})) // Añade aquellos que no existan ya
       }, err => {
         console.log(err);
       });
