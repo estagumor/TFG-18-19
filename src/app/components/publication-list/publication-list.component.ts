@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PublicationListComponent implements OnInit {
   public listado: Array<Publication> = []
+  public searchText: string = "";
 
   @Input() projectId: String
 
