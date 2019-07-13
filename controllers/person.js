@@ -20,10 +20,6 @@ var controller = {
 	getPerson: function (req, res) {
 		var personId = req.params.id;
 
-		if (personId == null) {
-			return res.status(400).send({ message: 'La persona no existe' })
-		}
-
 		Person.findById(personId, (err, person) => {
 			if (err) return res.status(500).send({
 				message: err
@@ -42,10 +38,6 @@ var controller = {
 	getPersons: function (req, res) {
 		let limit = req.query.limit ? parseInt(req.query.limit) : 25;
 		let offset = req.query.offset ? parseInt(req.query.offset) : 0;
-		let total
-		Person.estimatedDocumentCount({}, (err, number) => {
-			total = number;
-		})
 
 		Person.find({}, null, { limit: limit, skip: offset }, (err, persons) => {
 			if (err) return res.status(500).send({ message: err })

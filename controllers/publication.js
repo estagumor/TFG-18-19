@@ -81,6 +81,7 @@ function readExcel2() {
 		congressTitles = []
 		for (let file in files) { 
 			file=files[file] // Coge el valor segun el indice, realiza una copia de res y coge el año
+			if(file.indexOf('.txt') != -1) continue;
 			let local = Object.assign({}, res)
 			let anyo = /\d{4}/.exec(file)[0]
 			var workbook = XLSX.readFile(__dirname + "/excels/congresos/" + file); // Carga el archivo en el lector de excels

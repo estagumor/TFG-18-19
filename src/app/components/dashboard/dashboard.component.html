@@ -17,7 +17,7 @@
         <div class="form-group mb-5">
           <label for="excelCongresos">Subir archivo</label>
           <input type="file" class="form-control-file" id="excelCongresos" #excelCongresos>
-          <button type="button" class="btn btn-primary" (click)="enviarCongresos(excelCongresos)">Enviar</button>
+          <button type="button" id="sendCongress" name="sendCongress" class="btn btn-primary" (click)="enviarCongresos(excelCongresos)">Enviar</button>
         </div>
         <br>
         <h4 class="card-title">Revistas</h4>
@@ -25,8 +25,8 @@
         <img src="../../../assets/formato excel revistas.png" class="img-fluid mb-1" alt="Ejemplo del formato de excel para revistas">
         <div class="form-group">
           <label for="excelRevistas">Subir archivo</label>
-          <input type="file" class="form-control-file" id="excelRevistas #excelRevistas">
-          <button type="button" class="btn btn-primary" (click)="enviarRevistar(excelRevistas)">Enviar</button>
+          <input type="file" class="form-control-file" id="excelRevistas" #excelRevistas>
+          <button type="button" id="sendJourney" name="sendJourney" class="btn btn-primary" (click)="enviarRevistas(excelRevistas)">Enviar</button>
           </div>
       </div>
     </div>
