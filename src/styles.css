@@ -40,15 +40,14 @@ button[type=submit] {
 }
 
 h1 {
-    margin-top: 5%;
     font-size: 2em;
-    color: #273e47;
+    color: #a4243b;
     padding: 2em;
-    background-image: url("assets/background4.jpg");
-    background-size: 500px;
     text-align: center;
-    font-family: 'PT Sans Narrow', sans-serif;
-    border-radius: 3px;
+    /* font-family: 'PT Sans Narrow', sans-serif; */
+    font-family: 'Monoton', cursive;
+    /* font-family: 'Fredericka the Great', cursive; */
+    /* font-family: 'Faster One', cursive; */
     
 }
 
@@ -70,6 +69,7 @@ h1 {
     float: right !important;
     font-family: 'PT Sans Narrow', sans-serif;
     position: fixed !important;
+    display: block;
 }
 
 .nav-link{
@@ -98,10 +98,13 @@ h1 {
 fieldset {
     border-radius: 8px;
     background-color: #FCFCFF;
-    padding: 20px;
-    max-width: 90% !important;
+    padding-top: 5%;
     margin: auto;
     align-content: center !important;
+    background-image: url("assets/background6.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 500px;
 }
 
 .form-control{

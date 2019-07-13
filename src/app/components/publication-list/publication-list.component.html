@@ -1,6 +1,11 @@
 <fieldset>
   <h1>Listado de publicaciones</h1>
-  <div class="row">
+  <br>
+  <div class="row" id="listPublicationsTable">
+    <label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre, fecha o autores</label>
+    <input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado">
+    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/publication']">Crear publicación</button>
+    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/publication']">Estadísticas</button>
     <section class="content">
       <br>
       <div class="col-md-8 col-md-offset-2">
@@ -9,16 +14,17 @@
             <div class="table-container">
               <table class="table table-filter">
                 <tbody>
-                  <tr *ngFor="let pub of listado" [ngClass]="{'selected': checkBox}">
+                  <tr *ngFor="let pub of listado | filterPublications: searchText" [ngClass]="{'selected': checkBox}">
                     <td>
                       <div class="media">
                         <div class="media-body">
                           <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>:
-                          <a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}:
+                          <a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">{{pub.articleTitle}}</a>.
+                          {{pub.sourceTitle}}:
                           {{pub.pageRange}} ({{pub.publicationDate}})
                           <p><a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">Ir a la publicación</a></p>
                           <button class="btn-primary" type="button"
-												  (click)="displayPublication(pub._id)">Display</button>
+                            (click)="displayPublication(pub._id)">Display</button>
                         </div>
                       </div>
                     </td>

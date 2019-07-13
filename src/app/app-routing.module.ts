@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'publications', component: PublicationListComponent },
   { path: 'project/display/:id', component: ProjectDisplayComponent},
   { path: 'publication', component: PublicationCreateComponent },
+  { path: 'publication/:id?', component: PublicationCreateComponent },
   { path: 'person', component: PersonCreateComponent},
   { path: 'person/:id?', component: PersonCreateComponent},
   { path: 'publication/display/:id', component: PublicationDisplayComponent},
