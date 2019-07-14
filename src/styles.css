@@ -5,8 +5,7 @@
 .active{
     background-color: transparent;
     border-radius:5px;
-    color: #bd632f !important;
-    font-weight: bold !important;
+    color: #294B5E !important;
 }
 
 .input{
@@ -41,14 +40,12 @@ button[type=submit] {
 
 h1 {
     font-size: 2em;
-    color: #a4243b;
+    font-style: italic;
+    color: #383026;
     padding: 2em;
     text-align: center;
-    /* font-family: 'PT Sans Narrow', sans-serif; */
-    font-family: 'Monoton', cursive;
-    /* font-family: 'Fredericka the Great', cursive; */
-    /* font-family: 'Faster One', cursive; */
-    
+    background-image: url("assets/background4.jpg");
+    background-size: 500px;
 }
 
 .nav-item {
@@ -58,7 +55,7 @@ h1 {
 }
 
 .navbar {
-    background-color: #273e47 !important;
+    background-color: #FFFFFF !important;
     width: 100% !important;
     height: fit-content !important;
     padding-top: 0.5% !important;
@@ -67,9 +64,6 @@ h1 {
     font-size: 0.9em !important;
     border-style: none;
     float: right !important;
-    font-family: 'PT Sans Narrow', sans-serif;
-    position: fixed !important;
-    display: block;
 }
 
 .nav-link{
@@ -77,12 +71,8 @@ h1 {
     clear: left;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: white;
-}
-
 .nav-link:hover {
-    color: #d8c99b !important;
+    color: #294B5E !important;
 }
 
 .img-logo {
@@ -98,13 +88,10 @@ h1 {
 fieldset {
     border-radius: 8px;
     background-color: #FCFCFF;
-    padding-top: 5%;
+    padding: 20px;
+    max-width: 90% !important;
     margin: auto;
     align-content: center !important;
-    background-image: url("assets/background6.jpg");
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 500px;
 }
 
 .form-control{
