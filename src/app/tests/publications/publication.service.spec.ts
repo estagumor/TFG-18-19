@@ -12,12 +12,12 @@ function asyncData<T>(data: T) {
 
 describe("Publication's service", () => {
   // Set the http methods where Jasmine is going to intercept the requests
-  let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy };
+  let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy, put: jasmine.Spy };
   let publicationService: PublicationService;
 
   beforeEach(() => {
     // Instance the spied class and set the http methods to be spied
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post', 'put']);
     publicationService = new PublicationService(<any>httpClientSpy);
   });
 
@@ -175,7 +175,7 @@ describe("Publication's service", () => {
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   });
 
-  it('must create tow publications and return them', () => {
+  it('must create two publications and return them', () => {
     // An empty project to be returned by the spy
     var pubMocked = [{
       "scopusId": "",
@@ -223,10 +223,17 @@ describe("Publication's service", () => {
     expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
   });
 
-
-
-
-
+  it('must update the publication', () => {
+    var pub: Publication = new Publication("", "title", "Book", "Book", "", 0, "", "", "", "", "", [], "", false,null,null,null);
+    var test = httpClientSpy.put.and.returnValue(asyncData(pub));
+    var updated = pub
+    updated.articleTitle = "updated title"
+    publicationService.updatePublication(updated).subscribe(res => {
+        expect(pub.articleTitle).toEqual('updated title', 'expected data')
+        expect(test).toHaveBeenCalled()
+    }, fail);
+    expect(httpClientSpy.put.calls.count()).toBe(1, 'one call');
+  }); 
 });
 
 // Given an object return a Promise
