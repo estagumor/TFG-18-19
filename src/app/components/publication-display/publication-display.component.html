@@ -10,37 +10,37 @@
               <th scope="row" class="encabezado">Título del artículo</th>
               <td>{{ publication.articleTitle }}</td>
           </tr>
-          <tr *ngIf="publication.scopusId">
-              <th scope="row" class="encabezado">Ids de Scopus</th>
-              <td>{{ publication.scopusId }}</td>
-          </tr>
-          <tr *ngIf="publication.sourceType">
-            <th scope="row" class="encabezado">Origen de publicación</th>
-            <td>{{ publication.sourceType }}</td>
-          </tr>
           <tr *ngIf="publication.documentType">
             <th scope="row" class="encabezado">Tipo de publicación</th>
             <td>{{ publication.documentType }}</td>
           </tr>
+          <tr *ngIf="publication.scopusId">
+              <th scope="row" class="encabezado">Id de Scopus</th>
+              <td>{{ publication.scopusId }}</td>
+          </tr>
+          <tr *ngIf="publication.sourceType">
+            <th scope="row" class="encabezado">Publicado en</th>
+            <td>{{ publication.sourceType }}</td>
+          </tr>
           <tr *ngIf="publication.sourceTitle">
-            <th scope="row" class="encabezado">Título del origen</th>
+            <th scope="row" class="encabezado">Libro/Web/Revista</th>
             <td>{{ publication.sourceTitle }}</td>
           </tr>
           <tr *ngIf="publication.sourceIdentifier">
-            <th scope="row" class="encabezado">Identificador del origen</th>
+            <th scope="row" class="encabezado">Id del lugar de publicacion</th>
             <td>{{ publication.sourceIdentifier }}</td>
           </tr>
+          <tr *ngIf="publication.publicationDate">
+            <th scope="row" class="encabezado">Año de publicación</th>
+            <td>{{ publication.publicationDate | date }}</td>
+          </tr>
           <tr *ngIf="publication.sourceVolume">
-            <th scope="row" class="encabezado">Tamaño del origen</th>
+            <th scope="row" class="encabezado">Volumen</th>
             <td>{{ publication.sourceVolume }}</td>
           </tr>
           <tr *ngIf="publication.pageRange">
             <th scope="row" class="encabezado">Rango de páginas</th>
             <td>{{ publication.pageRange }}</td>
-          </tr>
-          <tr *ngIf="publication.publicationDate">
-            <th scope="row" class="encabezado">Fecha de publicación</th>
-            <td>{{ publication.publicationDate | date }}</td>
           </tr>
           <tr *ngIf="publication.DOI">
             <th scope="row" class="encabezado">DOI</th>
@@ -61,10 +61,6 @@
           <tr *ngIf="publication.affiliation">
               <th scope="row" class="encabezado">Afiliación</th>
               <td>{{ publication.affiliation }}</td>
-          </tr>
-          <tr *ngIf="publication.assigned">
-            <th scope="row" class="encabezado">Asignado</th>
-            <td>{{ publication.asigned }}</td>
           </tr>
           <tr *ngIf="publication.quartil">
               <th scope="row" class="encabezado">Cuartil</th>

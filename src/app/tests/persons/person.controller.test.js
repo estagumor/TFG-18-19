@@ -10,8 +10,10 @@ const app = require('../../../../app');
 describe("**Saving a new person**", function () {
     
     it('should create a new person', (done) => {
-        var person = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 'photo': "https://url.com/im.img", 'telf': "+34954954954", 'allowed': true, 'job': "HIRED"};
-        var personMocked = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 'photo': "https://url.com/im.img", 'telf': "+34954954954", 'allowed': true, 'job': "HIRED" };
+        var person = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 
+        'photo': "https://url.com/im.img", 'telf': "+34954954954", 'allowed': true, 'job': "HIRED"};
+        var personMocked = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 
+        'photo': "https://url.com/im.img", 'telf': "+34954954954", 'allowed': true, 'job': "HIRED" };
 
         var dbMock = sinon.mock(Person);
         dbMock.expects('create').withArgs(personMocked).yields(null);
@@ -28,8 +30,10 @@ describe("**Saving a new person**", function () {
     });
 
     it('should return 500. Wrong data due to "allowed" field not present when mandatory', (done) => {
-        var person = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 'photo': "https://url.com/im.img", 'telf': "+34954954954", 'job': "HIRED"};
-        var personMocked = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 'photo': "https://url.com/im.img", 'telf': "+34954954954", 'job': "HIRED" };
+        var person = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 
+        'photo': "https://url.com/im.img", 'telf': "+34954954954", 'job': "HIRED"};
+        var personMocked = {'name': "Juan", 'surname': "Perez", 'email': "jperez@us.es", 
+        'photo': "https://url.com/im.img", 'telf': "+34954954954", 'job': "HIRED" };
         var dbMock = sinon.mock(Person);
         dbMock.expects('create').withArgs(personMocked).yields(true);
 

@@ -86,6 +86,13 @@
         </div>
         <br>
 
+        <label for="active">Activo/a</label>
+        <input type="checkbox" [(ngModel)]="person.active" id="active" name="active" #active='ngModel' class="form-control">
+        <div *ngIf="active.invalid && (active.dirty || active.touched)" class="alert alert-danger">
+          <span>Error en el Id de Scopus</span>
+        </div>
+        <br>
+
       </div>
     </div>
 

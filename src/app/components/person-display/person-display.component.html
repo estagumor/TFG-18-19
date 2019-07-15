@@ -28,6 +28,10 @@
           <th scope="row" class="encabezado">Despacho</th>
           <td>{{person.office}}</td>
         </tr>
+        <tr *ngIf="person.scopusId">
+          <th scope="row" class="encabezado">Id de Scopus</th>
+          <td>{{person.scopusId}}</td>
+        </tr>
         <tr *ngIf="person.professionalStatus">
           <th scope="row" class="encabezado">Rol profesional</th>
           <td>{{person.professionalStatus}}</td>
@@ -35,6 +39,10 @@
         <tr *ngFor="let url of person.urls">
           <th scope="row" class="encabezado">Perfiles externos</th>
           <td>{{ url }}</td>
+        </tr>
+        <tr *ngIf="person.active">
+          <th scope="row" class="encabezado">Activo/a</th>
+          <td>Sí</td>
         </tr>
 
 

@@ -3,11 +3,7 @@
   <form #form="ngForm" (ngSubmit)=onSubmit(form)>
     <div class="form-group">
 
-    <label for="scopusId">Id del lugar de publicacion</label>
-    <input aria-describedby="scopus-identifier-hint" type="number" [(ngModel)]="pub.scopusId" id="scopusId"
-      name="scopusId" #scopusId='ngModel' class="form-control">
-    <p id="scopus-identifier-hint" class="form-text text-muted">Id que le da Scopus a publicacion. Por ejemplo:
-      SCOPUS_ID:85034273149</p>
+    
     <!-- <div *ngIf="scopusId.invalid && (scopusId.dirty || scopusId.touched)" class="alert alert-danger">
           <div *ngIf="scopusId.errors.required" class="invalid-feedback">El id de Scopus no puede estar en blanco</div>
         </div> -->
@@ -19,22 +15,6 @@
       <div *ngIf="articleTitle.invalid && (articleTitle.dirty || articleTitle.touched)" class="alert alert-danger">
         <div *ngIf="articleTitle.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar
           vacio</div>
-      </div>
-      <br>
-
-      <label for="sourceType">Publicado en</label>
-      <select [(ngModel)]='pub.sourceType' id='sourceType' name='sourceType' required #sourceType='ngModel'
-      class="form-control">
-        <option value="Journal">Revista</option>
-        <option value="Book">Libro</option>
-        <option value="Book Series">Coleccion de libros</option>
-        <option value="Conference Proceeding">Acto de congresos</option>
-        <option value="Report">Informe</option>
-        <option value="Trade Publication">Publicacion comercial</option>
-      </select>
-      <div *ngIf="sourceType.invalid && (sourceType.dirty || sourceType.touched)" class="alert alert-danger">
-        <div *ngIf="sourceType.errors.required" class="invalid-feedback">Es necesario indicar donde se ha realizado la
-          publicacion</div>
       </div>
       <br>
 
@@ -63,6 +43,31 @@
       </div>
       <br>
 
+    </div>
+      <label for="scopusId">Id de Scopus de la publicacioón</label>
+    <input aria-describedby="scopus-identifier-hint" type="number" [(ngModel)]="pub.scopusId" id="scopusId"
+      name="scopusId" #scopusId='ngModel' class="form-control">
+    <p id="scopus-identifier-hint" class="form-text text-muted">Id que le da Scopus a publicación. Por ejemplo:
+      SCOPUS_ID:85034273149</p>
+
+      <div class="requiredInputs">
+
+      <label for="sourceType">Publicado en</label>
+      <select [(ngModel)]='pub.sourceType' id='sourceType' name='sourceType' required #sourceType='ngModel'
+      class="form-control">
+        <option value="Journal">Revista</option>
+        <option value="Book">Libro</option>
+        <option value="Book Series">Coleccion de libros</option>
+        <option value="Conference Proceeding">Acto de congresos</option>
+        <option value="Report">Informe</option>
+        <option value="Trade Publication">Publicacion comercial</option>
+      </select>
+      <div *ngIf="sourceType.invalid && (sourceType.dirty || sourceType.touched)" class="alert alert-danger">
+        <div *ngIf="sourceType.errors.required" class="invalid-feedback">Es necesario indicar donde se ha realizado la
+          publicacion</div>
+      </div>
+      <br>
+
       <label for="sourceTitle">Libro/Web/Revista</label>
       <div *ngIf="pub.sourceType.indexOf('Conference') == -1">
         <input type="text" [(ngModel)]="pub.sourceTitle" id="sourceTitle" name="sourceTitle" required
@@ -85,7 +90,11 @@
       ejemplo: 16130073</p>
     <!-- <div *ngIf="sourceIdentifier.invalid && (sourceIdentifier.dirty || sourceIdentifier.touched)" class="alert alert-danger">
 				<div *ngIf="sourceIdentifier.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar vacio</div>
-			</div> -->
+      </div> -->
+      
+      <label for="publicationDate" style="padding: 0px 15px 0px 15px">Año de publicacion</label>
+    <input type="text" [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate"
+      #publicationDate='ngModel'  class="form-control"/>
 
 
     <label for="sourceVolume">Volumen</label>
@@ -107,19 +116,6 @@
 			</div> -->
 
 
-    <label for="publicationDate" style="padding: 0px 15px 0px 15px">Año de publicacion</label>
-    <input type="text" [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate"
-      #publicationDate='ngModel'  class="form-control"/>
-    <!---<span class="badge">
-      <span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
-    </span> -->
-    <!-- <select [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate" #publicationDate='ngModel' class="custom-select"  style="overflow:scroll;">
-      <option *ngFor="let item of years" value="{{item}}">{{item}}</option>
-
-    </select> -->
-    <!-- <div *ngIf="publicationDate.invalid && (publicationDate.dirty || publicationDate.touched)" class="alert alert-danger">
-				<div *ngIf="publicationDate.errors.required" class="invalid-feedback">La fecha de publicacion</div>
-			</div> -->
     <br>
 
     <label for="DOI">DOI</label>

@@ -9,6 +9,11 @@ function asyncData<T>(data: T) {
     return defer(() => Promise.resolve(data));
 }
 
+// Given an object return a Promise
+export function asyncError<T>(errorObject: any) {
+    return defer(() => Promise.reject(errorObject));
+}
+
 describe("Project's service", () => {
     // Set the http methods where Jasmine is going to intercept the requests
     let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy, delete: jasmine.Spy, put: jasmine.Spy };
@@ -31,6 +36,7 @@ describe("Project's service", () => {
         projectService.createV2(pro).subscribe(
             project => {
                 expect(project).toEqual(data, 'expected data')
+                expect(test).toHaveBeenCalled()
             },
             fail
         );
@@ -45,7 +51,10 @@ describe("Project's service", () => {
         var test = httpClientSpy.get.and.returnValue(asyncData(pro));
         // Makes the request to the server and expect the returned data to be equal than 'pro'
         projectService.getProject("5bd79886addca429f504da62").subscribe(
-            project => expect(project).toEqual(pro, 'expected data'),
+            project => {
+                expect(project).toEqual(pro, 'expected data')
+                expect(test).toHaveBeenCalled()
+            },
             fail
         );
         // Expect that the httpClientSpy has received just one request
@@ -62,6 +71,7 @@ describe("Project's service", () => {
             project => {
                 expect(project).toEqual(pro, 'expected data')
                 expect(project.title).toEqual('ISA', 'expected title')
+                expect(test).toHaveBeenCalled()
             }, fail);
         // Expect that the httpClientSpy has received just one request
         expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
@@ -76,6 +86,7 @@ describe("Project's service", () => {
         projectService.findByReference("123456A").subscribe((project) => {
             expect(project).toEqual(pro, 'expected data')
             expect(project.reference).toEqual('123456A', 'expected data')
+            expect(test).toHaveBeenCalled()
         }, fail)
         // Expect that the httpClientSpy has received just one request
         expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
@@ -88,7 +99,10 @@ describe("Project's service", () => {
         var test = httpClientSpy.get.and.returnValue(asyncData(data));
         // Makes the request to the server and expects the returned data to be equal than 'data'
         projectService.getProjects().subscribe(
-            projects => expect(projects).toEqual(data, 'expected data'),
+            projects => {
+                expect(projects).toEqual(data, 'expected data')
+                expect(test).toHaveBeenCalled()
+            },
             fail
         );
         // Expect that the httpClientSpy has received just one request
@@ -104,7 +118,10 @@ describe("Project's service", () => {
         var updated = pro
         updated.title = "updated title"
         projectService.updateProject(updated).subscribe(
-            project => expect(project.title).toEqual('updated title', 'expected data'),
+            project => {
+                expect(project.title).toEqual('updated title', 'expected data')
+                expect(test).toHaveBeenCalled()
+            },
             fail
         );
         // Expect that the httpClientSpy has received just one request
@@ -118,7 +135,10 @@ describe("Project's service", () => {
         var test = httpClientSpy.delete.and.returnValue(asyncData(data));
         // Makes the request and expects the returned project is equal to 'data'
         projectService.deleteProject("5bd79886addca429f504da62").subscribe(
-            project => expect(project).toEqual(project, 'expected data'),
+            project => {
+                expect(project).toEqual(project, 'expected data')
+                expect(test).toHaveBeenCalled()
+            },
             fail
         );
         // Expect that the httpClientSpy has received just one request
@@ -138,7 +158,10 @@ describe("Project's service", () => {
         // Makes the request and expects the returned error contains the message from 'errorResponse'
         projectService.getProjects().subscribe(
             projects => fail('expected an error, not projects'),
-            error => expect(error.error).toContain('test 404 error')
+            error => {
+                expect(error.error).toContain('test 404 error')
+                expect(test).toHaveBeenCalled()
+            }
         );
     });
 
@@ -149,7 +172,10 @@ describe("Project's service", () => {
         var test = httpClientSpy.get.and.returnValue(asyncData(data));
         // Makes the request to the server and expects the returned data to be equal than 'data'
         projectService.getProjects().subscribe(
-            projects => expect(projects).toEqual(data, 'expected data'),
+            projects => {
+                expect(projects).toEqual(data, 'expected data')
+                expect(test).toHaveBeenCalled()
+            },
             fail
         );
         // Expect that the httpClientSpy has received just one request
@@ -161,8 +187,3 @@ describe("Project's service", () => {
 
 
 });
-
-// Given an object return a Promise
-export function asyncError<T>(errorObject: any) {
-    return defer(() => Promise.reject(errorObject));
-}

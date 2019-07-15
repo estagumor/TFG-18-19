@@ -14,17 +14,17 @@
                 <th scope="row" class="encabezado">Referencia</th>
                 <td>{{ project.reference }}</td>
             </tr>
+            <tr *ngIf="project.description">
+                <th scope="row" class="encabezado">Descripción</th>
+                <td>{{ project.description }}</td>
+            </tr>
             <tr>
-                <th scope="row" class="encabezado">Jefes de proyecto</th>
+                <th scope="row" class="encabezado">Responsable/s</th>
                 <td></td>
             </tr>
             <tr *ngFor="let leader of project.leader">
                 <th>{{ leader.name }}</th>
                 <td>{{ leader.surname }}</td>
-            </tr>
-            <tr *ngIf="project.description">
-                <th scope="row" class="encabezado">Descripción</th>
-                <td>{{ project.description }}</td>
             </tr>
             <tr>
                 <th scope="row" class="encabezado">Equipo de investigación</th>

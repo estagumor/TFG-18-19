@@ -4,6 +4,32 @@
 		<div class="form-group">
 		<!--appLeadersRestriction>-->
 
+		<div class="requiredInputs">
+			<label for="title">Titulo</label>
+			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel' class="form-control">
+			<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+				<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
+			</div>
+			<br>
+		</div>
+
+
+		<label for="reference">Referencia</label>
+		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
+			#reference='ngModel' class="form-control">
+		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+			<span>Error en la referencia</span>
+		</div>
+		<br>
+
+		<label for="description">Descripcion</label>
+		<input type="text" [(ngModel)]="project.description" id='description' name="description"
+			#description='ngModel' class="form-control">
+		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+			<span>Error en la descripción</span>
+		</div>
+		<br>
+
 		<!--añadir mensaje de error-->
 		<label for="researchTeam">Equipo de investigacion</label>
 		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" (keyup)="validateAutocomplete()"></app-acomplete>
@@ -28,41 +54,30 @@
 		<app-acomplete [allList]="hireds" [finalList]="finalHireds"></app-acomplete>
 		<br>
 
-		<div class="requiredInputs">
-			<label for="title">Titulo</label>
-			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel' class="form-control">
-			<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
-				<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
-			</div>
-			<br>
-		</div>
-
-		<label for="description">Descripcion</label>
-		<input type="text" [(ngModel)]="project.description" id='description' name="description"
-			#description='ngModel' class="form-control">
-		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
-			<span>Error en la descripción</span>
-		</div>
-		<br>
-
 		<label for="leader">Responsable/s</label>
 		<app-acomplete [allList]="researchers" [finalList]="finalLeaders"></app-acomplete>
 		<div *ngIf="validateLeader() == false" class="alert alert-danger">
 		<span>El líder tiene que ser un investigador.</span>
 		</div>
-		<!--
-		<div *ngIf="formProject.errors?.badLeader && (formProject.touched || formProject.dirty)"
-			class="cross-validation-error-message alert alert-danger">
-			<span>El líder tiene que ser un investigador</span>
-		</div>-->
+
+
+		<label for="amount">Importe</label>
+		<span class="badge">
+			<span class="input-group-text">€</span>
+		</span>
+		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel' class="form-control">
+		<span class="badge">
+			<span class="input-group-text">.00</span>
+		</span>
+		<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
+			<div *ngIf="amount.errors.required" class="invalid-feedback">El importe debe ser mayor o igual a 0</div>
+		</div>
 		<br>
 
-
-		<label for="reference">Referencia</label>
-		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
-			#reference='ngModel' class="form-control">
-		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
-			<span>Error en la referencia</span>
+		<label for="sponsor">Patrocinador</label>
+		<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" #sponsor='ngModel' class="form-control">
+		<div *ngIf="sponsor.invalid && (sponsor.dirty || sponsor.touched)" class="alert alert-danger">
+			<span>Error en el patrocinador</span>
 		</div>
 		<br>
 
@@ -91,6 +106,12 @@
 		<div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
 			<span>Error en el estado</span>
 		</div>
+		<br>
+		<!--
+		<div *ngIf="formProject.errors?.badLeader && (formProject.touched || formProject.dirty)"
+			class="cross-validation-error-message alert alert-danger">
+			<span>El líder tiene que ser un investigador</span>
+		</div>-->
 		<br>
 
 
@@ -133,27 +154,6 @@
 			class="cross-validation-error-message alert alert-danger">
 			<span>La fecha de inicio no puede ser posterior a la de fin.</span>
 		</div>
-
-		<label for="sponsor">Patrocinador</label>
-		<input type="text" [(ngModel)]="project.sponsor" id='sponsor' name="sponsor" #sponsor='ngModel' class="form-control">
-		<div *ngIf="sponsor.invalid && (sponsor.dirty || sponsor.touched)" class="alert alert-danger">
-			<span>Error en el patrocinador</span>
-		</div>
-		<br>
-
-
-		<label for="amount">Importe</label>
-		<span class="badge">
-			<span class="input-group-text">€</span>
-		</span>
-		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel' class="form-control">
-		<span class="badge">
-			<span class="input-group-text">.00</span>
-		</span>
-		<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
-			<div *ngIf="amount.errors.required" class="invalid-feedback">El importe debe ser mayor o igual a 0</div>
-		</div>
-		<br>
 
 
 		<!--
