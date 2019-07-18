@@ -148,7 +148,7 @@ describe("Project's service", () => {
         // The httpClientSpy will return the previous array on a 'GET' request
         var test = httpClientSpy.get.and.returnValue(asyncData(data));
         // Makes the request to the server and expects the returned data to be equal than 'data'
-        projectService.getProjects().subscribe(
+        projectService.getNewsProjects().subscribe(
             projects => expect(projects).toEqual(data, 'expected data'),
             fail
         );

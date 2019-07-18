@@ -1,60 +1,84 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-// import { RouterModule, Router } from '@angular/router';
-// import { APP_BASE_HREF } from '@angular/common';
-// import { HttpClientModule } from '@angular/common/http';
-// import { MatDialogModule } from '@angular/material'
+import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { RouterModule, Router } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material'
 
-// import { PersonDisplayComponent } from '../../components/person-display/person-display.component';
-// import { DebugElement } from '@angular/core';
-// import { PersonService } from 'src/app/services/person.service';
-// import { of } from 'rxjs';
+import { PersonDisplayComponent } from '../../components/person-display/person-display.component';
+import { DebugElement } from '@angular/core';
+import { PersonService } from 'src/app/services/person.service';
+import { of } from 'rxjs';
 
-// describe('Person Display Component', () => {
-//   let component: PersonDisplayComponent;
-//   let fixture: ComponentFixture<PersonDisplayComponent>;
-//   let element: HTMLElement;
+describe('Person Display Component', () => {
+  let component: PersonDisplayComponent;
+  let fixture: ComponentFixture<PersonDisplayComponent>;
+  let element: HTMLElement;
+  let personServiceStub: Partial<PersonService>;
 
-//   let deleteSpy;
-//   let personService: PersonService;
-//   let routerSpy;
-//   let router;
+  let deleteSpy;
+  let getSpy;
+  let editSpy;
+  let personService: PersonService;
+  let routerSpy;
+  let router;
+  let getAllSpy;
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ PersonDisplayComponent ],
-//       imports: [RouterModule.forRoot([]), HttpClientModule, MatDialogModule],
-//       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
-//     })
-//     .compileComponents();
-//   }));
+  beforeEach(async(() => {
+    personServiceStub = {
+        getPerson: function(personId){
+            return of({"body": {"person": {}}});
+        },
+        updatePerson: function(personId){
+            return of({"body": {}});
+        },
+        deletePerson: function(personId){
+            return of({"body": {}});
+        },
+        getAll: function(){
+            return of({"body": {"persons": {}}})
+        }
+    }
+    TestBed.configureTestingModule({
+      declarations: [ PersonDisplayComponent ],
+      imports: [RouterModule.forRoot([]), HttpClientModule, MatDialogModule],
+      providers: [{provide: ComponentFixtureAutoDetect, useValue: true}, {provide: PersonService, useValue: personServiceStub}]
+    })
+    .compileComponents();
+  }));
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(PersonDisplayComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PersonDisplayComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
 
-//     const bannerDe: DebugElement = fixture.debugElement;
-//     var bannerEl: HTMLElement = bannerDe.nativeElement;
-//     element = bannerEl;
+    const bannerDe: DebugElement = fixture.debugElement;
+    var bannerEl: HTMLElement = bannerDe.nativeElement;
+    element = bannerEl;
 
-//     personService = bannerDe.injector.get(PersonService);
-//     router = bannerDe.injector.get(Router);
+    personService = bannerDe.injector.get(PersonService);
+    router = bannerDe.injector.get(Router);
 
-//     deleteSpy = spyOn(personService, "deletePerson").and.returnValue(of(true));
-//     routerSpy = spyOn(router, 'navigate').and.returnValue("url");
-//   });
+    getSpy = spyOn(personService, "getPerson").and.returnValue(of({"body": {}}));
+    editSpy = spyOn(personService, "updatePerson").and.returnValue(of(true));
+    deleteSpy = spyOn(personService, "deletePerson").and.returnValue(of(true));
+    getAllSpy = spyOn(personService, "getAll").and.returnValue(of(true));
+    routerSpy = spyOn(router, 'navigate').and.returnValue("url");
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-//   it("should delete a person and go to persons' list", () => {
-//     let deleteButton: HTMLButtonElement = element.querySelector("button[name='deleteButton']");
-//     // TODO Quitar esto
-//     console.log("delete")
-//     console.log(element.querySelector("#deleteButton"));
-//     fixture.detectChanges();
-//     deleteButton.click();
-//     expect(deleteSpy).toHaveBeenCalled();
-//   })
-// });
+  it("should delete a person and go to persons' list", () => {
+    let deleteButton: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector("button[id='deleteButton']");
+    deleteButton.click();
+    expect(deleteSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalled();
+  })
+
+  it("should go to edit view", () => {
+    let editButton: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector("button[id='editButton']");
+    editButton.click()
+    expect(routerSpy).toHaveBeenCalled();
+  })
+});

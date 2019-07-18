@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError} from 'rxjs';
+import { Observable, throwError, of} from 'rxjs';
 import { Publication } from '../models/publication'
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -60,9 +60,12 @@ export class PublicationService {
     .pipe(tap(HandleError.handleError))
   }
 
-  sendExcel(tipo: string, excel: string | ArrayBuffer, name: string){
-    return this._http.post<any>(this.url +"/excel", {tipo: tipo, excel: excel, name: name}, {observe: "response"})
+  sendExcel(tipo: string, excel: string | ArrayBuffer, name: string, test: boolean): Observable<any>{
+    if(!test)
+      return this._http.post<any>(this.url +"/excel", {tipo: tipo, excel: excel, name: name}, {observe: "response"})
     .pipe(tap(HandleError.handleError))
+    else
+      return of("test")
   }
 
   getCongressTitles(): Observable<any> {

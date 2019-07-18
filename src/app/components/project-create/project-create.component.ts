@@ -156,20 +156,6 @@ export class ProjectCreateComponent implements OnInit {
     }
   }
 
-  find() {
-    this._service.getProject(this.projectId).subscribe(result => {
-      this.responseFind = result.body['project'];
-    });
-  }
-
-  findById(id: number): Project {
-    let pro;
-    this._service.getProject(id).subscribe(result => {
-      this.responseFind = result.body['project'];
-    });
-    return pro;
-  }
-
   validateLeader() {
     if (this.finalLeaders.length < 1) {
       return true;
