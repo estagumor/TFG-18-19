@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "node index.js",
     "build": "ng build",
-    "test-coverage": "concurrently \"nyc --reporter=text mocha --recursive src/app/tests\" \nyc --reporter=text jasmine\"",
+    "test-coverage": "concurrently \"nyc --reporter=html --report-dir coverage/mocha mocha --recursive src/app/tests\" \"ng test --code-coverage --no-watch\"",
     "test": "concurrently \"ng test\" \"mocha --recursive src/app/tests\"",
     "lint": "ng lint",
     "e2e": "protractor",

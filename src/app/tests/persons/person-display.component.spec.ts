@@ -58,7 +58,7 @@ describe('Person Display Component', () => {
     personService = bannerDe.injector.get(PersonService);
     router = bannerDe.injector.get(Router);
 
-    getSpy = spyOn(personService, "getPerson").and.returnValue(of({"body": {}}));
+    getSpy = null;
     editSpy = spyOn(personService, "updatePerson").and.returnValue(of(true));
     deleteSpy = spyOn(personService, "deletePerson").and.returnValue(of(true));
     getAllSpy = spyOn(personService, "getAll").and.returnValue(of(true));
@@ -66,10 +66,12 @@ describe('Person Display Component', () => {
   });
 
   it('should create', () => {
+    getSpy = spyOn(personService, "getPerson").and.returnValue(of({"body": {}}))
     expect(component).toBeTruthy();
   });
 
   it("should delete a person and go to persons' list", () => {
+    getSpy = spyOn(personService, "getPerson").and.returnValue(of({"body": {}}))
     let deleteButton: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector("button[id='deleteButton']");
     deleteButton.click();
     expect(deleteSpy).toHaveBeenCalled();
@@ -77,8 +79,18 @@ describe('Person Display Component', () => {
   })
 
   it("should go to edit view", () => {
+    getSpy = spyOn(personService, "getPerson").and.returnValue(of({"body": {}}))
     let editButton: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector("button[id='editButton']");
     editButton.click()
     expect(routerSpy).toHaveBeenCalled();
+  })
+
+  it("should go to list view", () => {
+    personServiceStub.getPerson = function(personId) {
+      return of(null);
+    }
+    getSpy = spyOn(personService, "getPerson").and.returnValue(of(null));
+    fixture = TestBed.createComponent(PersonDisplayComponent)
+    expect(routerSpy).toHaveBeenCalled()
   })
 });

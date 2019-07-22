@@ -14,8 +14,7 @@ import { Person } from '../../models/person';
 @Component({
   selector: 'app-projects',
   templateUrl: './project-create.component.html',
-  styleUrls: ['./project-create.component.css'],
-  providers: [ProjectService, PersonService]
+  styleUrls: ['./project-create.component.css']
 })
 export class ProjectCreateComponent implements OnInit {
 
@@ -186,8 +185,8 @@ export class ProjectCreateComponent implements OnInit {
     }
   }
 
-  addDuration(obj, select, start) {
-    let fecha = start.value
+  addDuration(obj, select) {
+    let fecha = this.project.startDate
     let newFecha = new Date((parseInt(fecha["year"]) + parseInt(select.value)) + "/" + fecha["month"] + "/" + (fecha["day"] - 1))
     obj._writeModelValue({ year: newFecha.getFullYear(), month: newFecha.getMonth() + 1, day: newFecha.getDate() })
     // Next line is marked as error in VS Code but it doesn't trigger a real error

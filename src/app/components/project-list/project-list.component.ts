@@ -37,7 +37,6 @@ export class ProjectListComponent implements OnInit {
     this._service.getProjects().subscribe((lista) => {
       this.listado = lista.body['projects'];
       //TODO borrar el console log de aqui cuando termine de hacer comprobaciones
-      console.log(this.listado)
       // this.listado.forEach(element => {
       //   this.search.push(element.reference);
       //   this.search.push(element.title);
@@ -46,14 +45,14 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
-  findByReference(reference: String): Observable<HttpResponse<any>> {
-    return this._service.findByReference(reference);
+  // findByReference(reference: String): Observable<HttpResponse<any>> {
+  //   return this._service.findByReference(reference);
 
-  }
+  // }
 
-  findByTitle(title: String): Observable<HttpResponse<any>>  {
-    return this._service.findByTitle(title);
-  }
+  // findByTitle(title: String): Observable<HttpResponse<any>>  {
+  //   return this._service.findByTitle(title);
+  // }
 
   boton(b) {
     if (b.localeCompare("all") == 0)
@@ -73,7 +72,6 @@ export class ProjectListComponent implements OnInit {
 
   openDialog(pro): void {
     this.selectedPro = pro;
-    console.log(pro)
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
       data: { objeto: pro, fields: {title: 'Título', leader: 'Responsables', researchTeam: 'Equipo de investigación', amount: 'Importe'}}

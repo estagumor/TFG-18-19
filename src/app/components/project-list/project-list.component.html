@@ -7,7 +7,7 @@
 	<br>
 	<div class="row" id="listPublicProyectsTable">
 		<label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre y referencia</label>
-		<input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado">
+		<input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado" id="filterInput">
 		<!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
 		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/project']">Crear proyecto</button>
@@ -59,7 +59,7 @@
 													<p class="summary" *ngIf="invPro.scope == 'NONE'">{{ invPro.reference }}</p>
 												</div>
 											</div>
-											<button class="btn-primary" type="button"
+											<button class="btn-primary" type="button" name="displayButton"
 												(click)="displayProject(invPro._id)">Mostrar</button>
 										</td>
 									</tr>
