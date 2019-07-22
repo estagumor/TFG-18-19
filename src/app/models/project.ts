@@ -14,7 +14,7 @@ export class Project {
     public scope: String,
     public status: String,
     public sponsor: String,
-    public startDate: Date,
+    public startDate: Date|{},
     public endDate: Date|{},
     public amount: number,
     // public relatedPublications: Array<Publication>,

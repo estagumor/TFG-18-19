@@ -87,8 +87,13 @@ export class ProjectStatsComponent implements OnInit {
         let startDate;
         let endDate;
         if (proj.startDate != undefined) {
-          startDate = new Date(proj.startDate)
-
+          if (proj.startDate instanceof Date) {
+            startDate = proj.startDate
+          } else if (proj.startDate instanceof String) {
+            startDate = new Date(proj.startDate.toString())
+          } else {
+            startDate = new Date(proj.startDate["month"], proj.startDate["day"], proj.startDate["year"])
+          }
           if (proj.endDate != undefined) {
             endDate = new Date(proj.endDate.toString())
           } else {

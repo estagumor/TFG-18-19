@@ -25,6 +25,8 @@
 !.vscode/extensions.json
 
 # misc
+/.nyc_output
+/.sonarlint
 /.sass-cache
 /connect.lock
 /coverage

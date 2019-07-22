@@ -27,15 +27,10 @@ export class PublicationListComponent implements OnInit {
         //TODO comprobar que esto funciona aqui
         this.listado = result.body['pubs']; 
         console.log(this.listado[0])
-      }, err => {
-        console.log(err);
       })
     } else {
       this._service.filterByProject(this.projectId).subscribe(result => {
         this.listado = result.body['pubs'];
-      }, err => {
-        console.log(err);
-        
       })
     }
   }
