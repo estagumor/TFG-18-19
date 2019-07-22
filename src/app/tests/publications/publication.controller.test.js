@@ -9,9 +9,10 @@
 // chai.use(chaiHttp);
 
 // describe("***Save publications***", function () {
+//     this.timeout(20000)
 
 //     it('It should save a publication corretly', (done) => {
-//         publicationDate = 2019
+//         publicationDate = "2019"
 //         var pub = {
 //             "scopusId": "SCOPUS_ID:85034273149",
 //             "articleTitle": "Predictive monitoring of business processes: A survey",
@@ -21,6 +22,7 @@
 //             "sourceVolume": "11",
 //             "pageRange": "962-977",
 //             "publicationDate": publicationDate,
+//             "quartil": "Q1",
 //             "DOI": "10.1109/TSC.2017.2772256",
 //             "firstAuthor": "Marquez-Chamorro A.",
 //             "affiliation": "University of Seville",
@@ -36,6 +38,7 @@
 //             "sourceVolume": "11",
 //             "pageRange": "962-977",
 //             "publicationDate": publicationDate,
+//             "quartil": "Q1",
 //             "DOI": "10.1109/TSC.2017.2772256",
 //             "firstAuthor": "Marquez-Chamorro A.",
 //             "affiliation": "University of Seville",
@@ -55,86 +58,12 @@
 //             })
 //     })
 
-//     it('It should save several publications', (done) => {
-//         publicationDate = 2019
-
-//         pubMocked = {"publications": [{
-//             "scopusId": "SCOPUS_ID:85034273149",
-//             "articleTitle": "Predictive monitoring of business processes: A survey",
-//             "sourceType": "Journal",
-//             "documentType": "Article",
-//             "sourceTitle": "IEEE Transactions on Services Computing",
-//             "sourceVolume": "11",
-//             "pageRange": "962-977",
-//             "publicationDate": publicationDate,
-//             "DOI": "10.1109/TSC.2017.2772256",
-//             "firstAuthor": "Marquez-Chamorro A.",
-//             "affiliation": "University of Seville",
-//             "project": 1,
-//             "assigned": false
-//         }, {
-//             "scopusId": "SCOPUS_ID:85033573149",
-//             "articleTitle": "Predictive monitoring of business processes: A survey",
-//             "sourceType": "Journal",
-//             "documentType": "Article",
-//             "sourceTitle": "IEEE Transactions on Services Computing",
-//             "sourceVolume": "11",
-//             "pageRange": "122-977",
-//             "publicationDate": publicationDate,
-//             "project": 1,
-//             "assigned": false
-//         }],"project":1}
-
-//         pub = [{
-//             "scopusId": "SCOPUS_ID:85034273149",
-//             "articleTitle": "Predictive monitoring of business processes: A survey",
-//             "sourceType": "Journal",
-//             "documentType": "Article",
-//             "sourceTitle": "IEEE Transactions on Services Computing",
-//             "sourceVolume": "11",
-//             "pageRange": "962-977",
-//             "publicationDate": publicationDate,
-//             "DOI": "10.1109/TSC.2017.2772256",
-//             "firstAuthor": "Marquez-Chamorro A.",
-//             "affiliation": "University of Seville",
-//             "project": 1,
-//             "assigned": false
-//         }, {
-//             "scopusId": "SCOPUS_ID:85033573149",
-//             "articleTitle": "Predictive monitoring of business processes: A survey",
-//             "sourceType": "Journal",
-//             "documentType": "Article",
-//             "sourceTitle": "IEEE Transactions on Services Computing",
-//             "sourceVolume": "11",
-//             "pageRange": "122-977",
-//             "publicationDate": publicationDate,
-//             "project": 1,
-//             "assigned": false
-//         }]
-//         var pubMock = sinon.mock(Publication);
-//         var project = sinon.mock(Project);
-//         project.expects('findById').withArgs(1).yields(null, {"_id":1})
-//         pubMock.expects('create').withArgs(pub).yields(null, pub);
-
-//         chai.request(server)
-//             .post("/api/publication/all")
-//             .send(pubMocked)
-//             .end((err, res) => {
-//                 expect(res).to.have.status(201);
-//                 pubMock.verify();
-//                 project.verify();
-//                 done();
-//             })
-
-
-//     })
-
 
 // })
 
 // describe("***Get publications***", function () {
-//     publicationDate = { year: 2019, month: 3, day: 5 }
 
+//     it('should return a few publications', (done) => {
 //     var pubMocked = {
 //         "scopusId": "SCOPUS_ID:85034273149",
 //         "articleTitle": "Predictive monitoring of business processes: A survey",
@@ -143,20 +72,18 @@
 //         "sourceTitle": "IEEE Transactions on Services Computing",
 //         "sourceVolume": "11",
 //         "pageRange": "962-977",
-//         "publicationDate": publicationDate["month"] + "/" + publicationDate["day"] + "/" + publicationDate["year"],
+//         "publicationDate": "2019",
 //         "DOI": "10.1109/TSC.2017.2772256",
 //         "firstAuthor": "Marquez-Chamorro A.",
 //         "affiliation": "University of Seville",
 //         "assigned": false
 //     }
 
-//     var pubMock = sinon.mock(pubMocked);
+//     var pubMock = sinon.mock(Publication);
 
 
-//     var PubStub = sinon.stub(Publication, 'find');
-//     PubStub.yields(null, [pubMock]);
+//     pubMock.expects('find').withArgs().yields(null, [pubMocked])
 
-//     it('should return a few publications', (done) => {
 //         chai.request(server)
 //             .get('/api/publications')
 //             .send("test")
@@ -169,3 +96,38 @@
 //             });
 //     });
 // })
+
+// describe("***Refresh indexes***", function() {
+//     this.timeout(10000)
+
+//     it('should update update one publication', (done) => {
+//     var pubMocked = {
+//         "scopusId": "SCOPUS_ID:85034273149",
+//         "articleTitle": "Predictive monitoring of business processes: A survey",
+//         "sourceType": "Journal",
+//         "documentType": "Article",
+//         "sourceTitle": "IEEE Transactions on Services Computing",
+//         "sourceVolume": "11",
+//         "pageRange": "962-977",
+//         "publicationDate": "2019",
+//         "DOI": "10.1109/TSC.2017.2772256",
+//         "firstAuthor": "Marquez-Chamorro A.",
+//         "affiliation": "University of Seville",
+//         "assigned": false
+//     }
+
+//     var pubMock = sinon.mock(Publication)
+
+//     pubMock.expects('find').withArgs().yields([pubMocked])
+//     // var PubSaveStub = sinon.stub(Publication, 'update')
+//     // PubSaveStub.yields({"n": 1})
+
+//         chai.request(server)
+//             .get("/api/publication/loadStats")
+//             .end((err, res) => {
+//                 expect(res).to.have.status(200);
+//                 done();
+//             })
+//     })
+// })
+

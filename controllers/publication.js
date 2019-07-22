@@ -124,7 +124,9 @@ function loadCongressTitles(){
 */
 function refreshIndexes(){
 	var pubs
+	console.log("refresh")
 	Publication.find({}).then((data) => {
+		console.log(data)
 		pubs = data
 		pubs.forEach((pub) => {
 			if (pub.sourceType == "Journal") { // Si la publicacion es de una revista
@@ -164,7 +166,7 @@ function refreshIndexes(){
 					}
 				}
 			}
-			pub.save()
+			pub.update()
 		})
 	})
 }
@@ -174,11 +176,6 @@ readExcel2()
 loadCongressTitles()
 
 var controller = {
-
-	test: function (req,res ){
-		refreshIndexes()
-		res.status(200).send({congressTitles})
-	},
 
 	/*
 		Funcion que fuerza la actualizacion de los indices de congresos y revistas
@@ -284,60 +281,6 @@ var controller = {
 		}
 	},
 
-	saveAll: function (pubs) {
-		
-		for (let ind in pubs) {
-			let pub = pubs[ind]
-			try {
-
-				if (pub.sourceType == "Journal") { // Mismo procedimiento que en save
-					var anyo = parseInt(pub.publicationDate)
-					while(quartiles[anyo] == undefined){
-						anyo = anyo -1
-						if(anyo == 2000 ){
-							pub.quartil = undefined
-						}
-					}
-					var quartilTemp = quartiles[anyo]
-					if (quartilTemp.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-						pub.quartil = "Q1"
-					} else if (quartilTemp.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-						pub.quartil = "Q2"
-					} else if (quartilTemp.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-						pub.quartil = "Q3"
-					} else if (quartilTemp.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-						pub.quartil = "Q4"
-					}
-				} else if (pub.sourceType.indexOf("Conference") != -1){ // Mismo procedimiento que en save
-					var anyo = parseInt(pub.publicationDate)
-					while(congress[anyo] == undefined){
-						anyo = anyo -1
-						if(anyo == 2000 ){
-							pub.congress = undefined
-						}
-					}
-					var congressTemp = congress[anyo]
-					for(let categoria in congressTemp){
-						if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
-							pub.congress = categoria
-							break;
-						}
-					}
-				}
-			} catch (error) {
-				console.log(error)
-				res.status(503).send({ error })
-			}
-		}
-
-		Publication.create(pubs, (err) => {
-			if (err) return res.status(500).send({ message_es: "Error en la petición", message_en: "Error in the request", message_data: err });
-			if (!pubs) return res.status(503).send({ message: "Error when trying to save the publication" });
-			return pubs
-		})
-
-
-	},
 
 	getPublication: function(req, res){
 		var pubId = req.params.id;
