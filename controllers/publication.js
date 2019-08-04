@@ -192,6 +192,61 @@ var controller = {
 		}
 	},
 
+	saveAll: function (pubs) {
+
+		for (let ind in pubs) {
+			let pub = pubs[ind]
+			try {
+
+				if (pub.sourceType == "Journal") { // Mismo procedimiento que en save
+					var anyo = parseInt(pub.publicationDate)
+					while(quartiles[anyo] == undefined){
+						anyo = anyo -1
+						if(anyo == 2000 ){
+							pub.quartil = undefined
+						}
+					}
+					var quartilTemp = quartiles[anyo]
+					if (quartilTemp.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q1"
+					} else if (quartilTemp.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q2"
+					} else if (quartilTemp.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q3"
+					} else if (quartilTemp.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q4"
+					}
+				} else if (pub.sourceType.indexOf("Conference") != -1){ // Mismo procedimiento que en save
+					var anyo = parseInt(pub.publicationDate)
+					while(congress[anyo] == undefined){
+						anyo = anyo -1
+						if(anyo == 2000 ){
+							pub.congress = undefined
+						}
+					}
+					var congressTemp = congress[anyo]
+					for(let categoria in congressTemp){
+						if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+							pub.congress = categoria
+							break;
+						}
+					}
+				}
+			} catch (error) {
+				console.log(error)
+				res.status(503).send({ error })
+			}
+		}
+
+		Publication.create(pubs, (err) => {
+			if (err) return res.status(500).send({ message_es: "Error en la petición", message_en: "Error in the request", message_data: err });
+			if (!pubs) return res.status(503).send({ message: "Error when trying to save the publication" });
+			return pubs
+		})
+
+
+	},
+
 	/*
 		Funcion que recibe via post el tipo de excel ('revista' o 'congreso'), el excel en base64 y el nombre del archivo
 	*/
@@ -501,7 +556,7 @@ var controller = {
 		step1.then((d) => {
 			res.status(200).send({})
 		}).catch((reason) => {
-			res.status(500).send({reason})
+			res.status(500).send({err: reason})
 		})
 
 	},

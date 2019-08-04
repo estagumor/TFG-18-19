@@ -1,0 +1,7 @@
+{ 
+    "/scopus":{
+        "target": "http://resisa01.us.es",
+        "secure": false,
+        "chageOrigin": true
+    }
+}

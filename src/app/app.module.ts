@@ -31,6 +31,7 @@ import { PersonDisplayComponent } from './components/person-display/person-displ
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProjectStatsComponent } from './components/project-stats/project-stats.component';
 import { PublicationDisplayComponent } from './components/publication-display/publication-display.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { PublicationDisplayComponent } from './components/publication-display/pu
     MatChipsModule,
     MatIconModule,
     MatDialogModule,
-    ChartsModule
+    ChartsModule,
+    NgxLoadingModule.forRoot({})
   ],
   entryComponents: [PublicationListComponent, DisplayComponent],
   providers: [],
