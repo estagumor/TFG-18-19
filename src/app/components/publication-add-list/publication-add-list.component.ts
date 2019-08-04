@@ -13,9 +13,10 @@ import { Router, ActivatedRoute } from '@angular/router'
   selector: 'app-publication-add-list',
   templateUrl: './publication-add-list.component.html',
   styleUrls: ['./publication-add-list.component.css'],
-  providers: [PublicationService, ScopusService]
+  providers: []
 })
 export class PublicationAddListComponent implements OnInit {
+  public loading = false;
   public listado: Array<Publication> = []
   public showDisplay: boolean = true;
   public selectedPub: Publication
@@ -23,6 +24,7 @@ export class PublicationAddListComponent implements OnInit {
   public pubsToSave: Array<Publication> = [];
   public projects: Array<Project> = [];
   public prosToSave: Array<Project> = [];
+  public llamadasPendientes = 0;
 
   //Filter
   public searchText1: string = "";
@@ -44,14 +46,22 @@ export class PublicationAddListComponent implements OnInit {
     // })
     this._projectService.getProjects().subscribe((response) => {
       this.projects = response.body['projects']
-      this._scopus.getPubs().subscribe((data) => {
-        this.listado = data;
-        for(var i = 0; i < this.listado.length; i++) {
-          if(this.listado[i].project == this.projects) {
-            this.listado.splice(i,1)
-          }
-        } //forEach pub
-      }) // getPubs
+      // let r //Iterador
+      // let scopusIds = []
+      // this.projects.forEach((pro) => {
+      //   pro.researchTeam.forEach((researcher) => {
+      //     scopusIds.push(researcher.scopusId)
+      //   })
+      // })
+      // this._scopus.getPubs("05-05-2019", 0, 25, scopusIds).subscribe((data) => {
+      //   console.log(data)
+      //   this.listado = data;
+      //   for(var i = 0; i < this.listado.length; i++) {
+      //     if(this.listado[i].project == this.projects) {
+      //       this.listado.splice(i,1)
+      //     }
+      //   } //forEach pub
+      // }) // getPubs
     })
   }
 
@@ -74,33 +84,47 @@ export class PublicationAddListComponent implements OnInit {
       }
   }
 
-  clickedPro(obj,pub) {
+  clickedPro(obj,pro) {
+    this.llamadasPendientes++;
+    this.loading = true;
     obj.checked = !obj.checked
     obj.checked ? obj.parentElement.parentElement.parentElement.className = "selected" : obj.parentElement.parentElement.parentElement.className = ""
     //Guardamos los scopus ids del proyecto
     let r //Iterador
     let scopusIds = []
-    for(r in pub.researchTeam) {
-      scopusIds.push(pub.researchTeam[r].scopusId)
+    for(r in pro.researchTeam) {
+      scopusIds.push(pro.researchTeam[r].scopusId)
     }
     //Si se selecciona, se guarda el y los pubs que tienen sus scopus ids
+    let tempProjects = this.prosToSave.concat([pro])
+    let fechas = tempProjects.map(pro => pro.startDate)
     if(obj.checked){
-      this._scopus.getPubs(0,25,scopusIds).subscribe(res => {
-        this.listado = this.listado.concat(res.filter((pub) => {return this.listado.includes(pub)})) // Añade aquellos que no existan ya
+      this._scopus.getPubs(fechas.sort()[0],0,25,scopusIds).then(res => {
+        this.listado = this.listado.concat(res)
+        this.listado = Array.from(new Set(this.listado.map(p => p.scopusId))).map(scopusID => this.listado.filter(pro => pro.scopusId == scopusID)[0]) // Añade aquellos que no existan ya
+        this.llamadasPendientes--;
+        if(this.llamadasPendientes == 0)
+          this.loading = false
       }, err => {
         console.log(err);
       });
-      this.prosToSave.push(pub)
+      this.prosToSave.push(pro)
     } else { //Si no, se quita el y los pubs que tienen sus scopus ids
-      this._scopus.getPubs(0,25,scopusIds).subscribe(res => {
-        let re
-        for(re in res){
-          this.listado = this.listado.filter(p => p!=re)
-        }
+      this._scopus.getPubs(fechas.sort()[0],0,25,scopusIds).then(res => {
+        let ids = res.map(pro => pro.scopusId);
+        this.listado = this.listado.filter((p) => ids.indexOf(p.scopusId) == -1)
+        this.llamadasPendientes--;
+        if(this.llamadasPendientes == 0)
+          this.loading = false
       }, err => {
         console.log(err);
       });
-      this.prosToSave = this.prosToSave.filter(p => p!=pub)
+      this.prosToSave = this.prosToSave.filter(p => p!=pro)
+    }
+    if(this.prosToSave.length == 0){
+      this.listado = []
+      this.pubsToSave = []
+      this.loading = false
     }
   }
 
