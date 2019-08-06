@@ -27,8 +27,8 @@ xdescribe('DisplayComponent', () => {
     component = fixture.componentInstance;
 
     // find the hero's DebugElement and element
-    let titleDe = fixture.debugElement.query(By.css('.modal-dialog.modal-title.text-muted'));
-    let restDe = fixture.debugElement.query(By.css('.modal-dialog.modal-body'));
+    let titleDe = fixture.debugElement.query(By.css('.modal-title.text-muted'));
+    let restDe = fixture.debugElement.query(By.css('.modal-body'));
     
     let titleEl = titleDe.nativeElement;
     let restEl = restDe.nativeElement;
@@ -46,7 +46,7 @@ xdescribe('DisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should display our object correctly', () => {
+  it('should display our object correctly', () => {
     // const expectedPipedName = expectedHero.name.toUpperCase();
     // expect(heroEl.textContent).toContain(expectedPipedName);
   });
