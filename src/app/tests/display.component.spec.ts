@@ -49,7 +49,7 @@ describe('DisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should display our object correctly', () => {
+  it('should display our object correctly', () => {
     // const expectedPipedName = expectedHero.name.toUpperCase();
     // expect(heroEl.textContent).toContain(expectedPipedName);
   });
