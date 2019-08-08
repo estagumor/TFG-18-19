@@ -59,6 +59,9 @@ function readExcel2() {
 			if(file.indexOf('.txt') != -1) continue;
 			let local = Object.assign({}, res)
 			let anyo = /\d{4}/.exec(file)[0]
+			if(isNaN(anyo)){
+				continue;
+			}
 			var workbook = XLSX.readFile(__dirname + "/excels/congresos/" + file); // Carga el archivo en el lector de excels
 			var sheet = workbook.Sheets['GII-GRIN-SCIE-Conference-Rating'] // Coge la hoja indicada
 
@@ -100,50 +103,59 @@ function loadCongressTitles(){
 function refreshIndexes(){
 	var pubs
 	console.log("refresh")
-	Publication.find({}).then((data) => {
-		console.log(data)
-		pubs = data
-		pubs.forEach((pub) => {
-			if (pub.sourceType == "Journal") { // Si la publicacion es de una revista
-				// Se coge el año de la publicacion, y existe en el indice quartiles se sigue adelante, mientras no, intenta coger el anterior hasta eñ 2000
-				// en cuyo caso le pone undefined
-				var anyo = parseInt(pub.publicationDate)
-				while(quartiles[anyo] == undefined){
-					anyo = anyo -1
-					if(anyo == 2000 ){
-						pub.quartil = undefined
+	try {
+		Publication.find({}).then((data) => {
+			pubs = data
+			pubs.forEach((pub) => {
+				if (pub.sourceType == "Journal") { // Si la publicacion es de una revista
+					// Se coge el año de la publicacion, y existe en el indice quartiles se sigue adelante, mientras no, intenta coger el anterior hasta eñ 2000
+					// en cuyo caso le pone undefined
+					var anyo = parseInt(pub.publicationDate)
+					if(isNaN(anyo)){
+						continue;
+					}
+					while(quartiles[anyo] == undefined){
+						anyo = anyo -1
+						if(anyo == 2000 ){
+							pub.quartil = undefined
+						}
+					}
+					var quartilTemp = quartiles[anyo]
+					// Cuando tiene el año coge del indice la informacion correspondiente y busca a que cuartil corresponde la revista
+					if (quartilTemp.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q1"
+					} else if (quartilTemp.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q2"
+					} else if (quartilTemp.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q3"
+					} else if (quartilTemp.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
+						pub.quartil = "Q4"
+					}
+				} else if (pub.sourceType.indexOf("Conference") != -1){ // Si es una conferencia
+					var anyo = parseInt(pub.publicationDate) // Igual que antes intenta coger el año
+					if(isNaN(anyo)){
+						continue;
+					}
+					while(congress[anyo] == undefined){
+						anyo = anyo -1
+						if(anyo == 2000 ){
+							pub.congress = undefined
+						}
+					}
+					var congressTemp = congress[anyo] // Cuando lo encuentra busca a que categoria pertenece su congreso
+					for(let categoria in congressTemp){
+						if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
+							pub.congress = categoria
+							break;
+						}
 					}
 				}
-				var quartilTemp = quartiles[anyo]
-				// Cuando tiene el año coge del indice la informacion correspondiente y busca a que cuartil corresponde la revista
-				if (quartilTemp.Q1.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-					pub.quartil = "Q1"
-				} else if (quartilTemp.Q2.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-					pub.quartil = "Q2"
-				} else if (quartilTemp.Q3.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-					pub.quartil = "Q3"
-				} else if (quartilTemp.Q4.indexOf(pub.sourceTitle.toUpperCase()) != -1) {
-					pub.quartil = "Q4"
-				}
-			} else if (pub.sourceType.indexOf("Conference") != -1){ // Si es una conferencia
-				var anyo = parseInt(pub.publicationDate) // Igual que antes intenta coger el año
-				while(congress[anyo] == undefined){
-					anyo = anyo -1
-					if(anyo == 2000 ){
-						pub.congress = undefined
-					}
-				}
-				var congressTemp = congress[anyo] // Cuando lo encuentra busca a que categoria pertenece su congreso
-				for(let categoria in congressTemp){
-					if(congress[anyo][categoria].indexOf(pub.sourceTitle.toUpperCase()) != -1){
-						pub.congress = categoria
-						break;
-					}
-				}
-			}
-			pub.update()
+				pub.update()
+			})
 		})
-	})
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 readExcel()
@@ -175,6 +187,9 @@ var controller = {
 
 				if (pub.sourceType == "Journal") { // Mismo procedimiento que en save
 					var anyo = parseInt(pub.publicationDate)
+					if(isNaN(anyo)){
+						continue;
+					}
 					while(quartiles[anyo] == undefined){
 						anyo = anyo -1
 						if(anyo == 2000 ){
@@ -193,6 +208,9 @@ var controller = {
 					}
 				} else if (pub.sourceType.indexOf("Conference") != -1){ // Mismo procedimiento que en save
 					var anyo = parseInt(pub.publicationDate)
+					if(isNaN(anyo)){
+						continue;
+					}
 					while(congress[anyo] == undefined){
 						anyo = anyo -1
 						if(anyo == 2000 ){
@@ -254,7 +272,7 @@ var controller = {
 		readExcel2()
 	},
 
-	save: function (req, res) { 
+	save: function (req, res) {
 		var pub = req.body;
 		try {
 
@@ -262,6 +280,9 @@ var controller = {
 				// Se coge el año de la publicacion, y existe en el indice quartiles se sigue adelante, mientras no, intenta coger el anterior hasta eñ 2000
 				// en cuyo caso le pone undefined
 				var anyo = parseInt(pub.publicationDate)
+				if(isNaN(anyo)){
+					continue;
+				}
 				while(quartiles[anyo] == undefined){
 					anyo = anyo -1
 					if(anyo == 2000 ){
@@ -281,6 +302,9 @@ var controller = {
 				}
 			} else if (pub.sourceType.indexOf("Conference") != -1){ // Si es una conferencia
 				var anyo = parseInt(pub.publicationDate) // Igual que antes intenta coger el año
+				if(isNaN(anyo)){
+					continue;
+				}
 				while(congress[anyo] == undefined){
 					anyo = anyo -1
 					if(anyo == 2000 ){
@@ -407,6 +431,9 @@ var controller = {
 							for (pub in data){ // Por cada publicacion realiza el mismo procedimiento que en save para las stats
 								if (pub.sourceType == "Journal") {
 									var anyo = parseInt(pub.publicationDate)
+									if(isNaN(anyo)){
+										continue;
+									}
 									while(quartiles[anyo] == undefined){
 										anyo = anyo -1
 										if(anyo == 2000 ){
@@ -425,6 +452,9 @@ var controller = {
 									}
 								} else if (pub.sourceType.indexOf("Conference") != -1){
 									var anyo = parseInt(pub.publicationDate)
+									if(isNaN(anyo)){
+										continue;
+									}
 									while(congress[anyo] == undefined){
 										anyo = anyo -1
 										if(anyo == 2000 ){
@@ -443,6 +473,9 @@ var controller = {
 						} else { // Si solo hay 1 realiza el mismo procedimiento que en save para las stats
 							if (data[0].sourceType == "Journal") {
 								var anyo = parseInt(pub.publicationDate)
+								if(isNaN(anyo)){
+									continue;
+								}
 								while(quartiles[anyo] == undefined){
 									anyo = anyo -1
 									if(anyo == 2000 ){
@@ -461,6 +494,9 @@ var controller = {
 								}
 							} else if (pub.sourceType.indexOf("Conference") != -1){
 								var anyo = parseInt(pub.publicationDate)
+								if(isNaN(anyo)){
+									continue;
+								}
 								while(congress[anyo] == undefined){
 									anyo = anyo -1
 									if(anyo == 2000 ){
@@ -484,6 +520,9 @@ var controller = {
 						pub.project = projects
 						if (pub.sourceType == "Journal") {
 							var anyo = parseInt(pub.publicationDate)
+							if(isNaN(anyo)){
+								continue;
+							}
 							while(quartiles[anyo] == undefined){
 								anyo = anyo -1
 								if(anyo == 2000 ){
@@ -502,6 +541,9 @@ var controller = {
 							}
 						} else if (pub.sourceType.indexOf("Conference") != -1){
 							var anyo = parseInt(pub.publicationDate)
+							if(isNaN(anyo)){
+								continue;
+							}
 							while(congress[anyo] == undefined){
 								anyo = anyo -1
 								if(anyo == 2000 ){
