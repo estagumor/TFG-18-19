@@ -14,12 +14,12 @@ import { Project } from 'src/app/models/project';
 import { PersonService } from 'src/app/services/person.service';
 import { ProjectService } from 'src/app/services/project.service';
 
-function parsePerson(array): Person{
-    return new Person(array[0],array[1],array[2],array[3],array[4],array[5],array[6],array[7],array[8],array[9],array[10],array[11])
+function parsePerson(array): Person {
+    return new Person(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11])
 }
 
-function parseProject(array): Project{
-    return new Project(array[0],array[1],array[2],array[3],array[4],array[5],array[6],array[7],array[8],array[9],array[10],array[11],array[12],array[13])
+function parseProject(array): Project {
+    return new Project(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11], array[12], array[13])
 }
 
 class MockActivatedRoute extends ActivatedRoute {
@@ -86,25 +86,25 @@ describe("Publication's component", () => {
 
     beforeEach(async(() => {
         personServiceStub = {
-            getAll: function(){
-                return of({"body": {"persons": persons}})
+            getAll: function () {
+                return of({ "body": { "persons": persons } })
             }
         }
         projectServiceStub = {
-            getProjects: function() {
-                return of({"body": {"projects": projects}})
+            getProjects: function () {
+                return of({ "body": { "projects": projects } })
             }
         }
         const personService = jasmine.createSpyObj("PersonService", ["getAll"]);
         const projectService = jasmine.createSpyObj("ProjectService", ["getProjects"]);
-        getAllSpy = personService.getAll.and.returnValue(of({"body": {"persons": persons[0]}}));
-        getProjectsSpy = projectService.getProjects.and.returnValue(of({"body": {"projects": projects[0]}}));
+        getAllSpy = personService.getAll.and.returnValue(of({ "body": { "persons": persons[0] } }));
+        getProjectsSpy = projectService.getProjects.and.returnValue(of({ "body": { "projects": projects[0] } }));
         activatedRouteStub = new MockActivatedRoute();
         // Set the component configuration and add it the necessary imports
         TestBed.configureTestingModule({
             declarations: [PublicationCreateComponent, AcompleteComponent],
             imports: [ReactiveFormsModule, FormsModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
-            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub}, {provide: PersonService, useValue: personServiceStub}, {provide: ProjectService, useValue: projectServiceStub}]
+            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, { provide: PersonService, useValue: personServiceStub }, { provide: ProjectService, useValue: projectServiceStub }]
         })
             .compileComponents();
 
@@ -121,6 +121,13 @@ describe("Publication's component", () => {
         router = bannerDe.injector.get(Router);
         routerSpy = spyOn(router, "navigate").and.returnValue("/publications");
         createSpy = spyOn(publicationService, "create").and.returnValue(of(true));
+        getCongressSpy = spyOn(publicationService, "getCongressTitles").and.returnValue(of({
+            "body": {
+                "congressTitles": {
+
+                }
+            }
+        }));
     });
 
     it('should create', () => {
@@ -150,13 +157,6 @@ describe("Publication's component", () => {
                 }
             }
         }));
-        getCongressSpy = spyOn(publicationService, "getCongressTitles").and.returnValue(of({
-            "body": {
-                "congressTitles": {
-
-                }
-            }
-        }));
         fixture.detectChanges();
         expect(getSpy).toHaveBeenCalled();
         expect(getCongressSpy).toHaveBeenCalled();
@@ -183,13 +183,13 @@ describe("Publication's component", () => {
                 let temp = [...Object.values(p)]
                 return parsePerson([...temp])
             });
-        } catch (error) {}
+        } catch (error) { }
         try {
             component.projects = projects.map((p) => {
                 let temp = [...Object.values(p)]
                 return parseProject([...temp])
-            }); 
-        } catch (error) {}
+            });
+        } catch (error) { }
 
         documentType.setAttribute('value', 'Book');
         articleTitle.setAttribute('value', 'US');
@@ -252,13 +252,13 @@ describe("Publication's component", () => {
                 let temp = [...Object.values(p)]
                 return parsePerson([...temp])
             });
-        } catch (error) {}
+        } catch (error) { }
         try {
             component.projects = projects.map((p) => {
                 let temp = [...Object.values(p)]
                 return parseProject([...temp])
-            }); 
-        } catch (error) {}
+            });
+        } catch (error) { }
         // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
         // Get the button that send the form and two inputs to set their values
         let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
@@ -272,15 +272,15 @@ describe("Publication's component", () => {
         expect(routerSpy).toHaveBeenCalled();
         expect(element.querySelector("input[name='articleTitle']").textContent = "Titulo2");
         expect(element.querySelector("select[name='sourceType']").textContent = "Book");
-      });
+    });
 
     it('should try the auxiliar methods', () => {
         try {
             component.projects = projects.map((p) => {
                 let temp = [...Object.values(p)]
                 return parseProject([...temp])
-            }); 
-        } catch (error) {}
+            });
+        } catch (error) { }
         let proj = parseProject(projects[0])
         expect(component.getProjects(["Metamorphic testing of RESTful Web APIs"])[0] == proj);
         expect(component.getStringProjects([proj])[0] == "Metamorphic testing of RESTful Web APIs");
@@ -290,7 +290,7 @@ describe("Publication's component", () => {
                 let temp = [...Object.values(p)]
                 return parsePerson([...temp])
             });
-        } catch (error) {}
+        } catch (error) { }
         let per = parsePerson(persons[0])
         expect(component.getPersons(["Parejo"])[0] == per);
         expect(component.getStringPersons([per])[0] == "José Antonio Parejo");

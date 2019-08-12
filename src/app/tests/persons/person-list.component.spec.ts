@@ -9,6 +9,7 @@ import { DebugElement } from '@angular/core';
 import { MatAutocompleteModule, MatInputModule, MatChipsModule, MatIconModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Person } from 'src/app/models/person';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 class MockActivatedRoute extends ActivatedRoute {
     constructor() {
@@ -33,6 +34,7 @@ describe('PersonListComponent', () => {
     let router;
     let activatedRouteStub: MockActivatedRoute;
     let element;
+    let testbed;
     let persons = [{
         name: "José Antonio",
         surname: "Parejo",
@@ -93,6 +95,10 @@ describe('PersonListComponent', () => {
             declarations: [PersonListComponent, DisplayComponent],
             imports: [HttpClientModule, MatDialogModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
             providers: [{ provide: PersonService, useValue: personServiceStub }, { provide: ActivatedRoute, useValue: activatedRouteStub }],
+        }).overrideModule(BrowserDynamicTestingModule, { //https://stackoverflow.com/questions/41483841/providing-entrycomponents-for-a-testbed/45550720
+            set: {
+                entryComponents: [DisplayComponent]
+            }
         })
             .compileComponents();
     }));

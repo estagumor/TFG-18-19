@@ -82,15 +82,15 @@
             <br>
             <tr>
                 <th>
-                    <button class="btn-primary" type="button" (click)="editProject()">Editar proyecto</button>
-                    <button class="btn-primary" type="button" (click)="deleteProject()">Borrar proyecto</button>
+                    <button class="btn-primary" id="editButton" name="editButton" type="button" (click)="editProject()">Editar proyecto</button>
+                    <button class="btn-primary" id="deleteButton" name="editButton" type="button" (click)="deleteProject()">Borrar proyecto</button>
                 </th>
                 <td></td>
             </tr>
         </tbody>
     </table>
 
-    <table class="table" [hidden]="!clicked">
+    <table class="table" id="showPublicationProject" [hidden]="!clicked">
         <thead class="thead-display">
             <th scope="col">Publicaciones relacionadas</th>
         </thead>
