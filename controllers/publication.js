@@ -11,20 +11,8 @@ var quartiles = {}
 var congress = {}
 var congressTitles = []
 var fs = require('fs') // Libreria de manejo de archivos
-// 200 -> OK, 201 -> Created, 400 -> Bad Request, 500 -> Internal Server Error, 503 -> Service Unavailable
-/*
-	Funcion que lee los archivos situados en la carpeta /controllers/excels/revistas y para cada uno guarda en un indice
-	las revistas catalogadas en cada categoria, con la siguiente estructura
-	{"2018": 
-		{"Q1": 
-			{"Revista1","Revista2"}
-		}, {"Q2":
-			{"Revista3"}	
-		}...
-	,"2019":
-		...
-	}
-*/
+
+
 function readExcel(){
 	var result = {}
 	var res = {"Q1": [], "Q2":[], "Q3": [], "Q4": []}
@@ -61,19 +49,6 @@ function readExcel(){
 	quartiles = result // Guarda el resultado en la variable global quartiles
 }
 
-/*
-	Funcion que lee los archivos situados en la carpeta /controllers/excels/congresos y para cada uno guarda en un indice
-	los congresos catalogados en cada categoria, con la siguiente estructura
-	{"2018": 
-		{"A": 
-			{"Congreso1","Congreso2"}
-		}, {"A-":
-			{"Congreso3"}	
-		}...
-	,"2019":
-		...
-	}
-*/
 function readExcel2() {
 	var res = { "A++": [], "A+": [], "A": [], "A-": [], "B": [], "B-": [], "C": [], "": [] };
 	var result = {}
@@ -573,25 +548,6 @@ var controller = {
 			}
 			return res.status(200).send({ pubs })
 		})
-
-		// Publication.findByProject(projectId, (err,pubs) => {
-		// 	if(err)
-		// 		return res.status(500).send({err})
-
-		// 	console.log(pubs)
-		// 	return res.status(200).send({pubs})
-		// })
-
-
-
-		// , (err,pubs)=> {
-		// 	if (err) {
-		// 		return res.status(500).send({err})
-		// 	}
-		// 	console.log(pubs)
-		// 	return res.status(200).send({pubs})
-		// })
-		// {"project":ObjectId("5c8ce4688c84505ba102729d")}
 	},
 
 	getCongressTitles: function(req, res){
@@ -601,37 +557,6 @@ var controller = {
 			res.status(200).send({congressTitles})
 		}
 	} 
-
-	// updatepub: function(req, res){
-	// 	var pr{"project":ObjectId("5c8ce4688c84505ba102729d")}oyectId = req.params.id;
-	// 	var datosUpdate = req.body;
-
-	// 	pub.findOneAndUpdate(proyectId, datosUpdate, {new:true}, (err, pubUpdated) => {
-	// 		if (err) return res.status(500).send({message: "Error al actualizar"});
-
-	// 		if(!pubUpdated) return res.status(404).send({message: "No se ha podido actualizar"});
-
-	// 		return res.status(200).send({
-	// 			pub: pubUpdated
-	// 		})
-	// 	});
-
-
-	// },
-
-	// deletepub: function(req, res){
-	// 	var pubId = req.params.id;
-
-	// 	pub.findByIdAndDelete(pubId, (err, pubDeleted) => {
-	// 		if(err) return res.status(500).send({message: 'No se ha podido borrar el proyecto'});
-
-	// 		if(!pubDeleted) return res.status(404).send({message: "No se puede eliminar ese proyecto"});
-
-	// 		return res.status(200).send({
-	// 			pub: pubRemoved
-	// 		})
-	// 	});
-	// }
 };
 
 module.exports = controller;
