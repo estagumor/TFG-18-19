@@ -1,8 +1,10 @@
+@person
 Feature: Display people data
     As researcher
     I would like to edit my personal data in the site
     So i want to be able to see it
 
+    @display
     Scenario: Display person
         Given I am on the main page
         When I click in the person list link

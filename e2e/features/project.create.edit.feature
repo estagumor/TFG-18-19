@@ -1,8 +1,10 @@
+@person
 Feature: Person create and edit
     As a researcher
     I want to insert to the system new projects
     So I want to be able to create and edit projects
 
+    @create
     Scenario: Create project
         Given I am on the main page
         When I click in the project list link
@@ -11,6 +13,7 @@ Feature: Person create and edit
         Then I hit the 'Guardar' button
         Then I should get redirected to the list page
 
+    @edit
     Scenario: Edit project
         Given I am on the main page
         When I click in the project list link
