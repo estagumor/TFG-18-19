@@ -16,4 +16,7 @@ Feature: Search and filter the projects
         When I write 'AUTOMATED VALIDATION OF COMPENSABLE SLAS' on the search input
         Then I should see only one project with the same title
 
-        
+    @filter
+    Scenario: Filter projects from 3 years ago
+        When I click on the three years button
+        Then I should see two projects with titles 'METAMORPHIC TESTING OF RESTFUL WEB APIS' and 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'

@@ -131,17 +131,23 @@ export class ProjectListComponent implements OnInit {
   // }
 
   getStatus(project) {
-    const eD = new Date(project.endDate);
-    const now = new Date();
-    var time = now.getFullYear() - eD.getFullYear();
-    if (time <= 0) {
+    var eD = null
+    if (project.endDate){
+      eD = new Date(project.endDate);
+    }
+
+    if(eD) {
+      const now = new Date();
+      var time = now.getFullYear() - eD.getFullYear();
+      if (time <= 0) {
+        return "activo";
+      } else if (time <= 3 && time > 0) {
+        return "tres";
+      }else {
+        return "cinco";
+      }
+    } else {
       return "activo";
-    } else if (time <= 3 && time > 0) {
-      return "tres";
-    } else if (project.endDate == undefined) {
-      return "activo"
-    }else {
-      return "cinco";
     }
   }
 
