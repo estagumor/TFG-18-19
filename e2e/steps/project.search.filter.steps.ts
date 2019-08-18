@@ -1,27 +1,26 @@
-import { When, Then } from "cucumber";
+import { When, Then, Before } from "cucumber";
+import { ProjectSearchFilterPage } from "../src/project.search.filter.po";
+
+const assert = require("assert");
+let app: ProjectSearchFilterPage;
+
+Before(() => {
+    app = new ProjectSearchFilterPage();
+});
 
 When('I write {string} on the search input', function (string) {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return app.writeInput(string);
 });
 
 Then('I should see only one project with the title {string}', function (string) {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
-});
-
-Then('I should see only one project with the same title', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return app.getAllTitles().then(all => assert.equal(all.length, 1) && assert.equal(app.getTitle(0), string));
 });
 
 When('I click on the three years button', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return app.filterClick();
 });
 
 Then('I should see two projects with titles {string} and {string}', function (string, string2) {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return app.getAllTitles().then(all => assert.equal(all.length, 2) && assert.equal(app.getTitle(0), string) && assert.equal(app.getTitle(1), string2));
 });
 

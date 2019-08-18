@@ -15,5 +15,10 @@ export class ProjectDisplayPage {
         browser.sleep(1000);
         return element(by.id(string)).getText;
     }
+
+    public returnUrl(){
+        browser.sleep(1000);
+        return browser.getCurrentUrl();
+    }
 }
 

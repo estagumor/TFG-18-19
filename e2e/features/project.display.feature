@@ -8,5 +8,6 @@ Feature: Show the information of a project
     @display
     Scenario: Display project
         Given I click in 'projectsLink' link
-        When I click in 'displayButton' button of a project
+        When I click in the 'displayButton' button
+        Then the url should contain the pattern '/project/display'
         Then I should see the 'Detalles del proyecto' header

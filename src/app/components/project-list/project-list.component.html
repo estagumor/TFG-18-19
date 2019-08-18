@@ -11,7 +11,7 @@
 		<!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
 		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/project']" id="createProject">Crear proyecto</button>
-		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/project']">Estadísticas</button>
+		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/project']" name="stats">Estadísticas</button>
 		<section class="content">
 			<br>
 			<div class="col-md-8 col-md-offset-2">
@@ -21,7 +21,7 @@
 							<div class="btn-group">
 								<button type="button" class="btn btn-success btn-filter press" data-target="activo"
 									(click)="boton('activo')">Activos</button>
-								<button type="button" class="btn btn-warning btn-filter press" data-target="tres"
+								<button type="button" id="tresAnyosFilter" class="btn btn-warning btn-filter press" data-target="tres"
 									(click)="boton('tres')">3
 									años</button>
 								<button type="button" class="btn btn-danger btn-filter press" data-target="cinco"

@@ -8,13 +8,13 @@ Feature: Search and filter the projects
 
     @search
     Scenario: Search project by reference
-        When I write 'EUROPEO - 002' on the search input
+        When I write '002' on the search input
         Then I should see only one project with the title 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'
 
     @search
     Scenario: Search project by title
-        When I write 'AUTOMATED VALIDATION OF COMPENSABLE SLAS' on the search input
-        Then I should see only one project with the same title
+        When I write 'AUTOMATED' on the search input
+        Then I should see only one project with the title 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'
 
     @filter
     Scenario: Filter projects from 3 years ago

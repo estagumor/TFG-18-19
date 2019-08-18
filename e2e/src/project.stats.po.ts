@@ -1,6 +1,6 @@
-import { element, by, browser, protractor } from "protractor";
+import { element, by, browser } from "protractor";
 
-export class ProjectSearchFilterPage {
+export class ProjectStatsPage {
     public writeInput(string) {
         browser.sleep(1000);
         var input = element(by.id('filterInput')).sendKeys(string);
@@ -21,4 +21,6 @@ export class ProjectSearchFilterPage {
         browser.sleep(1000);
         return element(by.id('tresAnyosFilter')).click();
     }
+
+    //chartjs-render-monitor
 }
