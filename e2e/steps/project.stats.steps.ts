@@ -9,6 +9,5 @@ Before(() => {
 });
 
 Then('I should see two tables with some data', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return app.getAllCharts().then(charts => assert(charts.length = 2));
   });

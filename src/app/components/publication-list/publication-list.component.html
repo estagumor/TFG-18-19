@@ -3,9 +3,9 @@
   <br>
   <div class="row" id="listPublicationsTable">
     <label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre, fecha o autores</label>
-    <input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado">
+    <input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado" name="filterInput">
     <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/publication']">Crear publicación</button>
-    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/publication']">Estadísticas</button>
+    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/publication']" name="stats">Estadísticas</button>
     <section class="content">
       <br>
       <div class="col-md-8 col-md-offset-2">
@@ -18,10 +18,10 @@
                     <td>
                       <div class="media">
                         <div class="media-body">
-                          <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>:
-                          <a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">{{pub.articleTitle}}</a>.
-                          {{pub.sourceTitle}}:
-                          {{pub.pageRange}} ({{pub.publicationDate}})
+                          <span *ngFor="let auth of pub.authors" name="author">{{auth.name}} {{auth.surname}} </span>:
+                          <a href="https://dx.doi.org/{{pub.DOI}}" target="_blank" name="title">{{pub.articleTitle}}</a>.
+                          <span name="source">{{pub.sourceTitle}}:</span>
+                          <span name="pageRange">{{pub.pageRange}}</span> <span name="publicationDate">({{pub.publicationDate}})</span>
                           <p><a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">Ir a la publicación</a></p>
                           <button class="btn-primary" name="displayButton" type="button"
                             (click)="displayPublication(pub._id)">Display</button>
