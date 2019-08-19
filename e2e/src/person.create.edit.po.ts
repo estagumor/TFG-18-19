@@ -30,7 +30,7 @@ export class PersonCreateEditPage {
   }
 
   public setSurname(surname){
-      element(by.id("surname")).sendKeys(Key.DELETE)
+      element(by.id("surname")).clear()
       return element(by.id("surname")).sendKeys(surname)
   }
 

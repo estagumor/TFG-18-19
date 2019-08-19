@@ -20,5 +20,5 @@ import { PersonDisplayPage } from '../src/person.display.po';
     // return app.getDetailInfo().then(encabezados => {
     //     expect(encabezados[1].getText()).to.be.equal('Email')
     // }, reason => console.log(reason));
-    return 'pending'
+    return app.getDetailInfo().then(string => expect(string).to.be.equal('Detalles del perfil'.toUpperCase()))
   });

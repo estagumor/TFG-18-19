@@ -17,7 +17,7 @@ export class PersonDisplayPage {
 
   public getDetailInfo(){
     // browser.sleep(4000)
-    return element.all(by.className("encabezado"))
+    return element(by.tagName("h1")).getText()
   }
 
 }

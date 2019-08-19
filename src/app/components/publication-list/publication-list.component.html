@@ -4,7 +4,8 @@
   <div class="row" id="listPublicationsTable">
     <label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre, fecha o autores</label>
     <input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado" name="filterInput">
-    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/publication']">Crear publicación</button>
+    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/publication']" id="createPublication">Crear publicación</button>
+    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/publications/import']" id="importPublications">Importar publicaciones</button>
     <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/publication']" name="stats">Estadísticas</button>
     <section class="content">
       <br>
@@ -24,7 +25,7 @@
                           <span name="pageRange">{{pub.pageRange}}</span> <span name="publicationDate">({{pub.publicationDate}})</span>
                           <p><a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">Ir a la publicación</a></p>
                           <button class="btn-primary" name="displayButton" type="button"
-                            (click)="displayPublication(pub._id)">Display</button>
+                            (click)="displayPublication(pub._id)">Mostrar</button>
                         </div>
                       </div>
                     </td>

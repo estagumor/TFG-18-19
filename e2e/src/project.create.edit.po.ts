@@ -19,6 +19,16 @@ export class ProjectCreateEditPage {
     var status = element(by.id("status")).sendKeys(Key.ARROW_DOWN);
     var sponsor = element(by.id("sponsor")).sendKeys("US");
     var amount = element(by.id("amount")).sendKeys("1022.2");
+    element(by.xpath('//*[@id="mat-chip-list-input-0"]')).sendKeys("a")
+    element(by.xpath('//*[@id="mat-chip-list-input-0"]')).sendKeys(Key.ARROW_DOWN)
+    element(by.xpath('//*[@id="mat-chip-list-input-0"]')).sendKeys(Key.ENTER)
+    element(by.xpath('//*[@id="mat-chip-list-input-1"]')).sendKeys("r")
+    element(by.xpath('//*[@id="mat-chip-list-input-1"]')).sendKeys(Key.ARROW_DOWN)
+    element(by.xpath('//*[@id="mat-chip-list-input-1"]')).sendKeys(Key.ENTER)
+    element(by.xpath('//*[@id="mat-chip-list-input-3"]')).sendKeys("a")
+    element(by.xpath('//*[@id="mat-chip-list-input-3"]')).sendKeys(Key.ARROW_DOWN)
+    element(by.xpath('//*[@id="mat-chip-list-input-3"]')).sendKeys(Key.ENTER)
+
     return amount
   }
 
@@ -42,6 +52,7 @@ export class ProjectCreateEditPage {
   }
 
   public setTitle(title){
+      element(by.id("title")).clear()
       return element(by.id("title")).sendKeys(title)
   }
   
