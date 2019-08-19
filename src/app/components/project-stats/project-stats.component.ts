@@ -51,6 +51,7 @@ export class ProjectStatsComponent implements OnInit {
   //Identifica los barChart
   public barChartData = [{ data: [], label: "Actives" }]
   public barChartData2 = [{ data: [], label: "Average-amount" }]
+  public string: string;
 
   constructor(
     //Declaramos el servicio para utilizarlo mas adelante
@@ -89,7 +90,7 @@ export class ProjectStatsComponent implements OnInit {
         if (proj.startDate != undefined) {
           if (proj.startDate instanceof Date) {
             startDate = proj.startDate
-          } else if (proj.startDate instanceof String) {
+          } else if (typeof(proj.startDate) == "string") {
             startDate = new Date(proj.startDate.toString())
           } else {
             startDate = new Date(proj.startDate["month"], proj.startDate["day"], proj.startDate["year"])
