@@ -158,10 +158,37 @@ var controller = {
 			relatedTools: [],
 			startDate: new Date("2017-09-01")
 		}
-
+		var pro6 = {
+			researchTeam : [person5],
+			workTeam: [],
+			hiredStaff: [],
+			title: "This is a test",
+			leader: person5,
+			reference: "006",
+			scope: "EUROPEO",
+			status: "ACEPTADO",
+			amount: 200000,
+			relatedTools: [],
+			startDate: new Date("2015-01-01"),
+			endDate: new Date("2015-03-03")
+		}
+		var pro7 = {
+			researchTeam : [person2, person4],
+			workTeam: [],
+			hiredStaff: [],
+			title: "This is another test",
+			leader: person2,
+			reference: "007",
+			scope: "EUROPEO",
+			status: "ACEPTADO",
+			amount: 200000,
+			relatedTools: [],
+			startDate: new Date("2015-01-01"),
+			endDate: new Date("2017-04-31")
+		}
 		const createPerson = Person.create([person1,person2,person3,person4,person5,person6])
 		
-		const createProject = Project.create([pro1, pro2, pro3, pro4, pro5])
+		const createProject = Project.create([pro1, pro2, pro3, pro4, pro5, pro6, pro7])
 		const createPublication = data => {
 			var pub1 = {
 				scopusId: "SCOPUS_ID:85032230617",

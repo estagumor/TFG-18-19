@@ -33,7 +33,7 @@ class MockActivatedRoute extends ActivatedRoute {
     }
 }
 
-describe("Publication's component", () => {
+xdescribe("Publication's component", () => {
     let component: PublicationCreateComponent;
     let fixture: ComponentFixture<PublicationCreateComponent>;
     let publicationService: PublicationService;
