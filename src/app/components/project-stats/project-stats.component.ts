@@ -186,6 +186,8 @@ export class ProjectStatsComponent implements OnInit {
           } //Si no tiene fecha de inicio pasamos de el
         }
       })
+      console.log(this.avgAm);
+      console.log(this.count);
       this.barChartData = [
         {
           data: [this.avgAm[0] / this.count[0], this.avgAm[1] / this.count[1], this.avgAm[2] / this.count[2],

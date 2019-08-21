@@ -83,6 +83,34 @@ let projects = [{
   "status": "ACEPTADO",
   "sponsor": "This is a sponsor",
   "startDate": new Date("2015-01-01"),
+  "amount": 200000,
+  "relatedTools": []
+},{
+  "researchTeam": persons,
+  "workTeam": [],
+  "hiredStaff": [],
+  "title": "Metamorphic testing of RESTful Web APIs",
+  "description": "This is a description",
+  "leader": persons[0],
+  "reference": "001",
+  "scope": "EUROPEO",
+  "status": "ACEPTADO",
+  "sponsor": "This is a sponsor",
+  "startDate": new Date("2017-09-01"),
+  "amount": 200000,
+  "relatedTools": []
+},{
+  "researchTeam": persons,
+  "workTeam": [],
+  "hiredStaff": [],
+  "title": "Metamorphic testing of RESTful Web APIs",
+  "description": "This is a description",
+  "leader": persons[0],
+  "reference": "001",
+  "scope": "EUROPEO",
+  "status": "ACEPTADO",
+  "sponsor": "This is a sponsor",
+  "startDate": new Date("2015-01-01"),
   "endDate": new Date("2015-03-03"),
   "amount": 200000,
   "relatedTools": []
@@ -134,7 +162,8 @@ let projects = [{
     expect(component).toBeTruthy();
   });
 
-  xit('should return the values correctly', () => {
-
+  it('should return the values correctly', () => {
+    expect(component.avgAm).toEqual([225720, 63954, 71280, 71280, 187915, 145570, 102960, 102960, 309537, 102960, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
+    expect(component.count).toEqual([3, 3, 2, 2, 4, 4, 3, 3, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }); 
 });
