@@ -133,20 +133,12 @@ describe('Estadísticas de publicación', () => {
     }]
 
     beforeEach(async(() => {
-        PublicationServiceStub = {
-            list: function () {
-                return of({ "body": { "pubs": publications } });
-            },
-            filterByProject: function (id) {
-                return of({ "body": { "pubs": publications } });
-            }
-        }
 
         activatedRouteStub = new MockActivatedRoute();
         TestBed.configureTestingModule({
             declarations: [PublicationStatsComponent],
             imports: [ChartsModule, HttpClientModule],
-            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, { provide: PublicationService, useValue: PublicationServiceStub }]
+            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }]
         })
             .compileComponents();
     }));
@@ -161,8 +153,8 @@ describe('Estadísticas de publicación', () => {
         element = bannerEl;
 
         publicationService = bannerDe.injector.get(PublicationService)
-        listSpy = spyOn(publicationService, "list").and.returnValue(of(true));
-        filterSpy = spyOn(publicationService, "filterByProject").and.returnValue(of(true));
+        listSpy = spyOn(publicationService, "list").and.returnValue(of({ "body": { "pubs": publications } }));
+        filterSpy = spyOn(publicationService, "filterByProject").and.returnValue(of({ "body": { "pubs": publications } }));
     });
 
     it('debe crearse', () => {

@@ -33,7 +33,7 @@ class MockActivatedRoute extends ActivatedRoute {
     }
 }
 
-xdescribe("Publication's component", () => {
+describe("Publication's component", () => {
     let component: PublicationCreateComponent;
     let fixture: ComponentFixture<PublicationCreateComponent>;
     let publicationService: PublicationService;
@@ -83,6 +83,7 @@ xdescribe("Publication's component", () => {
     let personServiceStub: Partial<PersonService>;
     let projectService: ProjectService;
     let projectServiceStub: Partial<ProjectService>;
+    let publicationServiceStub: Partial<PublicationService>;
 
     beforeEach(async(() => {
         personServiceStub = {
@@ -95,6 +96,11 @@ xdescribe("Publication's component", () => {
                 return of({ "body": { "projects": projects } })
             }
         }
+        publicationServiceStub = {
+            getCongressTitles: function () {
+                return of({"body": {"congressTitles": []}})
+            }
+        }
         const personService = jasmine.createSpyObj("PersonService", ["getAll"]);
         const projectService = jasmine.createSpyObj("ProjectService", ["getProjects"]);
         getAllSpy = personService.getAll.and.returnValue(of({ "body": { "persons": persons[0] } }));
@@ -104,7 +110,7 @@ xdescribe("Publication's component", () => {
         TestBed.configureTestingModule({
             declarations: [PublicationCreateComponent, AcompleteComponent],
             imports: [ReactiveFormsModule, FormsModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
-            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, { provide: PersonService, useValue: personServiceStub }, { provide: ProjectService, useValue: projectServiceStub }]
+            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, { provide: PublicationService, useValue: publicationServiceStub}, { provide: PersonService, useValue: personServiceStub }, { provide: ProjectService, useValue: projectServiceStub }]
         })
             .compileComponents();
 
@@ -121,13 +127,6 @@ xdescribe("Publication's component", () => {
         router = bannerDe.injector.get(Router);
         routerSpy = spyOn(router, "navigate").and.returnValue("/publications");
         createSpy = spyOn(publicationService, "create").and.returnValue(of(true));
-        getCongressSpy = spyOn(publicationService, "getCongressTitles").and.returnValue(of({
-            "body": {
-                "congressTitles": {
-
-                }
-            }
-        }));
     });
 
     it('should create', () => {
@@ -159,7 +158,6 @@ xdescribe("Publication's component", () => {
         }));
         fixture.detectChanges();
         expect(getSpy).toHaveBeenCalled();
-        expect(getCongressSpy).toHaveBeenCalled();
         expect(element.querySelector("input[name='articleTitle']").textContent = "Metamorphic testing of RESTful Web APIs");
     });
 
