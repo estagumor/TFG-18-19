@@ -133,12 +133,16 @@ describe('Estadísticas de publicación', () => {
     }]
 
     beforeEach(async(() => {
+        const publicationService = jasmine.createSpyObj("PublicationService", ["list", "filterByProject"]);
+
+        listSpy = publicationService.list.and.returnValue(of({ "body": { "pubs": publications } }));
+        filterSpy = publicationService.filterByProject.and.returnValue(of({ "body": { "pubs": publications } }));
 
         activatedRouteStub = new MockActivatedRoute();
         TestBed.configureTestingModule({
             declarations: [PublicationStatsComponent],
             imports: [ChartsModule, HttpClientModule],
-            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }]
+            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, {provide: PublicationService, useValue: publicationService}]
         })
             .compileComponents();
     }));
@@ -153,8 +157,6 @@ describe('Estadísticas de publicación', () => {
         element = bannerEl;
 
         publicationService = bannerDe.injector.get(PublicationService)
-        listSpy = spyOn(publicationService, "list").and.returnValue(of({ "body": { "pubs": publications } }));
-        filterSpy = spyOn(publicationService, "filterByProject").and.returnValue(of({ "body": { "pubs": publications } }));
     });
 
     it('debe crearse', () => {

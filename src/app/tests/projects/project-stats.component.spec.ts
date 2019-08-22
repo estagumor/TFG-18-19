@@ -12,6 +12,7 @@ describe('ProjectStatsComponent', () => {
   let element: HTMLElement;
   let projectService: ProjectService;
   let projectServiceStub: Partial<ProjectService>;
+  let getNewProjectsSpy;
   let persons = [{
     "name": "José Antonio",
     "surname": "Parejo",
@@ -27,7 +28,7 @@ describe('ProjectStatsComponent', () => {
     "active": true,
     "_id": "5cefa10805b13e789525ce33",
   }];
-let projects = [{
+  let projects = [{
   "researchTeam": persons,
   "workTeam": [],
   "hiredStaff": [],
@@ -132,18 +133,18 @@ let projects = [{
 }];
 
   beforeEach(async(() => {
-    projectServiceStub = {
-      getNewsProjects: function() {
-        return of({"body": {"projects": projects } })
-      }
-    }
+    // projectServiceStub = {
+    //   getNewsProjects: function() {
+    //     return of({"body": {"projects": projects } })
+    //   }
+    // }
 
     const projectService = jasmine.createSpyObj("ProjectService", ["getNewsProjects"]);
-
+    getNewProjectsSpy = projectService.getNewsProjects.and.returnValue(of({"body": {"projects": projects}}))
     TestBed.configureTestingModule({
       declarations: [ ProjectStatsComponent ],
       imports: [ChartsModule],
-      providers: [{provide: ProjectService, useValue: projectServiceStub}]
+      providers: [{provide: ProjectService, useValue: projectService}]
     })
     .compileComponents();
   }));
@@ -155,7 +156,6 @@ let projects = [{
     const bannerDe: DebugElement = fixture.debugElement;
     var bannerEl: HTMLElement = bannerDe.nativeElement;
     element = bannerEl;
-    projectService = bannerDe.injector.get(ProjectService);
   });
 
   it('should create', () => {
@@ -163,7 +163,7 @@ let projects = [{
   });
 
   it('should return the values correctly', () => {
-    expect(component.avgAm).toEqual([225720, 63954, 71280, 71280, 187915, 145570, 102960, 102960, 309537, 102960, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
+    expect(component.avgAm).toEqual([225000, 65000, 71100, 71100, 187915, 145481, 102960, 102960, 309537, 102960, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
     expect(component.count).toEqual([3, 3, 2, 2, 4, 4, 3, 3, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }); 
 });

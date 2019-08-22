@@ -84,6 +84,7 @@ describe("Publication's component", () => {
     let projectService: ProjectService;
     let projectServiceStub: Partial<ProjectService>;
     let publicationServiceStub: Partial<PublicationService>;
+    let getCongressTitlesSpy
 
     beforeEach(async(() => {
         personServiceStub = {
@@ -103,42 +104,11 @@ describe("Publication's component", () => {
         }
         const personService = jasmine.createSpyObj("PersonService", ["getAll"]);
         const projectService = jasmine.createSpyObj("ProjectService", ["getProjects"]);
+        const publicationService = jasmine.createSpyObj("PublicationService", ["getCongressTitles","create","getPublication","updatePublication"]);
         getAllSpy = personService.getAll.and.returnValue(of({ "body": { "persons": persons[0] } }));
-        getProjectsSpy = projectService.getProjects.and.returnValue(of({ "body": { "projects": projects[0] } }));
-        activatedRouteStub = new MockActivatedRoute();
-        // Set the component configuration and add it the necessary imports
-        TestBed.configureTestingModule({
-            declarations: [PublicationCreateComponent, AcompleteComponent],
-            imports: [ReactiveFormsModule, FormsModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
-            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, { provide: PublicationService, useValue: publicationServiceStub}, { provide: PersonService, useValue: personServiceStub }, { provide: ProjectService, useValue: projectServiceStub }]
-        })
-            .compileComponents();
-
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(PublicationCreateComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        const bannerDe: DebugElement = fixture.debugElement;
-        var bannerEl: HTMLElement = bannerDe.nativeElement;
-        element = bannerEl;
-        publicationService = bannerDe.injector.get(PublicationService)
-        router = bannerDe.injector.get(Router);
-        routerSpy = spyOn(router, "navigate").and.returnValue("/publications");
-        createSpy = spyOn(publicationService, "create").and.returnValue(of(true));
-    });
-
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('should enter the edit mode and display values of the publication', () => {
-        activatedRouteStub.setParamsMock([{ "id?": "sd56f4s" }])
-        fixture = TestBed.createComponent(PublicationCreateComponent);
-        component = fixture.componentInstance;
-        publicationService = fixture.debugElement.injector.get(PublicationService);
-        getSpy = spyOn(publicationService, "getPublication").and.returnValue(of({
+        getCongressTitlesSpy = publicationService.getCongressTitles.and.returnValue(of({"body": {"congressTitles": []}}));
+        createSpy = publicationService.create.and.returnValue(of(true));
+        getSpy = publicationService.getPublication.and.returnValue(of({
             "body": {
                 "pub": {
                     scopusId: "SCOPUS_ID:85032230617",
@@ -156,6 +126,55 @@ describe("Publication's component", () => {
                 }
             }
         }));
+        updateSpy = publicationService.updatePublication.and.returnValue(of({
+            "body": {
+                "pub": {
+                    scopusId: "SCOPUS_ID:85032230617",
+                    articleTitle: "Titulo2",
+                    sourceType: "Journal",
+                    documentType: "Article",
+                    sourceTitle: "IEEE Transactions on Software Engineering",
+                    pageRange: "1083-1099",
+                    publicationDate: "2018",
+                    DOI: "10.1109/TSE.2017.2764464",
+                    authors: persons,
+                    affiliation: "Universidad de Sevilla",
+                    project: [projects],
+                    assigned: true
+                }
+            }
+        }));
+        getProjectsSpy = projectService.getProjects.and.returnValue(of({ "body": { "projects": projects[0] } }));
+        activatedRouteStub = new MockActivatedRoute();
+        // Set the component configuration and add it the necessary imports
+        TestBed.configureTestingModule({
+            declarations: [PublicationCreateComponent, AcompleteComponent],
+            imports: [ReactiveFormsModule, FormsModule, HttpClientModule, MatAutocompleteModule, MatInputModule, MatChipsModule, BrowserAnimationsModule, MatIconModule, RouterModule.forRoot([])],
+            providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }, { provide: PublicationService, useValue: publicationService}, { provide: PersonService, useValue: personServiceStub }, { provide: ProjectService, useValue: projectServiceStub }]
+        })
+            .compileComponents();
+
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PublicationCreateComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        const bannerDe: DebugElement = fixture.debugElement;
+        var bannerEl: HTMLElement = bannerDe.nativeElement;
+        element = bannerEl;
+        router = bannerDe.injector.get(Router);
+        routerSpy = spyOn(router, "navigate").and.returnValue("/publications");
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('should enter the edit mode and display values of the publication', () => {
+        activatedRouteStub.setParamsMock([{ "id?": "sd56f4s" }])
+        fixture = TestBed.createComponent(PublicationCreateComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
         expect(getSpy).toHaveBeenCalled();
         expect(element.querySelector("input[name='articleTitle']").textContent = "Metamorphic testing of RESTful Web APIs");
@@ -209,42 +228,6 @@ describe("Publication's component", () => {
         component = fixture.componentInstance;
         element = fixture.debugElement.nativeElement;
         publicationService = fixture.debugElement.injector.get(PublicationService);
-        getSpy = spyOn(publicationService, "getPublication").and.returnValue(of({
-            "body": {
-                "pub": {
-                    scopusId: "SCOPUS_ID:85032230617",
-                    articleTitle: "Metamorphic testing of RESTful Web APIs",
-                    sourceType: "Journal",
-                    documentType: "Article",
-                    sourceTitle: "IEEE Transactions on Software Engineering",
-                    pageRange: "1083-1099",
-                    publicationDate: "2018",
-                    DOI: "10.1109/TSE.2017.2764464",
-                    authors: persons,
-                    affiliation: "Universidad de Sevilla",
-                    project: [projects],
-                    assigned: true
-                }
-            }
-        }));
-        updateSpy = spyOn(publicationService, "updatePublication").and.returnValue(of({
-            "body": {
-                "pub": {
-                    scopusId: "SCOPUS_ID:85032230617",
-                    articleTitle: "Titulo2",
-                    sourceType: "Journal",
-                    documentType: "Article",
-                    sourceTitle: "IEEE Transactions on Software Engineering",
-                    pageRange: "1083-1099",
-                    publicationDate: "2018",
-                    DOI: "10.1109/TSE.2017.2764464",
-                    authors: persons,
-                    affiliation: "Universidad de Sevilla",
-                    project: [projects],
-                    assigned: true
-                }
-            }
-        }));
         try {
             component.persons = persons.map((p) => {
                 let temp = [...Object.values(p)]

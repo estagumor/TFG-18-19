@@ -12,8 +12,7 @@ import { PersonService } from 'src/app/services/person.service';
 @Component({
   selector: 'app-publications',
   templateUrl: './publication.create.component.html',
-  styleUrls: ['./publication.create.component.css'],
-  providers: [PublicationService]
+  styleUrls: ['./publication.create.component.css']
 })
 export class PublicationCreateComponent implements OnInit {
   public pub: Publication
