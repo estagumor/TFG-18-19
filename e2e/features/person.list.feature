@@ -1,8 +1,8 @@
 @person
-Feature: Person list
+Feature: Listado de personas
 
   @list
-  Scenario: List persons
-    Given I am on the main page
-    When I click in 'personsLink' link
-    Then I should see a list with a few persons
+  Scenario: Listado de personas
+    Given Estoy en la pagina principal
+    When Clico en el link 'personsLink'
+    Then Deberia ver una lista con algunas personas

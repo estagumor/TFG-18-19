@@ -8,6 +8,6 @@ Before(() => {
   app = new PersonListPage();
 });
 
-Then('I should see a list with a few persons', function () {
+Then('Deberia ver una lista con algunas personas', function () {
     return app.getListedtItems().then(all => assert(all.length > 0));
   });

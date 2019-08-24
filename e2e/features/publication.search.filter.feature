@@ -1,23 +1,23 @@
 # Búsqueda por nombre, fecha o autores
 @publication
-Feature: Search and filter the publications
+Feature: Buscar y filtrar publicaciones
     This is a description that i'm not gonna think
 
     Background: 
-        Given I am on the main page
-        Given I click in 'publicationsLink' link
+        Given Estoy en la pagina principal
+        Given Clico en el link 'publicationsLink'
 
     @search
-    Scenario: Search publication by name
-        When I write 'Automated' on the search input
-        Then I should see a publication with the name 'Automated Validation of Compensable SLAs'
+    Scenario: Buscar publicacion por nombre
+        When Escribo 'Automated' en el buscador
+        Then Deberia ver una publicacion con nombre 'Automated Validation of Compensable SLAs'
 
     @search
-    Scenario: Search publication by date
-        When I write '2018' on the search input
-        Then I should see publications with the date '(2018)'
+    Scenario: Buscar publicacion por fecha
+        When Escribo '2018' en el buscador
+        Then Deberia ver publicaciones con fecha de '(2018)'
 
     @search
-    Scenario: Search publication by author
-        When I write 'Manuel' on the search input
-        Then I should see publications with the author 'Manuel Resinas'
+    Scenario: Buscar publicacion por autor
+        When Escribo 'Manuel' en el buscador
+        Then Deberia ver publicaciones con autor 'Manuel Resinas'

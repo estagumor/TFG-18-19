@@ -8,6 +8,6 @@ Before(() => {
     app = new ProjectStatsPage();
 });
 
-Then('I should see two tables with some data', function () {
+Then('Deberia ver dos tablas con alguna informacion', function () {
     return app.getAllCharts().then(charts => assert(charts.length = 2));
   });

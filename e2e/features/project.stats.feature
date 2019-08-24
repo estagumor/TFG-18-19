@@ -1,12 +1,12 @@
 @project
-Feature: Project stats
+Feature: Estadisticas de proyecto
 
     Background: 
-        Given I am on the main page
-        Given I click in 'projectsLink' link
+        Given Estoy en la pagina principal
+        Given Clico en el link 'projectsLink'
 
     @stats
-    Scenario: Stats of projects
-        When I click in the 'stats' button
-        Then the url should contain the pattern '/stats/project'
-        Then I should see two tables with some data
+    Scenario: Estadisticas de proyectos
+        When Clico en el boton 'stats'
+        Then la url deberia contener el patron '/stats/project'
+        Then Deberia ver dos tablas con alguna informacion

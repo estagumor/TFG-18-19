@@ -8,18 +8,18 @@ Before(() => {
     app = new ProjectDisplayPage();
 });
 
-Given('I click in {string} link', function (string) {
+Given('Clico en el link {string}', function (string) {
     return app.clickList(string);
 });
 
-When('I click in the {string} button', function (string) {
+When('Clico en el boton {string}', function (string) {
     return app.clickDisplayButton(string);
 });
 
-Then('the url should contain the pattern {string}', function (string) {
+Then('la url deberia contener el patron {string}', function (string) {
     return app.returnUrl().then(url => assert(url.search(string) > 0));
   });
 
-Then('I should see the {string} header', function (string) {
+Then('Debería ver la cabecera {string}', function (string) {
     return app.getH1(string);
 });

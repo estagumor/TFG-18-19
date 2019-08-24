@@ -1,22 +1,22 @@
 @project
-Feature: Search and filter the projects
+Feature: Buscar y filtrar los proyectos
     This is a description that i'm not gonna think
 
     Background: 
-        Given I am on the main page
-        Given I click in 'projectsLink' link
+        Given Estoy en la pagina principal
+        Given Clico en el link 'projectsLink'
 
     @search
-    Scenario: Search project by reference
-        When I write '002' on the search input
-        Then I should see a project with the reference 'EUROPEO - 002'
+    Scenario: Buscar proyecto por referencia
+        When Escribo '002' en el buscador
+        Then Deberia ver un proyecto con referencia 'EUROPEO - 002'
 
     @search
-    Scenario: Search project by title
-        When I write 'AUTOMATED' on the search input
-        Then I should see a project with the title 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'
+    Scenario: Buscar proyecto por titulo
+        When Escribo 'AUTOMATED' en el buscador
+        Then Deberia ver un proyecto con titulo 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'
 
     @filter
-    Scenario: Filter projects from 3 years ago
-        When I click on the three years button
-        Then I should see projects from 3 years ago to now
+    Scenario: Filtrar los proyectos de hace tres años
+        When Clico en el boton de tres años
+        Then Deberia ver los proyectos de hace tres años

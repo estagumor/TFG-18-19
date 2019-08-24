@@ -1,10 +1,10 @@
 @dashboard
-Feature: Manage the dashboard
+Feature: Administrar el panel de control
 
     Background: 
-        Given I am on the main page
+        Given Estoy en la pagina principal
 
-    Scenario: See the dashboard
-        When I click in 'dashboardLink' link
-        Then the url should contain the pattern '/dashboard'
-        Then I should see the 'Panel de administración' header
+    Scenario: Ver el panel de control
+        When Clico en el boton 'dashboardLink'
+        Then la url deberia contener el patron '/dashboard'
+        Then Deberia ver la cabecera 'Panel de administración'

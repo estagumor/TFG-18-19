@@ -1,13 +1,13 @@
 @project
-Feature: Show the information of a project
+Feature: Enseñar la informacion del proyecto
     This is a description that i'm not gonna think
 
     Background: 
-        Given I am on the main page
+        Given Estoy en la pagina principal
 
     @display
-    Scenario: Display project
-        Given I click in 'projectsLink' link
-        When I click in the 'displayButton' button
-        Then the url should contain the pattern '/project/display'
-        Then I should see the 'Detalles del proyecto' header
+    Scenario: Mostrar proyecto
+        Given Clico en el link 'projectsLink'
+        When Clico en el boton 'displayButton'
+        Then la url deberia contener el patron '/project/display'
+        Then Deberia ver la cabecera 'Detalles del proyecto'
