@@ -2,8 +2,8 @@ import { browser, by, element, until, Key } from 'protractor';
 
 export class ProjectCreateEditPage {
 
-  public clickList(){
-    return element(by.id('projectsLink')).click()
+  public clickList(string){
+    return element(by.id(string)).click()
   }
 
   public fillForm() {

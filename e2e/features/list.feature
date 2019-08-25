@@ -5,5 +5,5 @@
 
 #   Scenario: List projects
 #     Given I am on the projects' page
-#     When I click in the list button
-#     Then I should see a list with a few projects' id
+#     When Hago clic list button
+#     Then Deberia ver una lista con varios proyectos' id

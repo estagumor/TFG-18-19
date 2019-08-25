@@ -8,6 +8,6 @@ import { PublicationListPage } from '../src/publication.list.po';
     app = new PublicationListPage();
   });
 
-  Then("I should see a list with a few publications",
+  Then("Deberia ver una lista con varias publicaciones",
     () => app.getListedtItems()
       .then(elems => expect(elems.length).to.be.greaterThan(0)));

@@ -8,30 +8,30 @@ import { PublicationAddListPage } from '../src/publication.add.list.po';
     app = new PublicationAddListPage();
   });
 
-  Then('I click in the {string} at the top of list', function (string) {
+  Then('Hago clic en el boton {string} arriba de la lista', function (string) {
     return app.importButton();                                                                                                                                                                                                                                                   
   });
 
-  Then('I select the first project from the list', function () {
+  Then('Selecciono el primer proyecto de la lista', function () {
     return app.firstProject();                                                                                                                                                                                                                                                   
   });
 
-  Then('I select the first publication from the list', function () {                                                                                                                                                                                               
+  Then('Selecciono la primera publicacion de la lista', function () {                                                                                                                                                                                               
     return app.firstPublication();                                                                                                                                                                                                                                                   
   });
 
-  Then('I hit the {string} button at the top', function (string) {                                                                                                                                                                                             
+  Then('Clico en el boton {string} arriba de la pagina', function (string) {                                                                                                                                                                                             
     return app.saveButton();                                                                                                                                                                                                                                                   
   });
 
-  Then('I hit the {string} orange button at the top', function (string) {                                                                                                                                                                                          
+  Then('Hago clic en el boton naranja {string} arriba de la lista', function (string) {                                                                                                                                                                                          
     return app.selectAllButton();                                                                                                                                                                                                                                                   
   });
 
-  Then('I write {string} in the project searcher', function (string) {
+  Then('Escribo {string} en el buscador de proyecto', function (string) {
     return app.searchProject(string);
   });
 
-  Then('I write {string} in the publication searcher', function (string) {
+  Then('Escribo {string} en el buscador de publicaciones', function (string) {
     return app.searchPublication(string);
   });

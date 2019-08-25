@@ -1,37 +1,37 @@
 @publication
-Feature: Import publications from Scopus
-    As a researcher
-    I want to import publications from Scopus
-    So I can relate them to the projects I select
+Feature: Importar publicaciones desde Scopus
+    Como investigador
+    Quiero poder importar publicaciones desde Scopus
+    Para poder relacionarlas con los proyectos que elija
 
     @import
-    Scenario: Import one publication
-        Given I am on the main page
-        When I click in the publications list link
-        Then I click in the 'Importar' at the top of list
-        Then I select the first project from the list
-        Then I select the first publication from the list
-        Then I hit the 'Guardar' button at the top
-        Then I should get redirected to the publication's list
+    Scenario: Importar una publicacion
+        Given Estoy en la pagina principal
+        When Hago click en el link 'publicationsLink'
+        Then Hago clic en el boton 'Importar' arriba de la lista
+        Then Selecciono el primer proyecto de la lista
+        Then Selecciono la primera publicacion de la lista
+        Then Clico en el boton 'Guardar' arriba de la pagina
+        Then Deberia ser redirigido al listado de publicaciones
 
     @import
-    Scenario: Import all publications
-        Given I am on the main page
-        When I click in the publications list link
-        Then I click in the 'Importar' at the top of list
-        Then I select the first project from the list
-        Then I hit the 'Seleccionar todas las publicaciones' orange button at the top
-        Then I hit the 'Guardar' button at the top
-        Then I should get redirected to the publication's list
+    Scenario: Importar todas las publicaciones
+        Given Estoy en la pagina principal
+        When Hago click en el link 'publicationsLink'
+        Then Hago clic en el boton 'Importar' arriba de la lista
+        Then Selecciono el primer proyecto de la lista
+        Then Hago clic en el boton naranja 'Seleccionar todas las publicaciones' arriba de la lista
+        Then Clico en el boton 'Guardar' arriba de la pagina
+        Then Deberia ser redirigido al listado de publicaciones
 
     @import
-    Scenario: Search and import an specific project and publication
-        Given I am on the main page
-        When I click in the publications list link
-        Then I click in the 'Importar' at the top of list
-        Then I write 'Automated' in the project searcher
-        Then I select the first project from the list
-        Then I write 'Visual' in the publication searcher
-        Then I select the first publication from the list
-        Then I hit the 'Guardar' button at the top
-        Then I should get redirected to the publication's list
+    Scenario: Buscar e importar un proyecto y publicacion especifico
+        Given Estoy en la pagina principal
+        When Hago click en el link 'publicationsLink'
+        Then Hago clic en el boton 'Importar' arriba de la lista
+        Then Escribo 'Automated' en el buscador de proyecto
+        Then Selecciono el primer proyecto de la lista
+        Then Escribo 'Visual' en el buscador de publicaciones
+        Then Selecciono la primera publicacion de la lista
+        Then Clico en el boton 'Guardar' arriba de la pagina
+        Then Deberia ser redirigido al listado de publicaciones

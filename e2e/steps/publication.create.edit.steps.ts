@@ -8,26 +8,26 @@ import { PublicationCreateEditPage } from '../src/publication.create.edit.po';
     app = new PublicationCreateEditPage();
   });
 
-  When('I click in the publications list link', function() {
-    return app.clickList()
-  })
-
-  Then('I click in the {string} button of the publication list', function (string) {                                                                  
+  Then('Hago click en el boton {string} del listado de publicaciones', function (string) {                                                                  
     return app.createButton()                                                                                                       
   });
 
-  Then('I fill the publication form', function () {                                                                  
+  Then('Relleno el formulario de publicacion', function () {                                                                  
     return app.fillForm()                                                                                             
   });
 
-  Then("I should get redirected to the publication's list", function () {                                                                  
+  Then("Clico en el boton {string} para la vista de detalle", function(string){
+    return app.displayButton(string);
+  })
+
+  Then("Deberia ser redirigido al listado de publicaciones", function () {                                                                  
     return app.checkPubList().then(text => expect(text).to.contains("publications"))
   });
 
-  Then('I click in the {string} button of a publication', function (string) {                                                                  
+  Then('Clico en el boton {string} de una publicacion', function (string) {                                                                  
     return app.showButton()                                                                                      
   });
 
-  Then('I set the publication title to {string}', function (string) {                                                                  
+  Then('Modifico el titulo de la publicacion a {string}', function (string) {                                                                  
     return app.setPubTitle(string)                                                                                                       
   });

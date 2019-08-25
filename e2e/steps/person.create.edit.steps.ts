@@ -8,26 +8,26 @@ import { PersonCreateEditPage } from '../src/person.create.edit.po';
     app = new PersonCreateEditPage();
   });
 
-  Then('I click in the {string} button of the list', function (string) {                                                                  
+  Then('Hago clic en el boton {string} arriba del listado', function (string) {                                                                  
     return app.clickList();                                                                                                         
   });
 
-  Then('I fill the form', function () {                                                                                       
+  Then('Relleno el formulario', function () {                                                                                       
     return app.fillForm();                                                                                                         
   });
 
-  Then('I hit the {string} button', function (string) {
+  Then('Clico en el boton {string} de la vista de detalle', function (string){
+    return app.editButton()
+  })
+
+  Then('Clico en el boton {string}', function (string) {
     return app.submit();
   });
 
-  Then('I should get redirected to the main page', function () {
+  Then('Deberia devolverme a la pagina principal', function () {
     return app.checkInList().then(url => expect(url).to.contains("home"));
   });
 
-  Then('I click in the {string} button of the display', function (string) {                                                   
-    return app.editButton();                                                                                                         
-  });
-
-  Then('I set the surname to {string}', function (string) {
+  Then('Modifico el apellido a {string}', function (string) {
     return app.setSurname(string);
   });

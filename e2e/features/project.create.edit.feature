@@ -1,24 +1,24 @@
-@person
-Feature: Person create and edit
-    As a researcher
-    I want to insert to the system new projects
-    So I want to be able to create and edit projects
+@project
+Feature: Crear y editar proyectos
+    Como investigador
+    Quiero poder editar y crear nuevos proyectos
+    Para añadirlos a la pagina
 
     @create
-    Scenario: Create project
-        Given I am on the main page
-        When I click in the project list link
-        Then I click in the 'Crear proyecto' button on the list page
-        Then I fill the project form
-        Then I hit the 'Guardar' button
-        Then I should get redirected to the list page
+    Scenario: Crear proyecto
+        Given Estoy en la pagina principal
+        When Clico en el link 'projectsLink'
+        Then Hago clic en el boton 'Crear proyecto' arriba del listado de proyecto
+        Then Relleno el formulario de proyecto
+        Then Clico en el boton 'Guardar'
+        Then Deberia ser redirigido al listado
 
     @edit
-    Scenario: Edit project
-        Given I am on the main page
-        When I click in the project list link
-        Then I click in the 'Mostrar' button of a project
-        Then I click in the 'Editar' button of the display
-        Then I set the title to 'Proyecto'
-        Then I hit the 'Guardar' button
-        Then I should get redirected to the list page
+    Scenario: Editar proyecto
+        Given Estoy en la pagina principal
+        When Clico en el link 'projectsLink'
+        Then Hago clic en el boton 'Mostrar' de un proyecto
+        Then Clico en el boton 'Editar' de la vista de detalle
+        Then Modifico el titulo a 'Proyecto'
+        Then Clico en el boton 'Guardar'
+        Then Deberia ser redirigido al listado

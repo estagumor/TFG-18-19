@@ -6,4 +6,8 @@ export class ProjectStatsPage {
         browser.sleep(1000);
         return element.all(by.className('chartjs-render-monitor'));
     }
+
+    public statsButton() {
+        return element(by.name("stats")).click()
+    }
 }

@@ -1,19 +1,18 @@
 @project
 Feature: Buscar y filtrar los proyectos
-    This is a description that i'm not gonna think
 
     Background: 
         Given Estoy en la pagina principal
-        Given Clico en el link 'projectsLink'
+        Given Hago click en el link 'projectsLink'
 
     @search
     Scenario: Buscar proyecto por referencia
-        When Escribo '002' en el buscador
+        When Escribo '002' en el campo de busqueda
         Then Deberia ver un proyecto con referencia 'EUROPEO - 002'
 
     @search
     Scenario: Buscar proyecto por titulo
-        When Escribo 'AUTOMATED' en el buscador
+        When Escribo 'AUTOMATED' en el campo de busqueda
         Then Deberia ver un proyecto con titulo 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'
 
     @filter

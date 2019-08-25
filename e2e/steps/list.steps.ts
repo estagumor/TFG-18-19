@@ -11,9 +11,9 @@
 //   Given("I am on the projects' page",{timeout: 2 * 5000},
 //     () => app.navigateTo());
 
-//   When('I click in the list button',{timeout: 2 * 5000},
+//   When('Hago clic list button',{timeout: 2 * 5000},
 //     () => { app.clickList() });
 
-//   Then("I should see a list with a few projects' id",
+//   Then("Deberia ver una lista con varios proyectos' id",
 //     () => app.getListedtItems()
 //       .then(elems => expect(elems.length).to.be.greaterThan(0)));

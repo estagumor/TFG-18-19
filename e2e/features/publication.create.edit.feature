@@ -1,24 +1,24 @@
 @publication
 Feature: Publication create and edit
-    As a researcher
-    I want to create manually publications
-    So I want to be able to add new publications and edit them
+    Como investigador
+    Quiero poder crear publicaciones manualmente
+    Para añadirlas a la web y poder editarlas
 
     @create
-    Scenario: Create publication
-        Given I am on the main page
-        When I click in the publications list link
-        Then I click in the 'Crear publicación' button of the publication list
-        Then I fill the publication form
-        Then I hit the 'Guardar' button
-        Then I should get redirected to the publication's list
+    Scenario: Crear publicacion
+        Given Estoy en la pagina principal
+        When Hago click en el link 'publicationsLink'
+        Then Hago click en el boton 'Crear publicación' del listado de publicaciones
+        Then Relleno el formulario de publicacion
+        Then Clico en el boton 'Guardar'
+        Then Deberia ser redirigido al listado de publicaciones
 
     @edit
-    Scenario: Edit publication
-        Given I am on the main page
-        When I click in the publications list link
-        Then I click in the 'Mostrar' button of a publication
-        Then I click in the 'Editar' button of the display
-        Then I set the publication title to 'Comprehensive list'
-        Then I hit the 'Guardar' button
-        Then I should get redirected to the publication's list
+    Scenario: Editar publicacion
+        Given Estoy en la pagina principal
+        When Hago click en el link 'publicationsLink'
+        Then Clico en el boton 'Mostrar' de una publicacion
+        Then Clico en el boton 'Editar' de la vista de detalle
+        Then Modifico el titulo de la publicacion a 'Comprehensive list'
+        Then Clico en el boton 'Guardar'
+        Then Deberia ser redirigido al listado de publicaciones

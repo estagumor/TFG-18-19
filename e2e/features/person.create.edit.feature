@@ -1,24 +1,24 @@
 @person
-Feature: Person create and edit
-    As a researcher
-    I want to create other people profiles
-    So I want to be able to create and edit profiles
+Feature: Crear y editar perfiles
+    Como investigador
+    Quiero poder crear y editar nuevos perfiles
+    Para añadir nuevo personal
 
     @create
-    Scenario: Create person
-        Given I am on the main page
-        When I click in the person list link
-        Then I click in the 'Crear perfil' button of the list
-        Then I fill the form
-        Then I hit the 'Guardar' button
-        Then I should get redirected to the main page
+    Scenario: Crear perfil
+        Given Estoy en la pagina principal
+        When Hago clic en el link de personal
+        Then Hago clic en el boton 'Crear perfil' arriba del listado
+        Then Relleno el formulario
+        Then Clico en el boton 'Guardar'
+        Then Deberia devolverme a la pagina principal
 
     @edit
-    Scenario: Edit person
-        Given I am on the main page
-        When I click in the person list link
-        Then I click in the 'Mostrar' button of a person
-        Then I click in the 'Editar' button of the display
-        Then I set the surname to 'Jimenez'
-        Then I hit the 'Guardar' button
-        Then I should get redirected to the main page
+    Scenario: Editar perfil
+        Given Estoy en la pagina principal
+        When Hago clic en el link de personal
+        Then Hago clic en el boton 'Mostrar' de una persona
+        Then Clico en el boton 'Editar' de la vista de detalle
+        Then Modifico el apellido a 'Jimenez'
+        Then Clico en el boton 'Guardar'
+        Then Deberia devolverme a la pagina principal

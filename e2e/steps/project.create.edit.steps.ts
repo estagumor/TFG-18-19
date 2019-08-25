@@ -8,27 +8,27 @@ import { ProjectCreateEditPage } from '../src/project.create.edit.po';
     app = new ProjectCreateEditPage();
   });
 
-  When('I click in the project list link', function () {                                                   
-    return app.clickList();                                                                                                         
+  When('Clico en el link {string}', function (string) {                                                   
+    return app.clickList(string);                                                                                                         
   });
 
-  Then('I click in the {string} button on the list page', function (string) {                                                 
+  Then('Hago clic en el boton {string} arriba del listado de proyecto', function (string) {                                                 
     return app.createButton();                                                                                                         
   });
 
-  Then('I fill the project form', function () {                                                                               
+  Then('Relleno el formulario de proyecto', function () {                                                                               
     return app.fillForm();                                                                                                         
   }); 
 
-  Then('I should get redirected to the list page', function () {
+  Then('Deberia ser redirigido al listado', function () {
     return app.checkInList().then(url => expect(url).to.contains("project"));
   });
 
-  Then('I click in the {string} button of a project', function (string) {
+  Then('Hago clic en el boton {string} de un proyecto', function (string) {
     return app.displayButton();
   });
 
-  Then('I set the title to {string}', function (string) {
+  Then('Modifico el titulo a {string}', function (string) {
     return app.setTitle(string);
   });
 

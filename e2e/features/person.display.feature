@@ -1,12 +1,12 @@
 @person
-Feature: Display people data
-    As researcher
-    I would like to edit my personal data in the site
-    So i want to be able to see it
+Feature: Mostrar informacion de un perfil
+    Como investigador
+    Quiero poder ver la informacion de mi perfil
+    Para poder editarla
 
     @display
-    Scenario: Display person
-        Given I am on the main page
-        When I click in the person list link
-        Then I click in the 'Mostrar' button of a person
-        Then I should see my email
+    Scenario: Mostrar perfil
+        Given Estoy en la pagina principal
+        When Hago clic en el link de personal
+        Then Hago clic en el boton 'Mostrar' de una persona
+        Then Deberia ver mis datos

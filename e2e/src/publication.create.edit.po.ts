@@ -34,4 +34,8 @@ export class PublicationCreateEditPage {
         element(by.id("articleTitle")).clear()
         return element(by.id("articleTitle")).sendKeys(string)
     }
+
+    public displayButton(string){
+        return element.all(by.name("displayButton")).first().click()
+    }
 }

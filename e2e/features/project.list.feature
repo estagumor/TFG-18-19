@@ -1,11 +1,11 @@
 @project
-Feature: Project list
-  As a researcher 
-  I want to see the projects of the group
-  So i want to be able to list them
+Feature: Listar proyectos
+  Como investigador 
+  Quiero poder listar los proyectos
+  Para poder ver rapidamente sus características principales
 
   @list
-  Scenario: List projects
-    Given I am on the main page
-    When I click in the projects list link
-    Then I should see a list with a few projects
+  Scenario: Listado de proyectos
+    Given Estoy en la pagina principal
+    When Hago clic en el link de proyectos
+    Then Deberia ver una lista con varios proyectos

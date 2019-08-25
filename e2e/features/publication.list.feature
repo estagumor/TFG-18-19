@@ -1,11 +1,11 @@
 @publication
-Feature: Publication list
-  As a researcher 
-  I want to see the publications of the group
-  So i want to be able to list them
+Feature: Listado de publicaciones
+  Como investigador 
+  Quiero poder listar las publicaciones
+  Para poder ver rapidamente sus características principales
 
   @list
-  Scenario: List publications
-    Given I am on the main page
-    When I click in the publications list link
-    Then I should see a list with a few publications
+  Scenario: Listar publicaciones
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Deberia ver una lista con varias publicaciones

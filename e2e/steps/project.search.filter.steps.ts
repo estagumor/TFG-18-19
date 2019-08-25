@@ -8,7 +8,7 @@ Before(() => {
     app = new ProjectSearchFilterPage();
 });
 
-When('Escribo {string} en el buscador', function (string) {
+When('Escribo {string} en el campo de busqueda', function (string) {
     return app.writeInput(string);
 });
 

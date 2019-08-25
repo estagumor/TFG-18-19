@@ -7,6 +7,6 @@ Feature: Estadisticas de publicacion
 
     @stats
     Scenario: Estadisticas de publicaciones
-        When Clico en el boton 'stats'
+        When Clico en el boton 'stats' encima de la lista
         Then la url deberia contener el patron '/stats/publication'
         Then Deberia ver dos tablas con alguna informacion
