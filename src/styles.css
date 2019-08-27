@@ -7,6 +7,11 @@ body, html {
     background-image: url("assets/background7.jpg");
   }
 
+.invalid-feedback {
+    color: black;
+    display: block;
+}
+
 .input{
     border: 1px solid !important;
 }
@@ -16,7 +21,7 @@ body, html {
   }
   
 .ng-invalid:not(form)  {
-    border-left: 5px solid #a94442; 
+    border-left: 5px solid darkslategray; 
 }
 
 label {
@@ -80,10 +85,6 @@ ngb-datepicker-navigation-select > .form-control{
     padding: 0em 1em 0em 1em;
 }
 
-.invalid-feedback {
-    display: block;
-}
-
 .input-group-text{
     padding: 1em;
     line-height: 0px;
@@ -123,19 +124,20 @@ border-color: #4BBF73;
     -moz-osx-font-smoothing: grayscale;
 }
 
+.btn {
+    font-weight: bold !important;
+}
+
 .glyphicon-calendar:before {
     content: "\e109";
 }
 
-/* .divAutocomplete{
-    box-sizing: border-box;
-    border-left: 5px solid; 
-    border-color: brown;
-    background-color: white;
-} */
+.btn-link {
+    color: teal;
+}
 
 body {
-	font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-family: 'Barlow', sans-serif;
 	color: #353535;
 }
 
@@ -240,16 +242,9 @@ button.press:active, button.press.active {
     margin: auto;
 }
 
-.thead-display {
-    color: #2BBCDE;
-	font-size: 14px;
-	font-weight: bold;
-    line-height: normal;
-} 
-
-.thbody-display .encabezado {
-    color: #86725a;
-	line-height: normal;
+.btn-warning {
+    background-color: mediumseagreen;
+    border-color: mediumseagreen;
 }
 
 .tooltip2:hover {

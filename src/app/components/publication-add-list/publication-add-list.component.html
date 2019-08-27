@@ -1,47 +1,59 @@
-
 <fieldset>
-  <h1>Listado de publicaciones</h1>
-  <button type="button" (click)="saveFromScoups()" class="btn btn-primary">Guardar</button>
-  <button type="button" (click)="selectAllPublications()" class="btn btn-warning">Seleccionar todas las publicaciones</button>
-  <br>
-  <br>
-  <input [(ngModel)]="searchText1" placeholder="Busca proyectos...">
-  <br>
-  <input [(ngModel)]="searchText" placeholder="Busca publicaciones...">
+  <h1>LISTADO DE PUBLICACIONES</h1>
+  <div class="row">
+    <div class="col">
+      <span>
+        <i class="fas fa-search"></i>
+        <input class="form-control" [(ngModel)]="searchText1" placeholder="Busca proyectos...">
+      </span>
+      <br>
+      <span>
+        <i class="fas fa-search"></i>
+        <input class="form-control" [(ngModel)]="searchText" placeholder="Busca publicaciones...">
+      </span>
+    </div>
+    <div class="col" style="text-align: right">
+      <button type="button" (click)="saveFromScoups()" class="btn btn-primary">Guardar</button>
+      <button style="margin-left: 1em" type="button" (click)="selectAllPublications()" class="btn btn-warning">Seleccionar todas las
+        publicaciones</button>
+    </div>
+  </div>
   <div class="row">
     <section class="content">
       <br>
-      <div class="col-md-6 col-md-offset-2 left nav-item">
-          <h4>Publicaciones</h4>
+      <div class="col-6 offset-2 left nav-item">
+        <h4>Publicaciones</h4>
         <div class="panel panel-default">
           <div class="panel-body">
-            <div class="table-container">
-              <table class="table table-filter">
+            <div class="table-responsive">
+              <table class="table table-filter table-striped">
                 <tbody>
-                    <tr name="pubs" *ngFor="let pub of listado | filterPublications: searchText" (click)="clicked(checkbox,pub)">
-                      <td style="width: 10%; height: auto;">
-                          <input type="checkbox" id="checkBox" class="publicationCheckbox" #checkbox>
-                          <label for="checkbox1"></label>
-                      </td>
-                      <td>
-                          <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>: 
-                          <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
-                      </td>
-                    </tr>
+                  <tr name="pubs" *ngFor="let pub of listado | filterPublications: searchText"
+                    (click)="clicked(checkbox,pub)">
+                    <td style="width: 10%; height: auto;">
+                      <input type="checkbox" id="checkBox" class="publicationCheckbox" #checkbox>
+                      <label for="checkbox1"></label>
+                    </td>
+                    <td>
+                      <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>:
+                      <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}:
+                      {{pub.pageRange}} ({{pub.publicationDate}})
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-md-offset-2 right nav-item">
-          <h4>Proyectos</h4>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="table-container">
-                <table class="table table-filter">
-                  <tbody>
-                      <!-- <tr *ngFor="let pro of projects" (click)="clickedPro(checkbox,pro)">
+      <div class="col-6 offset-2 right nav-item">
+        <h4>Proyectos</h4>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-filter table-striped">
+                <tbody>
+                  <!-- <tr *ngFor="let pro of projects" (click)="clickedPro(checkbox,pro)">
                         <td style="width: 10%; height: auto;">
                             <input type="checkbox" id="checkBox" #checkbox>
                             <label for="checkbox1"></label>
@@ -51,40 +63,42 @@
                             <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
                         </td>
                       </tr> -->
-                      <tr name="projects" *ngFor="let pro of projects | filterProjects: searchText1" (click)="clickedPro(checkbox,pro)">
-                          <td style="width: 10%; height: auto;">
-                              <input type="checkbox" id="checkBox" #checkbox>
-                              <label for="checkbox1"></label>
-                          </td>
-										<td>
-											<div class="media">
-												<div class="media-body">
-													<!--datos-->
-													<span
-														class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.endDate | date}}</span>
-													<span class="media-meta pull-right" *ngIf="pro.startDate"> / </span>
-													<span
-														class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.startDate | date}}</span>
-													<h4 class="title">
-														{{ pro.title }}
-														<div>
-														</div>
-														<!--Rellenar una vez tengamos javascript-->
-													</h4>
-													<p class="summary" *ngIf="pro.scope != 'NONE' && pro.reference">{{ pro.scope }} - {{ pro.reference }}</p>
-													<p class="summary" *ngIf="pro.scope != 'NONE' && !pro.reference">{{ pro.scope }}</p>
-													<p class="summary" *ngIf="pro.scope == 'NONE'">{{ pro.reference }}</p>
-												</div>
-											</div>
-										</td>
-									</tr>
-                  </tbody>
-                </table>
-              </div>
+                  <tr name="projects" *ngFor="let pro of projects | filterProjects: searchText1"
+                    (click)="clickedPro(checkbox,pro)">
+                    <td style="width: 10%; height: auto;">
+                      <input type="checkbox" id="checkBox" #checkbox>
+                      <label for="checkbox1"></label>
+                    </td>
+                    <td>
+                      <div class="media">
+                        <div class="media-body">
+                          <!--datos-->
+                          <span class="media-meta pull-right" *ngIf="pro.startDate">{{ pro.endDate | date}}</span>
+                          <span class="media-meta pull-right" *ngIf="pro.startDate"> / </span>
+                          <span class="media-meta pull-right" *ngIf="pro.endDate">{{ pro.startDate | date}}</span>
+                          <h4 class="title" style="color: teal;">
+                            {{ pro.title }}
+                            <div>
+                            </div>
+                            <!--Rellenar una vez tengamos javascript-->
+                          </h4>
+                          <p class="summary" *ngIf="pro.scope != 'NONE' && pro.reference">{{ pro.scope }} -
+                            {{ pro.reference }}</p>
+                          <p class="summary" *ngIf="pro.scope != 'NONE' && !pro.reference">{{ pro.scope }}</p>
+                          <p class="summary" *ngIf="pro.scope == 'NONE'">{{ pro.reference }}</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
     </section>
   </div>
-  <div style="width: 20%; height: 30%; top: 30%; right: 40%; position: fixed;"><ngx-loading [show]="loading"></ngx-loading></div>
+  <div style="width: 20%; height: 30%; top: 30%; right: 40%; position: fixed;">
+    <ngx-loading [show]="loading"></ngx-loading>
+  </div>
 </fieldset>
