@@ -2,6 +2,10 @@
 
 @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
+body, html {
+    height: 100%;
+    background-image: url("assets/background7.jpg");
+  }
 
 .input{
     border: 1px solid !important;
@@ -36,6 +40,8 @@ h1 {
     color: white;
     text-align: center;
     background-image: url("assets/hexagonal_cube_mesh_pattern-936.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 @media (min-width: 400px) and (max-width: 750px) {
@@ -46,13 +52,6 @@ h1 {
 
 .img-logo {
     padding-left:1em;
-}
-
-.container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0% !important;
-    background-image: url("assets/background7.jpg");
 }
 
 fieldset {
