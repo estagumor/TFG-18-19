@@ -42,6 +42,8 @@ export class PublicationCreateComponent implements OnInit {
       if (params['id?'] !== undefined) { //ESTAMOS EN EL EDIT
         this._service.getPublication(params['id?']).subscribe(publi => {
           this.pub = publi.body['pub']
+          this.finalProjects = this.getStringProjects(this.pub.project)
+          this.finalAutores = this.getStringPersons(this.pub.authors)
           this.edit = true
         });
       }

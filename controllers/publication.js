@@ -294,11 +294,6 @@ var controller = {
 		var publicationId = req.params.id;
 		var datosUpdate = req.body;
 
-		if (datosUpdate.publicationDate != null) {
-			var publicationDate = datosUpdate.publicationDate;
-			datosUpdate.publicationDate = publicationDate["month"] + "/" + publicationDate["day"] + "/" + publicationDate["year"];
-		}
-
 		Publication.findOneAndUpdate(publicationId, datosUpdate, { new: true }, (err, publicationUpdated) => {
 			if (err) return res.status(500).send({ message: err });
 
