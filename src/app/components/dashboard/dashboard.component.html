@@ -1,6 +1,7 @@
 <fieldset>
   <h1>PANEL DE ADMINISTRACIÓN</h1>
-  <h3 class="my-5">Para cargar nuevos archivos excel para actualizar los datos de estadísticas se deben subir archivos con los siguientes formatos:</h3>
+  <h5 class="my-4">Para cargar nuevos archivos excel para actualizar los datos de estadísticas se deben subir archivos
+    con los siguientes formatos:</h5>
   <div class="row">
     <!-- <div class="card bg-secondary d-inline-flex col-6">
       <div class="card-header">Proyectos</div>
@@ -8,26 +9,46 @@
         
       </div>
     </div> -->
-    <div class="card bg-secondary d-inline-flex col-12" >
-      <div class="card-header">Publicaciones</div>
-      <div class="card-body">
-        <h4 class="card-title">Congresos</h4>
-        <p class="card-text">El excel debe incluir el año en el nombre y estar compuesto por una hoja con el nombre 'GII-GRIN-SCIE-Conference-Rating' y que en las columnas B y K aparezcan el nombre y la clasificación del congreso respectivamente, también destacar que los datos se empezarán a contabilizar a partir de la tercera fila, como se aprecia en la siguiente imagen</p>
-        <img src="../../../assets/formato excel congresos.png" class="img-fluid mb-1" alt="Ejemplo del formato de excel para congresos">
-        <div class="form-group mb-5">
-          <label for="excelCongresos">Subir archivo</label>
-          <input type="file" class="form-control-file" id="excelCongresos" #excelCongresos>
-          <button type="button" id="sendCongress" name="sendCongress" class="btn btn-primary" (click)="enviarCongresos(excelCongresos)">Enviar</button>
+    <div class="container">
+      <h3>PUBLICACIONES</h3>
+      <br/>
+      <div class="card border-primary">
+        <div class="card-header lead">Congresos</div>
+        <div class="card-body">
+          <p>El excel debe incluir el año en el nombre y estar compuesto por una hoja con el nombre
+            'GII-GRIN-SCIE-Conference-Rating' y que en las columnas B y K aparezcan el nombre y la clasificación del
+            congreso respectivamente, también destacar que los datos se empezarán a contabilizar a partir de la tercera
+            fila, como se aprecia en la siguiente imagen</p>
+          <img src="../../../assets/formato excel congresos.png" class="img-fluid mb-1"
+            alt="Ejemplo del formato de excel para congresos">
+          <form class="form-inline">
+            <label class="sr-only" for="excelCongresos">Subir archivo</label>
+            <input type="file" class="form-control-file" id="excelCongresos" #excelCongresos>
+
+            <button type="button" id="sendCongress" name="sendCongress" class="btn btn-primary"
+              (click)="enviarCongresos(excelCongresos)">Enviar</button>
+          </form>
         </div>
-        <br>
-        <h4 class="card-title">Revistas</h4>
-        <p class="card-text">El excel debe incluir el año en el nombre y estar compuesto de al menos cuatro hojas con los nombres 'Q1', 'Q2', 'Q3' y 'Q4', donde aparecen las revistas que corresponden a cada cuartil, y que en la columna B aparezca el nombre de la revista en cuestión, a diferencia de antes los datos se contabilizarán a partir de la cuarta fila, como se ve en la imagen</p>
-        <img src="../../../assets/formato excel revistas.png" class="img-fluid mb-1" alt="Ejemplo del formato de excel para revistas">
-        <div class="form-group">
-          <label for="excelRevistas">Subir archivo</label>
-          <input type="file" class="form-control-file" id="excelRevistas" #excelRevistas>
-          <button type="button" id="sendJourney" name="sendJourney" class="btn btn-primary" (click)="enviarRevistas(excelRevistas)">Enviar</button>
-          </div>
+      </div>
+      <br/>
+      <br/>
+      <div class="card border-primary">
+        <div class="card-header lead">Revistas</div>
+        <div class="card-body">
+          <p>El excel debe incluir el año en el nombre y estar compuesto de al menos cuatro hojas con
+            los
+            nombres 'Q1', 'Q2', 'Q3' y 'Q4', donde aparecen las revistas que corresponden a cada cuartil, y que en la
+            columna B aparezca el nombre de la revista en cuestión, a diferencia de antes los datos se contabilizarán a
+            partir de la cuarta fila, como se ve en la imagen</p>
+          <img src="../../../assets/formato excel revistas.png" class="img-fluid mb-1"
+            alt="Ejemplo del formato de excel para revistas">
+          <form class="form-inline">
+            <label class="sr-only" for="excelRevistas">Subir archivo</label>
+            <input type="file" class="form-control-file" id="excelRevistas" #excelRevistas>
+            <button type="button" id="sendJourney" name="sendJourney" class="btn btn-primary"
+              (click)="enviarRevistas(excelRevistas)">Enviar</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>

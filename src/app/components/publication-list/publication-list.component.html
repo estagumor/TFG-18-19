@@ -9,9 +9,9 @@
     <div class="col" style="text-align:right">
       <button style="margin-left: 1em" type="button" class="btn btn-primary" [routerLink]="['/publication']"
         id="createPublication">Crear</button>
-      <button style="margin-left: 1em" type="button" class="btn btn-warning" [routerLink]="['/publications/import']"
+      <button style="margin-left: 1em" type="button" class="btn btn-primary" [routerLink]="['/publications/import']"
         id="importPublications">Importar</button>
-      <button style="margin-left: 1em" type="button" class="btn btn-primary" [routerLink]="['/stats/publication']"
+      <button style="margin-left: 1em" type="button" class="btn btn-warning" [routerLink]="['/stats/publication']"
         name="stats">Estadísticas</button>
     </div>
   </div>
@@ -25,15 +25,15 @@
               <td>
                 <div class="media">
                   <div class="media-body">
-                    <span *ngFor="let auth of pub.authors" style="font-weight: bold;" name="author">{{auth.name}} {{auth.surname}} </span>:
+                    <span *ngFor="let auth of pub.authors" style="font-weight: bold; padding-right: 5px" name="author">{{auth.name}} {{auth.surname}};</span>
                     <a class="btn-link" href="https://dx.doi.org/{{pub.DOI}}" style="font-style: italic" target="_blank" name="title">{{pub.articleTitle}}</a>.
                     <span name="source">{{pub.sourceTitle}}:</span>
                     <span name="pageRange">{{pub.pageRange}} </span> 
                     <span name="publicationDate" style="font-weight: bold">({{pub.publicationDate}})</span>
-                    <br/>
-                    <br/>
+                    <div style="text-align:right">
                     <button type="button" class="btn btn-primary" name="displayButton" type="button"
                       (click)="displayPublication(pub._id)">Mostrar</button>
+                    </div>
                   </div>
                 </div>
               </td>

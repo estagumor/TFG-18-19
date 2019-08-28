@@ -1,115 +1,117 @@
 <fieldset *ngIf="project">
-    <h1>Detalles del proyecto</h1>
-    <table class="table">
-        <thead class="thead-display">
-            <th scope="col">Propiedad</th>
-            <th scope="col">Detalles</th>
+    <h1>DETALLES DEL PROYECTO</h1>
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-display" style="background-color: #155056; color: white">
+            <th scope="col">PROPIEDAD</th>
+            <th scope="col">DETALLES</th>
         </thead>
         <tbody class="thbody-display">
             <tr>
-                <th scope="row" class="encabezado">Título</th>
+                <th scope="row" >Título</th>
                 <td>{{ project.title }}</td>
             </tr>
             <tr *ngIf="project.reference">
-                <th scope="row" class="encabezado">Referencia</th>
+                <th scope="row" >Referencia</th>
                 <td>{{ project.reference }}</td>
             </tr>
             <tr>
-                <th scope="row" class="encabezado">Jefes de proyecto</th>
-                <td></td>
-            </tr>
-            <tr *ngFor="let leader of project.leader">
-                <th>{{ leader.name }}</th>
-                <td>{{ leader.surname }}</td>
+                <th scope="row" >Jefes de proyecto</th>
+                <td>
+                    <span *ngFor="let leader of project.leader" style="padding-right: 20px"> {{ leader.surname }}, {{ leader.name }}</span>
+                </td>
             </tr>
             <tr *ngIf="project.description">
-                <th scope="row" class="encabezado">Descripción</th>
+                <th scope="row" >Descripción</th>
                 <td>{{ project.description }}</td>
             </tr>
             <tr>
-                <th scope="row" class="encabezado">Equipo de investigación</th>
-                <td></td>
-            </tr>
-            <tr *ngFor="let researcher of project.researchTeam">
-                <th>{{ researcher.name }}</th>
-                <td>{{ researcher.surname }}</td>
+                <th scope="row" >Equipo de investigación</th>
+                <td>
+                    <span *ngFor="let researcher of project.researchTeam" style="padding-right: 20px"> {{ researcher.surname }}, {{ researcher.name }}</span>
+                </td>
             </tr>
             <tr>
-                <th scope="row" class="encabezado">Equipo de trabajo</th>
-                <td></td>
-            </tr>
-            <tr *ngFor="let worker of project.workTeam">
-                <th>{{ worker.name }}</th>
-                <td>{{ worker.surname }}</td>
+                <th scope="row" >Equipo de trabajo</th>
+                <td>
+                    <span *ngFor="let worker of project.workTeam" style="padding-right: 20px"> {{ worker.surname }}, {{ worker.name }}</span>
+                </td>
             </tr>
             <tr *ngIf="project.hiredStaff.length > 1">
-                <th scope="row" class="encabezado">Personal contratado</th>
-                <td></td>
-            </tr>
-            <tr *ngFor="let hired of project.hiredStaff">
-                <th>{{ hired.name }}</th>
-                <td>{{ hired.surname }}</td>
+                <th scope="row">Personal contratado</th>
+                <td>
+                    <span *ngFor="let hired of project.hiredStaff" style="padding-right: 20px"> {{ hired.surname }}, {{ hired.name }}</span>
+                </td>
             </tr>
             <tr>
-                <th scope="row" class="encabezado">Importe</th>
+                <th scope="row" >Importe</th>
                 <td>{{ project.amount }}</td>
             </tr>
             <tr *ngIf="project.scope != 'NONE'">
-                <th scope="row" class="encabezado">Competencia</th>
+                <th scope="row" >Competencia</th>
                 <td>{{ project.scope }}</td>
             </tr>
             <tr *ngIf="project.status != 'NONE'">
-                <th scope="row" class="encabezado">Estado</th>
+                <th scope="row" >Estado</th>
                 <td>{{ project.status }}</td>
             </tr>
             <tr *ngIf="project.sponsor">
-                <th scope="row" class="encabezado">Patrocinador</th>
+                <th scope="row" >Patrocinador</th>
                 <td>{{ project.sponsor }}</td>
             </tr>
             <tr *ngIf="project.startDate != null">
-                <th scope="row" class="encabezado">Fecha de inicio</th>
+                <th scope="row" >Fecha de inicio</th>
                 <td>{{ project.startDate | date }}</td>
             </tr>
             <tr *ngIf="project.endDate != null">
-                <th scope="row" class="encabezado">Fecha de finalización</th>
+                <th scope="row" >Fecha de finalización</th>
                 <td>{{ project.endDate | date }}</td>
             </tr>
             <tr *ngIf="publications.length > 0" (click)="showPublications()" class="tooltip2">
-                <th scope="row" class="encabezado">Número de publicaciones</th>
+                <th scope="row" >Número de publicaciones</th>
                 <td>{{ publications.length }}</td>
             </tr>
-            <span class="tooltiptext2">Haga click para mostrar las publicaciones</span>
+            <span *ngIf="publications.length > 0" class="tooltiptext2">Haga click para mostrar las publicaciones</span>
             <br>
             <tr>
                 <th>
-                    <button class="btn-primary" id="editButton" name="editButton" type="button" (click)="editProject()">Editar proyecto</button>
-                    <button class="btn-primary" id="deleteButton" name="editButton" type="button" (click)="deleteProject()">Borrar proyecto</button>
+                    <button style="background-color: #f47c3c; border-color: #f47c3c" class="btn btn-primary" id="editButton" name="editButton" type="button" (click)="editProject()">Editar proyecto</button>
+                    <button style="margin-left: 1em; background-color: #f47c3c; border-color: #f47c3c" class="btn btn-primary" id="deleteButton" name="editButton" type="button" (click)="deleteProject()">Borrar proyecto</button>
                 </th>
                 <td></td>
             </tr>
         </tbody>
     </table>
+    </div>
 
-    <table class="table" id="showPublicationProject" [hidden]="!clicked">
-        <thead class="thead-display">
-            <th scope="col">Publicaciones relacionadas</th>
+    <div class="table-responsive">
+    <table class="table table-striped" id="showPublicationProject" [hidden]="!clicked">
+        <thead class="thead-display" style="background-color: #155056; color: white">
+            <th scope="col">PUBLICACIONES RELACIONADAS</th>
         </thead>
         <tbody class="thbody-display">
             <!--TODO hacer esto como enlaces o a saber, hay que pensarlo-->
             <tr *ngFor="let pub of publications" (click)="openDialog(pub)">
                 <td>
-                    <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>: 
-                    <a href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. {{pub.sourceTitle}}: {{pub.pageRange}} ({{pub.publicationDate}})
+                    <span *ngFor="let auth of pub.authors" style="font-weight: bold; padding-right: 5px">{{auth.name}} {{auth.surname}}; </span> 
+                    <a class="btn-link" href="https://dx.doi.org/{{pub.DOI}}">{{pub.articleTitle}}</a>. 
+                    <span name="source">{{pub.sourceTitle}}:</span> 
+                    <span name="publicationRange">{{pub.pageRange}}</span>
+                    <span name="publicationDate" style="font-weight: bold">({{pub.publicationDate}})</span> 
                 </td>
             </tr>
             <tr *ngIf="project.relatedTools.length > 1">
-                <th scope="row" class="encabezado">Herramientas relacionadas</th>
+                <th scope="row" >Herramientas relacionadas</th>
                 <td>{{ project.relatedTools }}</td>
             </tr>
-           
-            <a href="/stats/publication/{{project._id}}" class="alert alert-dark my-5">Estadísticas de publicaciones de este proyecto</a>
+           <tr>
+               <th>
+                    <a href="/stats/publication/{{project._id}}" style="background-color: #f47c3c; border-color: #f47c3c" class="btn btn-primary">Estadísticas de publicaciones de este proyecto</a>
+               </th>
+               <td></td>
+           </tr>
         </tbody>
     </table>
-    
-    <button class="btn-primary" type="button" onclick="window.location.href='/projects'">Volver</button>
+    </div>
+    <button class="btn btn-primary" type="button" onclick="window.location.href='/projects'">Volver</button>
 </fieldset>

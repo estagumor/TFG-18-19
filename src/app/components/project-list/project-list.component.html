@@ -5,23 +5,28 @@
 	<button type="button" class="btn btn-primary" (click)="listar(false)"
 		id="unlistPublicProyectsButton">Ocultar</button>-->
 	<br>
+	<div class="row" name="search">
+		<div class="col">
+			<i class="fas fa-search"></i>
+			<input class ="form-control" [(ngModel)]="searchText" placeholder="Nombre-Referencia" name="filterInput">
+		</div>
+	</div>
+	<div class="col" style="text-align:right">
+		<button style="margin-left: 1em" class="btn btn-primary" [routerLink]="['/project']" id="createProject">Crear proyecto</button>
+		<button style="margin-left: 1em" class="btn btn-warning" [routerLink]="['/stats/project']" name="stats">Estadísticas</button>	
+	</div>
 	<div class="row" id="listPublicProyectsTable">
-		<label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre y referencia</label>
-		<input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado" name="filterInput">
 		<!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
-		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/project']" id="createProject">Crear proyecto</button>
-		<button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/project']" name="stats">Estadísticas</button>
-		<section class="content">
-			<br>
-			<div class="col-md-8 col-md-offset-2">
+		<br/>
+			<div class="col-10 offset-1">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="pull-right">
 							<div class="btn-group">
 								<button type="button" class="btn btn-success btn-filter press" data-target="activo"
 									(click)="boton('activo')">Activos</button>
-								<button type="button" id="tresAnyosFilter" class="btn btn-warning btn-filter press" data-target="tres"
+								<button type="button" id="tresAnyosFilter" class="btn btn-warning btn-filter press" style="background-color: #f47c3c" data-target="tres"
 									(click)="boton('tres')">3
 									años</button>
 								<button type="button" class="btn btn-danger btn-filter press" data-target="cinco"
@@ -31,8 +36,8 @@
 									(click)="boton('all')">Todos</button>
 							</div>
 						</div>
-						<div class="table-container">
-							<table class="table table-filter">
+						<div class="table-responsive">
+							<table class="table table-filter table-striped">
 								<tbody>
 									<tr *ngFor="let invPro of listado2 | filterProjects: searchText"
 										[attr.data-status]="getStatus(invPro)">
@@ -46,7 +51,7 @@
 													<span class="media-meta pull-right" *ngIf="invPro.startDate"> / </span>
 													<span
 														class="media-meta pull-right" name="startDate">{{ invPro.startDate | date}}</span>
-													<h4 class="title">
+													<h4 class="title" style="color: teal">
 														{{ invPro.title }}
 														<div>
 														<span
@@ -59,8 +64,10 @@
 													<p class="summary" *ngIf="invPro.scope == 'NONE'" name="scope-reference">{{ invPro.reference }}</p>
 												</div>
 											</div>
-											<button class="btn-primary" type="button" name="displayButton"
+											<div style="text-align: right">
+											<button class="btn btn-primary" type="button" name="displayButton"
 												(click)="displayProject(invPro._id)">Mostrar</button>
+											</div>
 										</td>
 									</tr>
 								</tbody>
@@ -69,7 +76,6 @@
 					</div>
 				</div>
 			</div>
-		</section>
 	</div>
 </fieldset>
 <br>

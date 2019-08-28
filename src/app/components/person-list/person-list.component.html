@@ -5,32 +5,35 @@
 	<button type="button" class="btn btn-primary" (click)="listar(false)"
 		id="unlistPublicProyectsButton">Ocultar</button>-->
   <br>
+  <div class="row" name="search">
+    <div class="col">
+      <i class="fas fa-search"></i>
+      <input class="form-control" placeholder="Nombre-Apellidos" #filtro (keyup)=filter(filtro) name="filterPerson">  
+    </div>
+  </div>
+  <div class="col" style="text-align:right">
+      <button style="margin-left: 1em" class="btn btn-primary" [routerLink]="['/person']" id="createPerson">Crear perfil</button>
+  </div>
+  <br/>
   <div class="row" id="listPersonTable">
-    <label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre y apellidos</label>
-    <input placeholder="Introduce aquí tu filtrado" #filtro (keyup)=filter(filtro) name="filterPerson">
     <!-- <app-acomplete id="searchpp" [allList]="search" [finalList]="finalSearch" (keyup.enter)="actualizarLista()">
 		</app-acomplete> -->
-    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/person']" id="createPerson">Crear perfil</button>
-    <section class="content">
-      <br>
-      <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="table-container">
-              <table class="table table-filter">
+      <div class="col-10 offset-1">
+            <div class="table-responsive">
+              <table class="table table-filter table-striped">
                 <tbody>
-                  <tr *ngFor="let per of listado2"
-                    [style.background-color]="per.job == 'RESEARCHER' ? '#e8e9ea' : '#ffffff'">
+                  <tr *ngFor="let per of listado2">
                     <!--Hacer javascript para averiguarlo-->
                     <td>
                       <div (click)="openDialog(per)" style="height: 5em;" id="personDiv">
                         <div style="width: 5em !important; display: block; float: left;">
-                          <img [src]="per.photo" alt="Photo" style="width: 5em;" class="rounded-circle img-fluid">
+                          <img [src]="per.photo" alt="Photo" class="rounded-circle img-fluid" 
+                          [style.border]="per.job == 'RESEARCHER' ? '3px outset #93c54b' : '3px outset #4b0082'">
                         </div>
                         <div class="media" style="float: left; padding-left: 1em;">
                           <div class="media-body">
                             <!--datos-->
-                            <h4 class="title">
+                            <h4 class="title" style="color: teal">
                               {{ per.name }} {{per.surname}}
                             </h4>
 
@@ -38,18 +41,16 @@
                           </div>
                         </div>
                       </div>
-                      <button class="btn-primary" type="button" name="displayButton" (click)="displayPerson(per._id)"
-                        style="float: left; margin-left: 6em;">Mostrar</button>
-
+                      <div style="text-align: right">
+                      <button class="btn btn-primary" type="button" name="displayButton" (click)="displayPerson(per._id)">
+                        Mostrar</button>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
   </div>
 </fieldset>
 <br>

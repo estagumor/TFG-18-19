@@ -1,39 +1,40 @@
 <fieldset *ngIf="person">
-  <h1>Detalles del perfil</h1>
-  <table class="table">
-    <thead class="thead-display">
-      <th scope="col">Propiedad</th>
-      <th scope="col">Detalles</th>
+  <h1>DETALLES DEL PERFIL</h1>
+  <div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="thead-display" style="background-color: #155056; color: white">
+      <th scope="col">PROPIEDAD</th>
+      <th scope="col">DETALLES</th>
     </thead>
     <tbody class="thbody-display">
       <tr>
-        <th scope="row" class="encabezado">Nombre completo</th>
+        <th scope="row" >Nombre completo</th>
         <td>{{ person.name }} {{person.surname}}</td>
       </tr>
       <tr *ngIf="person.email">
-        <th scope="row" class="encabezado">Email</th>
+        <th scope="row" >Email</th>
         <td>{{ person.email }}</td>
       </tr>
       <tr *ngIf="person.telf">
-        <th scope="row" class="encabezado">Telefono</th>
+        <th scope="row" >Teléfono</th>
         <td>{{person.telf}}</td>
       </tr>
 
       <tr>
-        <th scope="row" class="encabezado">Rol</th>
+        <th scope="row" >Rol</th>
         <td>{{ person.job }}</td>
       </tr>
 
         <tr *ngIf="person.office">
-          <th scope="row" class="encabezado">Despacho</th>
+          <th scope="row" >Despacho</th>
           <td>{{person.office}}</td>
         </tr>
         <tr *ngIf="person.professionalStatus">
-          <th scope="row" class="encabezado">Rol profesional</th>
+          <th scope="row" >Rol profesional</th>
           <td>{{person.professionalStatus}}</td>
         </tr>
         <tr *ngFor="let url of person.urls">
-          <th scope="row" class="encabezado">Perfiles externos</th>
+          <th scope="row" >Perfiles externos</th>
           <td>{{ url }}</td>
         </tr>
 
@@ -41,13 +42,13 @@
       <br>
       <tr>
         <th>
-          <button id="editButton" name="editButton" class="btn-primary" type="button" (click)="editPerson()" >Editar perfil</button>
-          <button id="deleteButton" name="deleteButton" class="btn-primary" type="button" (click)="deletePerson()" >Borrar perfil</button>
+          <button style="background-color: #f47c3c; border-color: #f47c3c" id="editButton" name="editButton" class="btn btn-primary" type="button" (click)="editPerson()" >Editar perfil</button>
+          <button style="margin-left: 1em; background-color: #f47c3c; border-color: #f47c3c" id="deleteButton" name="deleteButton" class="btn btn-primary" type="button" (click)="deletePerson()" >Borrar perfil</button>
         </th>
         <td></td>
       </tr>
     </tbody>
   </table>
-
-  <button class="btn-primary" type="button" onclick="window.location.href='/persons'">Volver</button>
+  </div>
+  <button class="btn btn-primary" type="button" onclick="window.location.href='/persons'">Volver</button>
 </fieldset>

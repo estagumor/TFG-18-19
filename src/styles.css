@@ -204,15 +204,15 @@ body {
 	margin-right: 20px;
 }
 .table-filter .media .title span.activo {
-    color: #5cb85c;
+    color: #93c54b;
     float: right !important;
 }
 .table-filter .media .title span.tres {
-    color: #f0ad4e;
+    color: #f47c3c;
     float: right !important;
 }
 .table-filter .media .title span.cinco {
-    color: indigo;
+    color: #4b0082;
     float: right !important;
 }
 .table-filter .media .summary {
@@ -253,7 +253,7 @@ button.press:active, button.press.active {
 
 .tooltip2 + .tooltiptext2 {
     visibility: hidden;
-    background-color: black;
+    background-color: #8e8c84;
     color: #fff;
     text-align: center;
     border-radius: 6px;

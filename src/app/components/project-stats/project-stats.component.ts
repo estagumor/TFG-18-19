@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service'
+import { Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-project-stats',
@@ -28,6 +29,14 @@ export class ProjectStatsComponent implements OnInit {
       }]
     }
   };
+
+  public barChartColors: Color[] = [
+    {
+      backgroundColor: '#f47c3c',
+      // borderColor: '#185d62'
+    }
+  ]
+
   //Vamos a ir rellenandolos conforme recorramos los
   //proyectos
   public barChartLabels = [this.anyo.toString() + ' FS', this.anyo.toString() + ' SS',
