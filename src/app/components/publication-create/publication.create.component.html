@@ -135,20 +135,20 @@
     <p id="ORCID-hint" class="form-text text-muted">Identificador del documento en la plataforma ORCID.</p>
     <!-- <div *ngIf="ORCID.invalid && (ORCID.dirty || ORCID.touched)" class="alert alert-danger">
 				<div *ngIf="ORCID.errors.required" class="invalid-feedback">El titulo de la publicación no puede estar vacio</div>
-			</div> -->
+      </div> -->
+      
+    <label for="affiliation">Afiliacion</label>
+    <input aria-describedby="affiliation" type="text" [(ngModel)]="pub.affiliation" id="affiliation"
+      name="affiliation" required #affiliation='ngModel' class="form-control">
+    <p id="affiliation-hint" class="form-text text-muted">Afiliacion de los autores. Por ejemplo: Universidad de
+      Sevilla</p>
+    <div *ngIf="affiliation.invalid && (affiliation.dirty || affiliation.touched)" class="alert alert-danger">
+      <div *ngIf="affiliation.errors.required" class="invalid-feedback">Debe indicarse la afiliacion</div>
+    </div>
 
     <div class="requiredInputs">
       <label for="authors">Autores</label>
       <app-acomplete [allList]="StringPersons" [finalList]="finalAutores"></app-acomplete>
-
-      <label for="affiliation">Afiliacion</label>
-      <input aria-describedby="affiliation" type="text" [(ngModel)]="pub.affiliation" id="affiliation"
-        name="affiliation" required #affiliation='ngModel' class="form-control">
-      <p id="affiliation-hint" class="form-text text-muted">Afiliacion de los autores. Por ejemplo: Universidad de
-        Sevilla</p>
-      <div *ngIf="affiliation.invalid && (affiliation.dirty || affiliation.touched)" class="alert alert-danger">
-        <div *ngIf="affiliation.errors.required" class="invalid-feedback">Debe indicarse la afiliacion</div>
-      </div>
 
       <label for="project">Proyectos</label>
       <app-acomplete [allList]="StringProjects" [finalList]="finalProjects">

@@ -276,3 +276,11 @@ button.press:active, button.press.active {
     margin: initial !important;
 }
 
+.mat-dialog-container {
+    padding: 16px !important;
+}
+
+.card tbody {
+    width: 100%;
+    display: inline-table;
+}

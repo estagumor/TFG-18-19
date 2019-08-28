@@ -171,10 +171,10 @@ export class PublicationStatsComponent implements OnInit {
             }
           }})
           this.barChartData = [
-            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Journals"}
+            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Revistas"}
           ]
           this.barChartData2 = [
-            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congress"}
+            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congresos"}
           ]
         })
       }

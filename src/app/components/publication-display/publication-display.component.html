@@ -51,12 +51,6 @@
             <th scope="row" >ORCID</th>
             <td>{{ publication.ORCID }}</td>
           </tr>
-          <tr>
-              <th scope="row" >Autores</th>
-              <td>
-                  <span *ngFor="let author of publication.authors" style="padding-right: 20px">{{ author.surname }}, {{ author.name }}</span>
-              </td>
-          </tr>
           <tr *ngIf="publication.affiliation">
               <th scope="row" >Afiliación</th>
               <td>{{ publication.affiliation }}</td>
@@ -72,6 +66,12 @@
           <tr *ngIf="publication.congress">
               <th scope="row" >Congreso</th>
               <td>{{ publication.congress }}</td>
+          </tr>
+          <tr>
+              <th scope="row" >Autores</th>
+              <td>
+                  <span *ngFor="let author of publication.authors" style="padding-right: 20px">{{ author.surname }}, {{ author.name }}</span>
+              </td>
           </tr>
           <tr>
             <th scope="row" >Proyectos</th>

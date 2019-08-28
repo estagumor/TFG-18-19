@@ -4,30 +4,6 @@
 		<div class="form-group">
 		<!--appLeadersRestriction>-->
 
-		<!--añadir mensaje de error-->
-		<label for="researchTeam">Equipo de investigacion</label>
-		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" (keyup)="validateAutocomplete()"></app-acomplete>
-		<div *ngIf="errors.badResearchers" class="alert alert-danger">
-			<span>{{ errors.badResearchers }}</span>
-		</div>
-		<br>
-
-		<label for="workTeam">Equipo de trabajo</label>
-		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
-		<app-acomplete [allList]="researchers" [finalList]="finalWorkers" (keyup)="validateAutocomplete()" ></app-acomplete>
-		<div *ngIf="errors.badWorkers" class="alert alert-danger">
-				<span>{{ errors.badWorkers }}</span>
-		</div>
-		<div *ngIf="errors.workersNotResearchers" class="alert alert-danger">
-				<span>{{ errors.workersNotResearchers }}</span>
-		</div>
-		<br>
-
-		<label for="hiredStaff">Personal contratado</label>
-		<!--<input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff' name="hiredStaff" required><br>-->
-		<app-acomplete [allList]="hireds" [finalList]="finalHireds"></app-acomplete>
-		<br>
-
 		<div class="requiredInputs">
 			<label for="title">Titulo</label>
 			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel' class="form-control">
@@ -45,24 +21,13 @@
 		</div>
 		<br>
 
-		<label for="leader">Responsable/s</label>
-		<app-acomplete [allList]="researchers" [finalList]="finalLeaders"></app-acomplete>
-		<div *ngIf="validateLeader() == false" class="alert alert-danger">
-		<span>El líder tiene que ser un investigador.</span>
-		</div>
-		<!--
-		<div *ngIf="formProject.errors?.badLeader && (formProject.touched || formProject.dirty)"
-			class="cross-validation-error-message alert alert-danger">
-			<span>El líder tiene que ser un investigador</span>
-		</div>-->
-		<br>
-
-
-		<label for="reference">Referencia</label>
-		<input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
-			#reference='ngModel' class="form-control">
-		<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
-			<span>Error en la referencia</span>
+		<div class="requiredInputs">
+			<label for="reference">Referencia</label>
+			<input type="text" [(ngModel)]="project.reference" id='reference' name="reference"
+				#reference='ngModel' class="form-control">
+			<div *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+				<span>Error en la referencia</span>
+			</div>
 		</div>
 		<br>
 
@@ -141,18 +106,49 @@
 		</div>
 		<br>
 
-
-		<label for="amount">Importe</label>
-		<span class="badge">
-			<span class="input-group-text">€</span>
-		</span>
-		<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel' class="form-control">
-		<span class="badge">
-			<span class="input-group-text">.00</span>
-		</span>
-		<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
-			<div *ngIf="amount.errors.required" class="invalid-feedback">El importe debe ser mayor o igual a 0</div>
+		<div class="requiredInputs">
+			<label for="amount">Importe</label>
+			<input type="number" [(ngModel)]="project.amount" id='amount' name="amount" required min="0" #amount='ngModel' class="form-control">
+			<div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger">
+				<div *ngIf="amount.errors.required" class="invalid-feedback">El importe debe ser mayor o igual a 0</div>
+			</div>
 		</div>
+		<br>
+
+		<!--añadir mensaje de error-->
+		<label for="researchTeam">Equipo de investigacion</label>
+		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" (keyup)="validateAutocomplete()"></app-acomplete>
+		<div *ngIf="errors.badResearchers" class="alert alert-danger">
+			<span>{{ errors.badResearchers }}</span>
+		</div>
+		<br>
+
+		<label for="workTeam">Equipo de trabajo</label>
+		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
+		<app-acomplete [allList]="researchers" [finalList]="finalWorkers" (keyup)="validateAutocomplete()" ></app-acomplete>
+		<div *ngIf="errors.badWorkers" class="alert alert-danger">
+				<span>{{ errors.badWorkers }}</span>
+		</div>
+		<div *ngIf="errors.workersNotResearchers" class="alert alert-danger">
+				<span>{{ errors.workersNotResearchers }}</span>
+		</div>
+		<br>
+
+		<label for="hiredStaff">Personal contratado</label>
+		<!--<input type="text" [(ngModel)]="project.hiredStaff" id='hiredStaff' name="hiredStaff" required><br>-->
+		<app-acomplete [allList]="hireds" [finalList]="finalHireds"></app-acomplete>
+		<br>
+
+		<label for="leader">Responsable/s</label>
+		<app-acomplete [allList]="researchers" [finalList]="finalLeaders"></app-acomplete>
+		<div *ngIf="validateLeader() == false" class="alert alert-danger">
+		<span>El líder tiene que ser un investigador.</span>
+		</div>
+		<!--
+		<div *ngIf="formProject.errors?.badLeader && (formProject.touched || formProject.dirty)"
+			class="cross-validation-error-message alert alert-danger">
+			<span>El líder tiene que ser un investigador</span>
+		</div>-->
 		<br>
 
 
