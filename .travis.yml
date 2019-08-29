@@ -15,6 +15,7 @@ before_script:
 script:
 - ng test --watch=false
 - mocha --recursive src/app/tests
+- webdriver-manager update
 - ng e2e
 deploy:
   provider: heroku
