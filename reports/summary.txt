@@ -1,0 +1,243 @@
+@dashboard
+Feature: Administrar el panel de control
+
+  @dashboard
+  Scenario: Ver el panel de control
+    Given Estoy en la pagina principal
+    When Hago click en el link 'dashboardLink'
+    Then la url deberia contener el patron '/dashboard'
+    Then Deberia ver la cabecera 'Panel de administración'
+
+@person
+Feature: Crear y editar perfiles
+
+  @person @create
+  Scenario: Crear perfil
+    Given Estoy en la pagina principal
+    When Hago clic en el link de personal
+    Then Hago clic en el boton 'Crear perfil' arriba del listado
+    Then Relleno el formulario
+    Then Clico en el boton 'Guardar'
+    Then Deberia devolverme a la pagina principal
+
+  @person @edit
+  Scenario: Editar perfil
+    Given Estoy en la pagina principal
+    When Hago clic en el link de personal
+    Then Hago clic en el boton 'Mostrar' de una persona
+    Then Clico en el boton 'Editar' de la vista de detalle
+    Then Modifico el apellido a 'Jimenez'
+    Then Clico en el boton 'Guardar'
+    Then Deberia devolverme a la pagina principal
+
+@person
+Feature: Mostrar informacion de un perfil
+
+  @person @display
+  Scenario: Mostrar perfil
+    Given Estoy en la pagina principal
+    When Hago clic en el link de personal
+    Then Hago clic en el boton 'Mostrar' de una persona
+    Then Deberia ver mis datos
+
+@person
+Feature: Listado de personas
+
+  @person @list
+  Scenario: Listado de personas
+    Given Estoy en la pagina principal
+    When Hago click en el link 'personsLink'
+    Then Deberia ver una lista con algunas personas
+
+@project
+Feature: Crear y editar proyectos
+
+  @project @create
+  Scenario: Crear proyecto
+    Given Estoy en la pagina principal
+    When Clico en el link 'projectsLink'
+    Then Hago clic en el boton 'Crear proyecto' arriba del listado de proyecto
+    Then Relleno el formulario de proyecto
+    Then Clico en el boton 'Guardar'
+    Then Deberia ser redirigido al listado
+
+  @project @edit
+  Scenario: Editar proyecto
+    Given Estoy en la pagina principal
+    When Clico en el link 'projectsLink'
+    Then Hago clic en el boton 'Mostrar' de un proyecto
+    Then Clico en el boton 'Editar' de la vista de detalle
+    Then Modifico el titulo a 'Proyecto'
+    Then Clico en el boton 'Guardar'
+    Then Deberia ser redirigido al listado
+
+@project
+Feature: Enseñar la informacion del proyecto
+
+  @project @display
+  Scenario: Mostrar proyecto
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'projectsLink'
+    When Clico en el boton 'displayButton' para guardar el proeycto
+    Then la url deberia contener el patron '/project/display'
+    Then Deberia ver la cabecera 'Detalles del proyecto'
+
+@project
+Feature: Listar proyectos
+
+  @project @list
+  Scenario: Listado de proyectos
+    Given Estoy en la pagina principal
+    When Hago clic en el link de proyectos
+    Then Deberia ver una lista con varios proyectos
+
+@project
+Feature: Buscar y filtrar los proyectos
+
+  @project @search
+  Scenario: Buscar proyecto por referencia
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'projectsLink'
+    When Escribo '002' en el campo de busqueda
+    Then Deberia ver un proyecto con referencia 'EUROPEO - 002'
+
+  @project @search
+  Scenario: Buscar proyecto por titulo
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'projectsLink'
+    When Escribo 'AUTOMATED' en el campo de busqueda
+    Then Deberia ver un proyecto con titulo 'AUTOMATED VALIDATION OF COMPENSABLE SLAS'
+
+  @project @filter
+  Scenario: Filtrar los proyectos de hace tres años
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'projectsLink'
+    When Clico en el boton de tres años
+    Then Deberia ver los proyectos de hace tres años
+
+@project
+Feature: Estadisticas de proyecto
+
+  @project @stats
+  Scenario: Estadisticas de proyectos
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'projectsLink'
+    When Clico en el boton 'stats' encima de la lista
+    Then la url deberia contener el patron '/stats/project'
+    Then Deberia ver dos tablas con alguna informacion
+
+@publication
+Feature: Importar publicaciones desde Scopus
+
+  @publication @import
+  Scenario: Importar una publicacion
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Hago clic en el boton 'Importar' arriba de la lista
+    Then Selecciono el primer proyecto de la lista
+    Then Selecciono la primera publicacion de la lista
+    Then Clico en el boton 'Guardar' arriba de la pagina
+    Then Deberia ser redirigido al listado de publicaciones
+
+  @publication @import
+  Scenario: Importar todas las publicaciones
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Hago clic en el boton 'Importar' arriba de la lista
+    Then Selecciono el primer proyecto de la lista
+    Then Hago clic en el boton naranja 'Seleccionar todas las publicaciones' arriba de la lista
+    Then Clico en el boton 'Guardar' arriba de la pagina
+    Then Deberia ser redirigido al listado de publicaciones
+
+  @publication @import
+  Scenario: Buscar e importar un proyecto y publicacion especifico
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Hago clic en el boton 'Importar' arriba de la lista
+    Then Escribo 'Automated' en el buscador de proyecto
+    Then Selecciono el primer proyecto de la lista
+    Then Escribo 'Visual' en el buscador de publicaciones
+    Then Selecciono la primera publicacion de la lista
+    Then Clico en el boton 'Guardar' arriba de la pagina
+    Then Deberia ser redirigido al listado de publicaciones
+
+@publication
+Feature: Publication create and edit
+
+  @publication @create
+  Scenario: Crear publicacion
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Hago click en el boton 'Crear publicación' del listado de publicaciones
+    Then Relleno el formulario de publicacion
+    Then Clico en el boton 'Guardar'
+    Then Deberia ser redirigido al listado de publicaciones
+
+  @publication @edit
+  Scenario: Editar publicacion
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Clico en el boton 'Mostrar' de una publicacion
+    Then Clico en el boton 'Editar' de la vista de detalle
+    Then Modifico el titulo de la publicacion a 'Comprehensive list'
+    Then Clico en el boton 'Guardar'
+    Then Deberia ser redirigido al listado de publicaciones
+
+@publication
+Feature: Enseñar la informacion de la publicacion
+
+  @publication @display
+  Scenario: Mostrar publicacion
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'publicationsLink'
+    When Clico en el boton 'displayButton' para la vista de detalle
+    Then la url deberia contener el patron '/publication/display'
+    Then Deberia ver la cabecera 'Detalles de la publicación'
+
+@publication
+Feature: Listado de publicaciones
+
+  @publication @list
+  Scenario: Listar publicaciones
+    Given Estoy en la pagina principal
+    When Hago click en el link 'publicationsLink'
+    Then Deberia ver una lista con varias publicaciones
+
+@publication
+Feature: Buscar y filtrar publicaciones
+
+  @publication @search
+  Scenario: Buscar publicacion por nombre
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'publicationsLink'
+    When Escribo 'Automated' en el campo de busqueda
+    Then Deberia ver una publicacion con nombre 'Automated Validation of Compensable SLAs'
+
+  @publication @search
+  Scenario: Buscar publicacion por fecha
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'publicationsLink'
+    When Escribo '2018' en el campo de busqueda
+    Then Deberia ver publicaciones con el año '(2018)'
+
+  @publication @search
+  Scenario: Buscar publicacion por autor
+    Given Estoy en la pagina principal
+    Given Hago click en el link 'publicationsLink'
+    When Escribo 'Manuel' en el campo de busqueda
+    Then Deberia ver publicaciones con el autor 'Manuel Resinas'
+
+@publication
+Feature: Estadisticas de publicacion
+
+  @publication @stats
+  Scenario: Estadisticas de publicaciones
+    Given Estoy en la pagina principal
+    Given Clico en el link 'publicationsLink'
+    When Clico en el boton 'stats' encima de la lista
+    Then la url deberia contener el patron '/stats/publication'
+    Then Deberia ver dos tablas con alguna informacion
+
+24 scenarios (24 passed)
+123 steps (123 passed)
+2m02.539s
