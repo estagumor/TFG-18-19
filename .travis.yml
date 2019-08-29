@@ -15,8 +15,6 @@ before_script:
 script:
 - ng test --watch=false
 - mocha --recursive src/app/tests
-- npm run pree2e
-- npm run e2e
 deploy:
   provider: heroku
   api_key:
