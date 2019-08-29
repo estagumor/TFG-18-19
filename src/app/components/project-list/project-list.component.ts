@@ -72,9 +72,25 @@ export class ProjectListComponent implements OnInit {
 
   openDialog(pro): void {
     this.selectedPro = pro;
+    var researchTeamNames = ""
+    var leaderNames = ""
+    pro.leader.forEach((person, index) => {
+      if(index < pro.leader.length - 1){
+        leaderNames += person.surname + ", " + person.name + "; "
+      } else {
+        leaderNames += person.surname + ", " + person.name
+      }
+    })
+    pro.researchTeam.forEach((person, index) => {
+      if(index < pro.researchTeam.length - 1){
+        researchTeamNames += person.surname + ", " + person.name + '; '
+      } else {
+        researchTeamNames += person.surname + ", " + person.name
+      }
+    })
     const dialogRef = this.dialog.open(DisplayComponent, {
       width: '50%',
-      data: { objeto: pro, fields: {title: 'Título', leader: 'Responsables', researchTeam: 'Equipo de investigación', amount: 'Importe'}}
+      data: { objeto: {title: pro.title, leader: leaderNames, researchTeam: researchTeamNames, amount: pro.amount}, fields: {title: 'Título', leader: 'Responsables', researchTeam: 'Equipo de investigación', amount: 'Importe'}}
     });
   }
 
@@ -131,17 +147,23 @@ export class ProjectListComponent implements OnInit {
   // }
 
   getStatus(project) {
-    const eD = new Date(project.endDate);
-    const now = new Date();
-    var time = now.getFullYear() - eD.getFullYear();
-    if (time <= 0) {
+    var eD = null
+    if (project.endDate){
+      eD = new Date(project.endDate);
+    }
+
+    if(eD) {
+      const now = new Date();
+      var time = now.getFullYear() - eD.getFullYear();
+      if (time <= 0) {
+        return "activo";
+      } else if (time <= 3 && time > 0) {
+        return "tres";
+      }else {
+        return "cinco";
+      }
+    } else {
       return "activo";
-    } else if (time <= 3 && time > 0) {
-      return "tres";
-    } else if (project.endDate == undefined) {
-      return "activo"
-    }else {
-      return "cinco";
     }
   }
 

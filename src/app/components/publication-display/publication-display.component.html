@@ -1,13 +1,14 @@
 <fieldset *ngIf="publication">
-  <h1>Detalles de la publicación</h1>
-  <table class="table">
-      <thead class="thead-display">
-          <th scope="col">Propiedad</th>
-          <th scope="col">Detalles</th>
+  <h1>DETALLES DE LA PUBLICACIÓN</h1>
+  <div class="table-responsive">
+  <table class="table table-striped">
+      <thead class="thead-display" style="background-color: #155056; color: white">
+          <th scope="col">PROPIEDAD</th>
+          <th scope="col">DETALLES</th>
       </thead>
       <tbody class="thbody-display">
           <tr>
-              <th scope="row" class="encabezado">Título del artículo</th>
+              <th scope="row">Título del artículo</th>
               <td>{{ publication.articleTitle }}</td>
           </tr>
           <tr *ngIf="publication.documentType">
@@ -15,19 +16,23 @@
             <td>{{ publication.documentType }}</td>
           </tr>
           <tr *ngIf="publication.scopusId">
-              <th scope="row" class="encabezado">Id de Scopus</th>
+              <th scope="row">Ids de Scopus</th>
               <td>{{ publication.scopusId }}</td>
           </tr>
           <tr *ngIf="publication.sourceType">
-            <th scope="row" class="encabezado">Publicado en</th>
+            <th scope="row" >Origen de publicación</th>
             <td>{{ publication.sourceType }}</td>
           </tr>
+          <tr *ngIf="publication.documentType">
+            <th scope="row" >Tipo de publicación</th>
+            <td>{{ publication.documentType }}</td>
+          </tr>
           <tr *ngIf="publication.sourceTitle">
-            <th scope="row" class="encabezado">Libro/Web/Revista</th>
+            <th scope="row" >Título del origen</th>
             <td>{{ publication.sourceTitle }}</td>
           </tr>
           <tr *ngIf="publication.sourceIdentifier">
-            <th scope="row" class="encabezado">Id del lugar de publicacion</th>
+            <th scope="row" >Identificador del origen</th>
             <td>{{ publication.sourceIdentifier }}</td>
           </tr>
           <tr *ngIf="publication.publicationDate">
@@ -35,58 +40,62 @@
             <td>{{ publication.publicationDate | date }}</td>
           </tr>
           <tr *ngIf="publication.sourceVolume">
-            <th scope="row" class="encabezado">Volumen</th>
+            <th scope="row" >Tamaño del origen</th>
             <td>{{ publication.sourceVolume }}</td>
           </tr>
           <tr *ngIf="publication.pageRange">
-            <th scope="row" class="encabezado">Rango de páginas</th>
+            <th scope="row" >Rango de páginas</th>
             <td>{{ publication.pageRange }}</td>
           </tr>
+          <tr *ngIf="publication.publicationDate">
+            <th scope="row" >Fecha de publicación</th>
+            <td>{{ publication.publicationDate | date }}</td>
+          </tr>
           <tr *ngIf="publication.DOI">
-            <th scope="row" class="encabezado">DOI</th>
+            <th scope="row" >DOI</th>
             <td>{{ publication.DOI }}</td>
           </tr>
           <tr *ngIf="publication.ORCID">
-            <th scope="row" class="encabezado">ORCID</th>
+            <th scope="row" >ORCID</th>
             <td>{{ publication.ORCID }}</td>
           </tr>
-          <tr>
-              <th scope="row" class="encabezado">Autores</th>
-              <td></td>
-          </tr>
-          <tr *ngFor="let author of publication.authors">
-              <th>{{ author.name }}</th>
-              <td>{{ author.surname }}</td>
-          </tr>
           <tr *ngIf="publication.affiliation">
-              <th scope="row" class="encabezado">Afiliación</th>
+              <th scope="row" >Afiliación</th>
               <td>{{ publication.affiliation }}</td>
           </tr>
+          <tr *ngIf="publication.assigned">
+            <th scope="row" >Asignado</th>
+            <td>{{ publication.asigned }}</td>
+          </tr>
           <tr *ngIf="publication.quartil">
-              <th scope="row" class="encabezado">Cuartil</th>
+              <th scope="row" >Cuartil</th>
               <td>{{ publication.quartil }}</td>
           </tr>
           <tr *ngIf="publication.congress">
-              <th scope="row" class="encabezado">Congreso</th>
+              <th scope="row" >Congreso</th>
               <td>{{ publication.congress }}</td>
           </tr>
           <tr>
-            <th scope="row" class="encabezado">Proyectos</th>
-            <td></td>
+              <th scope="row" >Autores</th>
+              <td>
+                  <span *ngFor="let author of publication.authors" style="padding-right: 20px">{{ author.surname }}, {{ author.name }}</span>
+              </td>
           </tr>
-          <tr *ngFor="let proj of publication.project">
-            <th>{{ proj.title }}</th>
-            <td>{{ proj.amount }}</td>
+          <tr>
+            <th scope="row" >Proyectos</th>
+            <td>
+                <span *ngFor="let proj of publication.project" style="padding-right: 20px"> {{ proj.title }}, {{ proj.amount }}</span>
+            </td>
           </tr>
           <br>
           <tr>
               <th>
-                  <button class="btn-primary" type="button" (click)="editpublication()" id='editButton'>Editar publicacion</button>
+                  <button class="btn btn-primary" style="background-color: #f47c3c; border-color: #f47c3c" type="button" (click)="editpublication()" id='editButton'>Editar</button>
               </th>
               <td></td>
           </tr>
       </tbody>
   </table>
-  
-  <button class="btn-primary" type="button" onclick="window.location.href='/publications'">Volver</button>
+  </div>
+  <button class="btn btn-primary" type="button" onclick="window.location.href='/publications'">Volver</button>
 </fieldset>

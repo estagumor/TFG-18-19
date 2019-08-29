@@ -12,8 +12,7 @@ import { PersonService } from 'src/app/services/person.service';
 @Component({
   selector: 'app-publications',
   templateUrl: './publication.create.component.html',
-  styleUrls: ['./publication.create.component.css'],
-  providers: [PublicationService]
+  styleUrls: ['./publication.create.component.css']
 })
 export class PublicationCreateComponent implements OnInit {
   public pub: Publication
@@ -43,6 +42,8 @@ export class PublicationCreateComponent implements OnInit {
       if (params['id?'] !== undefined) { //ESTAMOS EN EL EDIT
         this._service.getPublication(params['id?']).subscribe(publi => {
           this.pub = publi.body['pub']
+          this.finalProjects = this.getStringProjects(this.pub.project)
+          this.finalAutores = this.getStringPersons(this.pub.authors)
           this.edit = true
         });
       }

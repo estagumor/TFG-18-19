@@ -1,6 +1,6 @@
 <!--Esta en orden contrario porque el css lo coloca al reves-->
-<div class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="background-color: darkslategray !important;">
+    <a class="navbar-brand" href="https://www.isa.us.es/2.0/"><img class="img-logo" alt="Logo de ISA" src="../assets/isa_icon1.png" width="100px" style="margin-right: 0.5em"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,57 +8,26 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item left">
-          <img class="img-logo" alt="Logo de ISA" src="../assets/isa_icon1.png" width="100px" style="margin-right: 0.5em"/>
-        </li>
-
-        <li class="nav-item right">
-          <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">Administración</a>
-        </li>
-
-        <li class="nav-item right">
-          <a class="nav-link" [routerLink]="['/persons']" routerLinkActive="active">Personal</a>
-        </li>
-        
-        <li class="nav-item right">
-          <a class="nav-link" [routerLink]="['/projects']" routerLinkActive="active">Proyectos</a>
-        </li>
-        <li class="nav-item right">
-          <a class="nav-link" [routerLink]="['/publications']" routerLinkActive="active">Publicaciones</a>
-        </li>
-        <!-- <li class="nav-item right">
-          <a class="nav-link" [routerLink]="['/stats/publication']" routerLinkActive="active">Estadísticas de publicaciones</a>
-        </li>
-        <li class="nav-item right">
-            <a class="nav-link" [routerLink]="['/scopus/publications']" routerLinkActive="active">Añadir publicaciones</a>
-         </li>
-        <li class="nav-item right">
-           <a class="nav-link" [routerLink]="['/publication']" routerLinkActive="active">Crear publicación</a>
-        </li> -->
-        <li class="nav-item right">
-            <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Inicio <span
+        <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active" id="homeLink">Inicio<span
                 class="sr-only">(current)</span></a>
-          </li>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/publications']" routerLinkActive="active" id="publicationsLink">Publicaciones</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/projects']" routerLinkActive="active" id="projectsLink">Proyectos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/persons']" routerLinkActive="active" id="personsLink">Personal</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active" id="dashboardLink">Administración</a>
+        </li>
       </ul>
     </div>
   </nav>
-
-  
-
-  <!-- <div class="row">
-  <div class="col">
-    <div ngbDropdown class="d-inline-block">
-			<button class="dropdownBasic" id="dropdownBasic1" [routerLink]="['/home']" routerLinkActive="router-link-active" >Inicio</button>
-      <button class="dropdownBasic" id="dropdownBasic2" ngbDropdownToggle>Que hacemos</button>
-      <div class="dropdownMenu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
-        <button class="dropdown-item" [routerLink]="['/projects']" routerLinkActive="router-link-active" >Proyectos publicos</button>
-        <button class="dropdown-item" [routerLink]="['/contracts']" routerLinkActive="router-link-active" >Contratos</button>
-				<button class="dropdown-item" [routerLink]="['/nets']" routerLinkActive="router-link-active" >Redes</button>
-				<button class="dropdown-item" [routerLink]="['/investigationProjects']" routerLinkActive="router-link-active" >Proyectos de investigacion</button>
-      </div>
-    </div>
-  </div>
-</div> -->
   <br>
+<div class="container-fluid">
   <router-outlet></router-outlet>
 </div>

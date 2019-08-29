@@ -1,11 +1,14 @@
-
-  <div class="modal-dialog" *ngFor="let item of properties; let i=index; let e=even; let f=first">
+<table class="card text-white bg-warning">
+  <div *ngFor="let item of properties; let i=index; let e=even; let f=first">
 
 
     <span *ngIf="e">
       <div *ngIf="objeto[properties[i]]">
-        <h5 *ngIf="f" class="modal-title text-muted">{{objeto[properties[i]]}}</h5>
-        <span *ngIf="!f" class="modal-body">{{properties[i+1]}} -- {{objeto[properties[i]].toString()}}</span>
+        <tr>
+          <td *ngIf="f" class="card-header">{{objeto[properties[i]]}}</td>
+          <td *ngIf="!f" class="card-body">{{properties[i+1]}} -- {{objeto[properties[i]]}}</td>
+        </tr>
       </div>
     </span>
   </div>
+</table>

@@ -1,19 +1,19 @@
-import { expect } from 'chai';
-import { Given, When, Then, Before } from 'cucumber';
-import { AppPage } from '../features/app.po';
+// import { expect } from 'chai';
+// import { Given, When, Then, Before } from 'cucumber';
+// import { AppPage } from '../features/app.po';
 
-  let app: AppPage;
+//   let app: AppPage;
 
-  Before(() => {
-    app = new AppPage();
-  });
+//   Before(() => {
+//     app = new AppPage();
+//   });
 
-  Given("I am on the projects' page",{timeout: 2 * 5000},
-    () => app.navigateTo());
+//   Given("I am on the projects' page",{timeout: 2 * 5000},
+//     () => app.navigateTo());
 
-  When('I click in the list button',{timeout: 2 * 5000},
-    () => { app.clickList() });
+//   When('Hago clic list button',{timeout: 2 * 5000},
+//     () => { app.clickList() });
 
-  Then("I should see a list with a few projects' id",
-    () => app.getListedtItems()
-      .then(elems => expect(elems.length).to.be.greaterThan(0)));
+//   Then("Deberia ver una lista con varios proyectos' id",
+//     () => app.getListedtItems()
+//       .then(elems => expect(elems.length).to.be.greaterThan(0)));
