@@ -30,8 +30,8 @@ describe('DisplayComponent', () => {
     component = fixture.componentInstance;
 
     // find the hero's DebugElement and element
-    let titleDe = fixture.debugElement.query(By.css('.modal-title.text-muted'));
-    let restDe = fixture.debugElement.query(By.css('.modal-body'));
+    let titleDe = fixture.debugElement.query(By.css('.card-header'));
+    let restDe = fixture.debugElement.query(By.css('.card-body'));
     
     let titleEl = titleDe.nativeElement;
     let restEl = restDe.nativeElement;

@@ -163,7 +163,7 @@ describe('ProjectStatsComponent', () => {
   });
 
   it('should return the values correctly', () => {
-    expect(component.avgAm).toEqual([225000, 65000, 71100, 71100, 187915, 145481, 102960, 102960, 309537, 102960, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
+    expect(component.avgAm).toEqual([220140, 72157, 70740, 70740, 187915, 145303, 102960, 102960, 309537, 102960, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
     expect(component.count).toEqual([3, 3, 2, 2, 4, 4, 3, 3, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }); 
 });

@@ -228,6 +228,12 @@ describe("Publication's component", () => {
         component = fixture.componentInstance;
         element = fixture.debugElement.nativeElement;
         publicationService = fixture.debugElement.injector.get(PublicationService);
+        // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
+        // Get the button that send the form and two inputs to set their values
+        let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
+        let sourceType: HTMLSelectElement = element.querySelector("select[name='sourceType']")
+        sourceType.setAttribute('selected', 'Book');
+        fixture.detectChanges();
         try {
             component.persons = persons.map((p) => {
                 let temp = [...Object.values(p)]
@@ -240,12 +246,16 @@ describe("Publication's component", () => {
                 return parseProject([...temp])
             });
         } catch (error) { }
-        // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
-        // Get the button that send the form and two inputs to set their values
-        let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
-        let sourceType: HTMLSelectElement = element.querySelector("select[name='sourceType']")
-        sourceType.setAttribute('selected', 'Book');
-        fixture.detectChanges();
+        try {
+            component.finalAutores = persons.map((p) => {
+                return p.name + " " + p.surname
+            });
+        } catch (error) { }
+        try {
+            component.finalProjects = projects.map((p) => {
+                return p.title
+            });
+        } catch (error) { }
         // Makes Angular detect changes in the page and simulate the click
         boton.click();
         // Check that the create method has been called in the service

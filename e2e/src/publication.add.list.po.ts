@@ -7,11 +7,12 @@ export class PublicationAddListPage {
     }
 
     public firstProject(){
-        return element(by.xpath('/html/body/app-root/div/app-publication-add-list/fieldset/div[1]/section/div[2]/div/div/div/table/tbody/tr[1]/td[1]')).click()
+        return element.all(by.tagName("td")).first().click()
     }
     
     public firstPublication(){
-        return element(by.xpath('/html/body/app-root/div/app-publication-add-list/fieldset/div[1]/section/div[1]/div/div/div/table/tbody/tr[1]/td[1]/label')).click()
+        //Al seleccionar una proyecto primero aparecen mas td antes
+        return element.all(by.tagName("td")).first().click()
     }
 
     public saveButton(){
@@ -23,10 +24,11 @@ export class PublicationAddListPage {
     }
 
     public searchProject(string){
-        return element(by.xpath('/html/body/app-root/div/app-publication-add-list/fieldset/input[1]')).sendKeys(string)
+        return element.all(by.className("form-control ng-untouched ng-pristine ng-valid")).get(0).sendKeys(string)
     }
 
     public searchPublication(string){
-        return element(by.xpath('/html/body/app-root/div/app-publication-add-list/fieldset/input[2]')).sendKeys(string)
+        //Al usar el buscador de proyecto antes deja de ser untouched asi que este pasa a ser el primero y unico
+        return element.all(by.className("form-control ng-untouched ng-pristine ng-valid")).get(0).sendKeys(string)
     }
 }

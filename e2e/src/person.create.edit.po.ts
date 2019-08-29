@@ -22,6 +22,7 @@ export class PersonCreateEditPage {
   }
 
   public checkInList(){
+      browser.sleep(2000)
       return browser.getCurrentUrl()
   }
 

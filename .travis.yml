@@ -2,6 +2,7 @@ dist: trusty
 sudo: required
 addons:
   chrome: stable
+  firefox: latest
 language: node_js
 node_js:
 - stable
@@ -14,14 +15,14 @@ before_script:
 script:
 - ng test --watch=false
 - mocha --recursive src/app/tests
+- ng e2e
 deploy:
   provider: heroku
   api_key:
-    secure: l0aj7UC7kEFUWAZ1f+eWInV8Pq/4RZRDgkTwmsjIklCDa1bOvi4IoGvhudtjfop9vs/saB4Zj3IIc60G+Gd5FJX6XeEiqdQbwmdLxM2YXOvQJHbn86dfCqMI2Vh+wgj1Pet935caP0aHpTdK6kOraauicZo17TvzYr/4XkV3kcr4gYDGt0RRebcdIKzVHm3+Bx+4V6Znwj3mRSskcsG42mpksu05SxZYXNiMfi5RZt2a6ZwRrk80RatFTJ0ebWo8WKzPyEs3UbMCZMqIABPYAlVTOkJkn9V/frjvfDz6pAPYewJ336H4x2viM6XqJGX6SPc9W1N5kUAw//XunNhhbcVXnsl2DqmTe3NwWKMYTyeN/Kjcclg22bsG/MD6BwHh3x8IOENGs4dlvzZnEUGjUhPeY+kky56qXQ7lgxINQ7+5HXGuWWG5nyNQxSUkZPOVdjgh/Mt3RU52jpN++hVK+fplQzEKOHB5N54LV4UPDpLtKizoH8icZl5Yy/rh4i8UxfnCAW1VdqU369Y++31GHs0QB/LDKvkDT5C3uwvDrZee5bzo3v7hkcJQ0HRmKsvjXjcCIYxo4Hma//KYTN9zG+CxrU+pQEDiaVu+8CiqvT0v4uxR2d2Kw17U90XskgVm7bTOY7B3P+oz0nj2YhL4avKFAWLUYZYlWaqmar1ylpg=
+    secure: cVn+8wKn8WGfYYdjBIhWuw0m0Bx5zBZ9FecxN57IXYdGEYtF7o2+5lwxf3POcB7oLAqs/0Y/kbkxKjjQDSe2fLe/fwZBfcuLhO0WC+ZFsyLyUHPDGqNZk5aceYN8zibZB9pa+awi1kqQu81xeMmmi+Rodf1JKjbRls7bAbUvon9nsc6FbnHS5xbLqJHXIhs5UlLxqKzYUyoa72GhoGdSHC7eZjr3Ybf8yOssv3dwukTNlSOcHz6qUwoxwBrbetUpKn8KwdGcvEPYlvtks6N0jRtcLPcgsqnn3W7uOh8dbrqdSzLI7Xshe2C5KUJ3NJRICg4G+P821F9wPTUSNp0M6H6fMM5+qadEHPgz2BbeE7PwKvy2dA2Veg1ZSYTxGjoQIBOM7X7I1ooloRbSgHqC+6VWqnriEpxVNdMdN+S+KKyMkso1D+tJRq63T4ytT554jYhHKuEyrklfBhdUajDjFX5gsNP3gR4JrhDMxptqEzhy85UgKNFiQghV+sed2RVkPehzw06cV6C8cbIdf2PEN9kbwmoixEDAKRsGliBPshvuVzKeqvUhZ6VNHKPRjAJasXLQKoQHYasuac02pxJ6L0TbabrBOxKRCA3mnzoVxbLjDHWuKxdw7bpW01rV+ACBwXZxCSW/18Yq9FlQ7Pkw7XVlCE4WQcDsHhGMxHk/cq4=
   app: isa-tfg
   on:
     repo: estagumor/TFG-18-19
-    branch: develop
 cache:
   directories:
   - "./node_modules"
