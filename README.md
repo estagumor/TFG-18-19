@@ -19,7 +19,7 @@ Esta guía está orientada a sistemas basados en GNU/Linux. Recomendamos ejecuta
 ## Servidor de desarrollo
 
 Ejecutar `npm run ng` para poner en marcha la web. Navegue a `http://localhost:4200/`. La aplicación se recargará automáticamente si modifica algún archivo.
-## Build
+## Compilado
 
 Ejecute `postinstall` para compilar el Front-End. El resultado se guardará en la carpeta `dist/`.
 
@@ -39,4 +39,4 @@ Antes de ejecutar estos tests hay que tener en consideración dos puntos:
 - Es necesario que el sistema cuente con Firefox ya que se usa para la simulación.
 - El servidor debe estar ejecutándose paralelamente para registrar los cambios efectuados, preferiblemente con los datos proporcionados en el populado.
 
-Ejecute `npm run e2e` para usar los tests end-to-end tests via [Protractor](http://www.protractortest.org/).
+Ejecute `npm run e2e` para usar los tests end-to-end via [Protractor](http://www.protractortest.org/).
