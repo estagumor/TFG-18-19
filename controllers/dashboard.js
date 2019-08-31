@@ -11,8 +11,11 @@ var controller = {
 
 	populate: function (req, res) { 
 		Publication.deleteMany({}, () => {})
+		console.log("publication delete")
 		Person.deleteMany({}, () => {})
+		console.log("person delete")
 		Project.deleteMany({}, () => {})
+		console.log("project delete")
 
 		//Persons
 		var person1 = {
@@ -237,8 +240,10 @@ var controller = {
 			return pubController.saveAll([pub1, pub2, pub3, pub4, pub5])
 		}
 		createProject.then(createPublication).then(createPerson).then(() => {
+			console.log("promises")
 			return res.status(201).send({});
 		}).catch(err => {
+			console.log(err)
 			return res.status(500).send({ message_es: "Error en el populado", message_en: "Error in the request", message_data: err });
 		})
 
