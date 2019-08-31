@@ -36,7 +36,6 @@ export class PersonCreateComponent implements OnInit {
         this.person = new Person("","","","","",true,"RESEARCHER","","","NONE","",true);
       }
     })
-    console.log(this.person)
   }
 
   onSubmit(form: NgForm) {

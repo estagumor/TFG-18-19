@@ -23,7 +23,7 @@
             alt="Ejemplo del formato de excel para congresos">
           <form class="form-inline">
             <label class="sr-only" for="excelCongresos">Subir archivo</label>
-            <input type="file" class="form-control-file" id="excelCongresos" #excelCongresos>
+            <input type="file" class="form-control-file" id="excelCongresos" accept=".xlsx, .xlsm, .xlsb, .xls, .ods, .fods, .csv" #excelCongresos>
 
             <button type="button" id="sendCongress" name="sendCongress" class="btn btn-primary"
               (click)="enviarCongresos(excelCongresos)">Enviar</button>
@@ -44,7 +44,7 @@
             alt="Ejemplo del formato de excel para revistas">
           <form class="form-inline">
             <label class="sr-only" for="excelRevistas">Subir archivo</label>
-            <input type="file" class="form-control-file" id="excelRevistas" #excelRevistas>
+            <input type="file" class="form-control-file" id="excelRevistas" accept=".xlsx, .xlsm, .xlsb, .xls, .ods, .fods, .csv" #excelRevistas>
             <button type="button" id="sendJourney" name="sendJourney" class="btn btn-primary"
               (click)="enviarRevistas(excelRevistas)">Enviar</button>
           </form>
