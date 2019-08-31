@@ -1,47 +1,42 @@
 # TFG
+## Instalación
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.7.
+Esta guía está orientada a sistemas basados en GNU/Linux. Recomendamos ejecutar todas la instrucciones con `sudo`. 
 
-## Installation
+1. **Instalar git, npm y mongodb:**
+    1. Ejecutar `apt install git npm mongodb`. Esto instalará los paquetes git, npm y mongodb correspondientes al sistema operativo actual.  
+1. **Clonar el repositorio de la aplicación:**
+    1. En la carpeta donde se quiera descargar, abrir un terminal y ejecutar `git clone https://github.com/estagumor/TFG-18-19`. Tras ello se creará la carpeta 'TFG-18-19' que contendrá el proyecto.
+1. **Instalar las dependencias del proyecto:**
+    1. Ahora ejecute `npm install`. Con ello se instalarán las dependencias especificadas en 'package.json'. 
+1. **Ejecutar la base de datos:**
+    1. Ejecute `service mongodb start`. Con ello se arrancará el motor de bases de datos MongoDB. 
+1. **Ejecutar el Back-End:**
+    1. Ejecutar `node index.js`. Esto hará que el servidor quede esperando peticiones.
+1. **Ejecutar el Front-End:**
+    1. Vea la sección *Servidor de desarrollo* más adelante . 
 
-This guide is made to linux operating systems. We recommend that you run all the commands at the `sudo` state. 
+## Servidor de desarrollo
 
-1. **Install git, npm and mongodb:**
-    1. Run `apt install git npm mongodb`.That will install the git, npm and mongodb packages saved at the Advanced Packaging Tool cloud.  
-1. **Clone the repo of the project:**
-    1. At the folder you want to use to save the project, open a terminal and run `git clone https://github.com/Wordsan/TFG-18-19`. That will make a copy of the project.
-1. **Install the dependencies of the project:**
-    1. Now run `npm install`. That will install all the dependencies at the package.json file. 
-    1. Run `npm install -g @angular/cli`. That's a dependency of the project that needs to be installed individually (due to some errors). 
-1. **Run the db:**
-    1. Run `service mongodb start`. That will start the mongodb and it will be ready to use. 
-1. **Run the backend:**
-    1. Run `node index.js`. 
-1. **Run the frontend:**
-    1. See the *Development server* head. 
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
+Ejecutar `npm run ng` para poner en marcha la web. Navegue a `http://localhost:4200/`. La aplicación se recargará automáticamente si modifica algún archivo.
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Ejecute `postinstall` para compilar el Front-End. El resultado se guardará en la carpeta `dist/`.
 
-## Running unit tests
+## Populado
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+En el servidor se incluyen datos iniciales a modo de populate. Para cargarlos con el servidor ejecutándose navegue a la dirección `http://localhost:3700/api/populate`. **Atención, esta acción borrará el resto de datos presentes**.
 
-## Running end-to-end tests
+## Ejecutar tests unitarios
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Ejecute `npm run test` para ejecutar los tests de [Karma](https://karma-runner.github.io) y los de [Mocha](https://mochajs.org/) simultáneamente.
 
-## Further help
+Además para obtener el code-coverage puede ejecutar `npm run test-coverage`. Los resultados se guardan en formato HTML en la carpeta `coverage`, separados los de Mocha y los de Jasmine.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-To learn more about git: (https://git-scm.com/doc).
-  
+## Ejecutar los tests end-to-end
+
+Antes de ejecutar estos tests hay que tener en consideración dos puntos:
+- Es necesario que el sistema cuente con Firefox ya que se usa para la simulación.
+- El servidor debe estar ejecutándose paralelamente para registrar los cambios efectuados, preferiblemente con los datos proporcionados en el populado.
+
+Ejecute `npm run e2e` para usar los tests end-to-end tests via [Protractor](http://www.protractortest.org/).

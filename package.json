@@ -1,15 +1,15 @@
 {
   "name": "tfg",
   "description": "Backend y Frontend para ISA",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "ng e2e",
     "start": "node index.js",
     "build": "ng build",
     "test-coverage": "concurrently \"nyc --reporter=html --report-dir coverage/mocha mocha --recursive src/app/tests\" \"ng test --code-coverage --no-watch\"",
     "test": "concurrently \"ng test --no-watch\" \"mocha --recursive src/app/tests\"",
     "lint": "ng lint",
-    "e2e": "protractor",
+    "e2e": "webdriver-manager update && protractor e2e/protractor.conf.js",
     "pree2e": "webdriver-manager update",
     "postinstall": "ng build --optimization=true --output-path dist --prod"
   },
@@ -42,7 +42,7 @@
     "mocha": "^5.2.0",
     "mongod": "^2.0.0",
     "mongoose": "^5.4.13",
-    "ng2-charts": "^2.2.3",
+    "ng2-charts": "2.2.5",
     "ng2-select": "^2.0.0",
     "ngx-loading": "^3.0.1",
     "rxjs": "^6.3.3",
