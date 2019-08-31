@@ -1,5 +1,5 @@
 <fieldset *ngIf="bool">
-  <h1>Creacion de perfiles</h1>
+  <h1>CREACIÓN DE PERFILES</h1>
   <form #formPerson="ngForm" (ngSubmit)="onSubmit(formPerson);">
     <div class="form-group">
       <div class="requiredInputs">
@@ -32,7 +32,7 @@
       </div>
       <br>
       <div>
-        <label for="telf">Telefono</label>
+        <label for="telf">Teléfono</label>
         <input type="text" [(ngModel)]="person.telf" id="telf" name="telf" #telf='ngModel' class="form-control">
         <div *ngIf="telf.invalid && (telf.dirty || telf.touched)" class="alert alert-danger">
           <span>Error en el telefono</span>

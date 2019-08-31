@@ -5,6 +5,7 @@
 body, html {
     height: 100%;
     background-image: url("assets/background7.jpg");
+    text-align: justify;
   }
 
 .invalid-feedback {
@@ -40,19 +41,13 @@ button[type=submit] {
 
 h1 {
     font-family: 'Raleway', sans-serif;
-    font-size: 5em;
+    font-size: 5.5vw;
     padding: 0.5em;
     color: white;
     text-align: center;
     background-image: url("assets/hexagonal_cube_mesh_pattern-936.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
-}
-
-@media (min-width: 400px) and (max-width: 750px) {
-    h1 {
-        font-size: 3em;
-    }
 }
 
 .img-logo {

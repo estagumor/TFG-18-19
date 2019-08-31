@@ -5,7 +5,7 @@
 		<!--appLeadersRestriction>-->
 
 		<div class="requiredInputs">
-			<label for="title">Titulo</label>
+			<label for="title">Título</label>
 			<input type="text" [(ngModel)]="project.title" id='title' name="title" required #title='ngModel' class="form-control">
 			<div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
 				<span *ngIf="title.errors.required" class="invalid-feedback">El título es necesario</span>
@@ -13,7 +13,7 @@
 			<br>
 		</div>
 
-		<label for="description">Descripcion</label>
+		<label for="description">Descripción</label>
 		<input type="text" [(ngModel)]="project.description" id='description' name="description"
 			#description='ngModel' class="form-control">
 		<div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
@@ -29,8 +29,6 @@
 				<span>Error en la referencia</span>
 			</div>
 		</div>
-		<br>
-
 
 		<label for="scope">Competencia</label>
 		<select [(ngModel)]='project.scope' id='scope' name='scope' #scope='ngModel' class="form-control">
@@ -71,7 +69,7 @@
 		</div>
 		<br>
 
-		<label for="duration">Añadir duracion</label>
+		<label for="duration">Añadir duración</label>
 		<select name="durationSelect" id="durationSelect" #duration (change)="addDuration(f,duration)"  class="form-control">
 			<option value="0">---</option>
 			<option value="1">Un año</option> 
@@ -116,7 +114,7 @@
 		<br>
 
 		<!--añadir mensaje de error-->
-		<label for="researchTeam">Equipo de investigacion</label>
+		<label for="researchTeam">Equipo de investigación</label>
 		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" (keyup)="validateAutocomplete()"></app-acomplete>
 		<div *ngIf="errors.badResearchers" class="alert alert-danger">
 			<span>{{ errors.badResearchers }}</span>
