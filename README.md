@@ -21,7 +21,7 @@ Esta guía está orientada a sistemas basados en GNU/Linux. Recomendamos ejecuta
 Ejecutar `npm run ng` para poner en marcha la web. Navegue a `http://localhost:4200/`. La aplicación se recargará automáticamente si modifica algún archivo.
 ## Compilado
 
-Ejecute `postinstall` para compilar el Front-End. El resultado se guardará en la carpeta `dist/`.
+Ejecute `npm run postinstall` para compilar el Front-End. El resultado se guardará en la carpeta `dist/`.
 
 ## Populado
 
