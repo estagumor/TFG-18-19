@@ -10,7 +10,7 @@ var Project = require("../../../models/project");
 
 chai.use(chai_http);
 
-describe("**Populating**", function () {
+xdescribe("**Populating**", function () {
 
     it('should populate', (done) => {
         var projectMock = sinon.mock(Project);

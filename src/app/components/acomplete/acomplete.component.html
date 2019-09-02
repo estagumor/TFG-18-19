@@ -8,7 +8,11 @@
     <div class="divAutocomplete">
       <input #basicInput [formControl]="basicCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-        (matChipInputTokenEnd)="add($event)" class="form-control col-lg-7">
+        (matChipInputTokenEnd)="add($event)" class="form-control col-lg-7" pattern="^\S*">
+      <div *ngIf="basicInput.value.length == 0 && basicInput.touched"
+        class="cross-validation-error-message alert alert-danger">
+        <span>Este campo no puede estar vacío</span>
+      </div>
     </div>
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
