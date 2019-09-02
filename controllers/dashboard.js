@@ -13,7 +13,6 @@ var controller = {
 		Publication.deleteMany({}, () => {})
 		Person.deleteMany({}, () => {})
 		Project.deleteMany({}, () => {})
-
 		//Persons
 		var person1 = {
 			name: "José Antonio", 

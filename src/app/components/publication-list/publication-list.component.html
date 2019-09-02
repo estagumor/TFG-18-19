@@ -1,40 +1,46 @@
 <fieldset>
-  <h1>Listado de publicaciones</h1>
+  <h1>LISTADO DE PUBLICACIONES</h1>
   <br>
+  <div class="row" name="search">
+    <div class="col">
+      <i class="fas fa-search"></i>
+      <input class="form-control" [(ngModel)]="searchText" placeholder="Busca por autor, nombre o fecha" name="filterInput">
+    </div>
+    <div class="col" style="text-align:right">
+      <button style="margin-left: 1em" type="button" class="btn btn-primary" [routerLink]="['/publication']"
+        id="createPublication">Crear</button>
+      <button style="margin-left: 1em" type="button" class="btn btn-primary" [routerLink]="['/publications/import']"
+        id="importPublications">Importar</button>
+      <button style="margin-left: 1em" type="button" class="btn btn-warning" [routerLink]="['/stats/publication']"
+        name="stats">Estadísticas</button>
+    </div>
+  </div>
+<br/>
   <div class="row" id="listPublicationsTable">
-    <label style="width: auto; padding-left: 3em" for="searchpp">Búsqueda por nombre, fecha o autores</label>
-    <input [(ngModel)]="searchText" placeholder="Introduce aquí tu filtrado">
-    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/publication']">Crear publicación</button>
-    <button style="margin-left: 1em" class="btn-primary" [routerLink]="['/stats/publication']">Estadísticas</button>
-    <section class="content">
-      <br>
-      <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="table-container">
-              <table class="table table-filter">
-                <tbody>
-                  <tr *ngFor="let pub of listado | filterPublications: searchText" [ngClass]="{'selected': checkBox}">
-                    <td>
-                      <div class="media">
-                        <div class="media-body">
-                          <span *ngFor="let auth of pub.authors">{{auth.name}} {{auth.surname}} </span>:
-                          <a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">{{pub.articleTitle}}</a>.
-                          {{pub.sourceTitle}}:
-                          {{pub.pageRange}} ({{pub.publicationDate}})
-                          <p><a href="https://dx.doi.org/{{pub.DOI}}" target="_blank">Ir a la publicación</a></p>
-                          <button class="btn-primary" type="button"
-                            (click)="displayPublication(pub._id)">Display</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+    <div class="col-10 offset-1">
+      <div class="table-responsive">
+        <table class="table table-filter table-striped">
+          <tbody>
+            <tr *ngFor="let pub of listado | filterPublications: searchText" [ngClass]="{'selected': checkBox}">
+              <td>
+                <div class="media">
+                  <div class="media-body">
+                    <span *ngFor="let auth of pub.authors" style="font-weight: bold; padding-right: 5px" name="author">{{auth.name}} {{auth.surname}};</span>
+                    <a class="btn-link" href="https://dx.doi.org/{{pub.DOI}}" style="font-style: italic" target="_blank" name="title">{{pub.articleTitle}}</a>.
+                    <span name="source">{{pub.sourceTitle}}:</span>
+                    <span name="pageRange">{{pub.pageRange}} </span> 
+                    <span name="publicationDate" style="font-weight: bold">({{pub.publicationDate}})</span>
+                    <div style="text-align:right">
+                    <button type="button" class="btn btn-primary" name="displayButton" type="button"
+                      (click)="displayPublication(pub._id)">Mostrar</button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </section>
+    </div>
   </div>
 </fieldset>

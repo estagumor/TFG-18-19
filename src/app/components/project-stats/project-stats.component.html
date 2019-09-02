@@ -1,14 +1,14 @@
 <fieldset>
-  <h1>Estadísticas de proyectos</h1>
+  <h1>ESTADÍSTICAS DE PROYECTOS</h1>
     <br>
-  <div style="display: block">
-    <h3>Financiación media</h3>
+  <div class="container-fluid" style="display: block">
+    <h3>Proyectos: Financiación media</h3>
     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+      [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors"></canvas>
     <br>
     <br>
-    <h3>Media de proyectos</h3>
+    <h3>Proyectos: Media de proyectos</h3>
     <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels" [options]="barChartOptions"
-      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+      [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors"></canvas>
   </div>
 </fieldset>

@@ -183,7 +183,7 @@ describe("Project's component", () => {
     expect(component.project.title = 'isa');
   });
 
-  it('should create a project', () => {
+  xit('should create a project', () => {
     // Se obtiene el boton que envia el formulario y dos inputs para darle algun valor
     // Get the button that send the form and two inputs to set their values
     let boton: HTMLButtonElement = element.querySelector("button[id='submitForm']")
@@ -208,7 +208,7 @@ describe("Project's component", () => {
     expect(fixture.componentInstance.errors["badResearchers"] == null).toBeTruthy();
   })
 
-  it('should edit a project', () => {
+  xit('should edit a project', () => {
     activatedRouteStub.setParamsMock([{"id?": "sd56f4s"}])
     component.edit = true
     fixture.detectChanges();

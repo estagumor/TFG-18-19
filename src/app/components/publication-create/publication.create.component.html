@@ -1,32 +1,49 @@
 <fieldset>
-  <h1>Creacion de publicaciones</h1>
+  <h1>CREACIÓN DE PUBLICACIONES</h1>
   <form #form="ngForm" (ngSubmit)=onSubmit(form)>
     <div class="form-group">
 
+      <label for="scopusId">Id del lugar de publicación</label>
+      <input aria-describedby="scopus-identifier-hint" type="number" [(ngModel)]="pub.scopusId" id="scopusId"
+        name="scopusId" #scopusId='ngModel' class="form-control">
+      <p id="scopus-identifier-hint" class="form-text text-muted">Id que le da Scopus a publicación. Por ejemplo:
+        SCOPUS_ID:85034273149</p>
     
-    <!-- <div *ngIf="scopusId.invalid && (scopusId.dirty || scopusId.touched)" class="alert alert-danger">
-          <div *ngIf="scopusId.errors.required" class="invalid-feedback">El id de Scopus no puede estar en blanco</div>
-        </div> -->
-
     <div class="requiredInputs">
-      <label for="articleTitle">Titulo del articulo</label>
+      <label for="articleTitle">Título del artículo</label>
       <input type="text" [(ngModel)]='pub.articleTitle' id="articleTitle" name="articleTitle" required
         #articleTitle='ngModel' class="form-control">
       <div *ngIf="articleTitle.invalid && (articleTitle.dirty || articleTitle.touched)" class="alert alert-danger">
-        <div *ngIf="articleTitle.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar
-          vacio</div>
+        <div *ngIf="articleTitle.errors.required" class="invalid-feedback">El título de la publicación no puede estar
+          vacío</div>
       </div>
       <br>
 
-      <label for="documentType">Tipo de publicacion</label>
-      <select [(ngModel)]='pub.documentType' id='documentType' name='documentType' required #documentType='ngModel'
-      class="form-control">
-        <option value="Article">Articulo</option>
-        <option value="Abstract Report">Informe abstracto</option>
-        <option value="Article in Press">Articulo en prensa</option>
+      <label for="sourceType">Publicado en</label>
+      <select [(ngModel)]='pub.sourceType' id='sourceType' name='sourceType' required #sourceType='ngModel'
+        class="form-control">
+        <option value="Journal">Revista</option>
         <option value="Book">Libro</option>
-        <option value="Business Article">Articulo empresarial</option>
-        <option value="Book Chapter">Capitulo en un libro</option>
+        <option value="Book Series">Colección de libros</option>
+        <option value="Conference Proceeding">Acto de congresos</option>
+        <option value="Report">Informe</option>
+        <option value="Trade Publication">Publicación comercial</option>
+      </select>
+      <div *ngIf="sourceType.invalid && (sourceType.dirty || sourceType.touched)" class="alert alert-danger">
+        <div *ngIf="sourceType.errors.required" class="invalid-feedback">Es necesario indicar donde se ha realizado la
+          publicación</div>
+      </div>
+      <br>
+
+      <label for="documentType">Tipo de publicación</label>
+      <select [(ngModel)]='pub.documentType' id='documentType' name='documentType' required #documentType='ngModel'
+        class="form-control">
+        <option value="Article">Artículo</option>
+        <option value="Abstract Report">Informe abstracto</option>
+        <option value="Article in Press">Artículo en prensa</option>
+        <option value="Book">Libro</option>
+        <option value="Business Article">Artículo empresarial</option>
+        <option value="Book Chapter">Capítulo en un libro</option>
         <option value="Conference Paper">Documento de conferencia</option>
         <option value="Conference Review">Reseña de conferencia</option>
         <option value="Editorial">Editorial</option>
@@ -39,7 +56,7 @@
       </select>
       <div *ngIf="documentType.invalid && (documentType.dirty || documentType.touched)" class="alert alert-danger">
         <div *ngIf="documentType.errors.required" class="invalid-feedback">Es necesario indicar el tipo de la
-          publicacion</div>
+          publicación</div>
       </div>
       <br>
 
@@ -69,91 +86,101 @@
       <br>
 
       <label for="sourceTitle">Libro/Web/Revista</label>
-      <div *ngIf="pub.sourceType.indexOf('Conference') == -1">
+      <span *ngIf="pub.sourceType.indexOf('Conference') == -1">
         <input type="text" [(ngModel)]="pub.sourceTitle" id="sourceTitle" name="sourceTitle" required
           placeholder="Lecture Notes in Computer Science" #sourceTitle='ngModel' class="form-control">
-          <div *ngIf="sourceTitle.invalid && (sourceTitle.dirty || sourceTitle.touched)" class="alert alert-danger">
-            <div *ngIf="sourceTitle.errors.required" class="invalid-feedback">El lugar de publicacion no puede estar vacio
-            </div>
+        <div *ngIf="sourceTitle.invalid && (sourceTitle.dirty || sourceTitle.touched)" class="alert alert-danger">
+          <div *ngIf="sourceTitle.errors.required" class="invalid-feedback">El lugar de publicación no puede estar vacío
           </div>
-      </div>
+        </div>
+      </span>
       <div *ngIf="pub.sourceType.indexOf('Conference') != -1">
         <app-acomplete [allList]="congressTitles" [finalList]="filteredCongress" #sourceTitle></app-acomplete>
       </div>
       <br>
-      
+
     </div>
-    <label for="sourceIdentifier">Id del lugar de publicacion</label>
+    <label for="sourceIdentifier">Id del lugar de publicación</label>
     <input aria-describedby="source-identifier-hint" type="number" [(ngModel)]="pub.sourceIdentifier"
-      id="sourceIdentifier" name="sourceIdentifier" #sourceIdentifier='ngModel' class="form-control">
-    <p id="source-identifier-hint" class="form-text text-muted">Id que le da Scopus a cada lugar de publicacion. Por
+      id="sourceIdentifier" name="sourceIdentifier" #sourceIdentifier='ngModel' class="form-control" min="0">
+    <p id="source-identifier-hint" class="form-text text-muted">Id que le da Scopus a cada lugar de publicación. Por
       ejemplo: 16130073</p>
     <!-- <div *ngIf="sourceIdentifier.invalid && (sourceIdentifier.dirty || sourceIdentifier.touched)" class="alert alert-danger">
-				<div *ngIf="sourceIdentifier.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar vacio</div>
-      </div> -->
-      
-      <label for="publicationDate" style="padding: 0px 15px 0px 15px">Año de publicacion</label>
-    <input type="text" [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate"
-      #publicationDate='ngModel'  class="form-control"/>
+				<div *ngIf="sourceIdentifier.errors.required" class="invalid-feedback">El titulo de la publicación no puede estar vacio</div>
+			</div> -->
 
 
     <label for="sourceVolume">Volumen</label>
     <input aria-describedby="source-volume-hint" type="text" [(ngModel)]='pub.sourceVolume' id="sourceVolume"
-      name="sourceVolume" #sourceVolume='ngModel' class="form-control">
-    <p id="source-volume-hint" class="form-text text-muted">Volumen en el que se encuentra la publicacion</p>
+      name="sourceVolume" #sourceVolume='ngModel' class="form-control" pattern="\d*">
+    <p id="source-volume-hint" class="form-text text-muted">Volumen en el que se encuentra la publicación</p>
     <!-- <div *ngIf="sourceVolume.invalid && (sourceVolume.dirty || sourceVolume.touched)" class="alert alert-danger">
-				<div *ngIf="sourceVolume.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar vacio</div>
+				<div *ngIf="sourceVolume.errors.required" class="invalid-feedback">El titulo de la publicación no puede estar vacio</div>
 			</div> -->
 
 
-    <label for="pageRange">Paginas del volumen</label>
+    <label for="pageRange">Páginas del volumen</label>
     <input aria-describedby="page-range-hint" type="text" [(ngModel)]="pub.pageRange" id="pageRange" name="pageRange"
-      #pageRange='ngModel' class="form-control">
-    <p id="page-range-hint" class="form-text text-muted">Paginas donde se encuentra la publicacion. Por ejemplo: 250-264
+      #pageRange='ngModel' class="form-control" pattern="(\d+)|(\d+\s?\-\s?\d+)">
+    <p id="page-range-hint" class="form-text text-muted">Paginas donde se encuentra la publicación. Por ejemplo: 250-264 o 351
     </p>
-    <!-- <div *ngIf="pageRange.invalid && (pageRange.dirty || pageRange.touched)" class="alert alert-danger">
-				<div *ngIf="pageRange.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar vacio</div>
-			</div> -->
+    <div *ngIf="pageRange.invalid && (pageRange.dirty || pageRange.touched)" class="alert alert-danger">
+				<div *ngIf="pageRange.errors" class="invalid-feedback">El formato no es válido.</div>
+			</div>
 
 
+    <label for="publicationDate" style="padding: 0px 15px 0px 15px">Año de publicación</label>
+    <input type="text" [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate"
+      #publicationDate='ngModel' class="form-control" pattern="\d{4}" title="Debe ser un año válido">
+    <!---<span class="badge">
+      <span (click)="d.toggle()" class="input-group-text oi oi-calendar" title="calendar" aria-hidden="true"></span>
+    </span> -->
+    <!-- <select [(ngModel)]="pub.publicationDate" id='publicationDate' name="publicationDate" #publicationDate='ngModel' class="custom-select"  style="overflow:scroll;">
+      <option *ngFor="let item of years" value="{{item}}">{{item}}</option>
+
+    </select> -->
+    <div *ngIf="publicationDate.invalid && (publicationDate.dirty || publicationDate.touched)" class="alert alert-danger">
+				<div *ngIf="publicationDate.errors" class="invalid-feedback">El año de publicación no es válido, debe ser un número de 4 cifras</div>
+			</div>
     <br>
 
     <label for="DOI">DOI</label>
-    <input aria-describedby="DOI-hing" type="text" [(ngModel)]="pub.DOI" id="DOI" name="DOI" #DOI='ngModel' class="form-control">
-    <p id="DOI-hint" class="form-text text-muted">Identificador unico del documento. Por ejemplo:
+    <input aria-describedby="DOI-hing" type="text" [(ngModel)]="pub.DOI" id="DOI" name="DOI" #DOI='ngModel'
+      class="form-control" pattern="^10\.\d{4,9}[-._;():A-Z0-9\/]+$">
+    <p id="DOI-hint" class="form-text text-muted">Identificador único del documento. Por ejemplo:
       10.1109/TSC.2017.2772256</p>
-    <!-- <div *ngIf="DOI.invalid && (DOI.dirty || DOI.touched)" class="alert alert-danger">
-				<div *ngIf="DOI.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar vacio</div>
-			</div> -->
+    <div *ngIf="DOI.invalid && (DOI.dirty || DOI.touched)" class="alert alert-danger">
+				<div *ngIf="DOI.errors" class="invalid-feedback">El formato no es correcto</div>
+			</div>
 
 
     <label for="ORCID">ORCID</label>
-    <input aria-describedby="ORCID-hint" type="text" [(ngModel)]="pub.ORCID" id="ORCID" name="ORCID" #ORCID='ngModel' class="form-control">
+    <input aria-describedby="ORCID-hint" type="text" [(ngModel)]="pub.ORCID" id="ORCID" name="ORCID" #ORCID='ngModel'
+      class="form-control">
     <p id="ORCID-hint" class="form-text text-muted">Identificador del documento en la plataforma ORCID.</p>
     <!-- <div *ngIf="ORCID.invalid && (ORCID.dirty || ORCID.touched)" class="alert alert-danger">
-				<div *ngIf="ORCID.errors.required" class="invalid-feedback">El titulo de la publicacion no puede estar vacio</div>
-			</div> -->
+				<div *ngIf="ORCID.errors.required" class="invalid-feedback">El titulo de la publicación no puede estar vacio</div>
+      </div> -->
+      
+    <label for="affiliation">Afiliación</label>
+    <input aria-describedby="affiliation" type="text" [(ngModel)]="pub.affiliation" id="affiliation"
+      name="affiliation" #affiliation='ngModel' class="form-control">
+    <p id="affiliation-hint" class="form-text text-muted">Afiliación de los autores. Por ejemplo: Universidad de
+      Sevilla</p>
+    <div *ngIf="affiliation.invalid && (affiliation.dirty || affiliation.touched)" class="alert alert-danger">
+      <div *ngIf="affiliation.errors.required" class="invalid-feedback">Debe indicarse la afiliacion</div>
+    </div>
 
     <div class="requiredInputs">
       <label for="authors">Autores</label>
       <app-acomplete [allList]="StringPersons" [finalList]="finalAutores"></app-acomplete>
 
-      <label for="affiliation">Afiliacion</label>
-      <input aria-describedby="affiliation" type="text" [(ngModel)]="pub.affiliation" id="affiliation"
-        name="affiliation" required #affiliation='ngModel' class="form-control">
-      <p id="affiliation-hint" class="form-text text-muted">Afiliacion de los autores. Por ejemplo: Universidad de
-        Sevilla</p>
-      <div *ngIf="affiliation.invalid && (affiliation.dirty || affiliation.touched)" class="alert alert-danger">
-        <div *ngIf="affiliation.errors.required" class="invalid-feedback">Debe indicarse la afiliacion</div>
-      </div>
-
-      <label for="project">Proyectos</label>
+      <label for="project" style="margin-left: -16px;">Proyectos</label>
       <app-acomplete [allList]="StringProjects" [finalList]="finalProjects">
       </app-acomplete>
       <br>
-
     </div>
-  </div>
+    </div>
     <button type="submit" class="btn btn-primary" id="submitForm" name="submitForm"
       [disabled]="!form.form.valid || form.errors">Enviar</button>
   </form>

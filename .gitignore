@@ -39,6 +39,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-reports/summary.json
-reports/summary.txt
 src/assets/background4_change.jpg

@@ -3,35 +3,36 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
 import { Publication } from '../models/publication'
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { parse } from 'fast-xml-parser'
+import { HandleError } from '../components/shared/handleError';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScopusService {
-  private url = "https://api.elsevier.com/content/search/scopus?query="
-  private apiKey = "f7f75a8f1e48b03f87da28cc8eb055b7"
-  private allPubs: Publication[] = []
-  private us = ["15021461000","22333640600"]
-  private startDateProject = new Date()
-
+  //https://www.youtube.com/watch?v=zq48aSVEwbQ
+  private url = "/scopus"
   constructor(private _http: HttpClient) { }
 
-  getPubs(start = 0, count = 25, users = this.us): Observable<any>{
-    let pubs
-    let finalUrl = this.url
-    users.forEach((n,index) => {
-      finalUrl = finalUrl + "AU-ID("+n+")"
-      if(index < users.length-1 )
-      finalUrl = finalUrl + "%20OR%20"
-    });
-    finalUrl = finalUrl + "%20AND%20PUBYEAR%20%3E%20" + (this.startDateProject.getFullYear()-1) + "%20OR%20PUBYEAR%20%3D%20"+ (this.startDateProject.getFullYear()-1) + "&apiKey=" + this.apiKey+"&start=" + start + "&count=" + count
-    return this._http.get("http://localhost:3700/api/fakeScopus", {responseType: "text"}).map((data) => {
-      let results = parse(data)
-      let publications = results["search-results"]["entry"] 
-      pubs = publications.map((e) => Publication.parse(e))
-      return pubs
-  })}
-
+  getPubs(latestDate, start = 0, count = 25, users = []): Promise<Publication[]> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json'); // Para decirle al backend lo que se le manda
+    let pubs;
+    let total;
+    return new Promise<Publication[]>(resolve => {
+      return this._http.post(this.url, { authors: users, date: latestDate, start: start, count: count }, { headers: headers, observe: 'response' })
+        .pipe(tap(HandleError.handleError)).subscribe((data) => {
+          let results = data["body"]
+          let publications = results["search-results"]["entry"]
+          pubs = publications.map((e) => Publication.parse(e))
+          total = data.body["search-results"]["opensearch:totalResults"]
+          let insideWhile = pubs.length + start < total
+          if (!insideWhile) resolve(pubs);
+          else
+            if (pubs.length + start < total) {
+              return resolve(this.getPubs(latestDate, pubs.length, (total - pubs.length) % 25, users).then((morePubs) => pubs.concat(morePubs)))
+            }
+        })
+    })
+  }
 }

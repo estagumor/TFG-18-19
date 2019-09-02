@@ -1,13 +1,14 @@
 <fieldset>
-  <h1>Estadísticas de publicaciones</h1>
-  <div style="display: block">
-    <h3>Publicaciones en revistas</h3>
+  <h1>ESTADÍSTICAS DE PUBLICACIONES</h1>
+  <div class="container-fluid" style="display: block">
+    <br/>
+    <h3>Revistas: Cuartiles</h3>
     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+      [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors"></canvas>
 
-    <h3>Publicaciones en congresos</h3>
+    <h3>Congresos: Percentiles</h3>
     <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions"
-      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+      [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors"></canvas>
   </div>
 </fieldset>
 

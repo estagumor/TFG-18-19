@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Publication } from 'src/app/models/publication';
 import { PublicationService } from 'src/app/services/publication.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-publication-stats',
@@ -14,8 +15,29 @@ export class PublicationStatsComponent implements OnInit {
   public publications: Array<Publication> = []
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    legend: {
+      labels: { fontColor: '#000000'}
+    },
+    // scales: {
+    //   xAxes: [{
+    //     ticks: { fontColor: '#1b7665' },
+    //     gridLines: { color: '#b7a99e' }
+    //   }],
+    //   yAxes: [{
+    //     ticks: { fontColor: '#1b7665' },
+    //     gridLines: { color: '#b7a99e' }
+    //   }]
+    // }
   };
+
+  public barChartColors: Color[] = [
+    {
+      backgroundColor: '#f47c3c',
+      // borderColor: '#185d62'
+    }
+  ]
+
   public barChartLabels = ['Q1','Q2','Q3','Q4']
   public barChartLabels2 = ['A++','A+','A','A-', 'B', 'B-', 'C']
   public barChartType = 'bar'
@@ -34,8 +56,8 @@ export class PublicationStatsComponent implements OnInit {
   public cat6: Array<Publication> = [];
   public cat7: Array<Publication> = [];
 
-  public barChartData = [{data: [], label: "Journals"}];
-  public barChartData2 = [{data: [], label: "Conferences"}];
+  public barChartData = [{data: [], label: "Revistas"}];
+  public barChartData2 = [{data: [], label: "Congresos"}];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -94,10 +116,10 @@ export class PublicationStatsComponent implements OnInit {
             }
           }})
           this.barChartData = [
-            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Journals"}
+            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Revistas"}
           ]
           this.barChartData2 = [
-            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congress"}
+            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congresos"}
           ]
         })
       } else {
@@ -149,10 +171,10 @@ export class PublicationStatsComponent implements OnInit {
             }
           }})
           this.barChartData = [
-            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Journals"}
+            {data: [this.Q1.length,this.Q2.length,this.Q3.length,this.Q4.length], label: "Revistas"}
           ]
           this.barChartData2 = [
-            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congress"}
+            {data: [this.cat1.length,this.cat2.length,this.cat3.length,this.cat4.length,this.cat5.length,this.cat6.length,this.cat7.length], label: "Congresos"}
           ]
         })
       }

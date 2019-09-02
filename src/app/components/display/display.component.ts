@@ -26,8 +26,6 @@ export class DisplayComponent implements OnInit{
         }
       }
     }
-    console.log(this.fields)
-    console.log(this.properties)
   }
 
   onNoClick(): void {

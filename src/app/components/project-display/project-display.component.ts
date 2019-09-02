@@ -48,12 +48,12 @@ export class ProjectDisplayComponent implements OnInit {
   }
 
   editProject() {
-    this.route.navigate(['project/' + this.id])
+    this.route.navigate(['/project/' + this.id])
   }
 
   deleteProject() {
     this.projectService.deleteProject(this.id).subscribe(s => {
-      this.route.navigate(['projects'])
+      this.route.navigate(['/projects'])
     });
   }
 
