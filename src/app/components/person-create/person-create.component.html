@@ -1,5 +1,5 @@
 <fieldset *ngIf="bool">
-  <h1>Creacion de perfiles</h1>
+  <h1>CREACIÓN DE PERFILES</h1>
   <form #formPerson="ngForm" (ngSubmit)="onSubmit(formPerson);">
     <div class="form-group">
       <div class="requiredInputs">
@@ -25,14 +25,15 @@
         <br>
       </div>
       <label for="photo">Foto (Url)</label>
-      <input type="text" [(ngModel)]="person.photo" id="photo" name="photo" #photo='ngModel' class="form-control">
+      <input type="text" [(ngModel)]="person.photo" id="photo" name="photo" #photo='ngModel' class="form-control"
+      pattern="(http(s)?:\/\/)?(www.)?\S*\.\S*">
       <div *ngIf="photo.invalid && (photo.dirty || photo.touched)" class="alert alert-danger">
-        <span>Error en el foto</span>
+        <span>La URL no es válida</span>
       </div>
       <br>
       <div>
-        <label for="telf">Telefono</label>
-        <input type="text" [(ngModel)]="person.telf" id="telf" name="telf" #telf='ngModel' required class="form-control">
+        <label for="telf">Teléfono</label>
+        <input type="text" [(ngModel)]="person.telf" id="telf" name="telf" #telf='ngModel' class="form-control">
         <div *ngIf="telf.invalid && (telf.dirty || telf.touched)" class="alert alert-danger">
           <span>Error en el telefono</span>
         </div>
@@ -51,7 +52,7 @@
       <br>
       <div *ngIf="person.job == 'RESEARCHER'">
         <label for="office">Despacho</label>
-        <input type="text" [(ngModel)]="person.office" id="office" name="office" #office='ngModel' class="form-control">
+        <input type="text" [(ngModel)]="person.office" id="office" name="office" #office='ngModel' class="form-control" pattern="[A-Ia-i]\d\.\d{2}">
         <div *ngIf="office.invalid && (office.dirty || office.touched)" class="alert alert-danger">
           <span>Error en el despacho</span>
         </div>

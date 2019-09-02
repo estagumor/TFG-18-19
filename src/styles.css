@@ -5,6 +5,7 @@
 body, html {
     height: 100%;
     background-image: url("assets/background7.jpg");
+    text-align: justify;
   }
 
 .invalid-feedback {
@@ -20,7 +21,7 @@ body, html {
     border-left: 5px solid #42A948; 
   }
   
-.ng-invalid:not(form)  {
+.ng-invalid:not(form), div.divAutocomplete > input[aria-expanded = false].ng-untouched.ng-pristine  {
     border-left: 5px solid darkslategray; 
 }
 
@@ -40,19 +41,13 @@ button[type=submit] {
 
 h1 {
     font-family: 'Raleway', sans-serif;
-    font-size: 5em;
+    font-size: 5.5vw;
     padding: 0.5em;
     color: white;
     text-align: center;
     background-image: url("assets/hexagonal_cube_mesh_pattern-936.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
-}
-
-@media (min-width: 400px) and (max-width: 750px) {
-    h1 {
-        font-size: 3em;
-    }
 }
 
 .img-logo {
@@ -94,7 +89,7 @@ ngb-datepicker-navigation-select .custom-select{
     padding: 0px !important;
 }
 
-div.requiredInputs input.ng-touched.ng-invalid ,div.requiredInputs select.ng-touched.ng-invalid{
+div.requiredInputs input.ng-touched.ng-invalid ,div.requiredInputs select.ng-touched.ng-invalid, div.divAutocomplete > input[aria-expanded = true].ng-invalid{
     border-color: #d9534f;
     padding-right: 2.8125rem;
     background-repeat: no-repeat;
@@ -103,7 +98,7 @@ div.requiredInputs input.ng-touched.ng-invalid ,div.requiredInputs select.ng-tou
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d9534f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") !important;
   }
 
-div.requiredInputs input.ng-touched.ng-valid ,div.requiredInputs select.ng-touched.ng-valid{
+div.requiredInputs input.ng-touched.ng-valid ,div.requiredInputs select.ng-touched.ng-valid, div.divAutocomplete > input[aria-expanded = false].ng-valid.ng-dirty{
 border-color: #4BBF73;
   padding-right: 2.8125rem;
   background-repeat: no-repeat;

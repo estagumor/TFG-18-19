@@ -1,6 +1,6 @@
 <fieldset>
   <h1>PANEL DE ADMINISTRACIÓN</h1>
-  <h5 class="my-4">Para cargar nuevos archivos excel para actualizar los datos de estadísticas se deben subir archivos
+  <h5 class="my-4" style="text-align: center;">Para cargar nuevos archivos excel para actualizar los datos de estadísticas se deben subir archivos
     con los siguientes formatos:</h5>
   <div class="row">
     <!-- <div class="card bg-secondary d-inline-flex col-6">
@@ -10,7 +10,7 @@
       </div>
     </div> -->
     <div class="container">
-      <h3>PUBLICACIONES</h3>
+      <h3 style="text-align: center;">PUBLICACIONES</h3>
       <br/>
       <div class="card border-primary">
         <div class="card-header lead">Congresos</div>
@@ -23,7 +23,7 @@
             alt="Ejemplo del formato de excel para congresos">
           <form class="form-inline">
             <label class="sr-only" for="excelCongresos">Subir archivo</label>
-            <input type="file" class="form-control-file" id="excelCongresos" #excelCongresos>
+            <input type="file" class="form-control-file" id="excelCongresos" accept=".xlsx, .xlsm, .xlsb, .xls, .ods, .fods, .csv" #excelCongresos>
 
             <button type="button" id="sendCongress" name="sendCongress" class="btn btn-primary"
               (click)="enviarCongresos(excelCongresos)">Enviar</button>
@@ -44,7 +44,7 @@
             alt="Ejemplo del formato de excel para revistas">
           <form class="form-inline">
             <label class="sr-only" for="excelRevistas">Subir archivo</label>
-            <input type="file" class="form-control-file" id="excelRevistas" #excelRevistas>
+            <input type="file" class="form-control-file" id="excelRevistas" accept=".xlsx, .xlsm, .xlsb, .xls, .ods, .fods, .csv" #excelRevistas>
             <button type="button" id="sendJourney" name="sendJourney" class="btn btn-primary"
               (click)="enviarRevistas(excelRevistas)">Enviar</button>
           </form>

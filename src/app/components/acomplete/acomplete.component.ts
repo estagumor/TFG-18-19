@@ -38,16 +38,18 @@ export class AcompleteComponent implements OnInit {
       const value = event.value;
 
       // Add our element
-      if ((value || '').trim()) {
-        this.finalList.push(value.trim());
+      if(this._filter(value).length > 0){
+        if ((value || '').trim()) {
+          this.finalList.push(value.trim());
+        }
+  
+        // Reset the input value
+        if (input) {
+          input.value = '';
+        }
+  
+        this.basicCtrl.setValue(null);
       }
-
-      // Reset the input value
-      if (input) {
-        input.value = '';
-      }
-
-      this.basicCtrl.setValue(null);
     }
   }
 
