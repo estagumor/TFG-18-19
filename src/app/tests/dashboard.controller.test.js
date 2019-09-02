@@ -10,7 +10,7 @@ var Project = require("../../../models/project");
 
 chai.use(chai_http);
 
-xdescribe("**Populating**", function () {
+describe("**Populating**", function () {
 
     it('should populate', (done) => {
         var projectMock = sinon.mock(Project);
@@ -200,6 +200,7 @@ xdescribe("**Populating**", function () {
 
         var publications = [{
             scopusId: "SCOPUS_ID:85032230617",
+            quartil: "Q1",
             articleTitle: "Metamorphic testing of RESTful Web APIs",
             sourceType: "Journal",
             documentType: "Article",
@@ -225,6 +226,7 @@ xdescribe("**Populating**", function () {
             assigned: true
         }, {
             scopusId: "SCOPUS_ID:85058151934",
+            quartil: "Q1",
             articleTitle: "Automated Validation of Compensable SLAs",
             sourceType: "Journal",
             documentType: "Article in Press",
@@ -245,6 +247,7 @@ xdescribe("**Populating**", function () {
             sourceTitle: "Software Quality Journal",
             pageRange: "307-347",
             publicationDate: "2019",
+            quartil: "Q2",
             DOI: "10.1007/s11219-017-9400-8",
             authors : [persons[2]],
             affiliation: "Universidad de Sevilla",
@@ -256,6 +259,7 @@ xdescribe("**Populating**", function () {
             articleTitle: "Visual ppinot: A Graphical Notation for Process Performance Indicators",
             sourceType: "Journal",
             documentType: "Article",
+            quartil: undefined,
             sourceTitle: "Business and Information Systems Engineering",
             pageRange: "137-161",
             publicationDate: "2019",
@@ -292,26 +296,11 @@ xdescribe("**Populating**", function () {
             .get('/api/populate')
             .send()
             .end((err, res) => {
-                expect(res).to.have.status(200);
+                expect(res).to.have.status(201);
                 personMock.verify();
                 pubMock.verify();
                 projectMock.verify();
                 done();
             });
-    });
-
-    it('should return error 500. Publication fails', (done) => {
-        var pubMock = sinon.mock(Publication);
-        pubMock.expects('create').withArgs(null).yields(false);
-
-        chai.request(app)
-            .get('/api/populate')
-            .send()
-            .end((err, res) => {
-                expect(res).to.have.status(500);
-                pubMock.verify();
-                done();
-            });
-
     });
 });
