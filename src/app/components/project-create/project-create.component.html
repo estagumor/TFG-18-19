@@ -115,7 +115,7 @@
 
 		<!--añadir mensaje de error-->
 		<label for="researchTeam">Equipo de investigación</label>
-		<app-acomplete [allList]="researchers" [finalList]="finalResearchers" (keyup)="validateAutocomplete()" (key.enter)=" validateAutocomplete()"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalResearchers"></app-acomplete>
 		<div *ngIf="errors.badResearchers" class="alert alert-danger">
 			<span>{{ errors.badResearchers }}</span>
 		</div>
@@ -123,7 +123,7 @@
 
 		<label for="workTeam">Equipo de trabajo</label>
 		<!--<input type="text" [(ngModel)]="project.workTeam" id='workTeam' name="workTeam" required><br>-->
-		<app-acomplete [allList]="researchers" [finalList]="finalWorkers" (keyup)="validateAutocomplete()" (key.enter)="validateAutocomplete()" (click)="validateAutocomplete()"></app-acomplete>
+		<app-acomplete [allList]="researchers" [finalList]="finalWorkers"></app-acomplete>
 		<div *ngIf="errors.badWorkers" class="alert alert-danger">
 				<span>{{ errors.badWorkers }}</span>
 		</div>
@@ -138,9 +138,9 @@
 		<br>
 
 		<label for="leader">Responsable/s</label>
-		<app-acomplete [allList]="researchers" [finalList]="finalLeaders" (key.enter)="validateAutocomplete()"></app-acomplete>
-		<div *ngIf="validateLeader() == false" class="alert alert-danger">
-		<span>El líder tiene que ser un investigador.</span>
+		<app-acomplete [allList]="researchers" [finalList]="finalLeaders"></app-acomplete>
+		<div *ngIf="errors.notLeader" class="alert alert-danger">
+			<span>{{ errors.notLeader }}</span>
 		</div>
 		<!--
 		<div *ngIf="formProject.errors?.badLeader && (formProject.touched || formProject.dirty)"
@@ -161,6 +161,6 @@
 </div>
 
 		<button type="submit" class="btn btn-primary" id="submitForm"
-			[disabled]="!formProject.form.valid || formProject.errors || validateLeader() == false">Enviar</button>
+			[disabled]="!formProject.form.valid || formProject.errors">Enviar</button>
 	</form>
 </fieldset>

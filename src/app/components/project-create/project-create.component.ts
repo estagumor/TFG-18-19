@@ -105,9 +105,36 @@ export class ProjectCreateComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.responseCreate = new Project([], [], [], '', '', [], '', '', '', '', null, null, null, []); // Instancia para guardar el resultado
-    this.validateAutocomplete()
 
-    if (this.errors.length > 1) { //HAY ERRORES
+    if (this.finalResearchers.length < 1) {
+      this.errors['badResearchers'] = "Los investigadores no pueden ser vacíos"
+      // form.form.controls['researchTeam'].setErrors({'badResearchers': "Los investigadores no pueden ser vacíos"})
+    } else {
+      this.errors['badResearchers'] = null;
+    }
+
+    if (this.finalWorkers.length < 1) {
+      this.errors['badWorkers'] = "Los trabajadores no pueden ser vacíos"
+      //form.errors.controls['workTeam'].setErrors({'badWorkers':"Los trabajadores no pueden ser vacíos"})
+    } else {
+      this.errors['badWorkers'] = null;
+    }
+
+    if (this.finalResearchers.some(r => this.finalWorkers.includes(r))) {
+      this.errors['workersNotResearchers'] = "Los trabajadores no pueden ser parte de los investigadores"
+      //form.errors.controls['workTeam'].setErrors({'workersNotResearchers':"Los trabajadores no pueden ser parte de los investigadores"})
+    } else {
+      this.errors['workersNotResearchers'] = null;
+    }
+
+    if (this.finalResearchers.some(r => this.finalLeaders.indexOf(r) < 0)) {
+      this.errors['notLeader'] = "El líder tiene que ser un investigador."
+    } else {
+      this.errors['notLeader'] = null;
+    }
+
+
+    if (Object.values(this.errors).length > 1) { //HAY ERRORES
       console.log(this.errors)
       //TODO arreglar para que no salte siempre false
       return false;
@@ -152,36 +179,6 @@ export class ProjectCreateComponent implements OnInit {
           console.log(error);
         }
       );
-    }
-  }
-
-  validateLeader() {
-    if (this.finalLeaders.length < 1) {
-      return true;
-    } else {
-      const found = this.finalResearchers.some(r => this.finalLeaders.indexOf(r) >= 0);
-      return found;
-    }
-  }
-
-  validateAutocomplete() {
-    if (this.finalResearchers.length < 1) {
-      this.errors['badResearchers'] = "Los investigadores no pueden ser vacíos"
-      // form.form.controls['researchTeam'].setErrors({'badResearchers': "Los investigadores no pueden ser vacíos"})
-    } else {
-      this.errors['badResearchers'] = null
-    }
-    if (this.finalWorkers.length < 1) {
-      this.errors['badWorkers'] = "Los trabajadores no pueden ser vacíos"
-      //form.errors.controls['workTeam'].setErrors({'badWorkers':"Los trabajadores no pueden ser vacíos"})
-    } else {
-      this.errors['badWorkers'] = null
-    }
-    if (this.finalResearchers.some(r => this.finalWorkers.includes(r))) {
-      this.errors['workersNotResearchers'] = "Los trabajadores no pueden ser parte de los investigadores"
-      //form.errors.controls['workTeam'].setErrors({'workersNotResearchers':"Los trabajadores no pueden ser parte de los investigadores"})
-    } else {
-      this.errors['workersNotResearchers'] = null
     }
   }
 
